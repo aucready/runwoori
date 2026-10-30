@@ -186,7 +186,9 @@ function raceIcs(list){
 }
 function downloadText(name,text,mime){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([text],{type:mime||'text/plain'})); a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500); }
 function safeUrl(u){ return /^https?:\/\//i.test(u||'')?u:null; }
-const naverMap = q => 'https://map.naver.com/p/search/'+encodeURIComponent(q);
+const venueQuery = v => { let q=String(v||'').split(/[(（]/)[0].split(/\s[·—–-]\s|·|—/)[0];
+  q=q.replace(/\s*(일원|일대|집결|옆.*|[A-Z]구역)$/,'').replace(/\s+/g,' ').trim(); return q||String(v||'').trim(); };
+const naverMap = q => 'https://map.naver.com/p/search/'+encodeURIComponent(venueQuery(q));
 
 /* ── 러닝 가이드(블로그): data/blog/index.json · data/blog/<id>.json (build_blog.py 산출물) ── */
 const BLOG_LEVELS = ['초급','중급','고급'];

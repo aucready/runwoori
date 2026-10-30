@@ -47,7 +47,7 @@ RACES_READY.then(()=>{
       <a class="ed-link" href="tools.html?date=${r.date}">이 대회로 훈련 계획 만들기</a>
       <button type="button" class="ed-link ed-textbtn" id="ics">캘린더에 추가(.ics)</button>
       <button type="button" class="ed-link ed-textbtn" id="copy">링크 복사</button>
-      ${r.venue?`<a class="ed-link" href="${naverMap(r.venue)}" target="_blank" rel="noopener noreferrer">네이버 지도에서 장소 보기 ↗</a>`:''}</p>
+      ${r.venue && !/온라인/.test(r.venue)?`<a class="ed-link" href="${naverMap(r.venue)}" target="_blank" rel="noopener noreferrer">네이버 지도에서 장소 보기 ↗</a>`:''}</p>
   </header>
   <div class="ed-cols" style="margin-top:36px">
     <section class="ed-section"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">대회 정보</h2></div>

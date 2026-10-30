@@ -3,6 +3,9 @@
 <meta name="description" content="Run우리 러닝 가이드 글. 훈련 계획, 부상 예방, 대회 준비 정보.">
 <meta name="theme-color" content="#F6F2EA">
 <meta name="robots" content="index,follow">
+<!--CANONICAL:START--><!--CANONICAL:END-->
+<!-- Google AdSense: 지금은 비활성(주석). 도메인 연결·승인 후 tools/set_adsense.sh PUBID 로 활성화 -->
+<!--ADSENSE:START--><!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script> --><!--ADSENSE:END-->
 <meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
 <meta property="og:title" content="러닝 가이드 글 | Run우리"><meta property="og:description" content="Run우리 러닝 가이드 글. 훈련 계획, 부상 예방, 대회 준비 정보."><meta property="og:image" content="assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Run우리 — 마라톤·러닝 대회 일정">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="러닝 가이드 글 | Run우리"><meta name="twitter:description" content="Run우리 러닝 가이드 글. 훈련 계획, 부상 예방, 대회 준비 정보."><meta name="twitter:image" content="assets/icons/og-image.png">
@@ -27,11 +30,12 @@ layout('blog');
     document.title=`${P.title} | ${SITE.name} 러닝 가이드`;
     const setMeta=(sel,v)=>{ const m=$(sel); if(m) m.setAttribute('content',v); };
     setMeta('meta[name=description]',P.summary); setMeta('meta[property="og:title"]',document.title); setMeta('meta[property="og:description"]',P.summary); setMeta('meta[name="twitter:title"]',document.title); setMeta('meta[name="twitter:description"]',P.summary);
+    setCanonicalQuery('id='+encodeURIComponent(id)); setMeta('meta[property="og:type"]','article');
     view.innerHTML=`
     <article class="ed-post">
       <div class="ed-post-top"><a class="ed-link ed-small" href="blog.html?level=${encodeURIComponent(P.level)}">← 러닝 가이드 · ${esc(P.level)}</a></div>
       <header class="ed-post-head">
-        <div class="ed-label accent">${esc(P.level)}${sep}읽는 시간 ${P.minutes}분</div>
+        <div class="ed-label accent">${esc(P.level)}${sep}읽는 시간 ${P.minutes}분${P.date?`${sep}<time datetime="${esc(P.date)}">${esc(P.date.replace(/-/g,'.'))} 게시</time>`:''}</div>
         <h1 class="ed-h1 ed-post-title">${esc(P.title)}</h1>
         <p class="ed-lede">${esc(P.summary)}</p>
       </header>
@@ -43,7 +47,7 @@ layout('blog');
       </nav>
     </article>
     ${same.length?`<section class="ed-section ed-post-more"><div class="ed-section-head"><h2 class="ed-h2">${esc(P.level)} 글 더 보기</h2><a class="ed-link" href="blog.html?level=${encodeURIComponent(P.level)}">전체 보기 →</a></div><div class="ed-list" style="border-top:0">${same.map(p=>blogRow(p)).join('')}</div></section>`:''}`;
-    const ld={'@context':'https://schema.org','@type':'Article',headline:P.title,description:P.summary,inLanguage:'ko',articleSection:P.level,publisher:{'@type':'Organization',name:SITE.name}};
+    const ld={'@context':'https://schema.org','@type':'Article',headline:P.title,description:P.summary,inLanguage:'ko',articleSection:P.level,datePublished:P.date,dateModified:P.date,mainEntityOfPage:location.href.split('#')[0],publisher:{'@type':'Organization',name:SITE.name}};
     const sc=document.createElement('script'); sc.type='application/ld+json'; sc.textContent=JSON.stringify(ld); document.head.appendChild(sc);
     if(location.hash){ const h=document.getElementById(location.hash.slice(1)); if(h) h.scrollIntoView(); }
   }).catch(notFound);

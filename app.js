@@ -130,10 +130,17 @@ function layout(active){
     <nav class="ed-mast-nav" aria-label="주 메뉴">${nav.map(n=>`<a href="${n[0]}" class="${n[2]===active?'is-on':''}" ${n[2]===active?'aria-current="page"':''}>${n[1]}${badge(n[2])}</a>`).join('')}</nav>
     <div class="ed-mast-links"><a class="ed-link ${active==='courses'?'is-on':''}" href="courses.html">코스</a><a class="ed-link ${active==='tools'?'is-on':''}" href="tools.html">훈련</a></div></div></div></header>`;
   const bn=`<nav class="ed-tabbar" aria-label="하단 메뉴">${bottom.map(n=>`<a href="${n[0]}" class="${n[2]===active?'is-on':''}" ${n[2]===active?'aria-current="page"':''}>${n[1]}${badge(n[2])}</a>`).join('')}</nav>`;
-  const foot=`<footer class="ed-footer"><div class="ed-wrap"><div class="ed-rule" style="border-color:var(--ink)"></div><p class="ed-small" style="padding-top:14px"><img class="ed-foot-logo" src="assets/logo/runwoori-wordmark-light-small.svg" alt="${SITE.name}" width="101" height="24"><br>${SITE.name}는 개인 프로젝트입니다. 대회 일정은 <a href="https://runningon.co.kr" rel="noopener" target="_blank">러닝온</a>과 <a href="https://www.kormarathon.com" rel="noopener" target="_blank">KorMarathon</a>의 공개 페이지에서 하루 한 번 자동 수집해 정리합니다. 일정·참가비·접수 기간은 바뀔 수 있으니 신청 전 반드시 공식 홈페이지에서 확인하세요.<br><span data-updated>${updatedText()}</span></p></div></footer>`;
+  const foot=`<footer class="ed-footer"><div class="ed-wrap"><div class="ed-rule" style="border-color:var(--ink)"></div><p class="ed-small" style="padding-top:14px"><img class="ed-foot-logo" src="assets/logo/runwoori-wordmark-light-small.svg" alt="${SITE.name}" width="101" height="24"><br>${SITE.name}는 개인 프로젝트입니다. 대회 일정은 <a href="https://runningon.co.kr" rel="noopener" target="_blank">러닝온</a>과 <a href="https://www.kormarathon.com" rel="noopener" target="_blank">KorMarathon</a>의 공개 페이지에서 하루 한 번 자동 수집해 정리합니다. 일정·참가비·접수 기간은 바뀔 수 있으니 신청 전 반드시 공식 홈페이지에서 확인하세요.<br><span data-updated>${updatedText()}</span></p>
+    <nav class="ed-foot-links" aria-label="사이트 정보"><a href="about.html">사이트 소개</a><a href="privacy.html">개인정보처리방침</a><a href="terms.html">이용약관</a><a href="contact.html">문의하기</a></nav></div></footer>`;
   document.body.insertAdjacentHTML('afterbegin',head);
   document.body.insertAdjacentHTML('beforeend',foot+bn);
   updateNavCount();
+}
+/* 정규 주소(canonical)·og:url — 도메인 연결 후 tools/set_domain.sh 가 정적 태그를 넣어 두면, ?id= 같은 동적 페이지는 여기서 쿼리까지 맞춘다 */
+function setCanonicalQuery(qs){
+  const c=$('link[rel=canonical]'); if(!c) return;
+  const u=new URL(c.href); u.search=qs?('?'+qs):''; c.href=u.href;
+  const o=$('meta[property="og:url"]'); if(o) o.setAttribute('content',u.href);
 }
 const sampleNote = txt => `<div class="ed-sample"><span class="ed-label">안내</span><span>${txt||'대회 정보는 공개 페이지에서 자동 수집한 것이에요. 접수는 반드시 공식 홈페이지에서 확인하세요.'}</span></div>`;
 const secHead=(no,title,more,major)=>`<div class="ed-section-head ${major?'major':''}"><span class="no">${no}</span><h2 class="ed-h2">${title}</h2>${more?`<a class="ed-link" href="${more[0]}">${more[1]} →</a>`:''}</div>`;

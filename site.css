@@ -180,3 +180,11 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
   .home-flow #figSec{order:3}
   .home-flow #plate{order:4;margin-top:var(--sp-12)}
 }
+
+/* ── v11 푸터 사이트 정보 링크(소개·개인정보처리방침·이용약관·문의) ── */
+.ed-foot-links{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:14px;padding-top:12px;border-top:var(--line) solid var(--rule)}
+.ed-foot-links a{display:inline-flex;align-items:center;min-height:32px;font-size:13px;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--rule)}
+.ed-foot-links a:hover{color:var(--ink);text-decoration-color:var(--ink)}
+.ed-foot-links a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ed-prose code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:var(--paper-2,rgba(0,0,0,.05));padding:1px 5px}
+.ed-prose .ed-note{margin:14px 0 18px}

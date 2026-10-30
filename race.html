@@ -3,6 +3,9 @@
 <meta name="description" content="대회 일정, 장소, 접수 기간, 종목별 참가비와 공식 홈페이지 링크.">
 <meta name="theme-color" content="#F6F2EA">
 <meta name="robots" content="index,follow">
+<!--CANONICAL:START--><!--CANONICAL:END-->
+<!-- Google AdSense: 지금은 비활성(주석). 도메인 연결·승인 후 tools/set_adsense.sh PUBID 로 활성화 -->
+<!--ADSENSE:START--><!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script> --><!--ADSENSE:END-->
 <meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
 <meta property="og:title" content="마라톤 대회 상세 · 일정·참가비·접수 | Run우리"><meta property="og:description" content="대회 일정, 장소, 접수 기간, 종목별 참가비와 공식 홈페이지 링크."><meta property="og:image" content="assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Run우리 — 마라톤·러닝 대회 일정">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="마라톤 대회 상세 · 일정·참가비·접수 | Run우리"><meta name="twitter:description" content="대회 일정, 장소, 접수 기간, 종목별 참가비와 공식 홈페이지 링크."><meta name="twitter:image" content="assets/icons/og-image.png">
@@ -21,7 +24,7 @@ RACES_READY.then(()=>{
   const r=allRaces().find(x=>x.id===id);
   if(!r){ document.title='대회를 찾을 수 없어요 | Run우리'; view.innerHTML=`<div style="padding:40px var(--page-x)"><div class="ed-label">대회 상세</div><h1 class="ed-h1" style="margin:12px 0 10px">대회를 찾을 수 없어요</h1><p class="ed-lede">지난 대회이거나 주소가 바뀌었을 수 있어요. 대회 달력에서 다시 찾아보세요.</p><p style="margin-top:22px"><a class="ed-btn" href="races.html">대회 달력으로 <span class="ed-arrow">→</span></a></p></div>`; return; }
   const t=today(), nameQ=r.name;
-  document.title=`${r.name} — 일정·참가비·접수 | Run우리`;
+  setCanonicalQuery('id='+encodeURIComponent(id)); document.title=`${r.name} — 일정·참가비·접수 | Run우리`;
   const md=$('meta[name=description]'); if(md) md.content=`${r.name} · ${fmtFull(r.dt)}${r.venue?' · '+r.venue:''}${r.fee?' · 참가비 '+r.fee:''}. 접수 기간과 공식 홈페이지 링크.`;
   const official=safeUrl(r.official), reg=safeUrl(r.regUrl), fav=favs.has(r.id);
   const dateTxt = r.start!==r.end ? `${fmtFull(pd(r.start))} ~ ${fmtFull(pd(r.end))}` : fmtFull(r.dt);

@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# 매일 한 번: (선택) 수집 → 대회별 정적 페이지 + sitemap 생성 → 배포 저장소로 복사 → git commit & push (runwoori.com)
+#
+#   /workspace/running-site/tools/daily_publish.sh            # 수집은 이미 끝났다고 보고, 지금 data/races.json 으로 빌드·배포
+#   /workspace/running-site/tools/daily_publish.sh --collect  # 수집기(run_collect.sh)부터 돌린 뒤 빌드·배포
+#
+# 경로를 바꾸려면 환경변수 SRC(원본 사이트 폴더), DEPLOY(GitHub Pages 배포 저장소), SITE_URL 사용.
+set -euo pipefail
+SRC="${SRC:-/workspace/running-site}"
+DEPLOY="${DEPLOY:-/workspace/runwoori-deploy}"
+export SITE_URL="${SITE_URL:-https://runwoori.com}"
+DOMAIN="${SITE_URL#https://}"
+
+if [ "${1:-}" = "--collect" ]; then
+  echo "== 1) 대회 데이터 수집"; /workspace/running-site-collector/run_collect.sh
+fi
+
+cd "$SRC"
+echo "== 2) 대회별 정적 페이지 생성"; python3 tools/build_race_pages.py
+echo "== 3) sitemap.xml 생성";        python3 tools/build_sitemap.py
+sed -i "s#{{SITE_URL}}#${SITE_URL}#g" sitemap.xml        # 자리표시자가 남아 있으면 실제 주소로
+if grep -q '{{' sitemap.xml; then echo "sitemap.xml 에 자리표시자가 남아 있어요. 중단합니다." >&2; exit 1; fi
+N_RACE=$(ls race/*.html | wc -l)
+if [ "$N_RACE" -lt 20 ]; then echo "대회 페이지가 너무 적어요($N_RACE). 수집 실패로 보고 배포를 중단합니다." >&2; exit 1; fi
+
+echo "== 4) 배포 저장소로 복사 ($DEPLOY)"
+mkdir -p "$DEPLOY/data"
+rm -rf "$DEPLOY/race" && cp -a race "$DEPLOY/race"
+cp data/races.json data/race_archive.json data/race_pages.json "$DEPLOY/data/"
+[ -d data/blog ] && { rm -rf "$DEPLOY/data/blog" && cp -a data/blog "$DEPLOY/data/blog"; }
+cp sitemap.xml "$DEPLOY/sitemap.xml"
+cp tools/build_race_pages.py tools/build_sitemap.py tools/daily_publish.sh "$DEPLOY/tools/" 2>/dev/null || true
+
+cd "$DEPLOY"
+echo "$DOMAIN" > CNAME                                    # 커스텀 도메인 파일 유지
+echo "== 5) git commit & push"
+git add -A
+if git diff --cached --quiet; then
+  echo "변경 없음 — 푸시할 것이 없어요."
+else
+  git commit -q -m "daily: races + race pages $(TZ=Asia/Seoul date +%F) (${N_RACE} pages)"
+  git pull -q --rebase origin main
+  git push -q origin main
+  echo "푸시 완료: $(git log --oneline -1)"
+fi

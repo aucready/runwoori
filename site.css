@@ -283,3 +283,9 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .src-note{margin-top:22px;padding:12px 0 4px;border-top:1px solid var(--rule);font-size:11.5px;line-height:1.6;color:var(--ink-3)}
 @media(min-width:900px){ .landing-title .ed-h1{font-size:28px} .landing-title{padding-top:22px} }
 @media(max-width:899px){ .today-strip .ed-figure b{font-size:22px} .today-strip .ed-figure{padding-top:6px} .today-strip{padding-top:10px} .side-top{margin-top:-6px} }
+
+/* 대회 상세(정적 페이지) */
+.ed-crumbs{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font-size:12.5px;color:var(--ink-3)}
+.ed-crumbs a{color:var(--ink-2);text-decoration:underline;text-underline-offset:3px}
+.ed-crumbs [aria-current]{color:var(--ink);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.race-note{margin-top:14px}

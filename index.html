@@ -63,6 +63,7 @@ if(qs.get('status')) S.status=qs.get('status'); if(qs.get('fav')||qs.get('tab')=
 if(qs.get('range')==='week'){ const t=today(); S.from=iso(t); S.to=iso(new Date(+t+7*DAY)); }
 const STAT=[['all','전체'],['open','접수중'],['urgent','마감임박'],['soon','접수예정'],['info','접수 확인'],['closed','마감']];
 const REG=['전체',...['서울','경기','인천','강원','충북','충남','대전','세종','전북','전남','광주','경북','경남','대구','울산','부산','제주','전국'].filter(x=>RACES.some(r=>r.region===x))], DIST=[['전체','전체'],['5K','5K'],['10K','10K'],['하프','하프'],['풀','풀코스']];
+if(qs.get('region')&&REG.includes(qs.get('region'))) S.region=qs.get('region');
 function chips(id,items,key,counts){ $(id).innerHTML=items.map(([v,l])=>`<button class="${S[key]===v?'is-on':''}" data-k="${key}" data-v="${v}">${l}${counts&&counts[v]!=null?`<span class="c">${counts[v]}</span>`:''}</button>`).join(''); }
 const RANK={urgent:0,open:0,soon:1,info:2,closed:3,ended:4};
 function filtered(ignoreDay,ignoreStatus){

@@ -31,7 +31,7 @@ RACES_READY.then(()=>{
     const known=new Set(allRaces().map(r=>r.id)), lost=favs.get().filter(id=>!known.has(id)).length;
     $('#n1').textContent=favs.get().length;
     const g=up.find(r=>r.d>=0);
-    $('#goalBox').innerHTML=g?`<div style="padding:4px 0 18px;border-bottom:1px solid var(--rule);margin-bottom:4px"><div class="ed-label">NEXT — 가장 가까운 저장 대회</div><div style="display:flex;align-items:baseline;gap:14px;margin-top:6px"><span class="ed-dday ${ddayCls(g)}" style="font-size:44px">${ddayText(g.d)}</span><a class="ed-h2" href="race.html?id=${g.id}" style="font-weight:600">${esc(g.name)}</a></div><p class="ed-small" style="margin-top:6px"><a class="ed-link" href="tools.html?date=${g.date}">이 대회로 훈련 계획 만들기 →</a></p></div>`:'';
+    $('#goalBox').innerHTML=g?`<div style="padding:4px 0 18px;border-bottom:1px solid var(--rule);margin-bottom:4px"><div class="ed-label">NEXT — 가장 가까운 저장 대회</div><div style="display:flex;align-items:baseline;gap:14px;margin-top:6px"><span class="ed-dday ${ddayCls(g)}" style="font-size:44px">${ddayText(g.d)}</span><a class="ed-h2" href="race/${g.id}.html" style="font-weight:600">${esc(g.name)}</a></div><p class="ed-small" style="margin-top:6px"><a class="ed-link" href="tools.html?date=${g.date}">이 대회로 훈련 계획 만들기 →</a></p></div>`:'';
     $('#raceOut').innerHTML=up.length?up.map(raceRow).join(''):`<div class="ed-empty">저장한 대회가 없어요. <a class="ed-link" href="index.html">대회 달력</a>에서 북마크를 눌러 보세요.</div>`;
     if(past.length) $('#raceOut').insertAdjacentHTML('beforeend',`<h3 class="ed-label" style="margin:22px 0 4px">지난 대회</h3>${past.map(raceRow).join('')}`);
     if(lost) $('#raceOut').insertAdjacentHTML('beforeend',`<p class="ed-small" style="margin-top:10px">목록에서 사라진 대회 ${lost}개는 지난 대회이거나 수집 범위(향후 6개월) 밖이에요.</p>`);

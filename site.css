@@ -265,7 +265,7 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .list-tabs .ed-filter-row{gap:18px}
 @media(max-width:899px){ .list-tabs .ed-filter-row{gap:16px;overflow-x:auto} .list-tabs .ed-filter-row button{white-space:nowrap} }
 
-/* 오늘의 마라톤 (랜딩 상단 요약) */
+/* 한눈에 보는 대회 현황 (랜딩 상단 요약) */
 .today-strip{padding:14px var(--page-x) 0}
 .today-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
 .today-strip .ed-figures{border-bottom:0}

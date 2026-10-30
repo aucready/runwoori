@@ -80,7 +80,7 @@ def adapt(r):
              region=r.get('region') or '', venue=r.get('venue') or '', organizer=r.get('organizer') or '', type=r.get('category') or '',
              distances=dists, distTags=r.get('dist_tags') or [], fee=fee_range(r), fee_min=r.get('fee_min'), fee_max=r.get('fee_max'),
              open=r.get('reg_open'), close=r.get('reg_close'), regState=r.get('reg_state'), regNote=r.get('reg_note'),
-             official=r.get('official_url'), regUrl=r.get('reg_url'), sources=r.get('sources') or {}, startTime=r.get('start_time'))
+             official=r.get('official_url'), regUrl=r.get('reg_url'), sources=r.get('sources') or {}, startTime=r.get('start_time'), verified=r.get('verified'))
     a['dist'] = [d['label'] for d in dists]
     race = pd(a['date']); a['d'] = (race - TODAY).days; a['dt'] = race
     a['st'] = status(a)
@@ -271,7 +271,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
               '<span class="muted">확인 필요</span>' if d.get('fee') is None else ('무료' if d['fee'] == 0 else f"{d['fee']:,}원")) for d in r['distances'])
         dists = f'<table class="ed-table"><thead><tr><th scope="col">종목</th><th scope="col" style="text-align:right">참가비</th></tr></thead><tbody>{trs}</tbody></table>'
     else: dists = '<p class="ed-small">종목 정보가 아직 없어요. 공식 홈페이지에서 확인하세요.</p>'
-    src = ' · '.join(f'<a class="ed-link" href="{esc(u)}" target="_blank" rel="noopener noreferrer">{"러닝온" if k == "runningon" else "KorMarathon"} ↗</a>' for k, u in r['sources'].items())
+    src = ' · '.join(f'<a class="ed-link" href="{esc(u)}" target="_blank" rel="noopener noreferrer">KorMarathon ↗</a>' for k, u in r['sources'].items() if k == 'kormarathon')
     region = r['region']
     crumbs_html = (f'<nav class="ed-crumbs" aria-label="현재 위치"><a href="index.html">대회 달력</a><span aria-hidden="true">›</span>'
                    + (f'<a href="index.html?region={quote(region)}">{esc(region)}</a><span aria-hidden="true">›</span>' if region else '')
@@ -294,6 +294,15 @@ def build_page(r, related, rec, indexable, stale, adsense):
                     f'<h2 class="ed-h2">{esc(region)} 지역의 다른 대회</h2><a class="ed-link" href="index.html?region={quote(region)}">모두 보기 →</a></div>'
                     f'<div class="ed-list" style="border-top:0">{"".join(race_row(x) for x in related)}</div></section>')
     updated = datetime.datetime.now(KST).strftime('%Y.%m.%d')
+    ver = r.get('verified')
+    ver_txt = ''
+    if ver:
+        vd = pd(ver['date']); vtxt = f'{vd.year}.{vd.month:02d}.{vd.day:02d}'
+        flds = ', '.join(ver.get('fields') or [])
+        ver_txt = f'공식 홈페이지 확인 완료({vtxt})'
+        ver_badge = (f'<p class="ed-small" style="margin-top:14px;line-height:1.7"><b>{ver_txt}</b>'
+                     + (f' · 확인한 항목: {esc(flds)}' if flds else '') + '. 나머지 항목은 수집 정보라 공식 안내와 다를 수 있어요.</p>')
+    else: ver_badge = ''
     if official:
         official_note = ('<p class="ed-small" style="margin-top:14px;line-height:1.7">정보는 각 대회 공식 안내를 기준으로 정리해요. 일정·참가비·접수 기간은 바뀔 수 있으니 '
                          f'신청 전에 <a class="ed-link" href="{esc(official)}" target="_blank" rel="noopener noreferrer">공식 홈페이지</a>에서 한 번 더 확인하세요.</p>')
@@ -316,7 +325,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
       {f'<a class="ed-btn ghost" href="{esc(reg)}" target="_blank" rel="noopener noreferrer">접수 페이지 <span class="ed-arrow">↗</span></a>' if reg else ''}
       <button type="button" class="ed-btn ghost ed-savebtn" data-fav="{r['id']}" aria-pressed="false"><span class="off">북마크 저장</span><span class="on">저장됨</span></button>
     </div>
-    {official_note}
+    {ver_badge}{official_note}
     <p class="ed-small" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px">
       <a class="ed-link" href="tools.html?date={r['date']}">이 대회로 훈련 계획 만들기</a>
       <button type="button" class="ed-link ed-textbtn" id="ics">캘린더에 추가(.ics)</button>
@@ -334,7 +343,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
   {prep_html}
   <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">{n_src}</span><h2 class="ed-h2">정보 기준과 확인 방법</h2></div>
     <p class="ed-small" style="line-height:1.8">대회 정보의 기준은 {f'<a class="ed-link" href="{esc(official)}" target="_blank" rel="noopener noreferrer">대회 공식 홈페이지</a>' if official else '대회 공식 안내'}예요. 참가비와 접수 기간, 출발 시각은 주최 측 공지가 우선하고, 이 페이지는 {updated}에 정리한 내용이에요.<br>
-    값이 다르거나 빠진 곳을 발견하면 <a class="ed-link" href="contact.html">문의하기</a>로 알려 주세요. 확인되는 대로 고쳐요.{f'<br><span class="muted">수집 참고: {src}</span>' if src else ''}</p></section>
+    값이 다르거나 빠진 곳을 발견하면 <a class="ed-link" href="contact.html">문의하기</a>로 알려 주세요. 확인되는 대로 고쳐요.{f'<br><span class="muted">수집 참고: {src}</span>' if src else ''}{f'<br>{ver_txt}: <a class="ed-link" href="{esc(ver["url"])}" target="_blank" rel="noopener noreferrer">확인한 공식 페이지 ↗</a>' if ver else ''}</p></section>
   {rel_html}
 </div></main>
 <script>window.RACE_REC={js(rec)};</script>

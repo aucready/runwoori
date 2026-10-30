@@ -19,7 +19,7 @@ function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;',
 const BM = '<svg viewBox="0 0 18 22" aria-hidden="true"><path d="M3 2.5h12v17.2l-6-4.2-6 4.2z"/></svg>';
 const SEARCH_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>';
 
-/* 접수 상태: 접수중 / 마감임박(마감 10일 이내 — 러닝온 기준) / 접수예정 / 마감 / 접수 확인(정보 없음) */
+/* 접수 상태: 접수중 / 마감임박(마감 10일 이내) / 접수예정 / 마감 / 접수 확인(정보 없음) */
 const URGENT_DAYS = 10;
 /* ── 데이터 로드: data/races.json (수집기 산출물) → window.RACES ── */
 window.RACES = []; window.RACES_META = null;
@@ -46,7 +46,7 @@ function loadRaces(){
 }
 const RACES_READY = loadRaces();
 
-/* 접수 상태: 접수중 / 마감임박(마감 10일 이내 — 러닝온 기준) / 접수예정 / 마감 / 접수 확인(정보 없음) */
+/* 접수 상태: 접수중 / 마감임박(마감 10일 이내) / 접수예정 / 마감 / 접수 확인(정보 없음) */
 function status(r){
   const t=today(), race=pd(r.date), open=pd(r.open), close=pd(r.close);
   if(race<t) return {key:'ended', label:'종료'};

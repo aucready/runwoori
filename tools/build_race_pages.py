@@ -187,6 +187,50 @@ def json_ld(r, url, official, reg):
     return ld
 
 
+PREP_POSTS = {  # 거리 구간 → (권장 준비 주수, 읽어 볼 가이드 글)
+    '5K':   (8,  [('beginner-5k-plan', '초보자 5km 완주 훈련 계획')]),
+    '10K':  (8,  [('10k-training-plan', '10km 대회 준비: 8주 훈련 계획')]),
+    '하프': (12, [('half-marathon-prep', '하프마라톤 준비: 12주 훈련 구조')]),
+    '풀':   (16, [('marathon-prep-and-taper', '풀코스 준비와 테이퍼링'), ('first-marathon-checklist', '마라톤 첫 참가 준비 순서')]),
+}
+PREP_COMMON = [('race-gear-checklist', '대회 준비물 점검'), ('race-day-routine', '대회 당일 루틴')]
+
+
+def longest_tag(r):
+    kms = [d.get('km') for d in r['distances'] if d.get('km')]
+    if not kms: return None
+    k = max(kms)
+    return '5K' if k < 7 else '10K' if k < 15 else '하프' if k < 30 else '풀'
+
+
+def prep_section(r):
+    """대회까지 남은 기간 + 가장 긴 종목에 맞춘 안내. 데이터(날짜·거리)로 계산한 문장이라 대회마다 내용이 달라진다."""
+    if r['st']['key'] == 'ended' or r['d'] < 0: return ''
+    tag = longest_tag(r)
+    weeks = r['d'] // 7
+    label = {'5K': '5km급', '10K': '10km급', '하프': '하프급', '풀': '풀코스급'}
+    posts = list(PREP_COMMON)
+    if tag:
+        need, ps = PREP_POSTS[tag]
+        posts = ps + posts
+        longest = max((d.get('km') or 0) for d in r['distances'])
+        what = f"가장 긴 종목은 {longest:.1f}km로 {label[tag]}이에요."
+        if r['type'] == '트레일' or longest >= 50:
+            tip = '산길이나 장거리는 거리보다 시간과 고도가 변수예요. 아래 계획은 평지 기준이니 여유를 더 두세요.'
+        elif weeks >= need + 2: tip = f'일반적으로 {need}주 안팎의 준비 기간을 권하는데, 지금은 {weeks}주가 남아 여유가 있어요. 처음 몇 주는 거리를 늘리기보다 규칙적으로 뛰는 습관부터 만드세요.'
+        elif weeks >= need - 1: tip = f'일반적으로 {need}주 안팎의 준비 기간을 권해요. 지금부터 시작하면 딱 맞는 일정이에요.'
+        elif weeks >= 2: tip = f'일반적으로 {need}주 안팎을 권하는데 남은 기간은 {weeks}주예요. 이미 꾸준히 뛰고 있다면 거리를 무리하게 늘리지 말고 마지막 주 조정에 집중하세요.'
+        else: tip = '대회가 가까워서 새로운 훈련을 시작하기엔 늦었어요. 컨디션 관리와 준비물 점검에 시간을 쓰세요.'
+    else:
+        what = '종목 거리 정보가 아직 없어요.'
+        tip = '공식 홈페이지에서 종목과 제한 시간을 먼저 확인한 뒤 훈련 계획을 잡으세요.'
+    when = f'대회까지 {r["d"]}일({weeks}주)' if r['d'] >= 7 else f'대회까지 {r["d"]}일'
+    links = ''.join(f'<li><a class="ed-link" href="post.html?id={i}">{esc(t)}</a></li>' for i, t in posts)
+    return (f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">준비 기간 가늠하기</h2></div>'
+            f'<p class="ed-small" style="line-height:1.8">{when} 남았어요. {what} {tip}</p>'
+            f'<ul class="ed-small" style="line-height:2;margin:10px 0 0 18px;padding:0"><li><a class="ed-link" href="tools.html?date={r["date"]}">이 대회 날짜로 주간 훈련표 만들기</a></li>{links}</ul></section>')
+
+
 HEAD = '''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <base href="/">
 <title>{title}</title>
@@ -244,11 +288,20 @@ def build_page(r, related, rec, indexable, stale, adsense):
     naver = (f'<a class="ed-link" href="{naver_map(r["venue"])}" target="_blank" rel="noopener noreferrer">네이버 지도에서 장소 보기 ↗</a>'
              if r['venue'] and '온라인' not in r['venue'] else '')
     rel_html = ''
+    n_rel = '06' if (r['st']['key'] != 'ended' and r['d'] >= 0) else '05'
     if related:
-        rel_html = (f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">05</span>'
+        rel_html = (f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">{n_rel}</span>'
                     f'<h2 class="ed-h2">{esc(region)} 지역의 다른 대회</h2><a class="ed-link" href="index.html?region={quote(region)}">모두 보기 →</a></div>'
                     f'<div class="ed-list" style="border-top:0">{"".join(race_row(x) for x in related)}</div></section>')
     updated = datetime.datetime.now(KST).strftime('%Y.%m.%d')
+    if official:
+        official_note = ('<p class="ed-small" style="margin-top:14px;line-height:1.7">정보는 각 대회 공식 안내를 기준으로 정리해요. 일정·참가비·접수 기간은 바뀔 수 있으니 '
+                         f'신청 전에 <a class="ed-link" href="{esc(official)}" target="_blank" rel="noopener noreferrer">공식 홈페이지</a>에서 한 번 더 확인하세요.</p>')
+    else:
+        official_note = ('<p class="ed-small" style="margin-top:14px;line-height:1.7">공식 홈페이지 주소를 아직 찾지 못했어요. 정보는 각 대회 공식 안내가 기준이니, '
+                         f'대회 이름으로 검색해 주최 측 공지를 확인한 뒤 신청하세요. 주소를 아시면 <a class="ed-link" href="contact.html">알려 주세요</a>.</p>')
+    prep_html = prep_section(r)
+    n_src = '05' if prep_html else '04'
     body = f'''<main class="ed-wrap" id="main"><div id="view">
   <div style="padding:20px var(--page-x) 0">{crumbs_html}</div>
   {notes}
@@ -263,6 +316,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
       {f'<a class="ed-btn ghost" href="{esc(reg)}" target="_blank" rel="noopener noreferrer">접수 페이지 <span class="ed-arrow">↗</span></a>' if reg else ''}
       <button type="button" class="ed-btn ghost ed-savebtn" data-fav="{r['id']}" aria-pressed="false"><span class="off">북마크 저장</span><span class="on">저장됨</span></button>
     </div>
+    {official_note}
     <p class="ed-small" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px">
       <a class="ed-link" href="tools.html?date={r['date']}">이 대회로 훈련 계획 만들기</a>
       <button type="button" class="ed-link ed-textbtn" id="ics">캘린더에 추가(.ics)</button>
@@ -274,11 +328,13 @@ def build_page(r, related, rec, indexable, stale, adsense):
       <dl class="ed-dl">{row('대회일', date_txt, 'serif')}{row('장소', esc(r['venue']))}{row('지역', esc(region))}{row('주최', esc(r['organizer']))}{row('출발', esc(r['startTime'] or ''))}{row('참가비', esc(r['fee']))}</dl></section>
     <section class="ed-section"><div class="ed-section-head major"><span class="no">02</span><h2 class="ed-h2">접수</h2></div>
       <dl class="ed-dl">{row('상태', f'<span class="ed-status {r["st"]["key"]}">{r["st"]["label"]}</span>')}{row('접수 기간', esc(reg_period))}{row('안내', esc(reg_text(r)))}</dl>
-      {f'<p class="ed-small" style="margin-top:8px">출처 원문: {esc(r["regNote"])}</p>' if r['regNote'] and (r['open'] or r['close']) else ''}</section>
+      {f'<p class="ed-small" style="margin-top:8px">원문 표기: {esc(r["regNote"])}</p>' if r['regNote'] and (r['open'] or r['close']) else ''}</section>
   </div>
   <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">종목 · 참가비</h2></div>{dists}</section>
-  <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">출처</h2></div>
-    <p class="ed-small" style="line-height:1.8">자동 수집 출처: {src or '—'}<br>이 페이지는 {updated} 기준으로 만들어졌어요.<br>일정·참가비·접수 기간은 주최 측 사정으로 바뀔 수 있어요. 신청 전에 공식 홈페이지에서 최신 정보를 꼭 확인하세요.</p></section>
+  {prep_html}
+  <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">{n_src}</span><h2 class="ed-h2">정보 기준과 확인 방법</h2></div>
+    <p class="ed-small" style="line-height:1.8">대회 정보의 기준은 {f'<a class="ed-link" href="{esc(official)}" target="_blank" rel="noopener noreferrer">대회 공식 홈페이지</a>' if official else '대회 공식 안내'}예요. 참가비와 접수 기간, 출발 시각은 주최 측 공지가 우선하고, 이 페이지는 {updated}에 정리한 내용이에요.<br>
+    값이 다르거나 빠진 곳을 발견하면 <a class="ed-link" href="contact.html">문의하기</a>로 알려 주세요. 확인되는 대로 고쳐요.{f'<br><span class="muted">수집 참고: {src}</span>' if src else ''}</p></section>
   {rel_html}
 </div></main>
 <script>window.RACE_REC={js(rec)};</script>

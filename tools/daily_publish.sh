@@ -17,6 +17,15 @@ fi
 
 cd "$SRC"
 echo "== 2) 대회별 정적 페이지 생성"; python3 tools/build_race_pages.py
+echo "== 2b) 공식 홈페이지 링크 점검"
+python3 - <<'PY'
+import json, sys
+d = json.load(open('data/races.json', encoding='utf8'))['races']
+n = sum(1 for r in d if (r.get('official_url') or '').startswith('http'))
+print(f'공식 홈페이지 링크 {n}/{len(d)}')
+if d and n / len(d) < 0.85:
+    print('공식 홈페이지 링크 비율이 85% 미만이에요. 수집기를 확인하세요. 중단합니다.', file=sys.stderr); sys.exit(1)
+PY
 echo "== 3) sitemap.xml 생성";        python3 tools/build_sitemap.py
 sed -i "s#{{SITE_URL}}#${SITE_URL}#g" sitemap.xml        # 자리표시자가 남아 있으면 실제 주소로
 if grep -q '{{' sitemap.xml; then echo "sitemap.xml 에 자리표시자가 남아 있어요. 중단합니다." >&2; exit 1; fi

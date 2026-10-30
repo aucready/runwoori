@@ -28,7 +28,6 @@
   <button type="button" class="ed-btn ghost fold-btn" id="foldBtn" aria-expanded="false" aria-controls="filters">필터</button></div>
   <div id="filters">
   <div class="ed-filter"><div class="ed-filter-label"><span class="ed-label">접수 상태</span></div><div class="ed-filter-row" id="fStatus"></div></div>
-  <div class="ed-filter"><div class="ed-filter-label"><span class="ed-label">지역</span></div><div class="ed-filter-row" id="fRegion"></div></div>
   <div class="ed-filter"><div class="ed-filter-label"><span class="ed-label">거리</span></div><div class="ed-filter-row" id="fDist"></div></div>
   <div class="ed-filter"><div class="ed-filter-label"><span class="ed-label">기간</span></div>
     <div class="ed-dates"><input type="date" class="ed-input" id="from" aria-label="시작일"><input type="date" class="ed-input" id="to" aria-label="종료일"></div>
@@ -38,6 +37,7 @@
 </div>
 </div>
 <section class="ed-section main" id="mainCol" style="margin-top:22px">
+  <div class="region-bar ed-filter" aria-label="지역 필터"><span class="ed-label">지역</span><div class="ed-filter-row" id="fRegion"></div></div>
   <div class="ed-cal race-cal" id="cal"></div>
   <div class="day-bar" id="dayBar" aria-live="polite"></div>
   <div class="ed-section-head" style="margin-bottom:0"><h2 class="ed-h2" id="listtitle">전체 대회</h2><span class="ed-small ed-tab-num"><b id="count" style="color:var(--ink)">0</b>개 · <span id="sortlbl">접수 중 먼저</span> <button type="button" class="ed-textbtn" id="sortBtn">날짜순으로 보기</button></span></div>
@@ -80,7 +80,7 @@ function render(){
   $$('[data-tab]').forEach(b=>b.classList.toggle('is-on',(b.dataset.tab==='saved')===S.fav));
   $('#savedcnt').textContent=favs.get().length;
   $('#reset').hidden=!nActive();
-  { const n=nActive(), o=$('#side').classList.contains('open'); $('#foldBtn').textContent=(o?'필터 닫기':'필터')+(n?` · ${n}`:''); $('#foldBtn').setAttribute('aria-expanded',o); }
+  { const n=nActive()-(S.region!=='전체'?1:0)-(S.day?1:0), o=$('#side').classList.contains('open'); $('#foldBtn').textContent=(o?'필터 닫기':'필터')+(n?` · ${n}`:''); $('#foldBtn').setAttribute('aria-expanded',o); }
   $('#list').innerHTML=L.length?L.slice(0,LIM).map(raceRow).join('')+(L.length>LIM?`<div class="ed-more"><button class="ed-btn ghost" id="more" type="button">${L.length-LIM}개 더 보기</button></div>`:''):`<div class="ed-empty">${S.fav?'저장한 대회가 없어요. 대회 옆 북마크를 눌러 보세요.':'조건에 맞는 대회가 없어요. 필터를 바꿔 보세요.'}</div>`;
   cal();
 }

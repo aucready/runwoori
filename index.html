@@ -19,8 +19,8 @@
 <script src="app.js"></script></head><body>
 
 <main class="ed-wrap" id="main">
-<div style="padding:28px var(--page-x) 0"><div class="ed-label">Race Calendar</div><h1 class="ed-h1" style="margin:12px 0 10px">마라톤 대회 달력</h1><p class="ed-lede">날짜를 눌러 그날 열리는 전국 마라톤·러닝 대회를 바로 확인하세요. 마음에 드는 대회는 북마크로 저장해 둘 수 있어요.</p></div>
-<div style="margin-top:18px"><div class="ed-sample"><span class="ed-label">안내</span><span>대회 정보는 러닝온·KorMarathon 공개 페이지에서 하루 한 번 자동 수집해요. 접수는 반드시 공식 홈페이지에서 확인하세요.</span></div></div>
+<section class="today-strip" aria-labelledby="todayTitle"><div class="today-head"><h2 class="ed-label" id="todayTitle">오늘의 마라톤</h2><span class="ed-small" id="figNote"></span></div><div class="ed-figures" id="figures"></div></section>
+<div class="landing-title"><h1 class="ed-h1">마라톤 대회 달력</h1><p class="ed-small">날짜를 누르면 그날 열리는 대회를 볼 수 있어요</p></div>
 <div class="split">
 <div class="side" id="side">
 <div style="padding:22px var(--page-x) 0">
@@ -43,6 +43,7 @@
   <div class="ed-section-head" style="margin-bottom:0"><h2 class="ed-h2" id="listtitle">전체 대회</h2><span class="ed-small ed-tab-num"><b id="count" style="color:var(--ink)">0</b>개 · <span id="sortlbl">접수 중 먼저</span> <button type="button" class="ed-textbtn" id="sortBtn">날짜순으로 보기</button></span></div>
   <div class="ed-filter list-tabs" style="margin-top:0"><div class="ed-filter-row" id="listTabs" role="group" aria-label="접수 상태별 목록"></div></div>
   <div class="ed-list" id="list" style="border-top:0"></div>
+  <p class="ed-caption src-note">대회 정보는 러닝온·KorMarathon 공개 페이지에서 하루 한 번 자동 수집해요. 접수는 반드시 공식 홈페이지에서 확인하세요.</p>
 </section>
 </div></main>
 <script>
@@ -50,6 +51,13 @@ layout('races');
 RACES_READY.then(()=>{
 const S={sort:'reg',status:'all',region:'전체',dist:'전체',q:'',from:'',to:'',fav:false,day:null,month:null};
 const R=allRaces();
+(function renderToday(){
+  const t=today(), by=k=>R.filter(r=>r.st.key===k).length, wk=R.filter(r=>r.d>=0&&r.d<=7&&(r.dt.getDay()===6||r.dt.getDay()===0)).length;
+  const F=[['접수중',by('open'),'data-tab="open"',''],['마감임박',by('urgent'),'data-tab="urgent"','accent'],['접수예정',by('soon'),'data-tab="soon"',''],['이번 주말',wk,'data-q="wk"','']];
+  $('#figures').innerHTML=F.map(f=>`<button type="button" class="ed-figure" ${f[2]}><b class="${f[3]}">${f[1]}</b><span>${f[0]}</span></button>`).join('');
+  $('#figNote').textContent=`${t.getMonth()+1}.${t.getDate()}(${WD[t.getDay()]}) 기준 · 수록 대회 ${RACES.length}개`;
+  $('#figures').addEventListener('click',e=>{ const b=e.target.closest('.ed-figure'); if(!b) return; S.from=S.to=''; $('#from').value=$('#to').value=''; S.day=null; if(b.dataset.q){ S.status='all'; S.fav=false; } setTimeout(()=>{ const el=document.querySelector('.region-bar'); if(el) window.scrollTo({top:el.getBoundingClientRect().top+scrollY-70,behavior:'smooth'}); },60); });
+})();
 const qs=new URLSearchParams(location.search);
 if(qs.get('status')) S.status=qs.get('status'); if(qs.get('fav')||qs.get('tab')==='saved') S.fav=true; if(qs.get('q')){S.q=qs.get('q');$('#q').value=S.q;}
 if(qs.get('range')==='week'){ const t=today(); S.from=iso(t); S.to=iso(new Date(+t+7*DAY)); }

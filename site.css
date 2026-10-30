@@ -264,3 +264,22 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .region-bar .ed-filter-row button{white-space:nowrap;min-height:40px;padding:0}
 .list-tabs .ed-filter-row{gap:18px}
 @media(max-width:899px){ .list-tabs .ed-filter-row{gap:16px;overflow-x:auto} .list-tabs .ed-filter-row button{white-space:nowrap} }
+
+/* 오늘의 마라톤 (랜딩 상단 요약) */
+.today-strip{padding:14px var(--page-x) 0}
+.today-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+.today-strip .ed-figures{border-bottom:0}
+.today-strip .ed-figure{background:none;border:0;border-left:var(--line) solid var(--rule);text-align:left;font:inherit;color:inherit;cursor:pointer;padding:8px 0 6px 12px}
+.today-strip .ed-figure:first-child{border-left:0;padding-left:0}
+.today-strip .ed-figure b{font-size:26px}
+.today-strip .ed-figure:hover b{text-decoration:underline;text-underline-offset:4px}
+.today-strip .ed-figure:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media(min-width:900px){ .today-strip{padding-left:var(--page-x);padding-right:var(--page-x)} .today-strip .ed-figure b{font-size:30px} }
+
+/* 랜딩 제목 컴팩트 */
+.landing-title{padding:16px var(--page-x) 0;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.landing-title .ed-h1{font-size:22px;line-height:1.25;margin:0;letter-spacing:-0.02em}
+.landing-title .ed-small{margin:0;color:var(--ink-3)}
+.src-note{margin-top:22px;padding:12px 0 4px;border-top:1px solid var(--rule);font-size:11.5px;line-height:1.6;color:var(--ink-3)}
+@media(min-width:900px){ .landing-title .ed-h1{font-size:28px} .landing-title{padding-top:22px} }
+@media(max-width:899px){ .today-strip .ed-figure b{font-size:22px} .today-strip .ed-figure{padding-top:6px} .today-strip{padding-top:10px} .side-top{margin-top:-6px} }

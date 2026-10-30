@@ -188,3 +188,24 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .ed-foot-links a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .ed-prose code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:var(--paper-2,rgba(0,0,0,.05));padding:1px 5px}
 .ed-prose .ed-note{margin:14px 0 18px}
+
+/* 대회 지도 (races.html) */
+.race-map{margin-top:18px}
+.race-map-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0}
+.split .race-map .ed-map{margin:0}
+.race-map-box{height:300px}
+@media(min-width:900px){ .race-map-box{height:380px} }
+.race-map-empty{position:absolute;left:12px;right:12px;bottom:12px;z-index:700;background:var(--paper);border:var(--line) solid var(--ink);padding:8px 10px}
+.ed-pin.dot{width:15px;height:15px;margin:-7.5px 0 0 -7.5px;font-size:9px;line-height:12px;cursor:pointer}
+.ed-pin.open{background:var(--accent);border-color:var(--accent);color:#fff}
+.race-pop ul{list-style:none;margin:0;padding:0}
+.race-pop li{padding:6px 0;border-bottom:1px solid var(--rule)}
+.race-pop li:last-child{border-bottom:0}
+.race-pop a{display:block;font-family:var(--font-serif);font-weight:600;font-size:14px;line-height:1.4;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.race-pop li span{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
+.race-pop li.more{font-size:12px;color:var(--ink-3)}
+.race-pop .v{margin-top:6px;padding-top:6px;border-top:1px solid var(--ink);font-size:12px;color:var(--ink-2)}
+.leaflet-popup-content-wrapper{border-radius:2px;background:var(--paper);box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.leaflet-popup-content{margin:12px 14px;font-family:var(--font-sans)}
+.leaflet-popup-tip{background:var(--paper)}
+.leaflet-container .race-pop a{color:var(--ink)}.leaflet-container .race-pop a:hover{color:var(--accent)}

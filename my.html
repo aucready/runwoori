@@ -37,9 +37,8 @@
 <section class="ed-section" id="pace"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">페이스 계산기</h2></div><div id="quickPace"></div><a class="ed-link ed-small" href="tools.html#pace" style="display:inline-block;margin-top:14px;color:var(--ink-2)">구간별 목표 시각까지 보기 →</a></section>
 </div>
 
-<section class="ed-section" id="raceSec"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">다가오는 대회</h2><a class="ed-link" id="raceAll" href="index.html?status=open">전체 보기 →</a></div>
-<div class="ed-filter"><div class="ed-filter-row" role="tablist" aria-label="접수 상태별 대회" id="raceTabs"></div></div>
-<div class="ed-list two" id="upcoming" role="tabpanel" tabindex="0" aria-live="polite"></div></section>
+<section class="ed-section" id="raceSec"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">다가오는 대회</h2><a class="ed-link" id="raceAll" href="index.html">대회 달력 →</a></div>
+<div class="ed-list two" id="upcoming" aria-live="polite"></div></section>
 
 <section class="ed-section" id="guideSec"><div class="ed-section-head"><span class="no">05</span><h2 class="ed-h2">러닝 가이드</h2><a class="ed-link" href="blog.html">전체 보기 →</a></div><div class="ed-guide-grid" id="guides"></div></section>
 
@@ -65,28 +64,12 @@ function renderGoal(){
     <a class="ed-btn block" style="margin-top:22px" href="tools.html?date=${f.date}#plan">이 대회 훈련 계획 만들기 <span class="ed-arrow">→</span></a>`
   :`<h3 class="ed-h2">아직 저장한 대회가 없어요</h3><p class="ed-small" style="margin-top:8px">대회 옆 북마크를 눌러 저장하면 D-day와 훈련 계획이 여기에 연결돼요.</p><a class="ed-btn block" style="margin-top:22px" href="tools.html#plan">훈련 계획 만들기 <span class="ed-arrow">→</span></a>`;
 }
-function renderFavs(){ const f=R.filter(r=>favs.has(r.id)); $('#favs').innerHTML=f.length?f.slice(0,4).map(raceRow).join(''):empty('아직 저장한 대회가 없어요. 대회 옆 북마크를 눌러 보세요.'); renderGoal(); }
-/* 접수 상태 탭: 접수 중 · 마감 임박 · 접수 예정 (한 목록) */
-const TABS=[{k:'open',label:'접수 중',sort:(a,b)=>a.d-b.d,empty:'지금 접수 중인 대회가 없어요.'},
-  {k:'urgent',label:'마감 임박',sort:(a,b)=>(a.close||'').localeCompare(b.close||''),empty:'지금은 마감 임박 대회가 없어요.'},
-  {k:'soon',label:'접수 예정',sort:(a,b)=>(a.open||'9').localeCompare(b.open||'9')||a.d-b.d,empty:'접수 예정인 대회가 없어요.'}];
-let tabK=(TABS.find(t=>by(t.k).filter(r=>r.d>=0).length)||TABS[0]).k;
-const tabList=t=>by(t.k).filter(r=>r.d>=0).sort(t.sort);
-function drawTabs(focus){
-  $('#raceTabs').innerHTML=TABS.map(t=>`<button type="button" role="tab" id="tab-${t.k}" aria-selected="${t.k===tabK}" aria-controls="upcoming" tabindex="${t.k===tabK?0:-1}" data-tab="${t.k}" class="${t.k===tabK?'is-on':''}">${t.label}<span class="c">${tabList(t).length}</span></button>`).join('');
-  const t=TABS.find(x=>x.k===tabK), L=tabList(t);
-  $('#upcoming').setAttribute('aria-labelledby','tab-'+t.k);
-  $('#upcoming').innerHTML=L.length?L.slice(0,6).map(raceRow).join(''):empty(t.empty);
-  $('#raceAll').href='index.html?status='+t.k;
-  if(focus) $('#tab-'+t.k).focus();
+function renderFavs(){ const f=R.filter(r=>favs.has(r.id)); $('#favs').innerHTML=f.length?f.slice(0,4).map(raceRow).join(''):empty('아직 저장한 대회가 없어요. 대회 옆 북마크를 눌러 보세요.'); renderGoal(); renderUpcoming(); }
+/* 다가오는 대회: 내가 북마크(저장)한 대회 중 오늘 이후, 날짜순 */
+function renderUpcoming(){
+  const L=R.filter(r=>favs.has(r.id)&&r.d>=0).sort((a,b)=>a.d-b.d||a.name.localeCompare(b.name));
+  $('#upcoming').innerHTML=L.length?L.map(raceRow).join(''):empty('저장한 다가오는 대회가 없어요. <a class="ed-link" href="index.html">대회 달력</a>에서 대회 옆 북마크를 눌러 보세요.');
 }
-$('#raceTabs').addEventListener('click',e=>{ const b=e.target.closest('[data-tab]'); if(b){ tabK=b.dataset.tab; drawTabs(); } });
-$('#raceTabs').addEventListener('keydown',e=>{
-  const i=TABS.findIndex(t=>t.k===tabK); let n=-1;
-  if(e.key==='ArrowRight') n=(i+1)%TABS.length; else if(e.key==='ArrowLeft') n=(i-1+TABS.length)%TABS.length; else if(e.key==='Home') n=0; else if(e.key==='End') n=TABS.length-1;
-  if(n>=0){ e.preventDefault(); tabK=TABS[n].k; drawTabs(true); }
-});
-drawTabs();
 renderFavs(); bindFav(renderFavs);
 $('#quickPace').innerHTML=paceCalcHtml(); initPace($('#quickPace'));
 $('#regs').innerHTML=Object.entries(REGION_GROUPS).map(([g,rs],i)=>`<a class="ed-course" href="courses.html?group=${encodeURIComponent(g)}" style="grid-template-columns:30px 1fr auto"><span class="ix">${p2(i+1)}</span><div><h3>${g}</h3><p class="ed-meta">${rs.join(' · ')}</p></div><div class="km">${COURSES.filter(c=>rs.includes(c.region)).length}<small>곳</small></div></a>`).join('');

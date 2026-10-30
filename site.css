@@ -262,3 +262,5 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .region-bar .ed-filter-row{margin:0;padding:0;flex:1;min-width:0;border-bottom:0}
 @media(max-width:899px){ .region-bar{margin-left:calc(var(--page-x) * -1);margin-right:calc(var(--page-x) * -1);padding-left:var(--page-x);padding-right:0} .region-bar .ed-filter-row{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;padding-right:var(--page-x)} .region-bar .ed-filter-row::-webkit-scrollbar{display:none} }
 .region-bar .ed-filter-row button{white-space:nowrap;min-height:40px;padding:0}
+.list-tabs .ed-filter-row{gap:18px}
+@media(max-width:899px){ .list-tabs .ed-filter-row{gap:16px;overflow-x:auto} .list-tabs .ed-filter-row button{white-space:nowrap} }

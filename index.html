@@ -41,7 +41,7 @@
   <div class="ed-cal race-cal" id="cal"></div>
   <div class="day-bar" id="dayBar" aria-live="polite"></div>
   <div class="ed-section-head" style="margin-bottom:0"><h2 class="ed-h2" id="listtitle">전체 대회</h2><span class="ed-small ed-tab-num"><b id="count" style="color:var(--ink)">0</b>개 · <span id="sortlbl">접수 중 먼저</span> <button type="button" class="ed-textbtn" id="sortBtn">날짜순으로 보기</button></span></div>
-  <div class="ed-filter" style="margin-top:0"><div class="ed-filter-row" style="margin:0;padding:0"><button data-tab="all" class="is-on">전체</button><button data-tab="saved">관심 대회<span class="c" id="savedcnt">0</span></button></div></div>
+  <div class="ed-filter list-tabs" style="margin-top:0"><div class="ed-filter-row" id="listTabs" role="group" aria-label="접수 상태별 목록"></div></div>
   <div class="ed-list" id="list" style="border-top:0"></div>
 </section>
 </div></main>
@@ -57,15 +57,15 @@ const STAT=[['all','전체'],['open','접수중'],['urgent','마감임박'],['so
 const REG=['전체',...['서울','경기','인천','강원','충북','충남','대전','세종','전북','전남','광주','경북','경남','대구','울산','부산','제주','전국'].filter(x=>RACES.some(r=>r.region===x))], DIST=[['전체','전체'],['5K','5K'],['10K','10K'],['하프','하프'],['풀','풀코스']];
 function chips(id,items,key,counts){ $(id).innerHTML=items.map(([v,l])=>`<button class="${S[key]===v?'is-on':''}" data-k="${key}" data-v="${v}">${l}${counts&&counts[v]!=null?`<span class="c">${counts[v]}</span>`:''}</button>`).join(''); }
 const RANK={urgent:0,open:0,soon:1,info:2,closed:3,ended:4};
-function filtered(ignoreDay){
+function filtered(ignoreDay,ignoreStatus){
   return R.filter(r=>{
     if(r.st.key==='ended') return false;
-    if(S.status!=='all' && r.st.key!==S.status) return false;
+    if(!ignoreStatus && S.status!=='all' && r.st.key!==S.status) return false;
     if(S.region!=='전체' && r.region!==S.region) return false;
     if(S.dist!=='전체' && !r.distTags.includes(S.dist)) return false;
     if(S.q && !(r.name+' '+r.region+' '+r.type+' '+r.venue+' '+r.organizer).toLowerCase().includes(S.q.toLowerCase())) return false;
     if(S.from && r.date<S.from) return false; if(S.to && r.date>S.to) return false;
-    if(S.fav && !favs.has(r.id)) return false;
+    if(!ignoreStatus && S.fav && !favs.has(r.id)) return false;
     if(!ignoreDay && S.day && r.date!==S.day) return false; return true; }).sort((a,b)=> S.sort==='reg' ? (RANK[a.st.key]-RANK[b.st.key])||(a.d-b.d) : a.d-b.d);
 }
 function nActive(){ return [S.status!=='all',S.region!=='전체',S.dist!=='전체',!!S.q,!!(S.from||S.to),!!S.day].filter(Boolean).length; }
@@ -77,8 +77,9 @@ function render(){
   const sig=JSON.stringify([S.status,S.region,S.dist,S.q,S.from,S.to,S.fav,S.day]); if(sig!==SIG){LIM=60;SIG=sig;}
   $('#sortlbl').textContent=S.sort==='reg'?'접수 중 먼저':'대회일 순'; $('#sortBtn').textContent=S.sort==='reg'?'날짜순으로 보기':'접수 중 먼저 보기';
   $('#listtitle').textContent=S.fav?'관심 대회':(S.day?'그날의 대회':'전체 대회'); dayBar(L);
-  $$('[data-tab]').forEach(b=>b.classList.toggle('is-on',(b.dataset.tab==='saved')===S.fav));
-  $('#savedcnt').textContent=favs.get().length;
+  { const base=filtered(true,true), c=k=>k==='all'?base.length:k==='saved'?base.filter(r=>favs.has(r.id)).length:base.filter(r=>r.st.key===k).length;
+    const cur=S.fav?'saved':S.status;
+    $('#listTabs').innerHTML=[['all','전체'],['open','접수 중'],['urgent','마감 임박'],['soon','접수 예정'],['saved','관심대회']].map(([k,l])=>`<button type="button" data-tab="${k}" class="${cur===k?'is-on':''}" aria-pressed="${cur===k}">${l}<span class="c">${c(k)}</span></button>`).join(''); }
   $('#reset').hidden=!nActive();
   { const n=nActive()-(S.region!=='전체'?1:0)-(S.day?1:0), o=$('#side').classList.contains('open'); $('#foldBtn').textContent=(o?'필터 닫기':'필터')+(n?` · ${n}`:''); $('#foldBtn').setAttribute('aria-expanded',o); }
   $('#list').innerHTML=L.length?L.slice(0,LIM).map(raceRow).join('')+(L.length>LIM?`<div class="ed-more"><button class="ed-btn ghost" id="more" type="button">${L.length-LIM}개 더 보기</button></div>`:''):`<div class="ed-empty">${S.fav?'저장한 대회가 없어요. 대회 옆 북마크를 눌러 보세요.':'조건에 맞는 대회가 없어요. 필터를 바꿔 보세요.'}</div>`;
@@ -114,7 +115,7 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#dayClear')){ S.day=null; render(); return; }
   const p=e.target.closest('[data-k]'); if(p){ S[p.dataset.k]=p.dataset.v; S.day=null; render(); return; }
   const d=e.target.closest('[data-day]'); if(d){ S.day=S.day===d.dataset.day?null:d.dataset.day; render(); if(S.day){ const y=$('#dayBar').getBoundingClientRect().top; if(y>innerHeight*0.8) window.scrollBy({top:y-innerHeight*0.62,behavior:'smooth'}); } return; }
-  const tb=e.target.closest('[data-tab]'); if(tb){ S.fav=tb.dataset.tab==='saved'; render(); return; }
+  const tb=e.target.closest('[data-tab]'); if(tb){ const k=tb.dataset.tab; if(k==='saved'){ S.fav=true; S.status='all'; } else { S.fav=false; S.status=k; } render(); return; }
   if(e.target.closest('#todayBtn')){ S.month=new Date(t0().getFullYear(),t0().getMonth(),1); cal(); return; }
   if(e.target.closest('#prev')){ S.month=new Date(S.month.getFullYear(),S.month.getMonth()-1,1); cal(); return; }
   if(e.target.closest('#next')){ S.month=new Date(S.month.getFullYear(),S.month.getMonth()+1,1); cal(); return; }
@@ -124,7 +125,7 @@ document.addEventListener('click',e=>{
 $('#q').oninput=e=>{S.q=e.target.value.trim();S.day=null;render();};
 $('#from').onchange=e=>{S.from=e.target.value;render();}; $('#to').onchange=e=>{S.to=e.target.value;render();};
 $('#reset').onclick=()=>{Object.assign(S,{status:'all',region:'전체',dist:'전체',q:'',from:'',to:'',day:null});['q','from','to'].forEach(i=>$('#'+i).value='');render();};
-bindFav(()=>{ if(S.fav) render(); else {$('#savedcnt').textContent=favs.get().length; $$('#list .ed-race').length; } });
+bindFav(()=>{ render(); });
 if(S.from) $('#from').value=S.from; if(S.to) $('#to').value=S.to;
 render();
 

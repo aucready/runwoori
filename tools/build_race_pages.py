@@ -10,6 +10,7 @@
 - 서버 렌더링 내용은 매일 이 스크립트를 돌릴 때 갱신된다(D-day·접수 상태는 생성 시점 기준). tools/daily_publish.sh 참고.
 """
 import json, os, re, sys, html, glob, datetime
+from urllib.parse import quote
 from zoneinfo import ZoneInfo
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -229,11 +230,11 @@ def build_page(r, related, rec, indexable, stale, adsense):
     src = ' · '.join(f'<a class="ed-link" href="{esc(u)}" target="_blank" rel="noopener noreferrer">{"러닝온" if k == "runningon" else "KorMarathon"} ↗</a>' for k, u in r['sources'].items())
     region = r['region']
     crumbs_html = (f'<nav class="ed-crumbs" aria-label="현재 위치"><a href="index.html">대회 달력</a><span aria-hidden="true">›</span>'
-                   + (f'<a href="index.html?region={esc(region)}">{esc(region)}</a><span aria-hidden="true">›</span>' if region else '')
+                   + (f'<a href="index.html?region={quote(region)}">{esc(region)}</a><span aria-hidden="true">›</span>' if region else '')
                    + f'<span aria-current="page">{esc(r["name"])}</span></nav>')
     crumb_ld = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
         {'@type': 'ListItem', 'position': 1, 'name': '대회 달력', 'item': SITE + '/'}]
-        + ([{'@type': 'ListItem', 'position': 2, 'name': region, 'item': f'{SITE}/?region={region}'}] if region else [])
+        + ([{'@type': 'ListItem', 'position': 2, 'name': region, 'item': f'{SITE}/?region={quote(region)}'}] if region else [])
         + [{'@type': 'ListItem', 'position': 3 if region else 2, 'name': r['name'], 'item': url}]}
     notes = ''
     if ended:
@@ -245,7 +246,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
     rel_html = ''
     if related:
         rel_html = (f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">05</span>'
-                    f'<h2 class="ed-h2">{esc(region)} 지역의 다른 대회</h2><a class="ed-link" href="index.html?region={esc(region)}">모두 보기 →</a></div>'
+                    f'<h2 class="ed-h2">{esc(region)} 지역의 다른 대회</h2><a class="ed-link" href="index.html?region={quote(region)}">모두 보기 →</a></div>'
                     f'<div class="ed-list" style="border-top:0">{"".join(race_row(x) for x in related)}</div></section>')
     updated = datetime.datetime.now(KST).strftime('%Y.%m.%d')
     body = f'''<main class="ed-wrap" id="main"><div id="view">

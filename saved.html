@@ -20,16 +20,18 @@
 <section class="ed-section" style="margin-top:32px"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">저장한 대회</h2><span class="ed-small ed-tab-num"><b id="n1" style="color:var(--ink)">0</b>개</span></div>
   <div id="goalBox"></div><div class="ed-list" id="raceOut" style="border-top:0"></div>
   <p class="ed-small" id="raceTools" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px"></p></section>
-<section class="ed-section" style="margin-top:36px"><div class="ed-section-head major"><span class="no">02</span><h2 class="ed-h2">저장한 코스</h2><span class="ed-small ed-tab-num"><b id="n2" style="color:var(--ink)">0</b>개</span></div>
+<section class="ed-section" style="margin-top:36px"><div class="ed-section-head major"><span class="no">02</span><h2 class="ed-h2">저장한 해외 대회</h2><span class="ed-small ed-tab-num"><b id="n3" style="color:var(--ink)">0</b>개</span></div>
+  <div class="ed-list" id="ovOut" style="border-top:0"></div></section>
+<section class="ed-section" style="margin-top:36px"><div class="ed-section-head major"><span class="no">03</span><h2 class="ed-h2">저장한 코스</h2><span class="ed-small ed-tab-num"><b id="n2" style="color:var(--ink)">0</b>개</span></div>
   <div class="ed-list" id="courseOut" style="border-top:0"></div></section>
 </main>
 <script>
 layout('saved');
-RACES_READY.then(()=>{
+Promise.all([RACES_READY,loadOverseas()]).then(([,OV])=>{
   function drawRaces(){
     const all=allRaces().filter(r=>favs.has(r.id)).sort((a,b)=>a.d-b.d), up=all.filter(r=>r.st.key!=='ended'), past=all.filter(r=>r.st.key==='ended');
-    const known=new Set(allRaces().map(r=>r.id)), lost=favs.get().filter(id=>!known.has(id)).length;
-    $('#n1').textContent=favs.get().length;
+    const known=new Set(allRaces().map(r=>r.id)), lost=favs.get().filter(id=>!known.has(id)&&!id.startsWith('o-')).length;
+    $('#n1').textContent=all.length;
     const g=up.find(r=>r.d>=0);
     $('#goalBox').innerHTML=g?`<div style="padding:4px 0 18px;border-bottom:1px solid var(--rule);margin-bottom:4px"><div class="ed-label">NEXT — 가장 가까운 저장 대회</div><div style="display:flex;align-items:baseline;gap:14px;margin-top:6px"><span class="ed-dday ${ddayCls(g)}" style="font-size:44px">${ddayText(g.d)}</span><a class="ed-h2" href="race/${g.id}.html" style="font-weight:600">${esc(g.name)}</a></div><p class="ed-small" style="margin-top:6px"><a class="ed-link" href="tools.html?date=${g.date}">이 대회로 훈련 계획 만들기 →</a></p></div>`:'';
     $('#raceOut').innerHTML=up.length?up.map(raceRow).join(''):`<div class="ed-empty">저장한 대회가 없어요. <a class="ed-link" href="index.html">대회 달력</a>에서 북마크를 눌러 보세요.</div>`;
@@ -38,12 +40,17 @@ RACES_READY.then(()=>{
     $('#raceTools').innerHTML=up.length?`<button type="button" class="ed-link ed-textbtn" id="icsAll">저장한 대회 모두 캘린더에 추가(.ics)</button>`:'';
     const b=$('#icsAll'); if(b) b.onclick=()=>downloadText('saved-races.ics',raceIcs(up),'text/calendar');
   }
+  function drawOverseas(){
+    const l=(OV||[]).filter(o=>favs.has(o.id)).sort((a,b)=>a.date.localeCompare(b.date));
+    $('#n3').textContent=l.length;
+    $('#ovOut').innerHTML=l.length?l.map(ovRow).join(''):`<div class="ed-empty">저장한 해외 대회가 없어요. <a class="ed-link" href="overseas.html">해외 주요 대회</a>에서 북마크를 눌러 보세요.</div>`;
+  }
   function drawCourses(){
     const ids=cfavs.get(), cs=(window.COURSES||[]).filter(c=>ids.includes(c.id));
     $('#n2').textContent=ids.length;
     $('#courseOut').innerHTML=cs.length?cs.map((c,i)=>`<article class="ed-course" data-id="${c.id}"><span class="ix">${p2(i+1)}</span><div><h3>${esc(c.name)}</h3><p class="ed-meta">${esc(c.region)}${sep}${c.km?c.km+'km':'거리 확인 필요'}</p><a class="ed-link ed-small" style="display:inline-block;margin-top:6px;color:var(--ink-2)" target="_blank" rel="noopener noreferrer" href="${naverMap(c.name+' 러닝')}">지도에서 보기 ↗</a></div><div class="ed-race-side">${bookmark(c.id,true,'data-cfav','코스 저장 해제')}</div></article>`).join(''):`<div class="ed-empty">저장한 코스가 없어요. <a class="ed-link" href="courses.html">러닝 코스</a>에서 북마크를 눌러 보세요.</div>`;
   }
-  drawRaces(); drawCourses();
-  bindFav(()=>{ drawRaces(); drawCourses(); });
+  drawRaces(); drawOverseas(); drawCourses();
+  bindFav(()=>{ drawRaces(); drawOverseas(); drawCourses(); });
 });
 </script></body></html>

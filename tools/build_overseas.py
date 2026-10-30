@@ -188,9 +188,9 @@ def page(r, others):
   </header>
   <div class="ed-cols" style="margin-top:36px">
     <section class="ed-section"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">대회 정보</h2></div>
-      <dl class="ed-dl">{row("대회일", date_txt(r))}{row("도시", esc(r["city"]) + ", " + esc(r["country"]))}{row("출발·도착", esc(r.get("venue","")))}{row("출발 시각", esc(r.get("start_time","")) + (" (현지 시간)" if r.get("start_time") else ""))}{row("참가비", esc(r.get("fee","")))}{row("정원", esc(r.get("capacity","")))}{row("제한 시간", esc(r.get("limit","")))}{row("참가 자격", esc(r.get("age","")))}</dl></section>
+      <dl class="ed-dl ov-dl">{row("대회일", date_txt(r))}{row("도시", esc(r["city"]) + ", " + esc(r["country"]))}{row("출발·도착", esc(r.get("venue","")))}{row("출발 시각", esc(r.get("start_time","")) + (" (현지 시간)" if r.get("start_time") else ""))}{row("참가비", esc(r.get("fee","")))}{row("정원", esc(r.get("capacity","")))}{row("제한 시간", esc(r.get("limit","")))}{row("참가 자격", esc(r.get("age","")))}</dl></section>
     <section class="ed-section"><div class="ed-section-head major"><span class="no">02</span><h2 class="ed-h2">접수</h2></div>
-      <dl class="ed-dl">{row("상태", f'<span class="ed-status {k}">{lab}</span>')}{row("안내", esc(reg_line(r)))}</dl>
+      <dl class="ed-dl ov-dl">{row("상태", f'<span class="ed-status {k}">{lab}</span>')}{row("안내", esc(reg_line(r)))}</dl>
       {per_html}</section>
   </div>
   <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">참가 방식</h2></div>{entry_html}</section>
@@ -239,7 +239,7 @@ def hub(races):
 <section class="ed-section" style="margin-top:36px"><div class="ed-section-head major"><span class="no">02</span><h2 class="ed-h2">한국 러너에게 인기 있는 대회</h2><span class="ed-small ed-tab-num"><b style="color:var(--ink)">{len(pop)}</b>개 · 대회일 순</span></div>
 <div class="ed-list" style="border-top:0">{''.join(card(r) for r in pop)}</div></section>
 <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">참가 방식, 이렇게 달라요</h2></div>
-<dl class="ed-dl ov-ways"><dt>추첨</dt><dd>접수 기간 안에 신청한 사람 가운데 무작위로 뽑아요. 기간 안이라면 일찍 신청해도 확률은 같고, 참가비는 보통 당첨된 뒤에 내요.</dd>
+<dl class="ed-dl ov-dl ov-ways"><dt>추첨</dt><dd>접수 기간 안에 신청한 사람 가운데 무작위로 뽑아요. 기간 안이라면 일찍 신청해도 확률은 같고, 참가비는 보통 당첨된 뒤에 내요.</dd>
 <dt>기록 기준</dt><dd>대회가 정한 연령·성별별 기록을 넘은 사람만 신청할 수 있어요. 기준을 넘어도 정원이 차면 떨어질 수 있는 대회도 있어요.</dd>
 <dt>자선(채리티)</dt><dd>자선단체를 정해 일정 금액을 모금하거나 기부하는 조건으로 참가권을 받아요. 모금액과 신청 방법은 단체마다 달라요.</dd>
 <dt>선착순·패키지</dt><dd>해외 거주자용 선착순 접수나 공식 여행사 패키지에 참가권이 포함된 대회도 있어요.</dd></dl>

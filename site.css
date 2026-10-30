@@ -301,3 +301,29 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .search-status .ed-textbtn{flex:none;white-space:nowrap}
 .side-top:empty{display:none}
 @media(max-width:899px){ .side-top{margin-top:-6px} .side-top .fold-btn{width:100%} .search-status{flex-wrap:wrap} }
+
+/* 국내/해외 전환(링크형 세그먼트) · 해외 대회 목록 */
+.ed-seg-link{display:inline-flex;border:var(--line) solid var(--ink);border-radius:var(--r-1);flex:none}
+.ed-seg-link a{display:inline-flex;align-items:center;justify-content:center;min-height:36px;min-width:56px;padding:0 14px;font-size:13.5px;color:var(--ink);text-decoration:none;transition:background var(--dur),color var(--dur)}
+.ed-seg-link a+a{border-left:var(--line) solid var(--ink)}
+.ed-seg-link a.is-on{background:var(--ink);color:var(--paper);font-weight:600}
+.ed-seg-link a:not(.is-on):hover{background:var(--paper-2)}
+.ed-seg-link a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.landing-title .ed-seg-link{align-self:center}
+.ov-chips{margin:8px 0 0;display:flex;flex-wrap:wrap;gap:6px}
+.ov-entry{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--rule)}
+.ov-entry:first-of-type{border-top:0}
+.ov-entry p{margin:0;font-size:14.5px;line-height:1.75;color:var(--ink-2)}
+.ov-entry .ed-tag{flex:none;margin-top:2px}
+.ov-now{margin:22px var(--page-x) 0;padding:14px 16px;border:1px solid var(--rule);background:var(--paper-2);border-radius:var(--r-1)}
+.ov-now ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
+.ov-now li{display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline;font-size:14.5px}
+.ov-now li span{color:var(--ink-3);font-size:13px}
+.ov-ways dd{line-height:1.75}
+
+.ov-dl{grid-template-columns:6.2em minmax(0,1fr);column-gap:14px}
+.ov-dl dt{white-space:nowrap}
+.ov-dl dd{text-align:left;font-weight:500;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+.ov-ways{grid-template-columns:6.8em minmax(0,1fr)}
+.ov-ways dt{color:var(--ink);font-weight:600}
+.ov-ways dd{font-weight:400;color:var(--ink-2)}

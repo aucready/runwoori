@@ -122,14 +122,14 @@ RACES_READY.then(fillUpdated);
 function layout(active){
   document.body.classList.add('ed-root');
   const t=today();
-  const nav=[['index.html','대회 달력','races'],['my.html','나의 레이스','home'],['blog.html','러닝 가이드','blog'],['courses.html','러닝 코스','courses'],['tools.html','훈련 · 페이스','tools'],['saved.html','저장','saved']];
+  const nav=[['index.html','대회 달력','races'],['overseas.html','해외 대회','overseas'],['my.html','나의 레이스','home'],['blog.html','러닝 가이드','blog'],['courses.html','러닝 코스','courses'],['tools.html','훈련 · 페이스','tools'],['saved.html','저장','saved']];
   const bottom=[['index.html','대회','races'],['my.html','나의 레이스','home'],['blog.html','가이드','blog'],['saved.html','저장','saved']];
   const badge=n=>n==='saved'?'<span class="n" data-saved-count hidden>0</span>':'';
   const head=`<a class="skip-link" href="${location.pathname}${location.search}#main">본문으로 건너뛰기</a><header class="ed-mast"><div class="ed-wrap"><div class="ed-mast-top"><span class="ed-label">${t.getFullYear()}.${p2(t.getMonth()+1)}.${p2(t.getDate())} ${EN[t.getDay()]}</span><span class="ed-label" data-updated aria-live="polite">${updatedText()}</span></div>
     <div class="ed-mast-row"><a class="ed-wordmark" href="index.html" aria-label="${SITE.name} 홈"><img src="assets/logo/runwoori-wordmark-light-small.svg" alt="${SITE.name}" width="118" height="28"></a>
     <nav class="ed-mast-nav" aria-label="주 메뉴">${nav.map(n=>`<a href="${n[0]}" class="${n[2]===active?'is-on':''}" ${n[2]===active?'aria-current="page"':''}>${n[1]}${badge(n[2])}</a>`).join('')}</nav>
     <div class="ed-mast-links"><a class="ed-link ${active==='courses'?'is-on':''}" href="courses.html">코스</a><a class="ed-link ${active==='tools'?'is-on':''}" href="tools.html">훈련</a></div></div></div></header>`;
-  const bn=`<nav class="ed-tabbar" aria-label="하단 메뉴">${bottom.map(n=>`<a href="${n[0]}" class="${n[2]===active?'is-on':''}" ${n[2]===active?'aria-current="page"':''}>${n[1]}${badge(n[2])}</a>`).join('')}</nav>`;
+  const bn=`<nav class="ed-tabbar" aria-label="하단 메뉴">${bottom.map(n=>{const on=n[2]===active||(active==='overseas'&&n[2]==='races');return `<a href="${n[0]}" class="${on?'is-on':''}" ${on?'aria-current="page"':''}>${n[1]}${badge(n[2])}</a>`}).join('')}</nav>`;
   const foot=`<footer class="ed-footer"><div class="ed-wrap"><div class="ed-rule" style="border-color:var(--ink)"></div><p class="ed-small" style="padding-top:14px"><img class="ed-foot-logo" src="assets/logo/runwoori-wordmark-light-small.svg" alt="${SITE.name}" width="101" height="24"><br>${SITE.name}는 개인 프로젝트입니다. 대회 일정은 <a href="https://www.kormarathon.com" rel="noopener" target="_blank">KorMarathon</a>의 공개 정보를 하루 한 번 수집하고, 주요 대회는 공식 홈페이지로 직접 확인해 정리합니다. 일정·참가비·접수 기간은 바뀔 수 있으니 신청 전 반드시 공식 홈페이지에서 확인하세요.<br><span data-updated>${updatedText()}</span></p>
     <nav class="ed-foot-links" aria-label="사이트 정보"><a href="about.html">사이트 소개</a><a href="privacy.html">개인정보처리방침</a><a href="terms.html">이용약관</a><a href="contact.html">문의하기</a></nav></div></footer>`;
   document.body.insertAdjacentHTML('afterbegin',head);
@@ -203,4 +203,22 @@ let _blogIdx = null;
 function loadBlogIndex(){ return _blogIdx || (_blogIdx = fetch('data/blog/index.json').then(r=>{ if(!r.ok) throw new Error('blog index '+r.status); return r.json(); })); }
 function blogRow(p, i){
   return `<a class="ed-guide ed-post-row" href="post.html?id=${encodeURIComponent(p.id)}"><span class="ix">${p2(i!=null?i:p.no)}</span><div><span class="ed-label">${esc(p.level)}${sep}${p.minutes}분</span><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></div><span class="ed-arrow" style="color:var(--ink-3)" aria-hidden="true">→</span></a>`;
+}
+
+/* ── 해외 주요 대회: data/overseas.json (공식 홈페이지 확인값) — 저장 페이지 등에서 사용 ── */
+let _ov=null;
+function loadOverseas(){ return _ov || (_ov=fetch('data/overseas.json',{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error('overseas '+r.status); return r.json(); }).then(j=>j.races).catch(()=>[])); }
+function ovStatus(o){
+  const t=today(), end=pd(o.end_date||o.date); if(end<t) return {key:'ended',label:'종료'};
+  const p=(o.periods||[]).find(x=>x.primary);
+  if(p){ const s=pd(p.start), e=pd(p.end); if(t<s) return {key:'soon',label:'접수예정'}; if(t<=e) return {key:diff(e,t)<=URGENT_DAYS?'urgent':'open',label:diff(e,t)<=URGENT_DAYS?'마감임박':'접수중'}; return {key:'closed',label:'접수 마감'}; }
+  return {open:{key:'open',label:'접수중'},soon:{key:'soon',label:'접수예정'}}[o.status_hint]||{key:'info',label:'접수 확인'};
+}
+function ovRow(o){
+  const d=pd(o.date), n=diff(d,today()), st=ovStatus(o), fav=favs.has(o.id);
+  return `<article class="ed-race ${fav?'is-saved':''}" data-id="${o.id}"><div class="ed-race-date"><b>${p2(d.getDate())}</b><span>${d.getMonth()+1}월 ${WD[d.getDay()]}</span></div>
+    <div class="ed-race-body"><div class="ed-race-top"><span class="ed-status ${st.key}">${st.label}</span><span class="ed-tag">해외</span></div>
+      <h3><a class="row-link" href="overseas/${o.slug}.html">${esc(o.name)}</a></h3>
+      <p class="ed-meta">${fmtFull(d)}${sep}${esc(o.city)}${sep}${esc(o.country)}</p></div>
+    <div class="ed-race-side"><div class="ed-dday ${(st.key==='closed'||st.key==='ended')?'':(n>=0&&n<=7?'soon':'')}">${ddayText(n)}</div>${bookmark(o.id,fav)}</div></article>`;
 }

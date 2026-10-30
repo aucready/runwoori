@@ -50,10 +50,13 @@ function initMap(){
   t.on('tileload',()=>{tileOK=true; fb.hidden=true;}); t.on('tileerror',()=>{tileErr++; if(!tileOK&&tileErr>=2) showFallback('지도 타일을 불러오지 못했어요. 각 코스의 ‘지도에서 보기’ 링크를 이용하세요.');});
   L.control.zoom({position:'bottomright'}).addTo(map); setTimeout(()=>{ if(!tileOK) showFallback('지도 타일을 불러오지 못했어요. 각 코스의 ‘지도에서 보기’ 링크를 이용하세요.'); },5000);
 }
+const mercator=(lng,lat)=>[lng*20037508.34/180, Math.log(Math.tan((90+lat)*Math.PI/360))/(Math.PI/180)*20037508.34/180];
+function naverUrl(c){ if(!(c.lat&&c.lng)) return 'https://map.naver.com/p/search/'+encodeURIComponent(c.name+' 러닝'); const q=encodeURIComponent(c.name), [x,y]=mercator(c.lng,c.lat); return `https://map.naver.com/p/search/${q}?c=${x.toFixed(1)},${y.toFixed(1)},15,0,0,0,dh`; }
 function focusMap(){
   const key=S.r!=='전체'?S.r:S.g, v=VIEW[key]||VIEW['전체'];
   if(map){ map.setView([v[0],v[1]],v[2],{animate:false}); markers.forEach(m=>map.removeLayer(m)); markers=[];
-    COURSES.filter(c=>inGroup(c)&&(S.r==='전체'||c.region===S.r)).forEach((c,i)=>{ if(!(c.lat&&c.lng)) return; const m=L.marker([c.lat,c.lng],{icon:L.divIcon({className:'',html:`<div class="ed-pin ${c.id===S.sel?'on':''}">${i+1}</div>`,iconSize:[0,0]})}).addTo(map); markers.push(m); }); }
+    COURSES.filter(c=>inGroup(c)&&(S.r==='전체'||c.region===S.r)).forEach((c,i)=>{ if(!(c.lat&&c.lng)) return; const m=L.marker([c.lat,c.lng],{icon:L.divIcon({className:'',html:`<div class="ed-pin ${c.id===S.sel?'on':''}">${i+1}</div>`,iconSize:[0,0]}),title:c.name,alt:c.name,keyboard:true}).addTo(map);
+      m.bindPopup(`<div class="course-pop"><b>${esc(c.name)}</b><span>${c.region}${sep}${kmNum(c)?c.km:'거리 확인 필요'}</span><a href="${naverUrl(c)}" target="_blank" rel="noopener">네이버 지도에서 보기 ↗</a></div>`,{maxWidth:240,autoPanPadding:[20,20]}); markers.push(m); }); }
   const cur=COURSES.find(c=>c.id===S.sel);
   $('#maptag').textContent=cur?`${cur.region} · ${cur.name}`:`${key}`;
   if(!fb.hidden) drawFallback();
@@ -67,7 +70,7 @@ function draw(){
   $('#out').innerHTML=L.length?L.map((c,i)=>{ const k=kmNum(c);
     return `<article class="ed-course ${c.id===S.sel?'is-on':''}" data-id="${c.id}"><span class="ix">${p2(i+1)}</span>
       <div><h3>${esc(c.name)}</h3><p class="ed-meta">${c.region}${sep}${groupOf(c.region)}${sep}${k?c.km:'거리 확인 필요'}</p>
-      <a class="ed-link ed-small" style="display:inline-block;margin-top:6px;color:var(--ink-2)" target="_blank" rel="noopener" href="https://map.naver.com/p/search/${encodeURIComponent(c.name+' 러닝')}">지도에서 보기 ↗</a></div>
+      <a class="ed-link ed-small" style="display:inline-block;margin-top:6px;color:var(--ink-2)" target="_blank" rel="noopener" href="${naverUrl(c)}">지도에서 보기 ↗</a></div>
       <div class="ed-race-side">${k?`<div class="km">${k}<small>km</small></div>`:'<span></span>'}${bookmark(c.id,cfavs.has(c.id),'data-cfav','코스 저장')}</div></article>`; }).join(''):'<div class="ed-empty" style="grid-column:1/-1">검색 결과가 없어요.</div>';
   focusMap();
 }

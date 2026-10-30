@@ -22,7 +22,7 @@ layout('races');
 RACES_READY.then(()=>{
   const id=new URLSearchParams(location.search).get('id'), view=$('#view');
   const r=allRaces().find(x=>x.id===id);
-  if(!r){ document.title='대회를 찾을 수 없어요 | Run우리'; view.innerHTML=`<div style="padding:40px var(--page-x)"><div class="ed-label">대회 상세</div><h1 class="ed-h1" style="margin:12px 0 10px">대회를 찾을 수 없어요</h1><p class="ed-lede">지난 대회이거나 주소가 바뀌었을 수 있어요. 대회 달력에서 다시 찾아보세요.</p><p style="margin-top:22px"><a class="ed-btn" href="races.html">대회 달력으로 <span class="ed-arrow">→</span></a></p></div>`; return; }
+  if(!r){ document.title='대회를 찾을 수 없어요 | Run우리'; view.innerHTML=`<div style="padding:40px var(--page-x)"><div class="ed-label">대회 상세</div><h1 class="ed-h1" style="margin:12px 0 10px">대회를 찾을 수 없어요</h1><p class="ed-lede">지난 대회이거나 주소가 바뀌었을 수 있어요. 대회 달력에서 다시 찾아보세요.</p><p style="margin-top:22px"><a class="ed-btn" href="index.html">대회 달력으로 <span class="ed-arrow">→</span></a></p></div>`; return; }
   const t=today(), nameQ=r.name;
   setCanonicalQuery('id='+encodeURIComponent(id)); document.title=`${r.name} — 일정·참가비·접수 | Run우리`;
   const md=$('meta[name=description]'); if(md) md.content=`${r.name} · ${fmtFull(r.dt)}${r.venue?' · '+r.venue:''}${r.fee?' · 참가비 '+r.fee:''}. 접수 기간과 공식 홈페이지 링크.`;
@@ -34,7 +34,7 @@ RACES_READY.then(()=>{
   const src=Object.entries(r.sources).map(([k,u])=>`<a class="ed-link" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${k==='runningon'?'러닝온':'KorMarathon'} ↗</a>`).join(' · ');
   const related=allRaces().filter(x=>x.id!==r.id&&x.st.key!=='ended'&&x.d>=0&&((r.region&&x.region===r.region)||false)).sort((a,b)=>Math.abs(a.d-r.d)-Math.abs(b.d-r.d)).slice(0,4);
   view.innerHTML=`
-  <div style="padding:24px var(--page-x) 0"><a class="ed-link ed-small" href="races.html">← 대회 달력</a></div>
+  <div style="padding:24px var(--page-x) 0"><a class="ed-link ed-small" href="index.html">← 대회 달력</a></div>
   <header style="padding:20px var(--page-x) 0">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
       <div class="ed-race-top"><span class="ed-status ${r.st.key}">${r.st.label}</span>${r.type?`<span class="ed-tag">${esc(r.type)}</span>`:''}</div>

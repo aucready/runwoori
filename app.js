@@ -122,8 +122,8 @@ RACES_READY.then(fillUpdated);
 function layout(active){
   document.body.classList.add('ed-root');
   const t=today();
-  const nav=[['index.html','홈','home'],['races.html','대회 달력','races'],['blog.html','러닝 가이드','blog'],['courses.html','러닝 코스','courses'],['tools.html','훈련 · 페이스','tools'],['saved.html','저장','saved']];
-  const bottom=[['index.html','홈','home'],['races.html','대회','races'],['blog.html','가이드','blog'],['saved.html','저장','saved']];
+  const nav=[['index.html','대회 달력','races'],['home.html','홈','home'],['blog.html','러닝 가이드','blog'],['courses.html','러닝 코스','courses'],['tools.html','훈련 · 페이스','tools'],['saved.html','저장','saved']];
+  const bottom=[['index.html','대회','races'],['home.html','홈','home'],['blog.html','가이드','blog'],['saved.html','저장','saved']];
   const badge=n=>n==='saved'?'<span class="n" data-saved-count hidden>0</span>':'';
   const head=`<a class="skip-link" href="#main">본문으로 건너뛰기</a><header class="ed-mast"><div class="ed-wrap"><div class="ed-mast-top"><span class="ed-label">${t.getFullYear()}.${p2(t.getMonth()+1)}.${p2(t.getDate())} ${EN[t.getDay()]}</span><span class="ed-label" data-updated aria-live="polite">${updatedText()}</span></div>
     <div class="ed-mast-row"><a class="ed-wordmark" href="index.html" aria-label="${SITE.name} 홈"><img src="assets/logo/runwoori-wordmark-light-small.svg" alt="${SITE.name}" width="118" height="28"></a>

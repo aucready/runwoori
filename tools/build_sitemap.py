@@ -6,7 +6,7 @@ import json, os, datetime
 ROOT=os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 BASE='{{SITE_URL}}'
 today=datetime.date.today().isoformat()
-pages=[('', 'daily','1.0'),('races.html','daily','0.9'),('blog.html','weekly','0.9'),('courses.html','monthly','0.6'),
+pages=[('', 'daily','1.0'),('home.html','weekly','0.7'),('blog.html','weekly','0.9'),('courses.html','monthly','0.6'),
        ('tools.html','monthly','0.6'),('guide.html','monthly','0.5'),('about.html','monthly','0.4'),('contact.html','yearly','0.3'),
        ('privacy.html','yearly','0.3'),('terms.html','yearly','0.3')]
 urls=[(BASE+'/'+p,'', cf, pr) for p,cf,pr in pages]

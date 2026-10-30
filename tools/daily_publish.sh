@@ -17,6 +17,7 @@ fi
 
 cd "$SRC"
 echo "== 2) 대회별 정적 페이지 생성"; python3 tools/build_race_pages.py
+echo "== 2a) 해외 주요 대회 페이지 생성"; python3 tools/build_overseas.py
 echo "== 2b) 공식 홈페이지 링크 점검"
 python3 - <<'PY'
 import json, sys
@@ -35,10 +36,11 @@ if [ "$N_RACE" -lt 20 ]; then echo "대회 페이지가 너무 적어요($N_RACE
 echo "== 4) 배포 저장소로 복사 ($DEPLOY)"
 mkdir -p "$DEPLOY/data"
 rm -rf "$DEPLOY/race" && cp -a race "$DEPLOY/race"
-cp data/races.json data/race_archive.json data/race_pages.json "$DEPLOY/data/"
+rm -rf "$DEPLOY/overseas" && cp -a overseas "$DEPLOY/overseas" && cp overseas.html "$DEPLOY/overseas.html"
+cp data/races.json data/race_archive.json data/race_pages.json data/overseas.json data/overseas_pages.json "$DEPLOY/data/"
 [ -d data/blog ] && { rm -rf "$DEPLOY/data/blog" && cp -a data/blog "$DEPLOY/data/blog"; }
 cp sitemap.xml "$DEPLOY/sitemap.xml"
-cp tools/build_race_pages.py tools/build_sitemap.py tools/daily_publish.sh "$DEPLOY/tools/" 2>/dev/null || true
+cp tools/build_race_pages.py tools/build_overseas.py tools/build_sitemap.py tools/daily_publish.sh "$DEPLOY/tools/" 2>/dev/null || true
 
 cd "$DEPLOY"
 echo "$DOMAIN" > CNAME                                    # 커스텀 도메인 파일 유지

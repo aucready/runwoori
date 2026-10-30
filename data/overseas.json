@@ -1,0 +1,1024 @@
+{
+ "version": 1,
+ "verified": "2026-10-31",
+ "note": "모든 값은 각 대회 공식 홈페이지에서 확인한 내용입니다. 비어 있는 항목은 공식 페이지에서 확인하지 못한 항목입니다.",
+ "races": [
+  {
+   "id": "o-tokyo",
+   "slug": "tokyo",
+   "name": "도쿄 마라톤 2027",
+   "name_en": "Tokyo Marathon 2027",
+   "group": "wmm",
+   "country": "일본",
+   "city": "도쿄",
+   "venue": "도쿄도청 출발 → 도쿄역 앞 교고도리 도착",
+   "date": "2027-03-07",
+   "start_time": "09:10",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "휠체어 마라톤은 별도 부문"
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "일반 엔트리는 정원(40,000명)을 넘으면 무작위 추첨으로 선발해요."
+    },
+    {
+     "type": "자선",
+     "text": "기부·채리티 러너 엔트리는 2026년 6월 24일부터 열렸어요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "일반 엔트리",
+     "start": "2026-08-14",
+     "end": "2026-08-28",
+     "note": "일본 시간 8/14 11:00 ~ 8/28 17:00 · 추첨 결과는 2026.09.18 발표",
+     "primary": true
+    }
+   ],
+   "fee": "내국인 19,800엔 · 해외 참가자 230달러(세금·수수료 포함)",
+   "capacity": "40,000명",
+   "limit": "7시간",
+   "age": "대회일 기준 만 19세 이상",
+   "course": "도쿄도청을 출발해 스이도바시, 우에노히로코지, 간다, 니혼바시, 아사쿠사 가미나리몬, 료고쿠, 몬젠나카초, 긴자, 다마치, 히비야를 지나 도쿄역 앞 교고도리에서 마쳐요. 일본육상경기연맹·AIMS·월드애슬레틱스 공인 코스예요.",
+   "highlights": "애벗 월드 마라톤 메이저스 시리즈 대회이자 월드애슬레틱스 플래티넘 라벨 대회예요. 이번 회차는 베이징 2027 세계선수권과 로스앤젤레스 2028 올림픽 일본 대표 선발전을 겸해요.",
+   "official_url": "https://www.marathon.tokyo/en/",
+   "entry_url": "https://www.marathon.tokyo/en/participants/entry-ticket/",
+   "sources": [
+    "https://www.marathon.tokyo/en/about/outline/",
+    "https://www.marathon.tokyo/en/news/detail/news_20260814151913.html"
+   ],
+   "checked": [
+    "대회일",
+    "출발 시각",
+    "코스",
+    "정원",
+    "참가비",
+    "제한 시간",
+    "참가 자격",
+    "엔트리 방식",
+    "접수 기간"
+   ],
+   "unknown": [
+    "한국에서 신청할 때의 별도 절차"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-boston",
+   "slug": "boston",
+   "name": "보스턴 마라톤 2027",
+   "name_en": "Boston Marathon 2027",
+   "group": "wmm",
+   "country": "미국",
+   "city": "보스턴(매사추세츠)",
+   "venue": "홉킨턴 출발 → 보스턴 도착",
+   "date": "2027-04-19",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": ""
+    }
+   ],
+   "entry": [
+    {
+     "type": "기록 기준",
+     "text": "연령·성별별 공인 기록 기준을 넘은 사람만 신청할 수 있어요. 선착순이 아니고, 정원이 차면 기준보다 빠른 기록 순으로 뽑아요."
+    },
+    {
+     "type": "자선",
+     "text": "공식 채리티 프로그램을 통한 참가 경로가 따로 있어요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "기록 기준(Qualifier) 접수",
+     "start": "2026-09-14",
+     "end": "2026-09-18",
+     "note": "미국 동부 시간 9/14 10:00 ~ 9/18 17:00 · 마감됨",
+     "primary": true
+    }
+   ],
+   "fee": "",
+   "capacity": "",
+   "limit": "",
+   "age": "",
+   "course": "매사추세츠 홉킨턴에서 출발해 보스턴 시내로 들어오는 편도 코스예요.",
+   "highlights": "2027년 기록 기준 컷오프는 5분 17초였다고 공식 페이지에 공지돼 있어요(2026.09.29 갱신). 기록 기준 인정 구간은 2025년 9월 13일부터 시작됐어요.",
+   "official_url": "https://www.baa.org/races/boston-marathon",
+   "entry_url": "https://www.baa.org/races/boston-marathon/qualify",
+   "sources": [
+    "https://www.baa.org/races/boston-marathon/qualify"
+   ],
+   "checked": [
+    "대회일",
+    "엔트리 방식",
+    "접수 기간",
+    "기록 기준 컷오프"
+   ],
+   "unknown": [
+    "참가비",
+    "정원",
+    "제한 시간",
+    "출발 시각"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-london",
+   "status_hint": "info",
+   "slug": "london",
+   "name": "TCS 런던 마라톤 2027",
+   "name_en": "TCS London Marathon 2027",
+   "group": "wmm",
+   "country": "영국",
+   "city": "런던",
+   "venue": "",
+   "date": "2027-04-24",
+   "end_date": "2027-04-25",
+   "distances": [
+    {
+     "label": "마라톤 26.2마일(42.195km)",
+     "note": ""
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "2027년 추첨(발롯)은 이미 끝났고, 결과는 2026년 7월 9일에 발송됐어요. 당첨자는 7월 31일 16:00(영국 시간)까지 등록을 확정해야 했어요."
+    },
+    {
+     "type": "자선",
+     "text": "자선 참가(Run for Charity)는 남은 자리가 일부 있다고 공지돼 있어요."
+    },
+    {
+     "type": "기록 기준",
+     "text": "Good for Age(연령별 기록 기준) 엔트리가 따로 있어요."
+    }
+   ],
+   "periods": [],
+   "fee": "",
+   "capacity": "약 100,000명(이틀 합계)",
+   "limit": "",
+   "age": "",
+   "course": "",
+   "highlights": "2027년에는 처음이자 단 한 번, 토요일(4월 24일)과 일요일(4월 25일) 이틀에 걸쳐 열려요. 공식 페이지는 이틀 합쳐 10만 명이 달린다고 안내해요.",
+   "official_url": "https://www.londonmarathonevents.co.uk/london-marathon",
+   "entry_url": "https://www.londonmarathonevents.co.uk/london-marathon/ballot",
+   "sources": [
+    "https://www.londonmarathonevents.co.uk/london-marathon",
+    "https://www.londonmarathonevents.co.uk/london-marathon/ballot"
+   ],
+   "checked": [
+    "대회일",
+    "엔트리 방식",
+    "추첨 결과 일정",
+    "규모"
+   ],
+   "unknown": [
+    "추첨 접수 기간",
+    "참가비",
+    "코스·출발 시각",
+    "부문별 날짜"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-sydney",
+   "status_hint": "info",
+   "slug": "sydney",
+   "name": "TCS 시드니 마라톤 2027",
+   "name_en": "TCS Sydney Marathon 2027",
+   "group": "wmm",
+   "country": "호주",
+   "city": "시드니",
+   "venue": "세인트 레너즈 파크 출발 → 시드니 오페라하우스 앞 도착",
+   "date": "2027-08-29",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "미니 마라톤이 별도로 열려요(거리는 공식 확인 필요)"
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "2027년 발롯(추첨) 접수 페이지가 열려 있어요."
+    },
+    {
+     "type": "자선",
+     "text": "채리티 플레이스 접수가 따로 있어요."
+    },
+    {
+     "type": "여행사 패키지",
+     "text": "65개국 이상, 100곳이 넘는 공식 여행사 파트너의 패키지 중 일부는 참가권을 포함해요."
+    }
+   ],
+   "periods": [],
+   "fee": "",
+   "capacity": "",
+   "limit": "",
+   "age": "",
+   "course": "세인트 레너즈 파크에서 출발해 오페라하우스의 돛 아래에서 골인하는 코스예요. 출발은 색깔별(빨강·초록·주황) 웨이브로 나뉘어요.",
+   "highlights": "2026년 대회에는 40,000명 이상이 달렸다고 공식 사이트에 적혀 있어요.",
+   "official_url": "https://www.tcssydneymarathon.com/",
+   "entry_url": "https://www.tcssydneymarathon.com/international-entry",
+   "sources": [
+    "https://www.tcssydneymarathon.com/",
+    "https://www.tcssydneymarathon.com/international-entry"
+   ],
+   "checked": [
+    "대회일",
+    "출발·도착 장소",
+    "엔트리 경로"
+   ],
+   "unknown": [
+    "발롯 접수 기간",
+    "참가비",
+    "정원",
+    "출발 시각",
+    "제한 시간"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-berlin",
+   "slug": "berlin",
+   "name": "제네랄리 베를린 마라톤 2027",
+   "name_en": "GENERALI BERLIN-MARATHON 2027",
+   "group": "wmm",
+   "country": "독일",
+   "city": "베를린",
+   "venue": "",
+   "date": "2027-09-26",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "휠체어·핸드바이크, 5K 등 별도 종목이 있어요"
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "참가권은 추첨으로 배정해요. 참가비는 당첨된 뒤에만 결제돼요."
+    },
+    {
+     "type": "자선",
+     "text": "채리티 레이스 엔트리가 따로 있어요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "추첨 신청",
+     "start": "2026-10-01",
+     "end": "2026-11-12",
+     "note": "추첨 결과 발표는 2026.12.03",
+     "primary": true
+    }
+   ],
+   "fee": "215유로(당첨 후 결제)",
+   "capacity": "",
+   "limit": "",
+   "age": "2009년생 이전 출생자",
+   "course": "",
+   "highlights": "참가비에는 대회 기간 4일 대중교통권(A·B·C 구역), 모든 웨이브의 페이서, 완주 증명서, 완주 후 판초(또는 5유로의 의류 보관 서비스), 마사지가 포함돼요. 2027년부터 대회 이름이 BMW에서 GENERALI로 바뀌어요.",
+   "official_url": "https://www.generali-berlin-marathon.com/en/",
+   "entry_url": "https://www.generali-berlin-marathon.com/en/registration/run",
+   "sources": [
+    "https://www.generali-berlin-marathon.com/en/",
+    "https://www.generali-berlin-marathon.com/en/registration/run"
+   ],
+   "checked": [
+    "대회일",
+    "엔트리 방식",
+    "추첨 접수 기간",
+    "참가비",
+    "참가 자격"
+   ],
+   "unknown": [
+    "정원",
+    "제한 시간",
+    "출발 시각"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-chicago",
+   "slug": "chicago",
+   "name": "뱅크 오브 아메리카 시카고 마라톤 2027",
+   "name_en": "Bank of America Chicago Marathon 2027",
+   "group": "wmm",
+   "country": "미국",
+   "city": "시카고(일리노이)",
+   "venue": "",
+   "date": "2027-10-10",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": ""
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "보장 엔트리 대상이 아닌 사람은 비보장 엔트리 추첨에 신청했어요. 결과는 2026년 12월 8일 이메일로 안내되고, 당첨되면 12월 15일 23:59(미국 중부 시간)까지 참가비를 내야 해요."
+    },
+    {
+     "type": "기록 기준",
+     "text": "보장 엔트리 경로 중 하나로, 2025년 1월 1일~2026년 10월 29일 사이 마라톤에서 낸 기록이 기준 안에 들면 신청할 수 있어요."
+    },
+    {
+     "type": "자선",
+     "text": "공식 채리티 팀 참가는 최소 2,500달러를 모금해야 하고, 참가비는 미국 거주자 325달러·비거주자 335달러예요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "일반 신청(추첨·보장)",
+     "start": "2026-10-08",
+     "end": "2026-10-29",
+     "note": "미국 중부 시간 10/29 14:00 마감 · 마감됨",
+     "primary": true
+    }
+   ],
+   "fee": "채리티 참가: 미국 거주자 325달러 · 비거주자 335달러(일반 참가비는 확인 필요)",
+   "capacity": "",
+   "limit": "",
+   "age": "",
+   "course": "",
+   "highlights": "2027년이 제49회예요. 신청 마감 뒤에는 공식 채리티 팀과 공식 투어 운영사를 통해서만 자리를 구할 수 있다고 안내해요. 2028년 대회 신청 알림은 공식 사이트의 뉴스레터로 받을 수 있어요.",
+   "official_url": "https://www.chicagomarathon.com/",
+   "entry_url": "https://www.chicagomarathon.com/apply/",
+   "sources": [
+    "https://www.chicagomarathon.com/",
+    "https://www.chicagomarathon.com/apply/"
+   ],
+   "checked": [
+    "대회일",
+    "엔트리 방식",
+    "접수 기간",
+    "추첨 결과 일정",
+    "채리티 참가비"
+   ],
+   "unknown": [
+    "일반 참가비",
+    "정원",
+    "제한 시간",
+    "출발 시각"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-newyork",
+   "status_hint": "soon",
+   "slug": "new-york",
+   "name": "TCS 뉴욕 시티 마라톤 2027",
+   "name_en": "TCS New York City Marathon 2027",
+   "group": "wmm",
+   "country": "미국",
+   "city": "뉴욕",
+   "venue": "",
+   "date": "2027-11-07",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": ""
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "보장 엔트리가 없는 사람을 위한 비보장 추첨이 있어요. 2027년 신청 기간은 아직 공지되지 않았어요."
+    },
+    {
+     "type": "기록 기준",
+     "text": "2026년 1월 1일~12월 31일 사이의 순 기록(칩 타임)이 기준 안이면 보장 엔트리를 신청할 수 있어요. NYRR 대회 기록은 보장, 그 밖의 공인 풀코스 기록은 제한된 인원 안에서 심사해요."
+    },
+    {
+     "type": "자선",
+     "text": "공식 채리티 파트너는 2027년 봄에 발표될 예정이에요."
+    }
+   ],
+   "periods": [],
+   "fee": "",
+   "capacity": "",
+   "limit": "",
+   "age": "",
+   "course": "",
+   "highlights": "기록 기준은 연령·성별별로 다르고, 공식 페이지의 기준표에서 확인할 수 있어요. 기록은 건 타임이 아니라 순 기록(칩 타임)으로 심사해요.",
+   "official_url": "https://www.nyrr.org/tcsnycmarathon",
+   "entry_url": "https://www.nyrr.org/tcsnycmarathon/runners/entry/2027",
+   "sources": [
+    "https://www.nyrr.org/tcsnycmarathon/runners/entry/2027",
+    "https://www.nyrr.org/tcsnycmarathon/runners/marathon-time-qualifiers"
+   ],
+   "checked": [
+    "엔트리 방식",
+    "기록 기준 인정 기간"
+   ],
+   "unknown": [
+    "추첨 신청 기간",
+    "참가비",
+    "코스·출발 시각"
+   ],
+   "caution": "NYRR 사이트는 접속 대기열이 걸려 있어 페이지 전체를 직접 열지 못했고, 공식 페이지 발췌 내용을 기준으로 정리했어요. 대회일(2027.11.07)은 기록 기준 안내 페이지의 연령 계산 기준일과 같아요.",
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-osaka",
+   "slug": "osaka",
+   "name": "오사카 마라톤 2027",
+   "name_en": "Osaka Marathon 2027",
+   "group": "popular",
+   "country": "일본",
+   "city": "오사카",
+   "venue": "오사카부청 앞 출발 → 오사카성 공원 도착",
+   "date": "2027-02-28",
+   "start_time": "09:15",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "제한 시간 종료 16:15"
+    },
+    {
+     "label": "720 나니와 마라톤 7.2km(런) · 720m(휠체어)",
+     "note": ""
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "일반 러너는 정원을 넘으면 추첨으로 선발해요."
+    },
+    {
+     "type": "자선",
+     "text": "채리티 러너, 10만 엔 이상 기부자 1명분 출전권 등 별도 경로가 있어요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "일반 러너 엔트리",
+     "start": "2026-07-28",
+     "end": "2026-08-28",
+     "note": "일본 시간 7/28 10:00 ~ 8/28 17:00 · 마감됨",
+     "primary": true
+    }
+   ],
+   "fee": "",
+   "capacity": "",
+   "limit": "마라톤 종료 16:15",
+   "age": "",
+   "course": "오사카부청 앞에서 출발해 오사카성 공원 안에서 마치는 코스예요. 일본육상경기연맹·월드애슬레틱스 공인 코스예요.",
+   "highlights": "이번 회차는 MGC 시리즈 2026-27(남자 G1, 여자 G2)이고, 남자부는 베이징 2027 세계선수권과 로스앤젤레스 2028 올림픽 일본 대표 선발전을 겸해요. 출발은 웨이브(시간차)로 나눠 진행해요.",
+   "official_url": "https://www.osaka-marathon.com/en/",
+   "entry_url": "https://osaka-marathon.com/2027/runner/entry/",
+   "sources": [
+    "https://osaka-marathon.com/2027/info/gist",
+    "https://osaka-marathon.com/2027/runner/entry/"
+   ],
+   "checked": [
+    "대회일",
+    "출발 시각",
+    "종목",
+    "코스",
+    "엔트리 방식",
+    "접수 기간"
+   ],
+   "unknown": [
+    "참가비",
+    "정원"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-nagoya",
+   "slug": "nagoya",
+   "name": "나고야 위민스 마라톤 2027",
+   "name_en": "Nagoya Women's Marathon 2027",
+   "group": "popular",
+   "country": "일본",
+   "city": "나고야",
+   "venue": "반테린 돔 나고야 출발·도착",
+   "date": "2027-03-14",
+   "start_time": "09:10",
+   "distances": [
+    {
+     "label": "여자 마라톤 42.195km",
+     "note": "휠체어 부문 별도"
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "일본 국내 일반 추첨(정원 5,500명)은 2026년 9월 17일~24일에 접수했어요."
+    },
+    {
+     "type": "선착순",
+     "text": "해외 엔트리(정원 3,500명)는 선착순이고, 2026년 12월 25일까지 열려 있어요. 8월 11일~24일의 얼리 엔트리는 24,000엔, 이후 통상 엔트리는 25,000엔이에요."
+    },
+    {
+     "type": "자선",
+     "text": "채리티 엔트리(3,000명, 23,000엔)는 2026년 9월 7일~9일에 접수했어요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "해외 엔트리(통상)",
+     "start": "2026-08-25",
+     "end": "2026-12-25",
+     "note": "선착순 · 25,000엔",
+     "primary": true
+    }
+   ],
+   "fee": "해외 엔트리 25,000엔(얼리 24,000엔) · 일반 추첨 19,000엔",
+   "capacity": "일반 추첨 5,500명 · 해외 3,500명",
+   "limit": "일반 추첨 7시간",
+   "age": "",
+   "course": "반테린 돔 나고야에서 출발해 같은 곳으로 돌아오는 코스예요. 일본육상경기연맹, WA/AIMS 공인 코스예요.",
+   "highlights": "여성만 참가하는 대회예요. MGC 시리즈 2026-27(여자 G1)과 베이징 2027 세계선수권, 로스앤젤레스 2028 올림픽 일본 대표 선발전을 겸해요.",
+   "official_url": "https://womens-marathon.nagoya/",
+   "entry_url": "https://womens-marathon.nagoya/entry/",
+   "sources": [
+    "https://womens-marathon.nagoya/outline/general/",
+    "https://womens-marathon.nagoya/entry/"
+   ],
+   "checked": [
+    "대회일",
+    "출발 시각",
+    "종목",
+    "코스",
+    "정원",
+    "참가비",
+    "제한 시간",
+    "엔트리 방식",
+    "접수 기간"
+   ],
+   "unknown": [],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-fukuoka",
+   "slug": "fukuoka",
+   "name": "후쿠오카 마라톤 2026",
+   "name_en": "Fukuoka Marathon 2026",
+   "group": "popular",
+   "country": "일본",
+   "city": "후쿠오카",
+   "venue": "덴진(와타나베도리 덴진 교차로 부근) 출발 → 이토시마 시마칸 부근 도착",
+   "date": "2026-11-08",
+   "start_time": "08:20",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "제한 시간 7시간"
+    },
+    {
+     "label": "펀런 5.2km",
+     "note": "제한 시간 65분"
+    },
+    {
+     "label": "휠체어 5.2km",
+     "note": "제한 시간 30분"
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "정원을 넘으면 추첨으로 선발했고, 결과는 2026년 6월 30일에 통지됐어요."
+    },
+    {
+     "type": "선착순",
+     "text": "해외 거주자를 위한 해외 우선 엔트리(500명 선착순)가 따로 있어요. 해외 엔트리 사이트로 신청하면 참가비가 30,000엔이에요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "일반 추첨 접수",
+     "start": "2026-04-20",
+     "end": "2026-05-20",
+     "note": "일본 시간 4/20 10:00 ~ 5/20 20:00 · 마감됨",
+     "primary": true
+    }
+   ],
+   "fee": "마라톤 국내 16,000엔 · 해외 30,000엔 · 펀런 4,100엔",
+   "capacity": "마라톤 13,000명(우선·추첨 구간 포함)",
+   "limit": "마라톤 7시간",
+   "age": "2008년 4월 1일 이전 출생자",
+   "course": "후쿠오카 시내 덴진에서 출발해 서쪽 이토시마시로 가는 편도 코스예요. 일본육상경기연맹 공인 코스예요.",
+   "highlights": "선수 접수는 11월 6일(금) 12:00~20:00, 7일(토) 10:00~20:00이고, 대회 당일 접수는 하지 않아요.",
+   "official_url": "https://www.f-marathon.jp/",
+   "entry_url": "https://www.f-marathon.jp/runner/apply.php",
+   "sources": [
+    "https://www.f-marathon.jp/runner/",
+    "https://www.f-marathon.jp/about/"
+   ],
+   "checked": [
+    "대회일",
+    "출발 시각",
+    "종목",
+    "코스",
+    "정원",
+    "참가비",
+    "제한 시간",
+    "엔트리 방식",
+    "접수 기간"
+   ],
+   "unknown": [],
+   "caution": "2027년 대회 일정은 아직 공지되지 않아, 곧 열리는 2026년 대회를 실었어요.",
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-taipei",
+   "slug": "taipei",
+   "name": "타이베이 마라톤 2026",
+   "name_en": "Taipei Marathon 2026",
+   "group": "popular",
+   "country": "대만",
+   "city": "타이베이",
+   "venue": "타이베이 시민광장 출발 → 타이베이 육상경기장 도착",
+   "date": "2026-12-20",
+   "start_time": "06:30",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "제한 5시간 30분"
+    },
+    {
+     "label": "하프 21.0975km",
+     "note": "제한 3시간"
+    }
+   ],
+   "entry": [
+    {
+     "type": "기록 기준",
+     "text": "지정 대회 기록이 기준 안이면 우선 접수할 수 있어요(2026년 6월 22일~26일 기록 제출, 6월 30일~7월 2일 결제)."
+    },
+    {
+     "type": "추첨",
+     "text": "마라톤 추첨 접수는 2026년 7월 3일 16:00~7월 15일 17:00였고, 결과는 7월 17일 발표됐어요."
+    },
+    {
+     "type": "선착순",
+     "text": "골드 라벨 마라톤 한정 부문(1,000명, 9,999 대만달러)은 8월 20일 17:00까지 선착순이었어요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "마라톤 추첨 접수",
+     "start": "2026-07-03",
+     "end": "2026-07-15",
+     "note": "대만 시간 7/3 16:00 ~ 7/15 17:00 · 마감됨",
+     "primary": true
+    }
+   ],
+   "fee": "마라톤 2,200 대만달러 · 하프 1,600 대만달러",
+   "capacity": "마라톤 9,000명 · 하프 19,000명",
+   "limit": "마라톤 5시간 30분 · 하프 3시간",
+   "age": "2008년 이전 출생자",
+   "course": "시민광장을 출발해 중산북로, 환동고가, 강변 공원 등을 지나 타이베이 육상경기장에서 마쳐요. 마라톤은 월드애슬레틱스 로드레이스 라벨 규정을 따라요.",
+   "highlights": "선수용 물품은 직접 수령(2026.12.17~19)이 기본이고, 해외 주소로는 택배 발송을 하지 않아요.",
+   "official_url": "https://www.taipeicitymarathon.com/",
+   "entry_url": "https://www.taipeicitymarathon.com/REGULATION202612.php",
+   "sources": [
+    "https://www.taipeicitymarathon.com/REGULATION202612.php"
+   ],
+   "checked": [
+    "대회일",
+    "출발 시각",
+    "종목",
+    "코스",
+    "정원",
+    "참가비",
+    "제한 시간",
+    "엔트리 방식",
+    "접수 기간"
+   ],
+   "unknown": [],
+   "caution": "2027년 일정은 아직 확인되지 않아, 곧 열리는 2026년 대회를 실었어요.",
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-goldcoast",
+   "status_hint": "soon",
+   "slug": "gold-coast",
+   "name": "ASICS 골드코스트 마라톤 2027",
+   "name_en": "ASICS Gold Coast Marathon 2027",
+   "group": "popular",
+   "country": "호주",
+   "city": "골드코스트(퀸즐랜드)",
+   "venue": "",
+   "date": "2027-07-04",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "최소 참가 연령 18세"
+    }
+   ],
+   "entry": [
+    {
+     "type": "일반 접수",
+     "text": "2027년 엔트리는 2026년 12월 초에 열릴 예정이고, 정확한 날짜는 공식 사이트에서 공지한다고 해요."
+    }
+   ],
+   "periods": [],
+   "fee": "",
+   "capacity": "",
+   "limit": "",
+   "age": "만 18세 이상",
+   "course": "",
+   "highlights": "공식 사이트는 평탄하고 빠른 해안 코스이고 참가자의 60%가 매년 개인 최고 기록을 세운다고 소개해요. 보스턴 마라톤 기록 기준을 노리는 러너에게 적합하다고도 적혀 있어요.",
+   "official_url": "https://goldcoastmarathon.com.au/",
+   "entry_url": "https://goldcoastmarathon.com.au/races/marathon/",
+   "sources": [
+    "https://goldcoastmarathon.com.au/races/marathon/"
+   ],
+   "checked": [
+    "대회일",
+    "엔트리 시작 시기",
+    "최소 참가 연령"
+   ],
+   "unknown": [
+    "접수 정확한 날짜",
+    "참가비",
+    "정원",
+    "출발 시각",
+    "하프·10km 등 다른 종목"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-honolulu",
+   "status_hint": "open",
+   "slug": "honolulu",
+   "name": "JAL 호놀룰루 마라톤 2026",
+   "name_en": "JAL Honolulu Marathon 2026",
+   "group": "popular",
+   "country": "미국",
+   "city": "호놀룰루(하와이)",
+   "venue": "",
+   "date": "2026-12-13",
+   "start_time": "05:00",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "12월 13일"
+    },
+    {
+     "label": "스타트 투 파크 10km",
+     "note": "12월 13일"
+    },
+    {
+     "label": "칼라카우아 메리 마일",
+     "note": "12월 12일"
+    }
+   ],
+   "entry": [
+    {
+     "type": "일반 접수",
+     "text": "2026년 대회 온라인 접수가 열려 있어요. 공식 홈페이지의 SIGN UP HERE에서 신청해요."
+    }
+   ],
+   "periods": [],
+   "fee": "",
+   "capacity": "",
+   "limit": "",
+   "age": "",
+   "course": "",
+   "highlights": "엑스포와 선수 용품 수령은 하와이 컨벤션 센터에서 12월 10일(목) 10:00~18:00, 11일(금) 09:00~19:00, 12일(토) 09:00~17:00에 진행해요.",
+   "official_url": "https://www.honolulumarathon.org/",
+   "entry_url": "https://www.honolulumarathon.org/",
+   "sources": [
+    "https://www.honolulumarathon.org/"
+   ],
+   "checked": [
+    "대회일",
+    "출발 시각",
+    "종목",
+    "접수 진행 여부",
+    "엑스포 일정"
+   ],
+   "unknown": [
+    "참가비",
+    "정원",
+    "접수 마감일",
+    "제한 시간",
+    "코스"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-paris",
+   "slug": "paris",
+   "name": "ASICS 마라톤 드 파리 2027",
+   "name_en": "ASICS Marathon de Paris 2027",
+   "group": "popular",
+   "country": "프랑스",
+   "city": "파리",
+   "venue": "",
+   "date": "2027-04-04",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "하프 마라톤은 별도 사이트에서 2027.03.07에 열려요"
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "일반 참가권은 추첨으로 배정해요. 접수 기간 안에는 언제 신청해도 당첨 확률이 같고, 신청에는 비용이 들지 않아요."
+    },
+    {
+     "type": "자선",
+     "text": "채리티 엔트리는 자선단체를 정하고 최소 420유로를 모금하면 참가권이 보장돼요."
+    },
+    {
+     "type": "여행사 패키지",
+     "text": "해외 거주자를 위한 공식 여행사 패키지에 참가권이 포함될 예정이에요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "추첨 신청",
+     "start": "2026-09-08",
+     "end": "2026-09-30",
+     "note": "파리 시간 9/8 14:00 ~ 9/30 23:59 · 마감됨 · 결과는 10/1부터, 당첨 후 72시간 안에 결제",
+     "primary": true
+    }
+   ],
+   "fee": "",
+   "capacity": "",
+   "limit": "",
+   "age": "2007년 12월 31일 이전 출생자",
+   "course": "2027년 코스는 대회 몇 주 전에 공개될 예정이에요.",
+   "highlights": "제50회 대회이고, 2027년부터 ASICS가 타이틀 파트너를 맡아 대회 이름이 바뀌었어요. 공식 재판매 플랫폼은 12월 1일에 열릴 예정이에요. 예전 도메인은 더 이상 쓰이지 않아요.",
+   "official_url": "https://www.asicsmarathondeparis.com/en",
+   "entry_url": "https://www.asicsmarathondeparis.com/en/lottery-rules",
+   "sources": [
+    "https://www.asicsmarathondeparis.com/en",
+    "https://www.asicsmarathondeparis.com/en/lottery-rules",
+    "https://www.asicsmarathondeparis.com/fr/faq"
+   ],
+   "checked": [
+    "대회일",
+    "엔트리 방식",
+    "추첨 접수 기간",
+    "참가 자격",
+    "채리티 모금액"
+   ],
+   "unknown": [
+    "참가비",
+    "정원",
+    "제한 시간",
+    "출발 시각",
+    "코스"
+   ],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-hongkong",
+   "slug": "hong-kong",
+   "name": "스탠다드차타드 홍콩 마라톤 2027",
+   "name_en": "Standard Chartered Hong Kong Marathon 2027",
+   "group": "popular",
+   "country": "홍콩",
+   "city": "홍콩",
+   "venue": "침사추이 네이선 로드 출발 → 빅토리아 파크 도착",
+   "date": "2027-01-17",
+   "start_time": "",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "제한 6시간"
+    },
+    {
+     "label": "하프 마라톤",
+     "note": ""
+    },
+    {
+     "label": "10km",
+     "note": ""
+    },
+    {
+     "label": "10km 휠체어",
+     "note": ""
+    }
+   ],
+   "entry": [
+    {
+     "type": "추첨",
+     "text": "일반 신청은 공개 추첨(Public Ballot)이에요. 1차 결과는 2026년 9월 25일, 2차 결과는 10월 7일에 발표됐어요."
+    },
+    {
+     "type": "자선",
+     "text": "마라톤 채리티 프로그램은 2026년 11월 6일까지 러너 등록이 가능해요(각 NGO에 확인)."
+    }
+   ],
+   "periods": [
+    {
+     "label": "공개 추첨 신청",
+     "start": "2026-09-11",
+     "end": "2026-09-20",
+     "note": "홍콩 시간 9/11 14:00 ~ 9/20 19:00 · 마감됨",
+     "primary": true
+    }
+   ],
+   "fee": "현지 참가자 600 홍콩달러 · 비현지 참가자 90 미국달러",
+   "capacity": "마라톤 18,000명",
+   "limit": "6시간",
+   "age": "2027년 기준 만 20세 이상(출생연도 기준)",
+   "course": "네이선 로드에서 출발해 빅토리아 파크에서 마쳐요. 마라톤은 6시, 6시 25분, 6시 50분 세 그룹으로 출발해요.",
+   "highlights": "신청하려면 2025년 1월 1일~2026년 8월 31일 사이에 10km 이상 대회를 한 번은 완주하고 기록을 적어야 했어요. 같은 주말에 청소년 달리기(1월 16일)도 열려요.",
+   "official_url": "https://www.hkmarathon.com/",
+   "entry_url": "https://www.hkmarathon.com/race-information/",
+   "sources": [
+    "https://www.hkmarathon.com/race-information/",
+    "https://www.hkmarathon.com/important-dates/"
+   ],
+   "checked": [
+    "대회일",
+    "출발 시각",
+    "종목",
+    "코스",
+    "정원",
+    "참가비",
+    "제한 시간",
+    "엔트리 방식",
+    "접수 기간",
+    "참가 자격"
+   ],
+   "unknown": [],
+   "verified": "2026-10-31"
+  },
+  {
+   "id": "o-kyoto",
+   "slug": "kyoto",
+   "name": "교토 마라톤 2027",
+   "name_en": "Kyoto Marathon 2027",
+   "group": "popular",
+   "country": "일본",
+   "city": "교토",
+   "venue": "다케비시 스타디움 교토(니시쿄고쿠 육상경기장) 출발 → 헤이안 신궁 앞 도착",
+   "date": "2027-02-21",
+   "start_time": "09:00",
+   "distances": [
+    {
+     "label": "마라톤 42.195km",
+     "note": "제한 6시간"
+    },
+    {
+     "label": "페어 에키덴 1구간 약 27.6km · 2구간 약 14.6km",
+     "note": "2인 1조"
+    },
+    {
+     "label": "휠체어 6.1km",
+     "note": ""
+    }
+   ],
+   "entry": [
+    {
+     "type": "일반 접수",
+     "text": "온라인 신청이에요. 공식 신청 페이지는 신청 기간이 끝났다고 안내하고, 선착순으로 표기돼 있어요."
+    }
+   ],
+   "periods": [
+    {
+     "label": "온라인 신청",
+     "start": "2026-07-16",
+     "end": "2026-09-30",
+     "note": "일본 시간 7/16 10:00 ~ 9/30 17:00 · 마감됨",
+     "primary": true
+    }
+   ],
+   "fee": "",
+   "capacity": "마라톤 16,000명 · 페어 에키덴 250조 · 휠체어 20명",
+   "limit": "마라톤·에키덴 6시간",
+   "age": "",
+   "course": "다케비시 스타디움 교토에서 출발해 헤이안 신궁 앞에서 마치는 코스예요. 일본육상경기연맹 공인, 월드애슬레틱스 인증 코스예요. 페어 에키덴 중계 지점은 교토 식물원이에요.",
+   "highlights": "선수 접수는 2027년 2월 19일(금) 13:30~20:00, 20일(토) 10:30~19:00에 미야코 메세에서 해요. 대회 당일 접수는 받지 않아요.",
+   "official_url": "https://kyoto-marathon.com/en/",
+   "entry_url": "https://kyoto-marathon.com/en/entry/application/",
+   "sources": [
+    "https://kyoto-marathon.com/en/info/",
+    "https://kyoto-marathon.com/en/entry/application/"
+   ],
+   "checked": [
+    "대회일",
+    "출발 시각",
+    "종목",
+    "코스",
+    "정원",
+    "제한 시간",
+    "접수 기간",
+    "선수 접수 일정"
+   ],
+   "unknown": [
+    "참가비(페이지 표기가 부문별로 분명하지 않아 비워 둠)",
+    "추첨 여부"
+   ],
+   "verified": "2026-10-31"
+  }
+ ]
+}

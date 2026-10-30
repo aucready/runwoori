@@ -6,7 +6,7 @@ import json, os, datetime
 ROOT=os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 BASE=os.environ.get('SITE_URL','https://runwoori.com').rstrip('/')
 today=datetime.date.today().isoformat()
-pages=[('', 'daily','1.0'),('my.html','weekly','0.7'),('blog.html','weekly','0.9'),('courses.html','monthly','0.6'),
+pages=[('', 'daily','1.0'),('overseas.html','daily','0.8'),('my.html','weekly','0.7'),('blog.html','weekly','0.9'),('courses.html','monthly','0.6'),
        ('tools.html','monthly','0.6'),('guide.html','monthly','0.5'),('about.html','monthly','0.4'),('contact.html','yearly','0.3'),
        ('privacy.html','yearly','0.3'),('terms.html','yearly','0.3')]
 urls=[(BASE+'/'+p,'', cf, pr) for p,cf,pr in pages]
@@ -19,6 +19,10 @@ if os.path.exists(rp):
     for pg in json.load(open(rp,encoding='utf-8'))['pages']:
         if pg.get('indexable'):
             urls.append((BASE+'/race/'+pg['id']+'.html', pg.get('lastmod') or today, 'daily' if not pg.get('ended') else 'yearly', '0.6' if not pg.get('ended') else '0.3'))
+op=os.path.join(ROOT,'data','overseas_pages.json')
+if os.path.exists(op):
+    for pg in json.load(open(op,encoding='utf-8'))['pages']:
+        urls.append((BASE+'/overseas/'+pg['slug']+'.html', pg.get('lastmod') or today, 'weekly' if not pg.get('ended') else 'yearly', '0.6' if not pg.get('ended') else '0.3'))
 out=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for loc,lm,cf,pr in urls:
     out.append('  <url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%s</priority></url>'%(loc,lm or today,cf,pr))

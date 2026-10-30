@@ -1,0 +1,142 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>마라톤 훈련 계획 · 페이스 계산기 | Run우리</title>
+<meta name="description" content="목표 대회와 기록으로 주간 훈련표를 만들고, 페이스·완주 시간·예상 기록을 계산하세요.">
+<meta name="theme-color" content="#F6F2EA">
+<meta name="robots" content="index,follow">
+<meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="마라톤 훈련 계획 · 페이스 계산기 | Run우리"><meta property="og:description" content="목표 대회와 기록으로 주간 훈련표를 만들고, 페이스·완주 시간·예상 기록을 계산하세요."><meta property="og:image" content="assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Run우리 — 마라톤·러닝 대회 일정">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="마라톤 훈련 계획 · 페이스 계산기 | Run우리"><meta name="twitter:description" content="목표 대회와 기록으로 주간 훈련표를 만들고, 페이스·완주 시간·예상 기록을 계산하세요."><meta name="twitter:image" content="assets/icons/og-image.png">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css">
+<script src="app.js"></script></head><body>
+
+<main class="ed-wrap" id="main">
+<div style="padding:28px var(--page-x) 0"><div class="ed-label">05 — Training Plan</div><h1 class="ed-h1" style="margin:12px 0 10px">훈련 계획 · 페이스</h1><p class="ed-lede">목표 대회와 기록만 입력하면, 오늘부터 대회일까지의 주간 훈련표가 만들어져요.</p></div>
+<div style="margin-top:18px"><div class="ed-sample"><span class="ed-label">안내</span><span>자동 생성된 예시 계획이며 개인의 건강·부상 이력을 반영하지 않아요. 통증이 있으면 전문가와 상담하세요.</span></div></div>
+<div class="split">
+<div class="side" id="plan">
+<section class="ed-section" style="margin-top:32px"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">목표 대회</h2></div>
+  <select class="ed-input ed-select" id="pFav" aria-label="목표 대회"></select></section>
+<section class="ed-section" style="margin-top:28px"><div class="ed-section-head"><span class="no">02</span><h2 class="ed-h2">거리 · 날짜</h2></div>
+  <div class="ed-calc-dist" id="pDist" style="margin:0 0 12px"><button data-d="5">5K</button><button class="is-on" data-d="10">10K</button><button data-d="21.0975">하프</button><button data-d="42.195">풀</button></div>
+  <input type="date" class="ed-input" id="pDate" aria-label="대회 날짜"></section>
+<section class="ed-section" style="margin-top:28px"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">목표 기록 <span class="ed-small" style="font-family:var(--font-sans);font-weight:400">(선택)</span></h2></div>
+  <div class="ed-hms"><div class="cell"><input class="ed-input" id="gH" inputmode="numeric" placeholder="0" aria-label="시간"><span class="u">시간</span></div><div class="cell"><input class="ed-input" id="gM" inputmode="numeric" placeholder="0" aria-label="분"><span class="u">분</span></div><div class="cell"><input class="ed-input" id="gS" inputmode="numeric" placeholder="0" aria-label="초"><span class="u">초</span></div></div>
+  <p class="ed-help">입력하면 훈련 페이스를 알려드려요.</p></section>
+<section class="ed-section" style="margin-top:28px"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">러닝 수준 · 현재 거리</h2></div>
+  <div class="ed-seg" id="pLvl"><button data-l="0">입문 · 주 3회</button><button data-l="1" class="is-on">중급 · 4회</button><button data-l="2">상급 · 5회</button></div>
+  <label class="ed-field" style="margin-top:18px"><span class="ed-label">현재 주간 거리 (km)</span><input type="number" class="ed-input" id="pCur" min="0" max="120" value="15" inputmode="numeric"></label>
+  <button class="ed-btn block" id="mk" style="margin-top:28px">훈련 계획 만들기 <span class="ed-arrow">→</span></button></section>
+</div>
+<div class="main" id="planOut"></div>
+</div>
+<section class="ed-section" id="pace" style="margin-top:56px"><div class="ed-section-head major"><span class="no">08</span><h2 class="ed-h2">페이스 계산기</h2></div><div id="paceBox" style="max-width:640px"></div>
+  <p class="ed-small" style="margin-top:20px">※ 훈련 강도와 거리는 예시이며 개인 컨디션에 맞게 조절하세요.</p></section>
+</main>
+<script>
+layout('tools');
+RACES_READY.then(()=>{
+const CFG={5:{peak:32,long:10,ideal:8,min:4,taper:1,qt:'인터벌',qd:'400m × 6~8회, 사이 90초 조깅',qk:'INTERVAL'},10:{peak:42,long:16,ideal:10,min:5,taper:1,qt:'템포런',qd:'15~25분 템포 구간 + 워밍업·쿨다운',qk:'TEMPO'},
+ 21.0975:{peak:55,long:21,ideal:12,min:8,taper:2,qt:'템포런',qd:'20~35분 템포 구간 + 워밍업·쿨다운',qk:'TEMPO'},42.195:{peak:70,long:32,ideal:16,min:12,taper:3,qt:'마라톤 페이스런',qd:'8~16km 대회 페이스 구간',qk:'TEMPO'}};
+const LV=[{f:.7,runs:3},{f:1,runs:4},{f:1.25,runs:5}];
+const PAT={3:{1:'E',3:'Q',6:'L'},4:{1:'E',2:'Q',4:'E',6:'L'},5:{0:'E',1:'Q',3:'E',4:'E',6:'L'}}, CROSS={3:2,4:3,5:2};
+const DOW=['월','화','수','목','금','토','일'];
+const GRP={'기초':'기초','빌드업':'강화','강화':'강화','회복주':'강화','테이퍼링':'테이퍼','대회주':'대회'}, GORD=['기초','강화','테이퍼','대회'];
+let P=null, cur=0, dist=10, lvl=1;
+function monday(d){ const x=new Date(d); x.setDate(x.getDate()-((x.getDay()+6)%7)); return x; }
+const r1=x=>Math.max(1,Math.round(x));
+const t0=today(); $('#pDate').min=iso(t0);
+function goalSec(){ return (+$('#gH').value||0)*3600+(+$('#gM').value||0)*60+(+$('#gS').value||0); }
+(function(){ const R=allRaces().filter(r=>r.d>0).sort((a,b)=>a.d-b.d); const f=R.filter(r=>favs.has(r.id)), o=R.filter(r=>!favs.has(r.id));
+  const opt=r=>`<option value="${r.date}">${favs.has(r.id)?'[저장] ':''}${esc(r.name)} · ${fmtShort(r.dt)} · ${ddayText(r.d)}</option>`;
+  $('#pFav').innerHTML='<option value="">직접 입력 (아래에서 날짜 선택)</option>'+(f.length?`<optgroup label="내 관심 대회">${f.map(opt).join('')}</optgroup>`:'')+`<optgroup label="다가오는 대회">${o.map(opt).join('')}</optgroup>`;
+  $('#pFav').onchange=e=>{ if(e.target.value) $('#pDate').value=e.target.value; }; })();
+{ const qd=new URLSearchParams(location.search).get('date'); const d=qd?pd(qd):new Date(+t0+84*DAY); $('#pDate').value=iso(d); if(qd) $('#pFav').value=qd; }
+$('#pDist').addEventListener('click',e=>{ const b=e.target.closest('[data-d]'); if(!b) return; $$('#pDist button').forEach(x=>x.classList.toggle('is-on',x===b)); dist=+b.dataset.d; });
+$('#pLvl').addEventListener('click',e=>{ const b=e.target.closest('[data-l]'); if(!b) return; $$('#pLvl button').forEach(x=>x.classList.toggle('is-on',x===b)); lvl=+b.dataset.l; });
+
+function buildPlan(){
+  const cfg=CFG[dist], lv=LV[lvl], race=pd($('#pDate').value), curKm=Math.max(0,+$('#pCur').value||0);
+  if(!race||race<=t0) return null;
+  const raceMon=monday(race), thisMon=monday(t0); let N=Math.min(Math.round((raceMon-thisMon)/(7*DAY))+1,24);
+  const peak=cfg.peak*lv.f, base=Math.max(curKm,Math.min(peak*.4,curKm||peak*.4)), peakLong=Math.min(cfg.long*(lv.f<1?.8:1),cfg.long*(lv.f>1?1.05:1));
+  const warn=[]; if(N<cfg.min) warn.push(`대회까지 ${N}주뿐이라 권장 준비 기간(${dname(dist)} 약 ${cfg.ideal}주)보다 짧아요. 무리한 증량은 피하고 완주 중심으로 준비하세요.`);
+  if(curKm>=peak) warn.push('현재 주간 거리가 이 수준의 목표 최대치 이상이에요. 증량보다 질 좋은 훈련과 회복에 집중하세요.');
+  const taper=Math.min(cfg.taper,Math.max(1,N-2)), buildN=Math.max(1,N-taper-1), baseWeeks=Math.max(0,N-cfg.ideal-taper-1);
+  const g=goalSec(); let paces=null;
+  if(g>0){ const rp=g/dist, t10=g*Math.pow(10/dist,1.06)/10; paces={goal:rp,easy:[rp+(dist>=21?65:50),rp+(dist>=21?90:75)],tempo:t10+10}; }
+  const weeks=[];
+  for(let i=0;i<N;i++){
+    const ws=new Date(+raceMon-(N-1-i)*7*DAY), we=new Date(+ws+6*DAY); let phase,vol,long,note='';
+    if(i===N-1){ phase='대회주'; weeks.push({i,ws,we,phase,race:true,note:'가볍게 몸을 풀고 컨디션을 지키는 주'}); continue; }
+    if(i>=N-1-taper){ const k=N-1-i; vol=peak*(k===1?.6:k===2?.75:.85); phase='테이퍼링'; long=Math.min(peakLong*(k===1?.45:.65),vol*.4); note='거리를 줄여 피로를 빼는 주. 강도는 짧게 유지하세요.'; }
+    else if(i<baseWeeks){ phase='기초'; vol=base*(1+.04*i); long=Math.min(vol*.35,peakLong*.5); note='부상 방지를 위해 쉬운 강도로 습관 만들기.'; }
+    else { const j=i-baseWeeks, n=Math.max(1,buildN-baseWeeks), ratio=n>1?Math.min(1,j/(n-1)):1; vol=base+(peak-base)*ratio; phase=ratio>.7?'강화':'빌드업'; long=Math.min(vol*.36,peakLong*(.5+.5*ratio));
+      if((j+1)%4===0&&ratio<1){ vol*=.8; long*=.8; phase='회복주'; note='증량 후 쉬어 가는 주 (약 20% 감소).'; } }
+    weeks.push({i,ws,we,phase,vol:r1(vol),long:r1(long),note});
+  }
+  return {dist,cfg,lv,race,N,weeks,warn,paces,peak};
+}
+function weekDays(P,w){
+  const {cfg,lv,paces,race,dist}=P, runs=lv.runs, days=[];
+  const easyTxt=paces?`${fmtPace(paces.easy[0])}~${fmtPace(paces.easy[1])}/km · 대화 가능한 강도`:'대화가 가능한 편안한 강도';
+  const mk=(t,km,desc,k)=>({t,km,desc,k});
+  const rest=()=>mk('휴식',0,'완전 휴식','REST');
+  if(w.race){
+    const ri=(race.getDay()+6)%7;
+    for(let k=0;k<7;k++){ let d=rest();
+      if(k===ri) d=mk('대회 당일',dist,`${dname(dist)} · ${fmtFull(race)}${paces?' · 목표 페이스 '+fmtPace(paces.goal)+'/km':''}`,'RACE');
+      else if(k===ri-1) d=mk('휴식',0,'탄수화물 섭취 · 일찍 취침 · 장비·배번 확인','REST');
+      else if((k===1||k===3)&&k<ri-1) d=mk('가벼운 조깅',Math.min(5,Math.max(3,r1(cfg.peak*lv.f*.08))),easyTxt,'EASY');
+      else if(k>ri) d=mk('회복',0,'가벼운 걷기·스트레칭','REST');
+      days.push(d); } return days; }
+  const soft=(w.phase==='기초'||w.phase==='회복주'), pat=PAT[runs], cross=CROSS[runs];
+  const nE=Object.values(pat).filter(x=>x==='E').length+(soft?1:0), each=r1((w.vol-w.long)/(nE+(soft?0:1)));
+  for(let k=0;k<7;k++){ const s=pat[k];
+    if(s==='E'||(s==='Q'&&soft)) days.push(mk('이지런',each,easyTxt,'EASY'));
+    else if(s==='Q'){ const tp=paces?` @ ${fmtPace(paces.tempo)}/km`:''; days.push(w.phase==='테이퍼링'?mk('짧은 템포',each,`템포 구간 2~3km${tp}`,'TEMPO'):mk(cfg.qt,each,cfg.qd+tp,cfg.qk)); }
+    else if(s==='L') days.push(mk('장거리',w.long,paces?`${fmtPace(paces.easy[1])}/km 이하 · 천천히 오래`:'천천히 오래, 대화 가능한 속도','LONG'));
+    else if(k===cross) days.push(mk('크로스트레이닝',0,'휴식 또는 근력·스트레칭 30분','CROSS'));
+    else days.push(rest()); }
+  return days;
+}
+const wkTotal=(P,w)=>Math.round(weekDays(P,w).reduce((a,d)=>a+d.km,0)*10)/10;
+function renderPlan(){
+  const out=$('#planOut');
+  if(!P){ out.innerHTML='<section class="ed-section"><div class="ed-empty">오늘 이후의 대회 날짜를 선택해 주세요.</div></section>'; return; }
+  const tot=P.weeks.map(w=>wkTotal(P,w)), mx=Math.max(...tot);
+  const cnt={}; P.weeks.forEach(w=>{const g=GRP[w.phase]; cnt[g]=(cnt[g]||0)+1;});
+  const groups=GORD.filter(g=>cnt[g]);
+  const w=P.weeks[cur], days=weekDays(P,w), sum=wkTotal(P,w), nr=days.filter(d=>d.km>0).length, pc=P.paces;
+  out.innerHTML=`
+  <section class="ed-section" id="result" style="margin-top:32px"><div class="ed-section-head major"><span class="no">05</span><h2 class="ed-h2">계획 요약</h2></div>
+    ${P.warn.map(m=>`<p class="ed-note">${m}</p>`).join('')}
+    <dl class="ed-dl" style="margin:0"><dt>목표 거리</dt><dd class="serif">${dname(P.dist)}</dd><dt>대회</dt><dd class="serif">${fmtFull(P.race)}</dd><dt>대회까지</dt><dd class="serif">${ddayText(diff(P.race,t0))} · ${P.N}주</dd><dt>최대 주간 거리</dt><dd class="serif">${Math.round(mx)}km</dd><dt>목표 페이스</dt><dd class="serif">${pc?fmtPace(pc.goal)+'/km':'–'}</dd></dl></section>
+  <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">06</span><h2 class="ed-h2">주차별 계획</h2></div>
+    <div class="ed-phase" style="grid-template-columns:${groups.map(g=>cnt[g]+'fr').join(' ')}">${groups.map(g=>`<div data-p="${g}" class="${GRP[w.phase]===g?'is-on':''}"><i></i>${g}</div>`).join('')}</div>
+    <div class="ed-weeks" id="weeks">${P.weeks.map((x,i)=>`<button class="${i===0?'now':''} ${i===cur?'is-on':''}" data-w="${i}" aria-label="${i+1}주차">${i+1}<small>${x.ws.getMonth()+1}.${x.ws.getDate()}</small></button>`).join('')}</div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin:20px 0 4px"><h3 class="ed-h2" id="wtitle">${cur+1}주차 · ${w.phase}</h3><span class="ed-small ed-tab-num">${fmtShort(w.ws)}~${fmtShort(w.we)} · 주간 ${sum}km · 러닝 ${nr}회</span></div>
+    ${w.note?`<p class="ed-small" style="margin-bottom:10px">${w.note}</p>`:''}
+    <div id="days" style="border-top:1px solid var(--ink)">${days.map((x,i)=>{ const dt=new Date(+w.ws+i*DAY), isT=iso(dt)===iso(t0);
+      return `<div class="ed-day ${x.km===0?'rest':''} ${isT?'is-today':''} ${x.k==='RACE'?'is-race':''}"><div class="d"><b>${DOW[i]}</b><small>${p2(dt.getMonth()+1)}.${p2(dt.getDate())}</small></div><div class="w"><span class="kind" style="margin:0">${x.k}${isT?' · 오늘':''}</span><b>${x.t}</b><span>${x.desc}</span></div><div class="km">${x.km?`${x.km}<small>km</small>`:'–'}</div></div>`; }).join('')}</div></section>
+  <section class="ed-section"><div class="ed-section-head"><span class="no">07</span><h2 class="ed-h2">주간 거리 추이</h2></div>
+    <div class="ed-vol" id="bars">${tot.map((k,i)=>`<div class="${i===cur?'is-on':''}${i===P.N-1?' race':''}"><span>${Math.round(k)}</span><i style="height:${Math.max(4,Math.round(k/mx*70))}px"></i></div>`).join('')}</div><div class="ed-vol-x">${tot.map((k,i)=>`<span>${i+1}</span>`).join('')}</div>
+    <p class="ed-small" style="margin-top:10px">회복주는 거리를 줄였어요. 가로축은 주차.</p></section>
+  <section class="ed-section"><div class="ed-section-head"><span class="no">—</span><h2 class="ed-h2">훈련 페이스 가이드</h2></div>
+    <table class="ed-table"><thead><tr><th>종류</th><th>페이스 (1km)</th></tr></thead><tbody><tr><td>대회 목표</td><td>${pc?fmtPace(pc.goal):'–'}</td></tr><tr><td>이지런 · 장거리</td><td>${pc?fmtPace(pc.easy[0])+' ~ '+fmtPace(pc.easy[1]):'–'}</td></tr><tr><td>템포런 참고</td><td>${pc?fmtPace(pc.tempo):'–'}</td></tr></tbody></table>
+    ${pc?'':'<p class="ed-small" style="margin-top:8px">목표 기록을 입력하면 계산돼요.</p>'}</section>`;
+}
+function make(scroll){ P=buildPlan(); cur=0; if(!P&&scroll) toast('오늘 이후 대회 날짜를 선택해 주세요'); renderPlan(); if(P&&scroll) $('#result').scrollIntoView({behavior:'smooth',block:'start'}); }
+$('#mk').onclick=()=>make(true);
+$('#planOut').addEventListener('click',e=>{ const b=e.target.closest('[data-w]'); if(!b) return; cur=+b.dataset.w; renderPlan(); const el=$(`#weeks [data-w="${cur}"]`); const wk=$('#weeks'); if(el&&wk) wk.scrollLeft=Math.max(0,el.offsetLeft-wk.clientWidth/2+22); });
+bindFav();
+$('#paceBox').innerHTML=paceCalcHtml({mode:true,splits:true}); initPace($('#paceBox'));
+make(false);
+if(location.hash) { const el=document.querySelector(location.hash); if(el) el.scrollIntoView(); }
+
+});
+</script></body></html>

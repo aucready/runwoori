@@ -1,0 +1,65 @@
+/* ==========================================================================
+   Run우리 v2 — 디자인 토큰 (design-tokens.css)
+   차분한 종이색 바탕 + 잉크 + 단 하나의 포인트 컬러(트랙 레드).
+   포인트 컬러는 "마감임박 / 저장됨 / 오늘 / 현재 위치" 에만 씁니다.
+   ========================================================================== */
+
+/* 폰트: 본문·UI = Pretendard Variable, 제목·큰 숫자 = Noto Serif KR */
+
+:root {
+  /* ── 폰트 ── */
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+               "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  --font-serif: "Noto Serif KR", "Nanum Myeongjo", "Apple Myungjo", "AppleMyungjo", Batang, serif;
+
+  /* 크기 / 행간 (모바일) */
+  --fs-display: 34px;  --lh-display: 1.24;   /* 서체: serif 600 */
+  --fs-h1: 28px;       --lh-h1: 1.28;        /* serif 600 */
+  --fs-h2: 21px;       --lh-h2: 1.35;        /* serif 600 */
+  --fs-h3: 17px;       --lh-h3: 1.4;         /* serif 600 */
+  --fs-body: 15px;     --lh-body: 1.7;       /* sans 400 */
+  --fs-sm: 13px;       --lh-sm: 1.6;
+  --fs-label: 11px;    --ls-label: .14em;    /* 영문 대문자 라벨 */
+  --fs-num-xl: 88px;   /* 목표 대회 D-day */
+  --fs-num-lg: 40px;   /* 통계·페이스 결과 */
+  --fs-num-md: 24px;   /* 목록의 D-day */
+  --ls-head: -0.015em;
+
+  /* ── 색: 종이 · 잉크 ── */
+  --paper:   #F6F2EA;   /* 바탕 */
+  --paper-2: #EFE9DD;   /* 살짝 진한 면 (입력/선택/지도 바탕) */
+  --paper-3: #E5DECE;
+  --ink:     #1C1B18;   /* 제목·본문 */
+  --ink-2:   #47443D;   /* 보조 본문 */
+  --ink-3:   #6B675E;   /* 캡션 (바탕 대비 5:1) */
+  --ink-4:   #A8A398;   /* 비활성 */
+  --rule:    #D8D1C2;   /* 얇은 구분선 */
+  --rule-soft: #E6E0D2;
+  --rule-ink:  #1C1B18; /* 굵은 구분선(섹션 상단) */
+
+  /* ── 포인트 (단 하나) ── */
+  --accent:      #B5432A;  /* 트랙 레드 */
+  --accent-deep: #9A3620;  /* 눌림 */
+  --accent-wash: #EED9CE;  /* 아주 연한 면 (선택 표시) */
+
+  /* ── 상태: 색 대신 모양+글자로 구분 ── */
+  --st-open:   var(--ink);      /* ● 접수중 */
+  --st-urgent: var(--accent);   /* ● 마감임박 */
+  --st-soon:   var(--ink-2);    /* ○ 접수예정 */
+  --st-closed: var(--ink-3);    /* ○ 마감 */
+
+  /* ── 간격 ── */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px;
+  --sp-8: 32px; --sp-10: 40px; --sp-12: 48px; --sp-16: 64px;
+  --page-x: 20px;
+  --tap: 44px;
+
+  /* ── 모서리 / 선 / 그림자 ── */
+  --r-0: 0; --r-1: 2px; --r-2: 4px; --r-round: 50%;
+  --line: 1px; --line-bold: 2px;
+  --shadow-lift: 0 1px 0 rgba(28,27,24,.04), 0 8px 24px -12px rgba(28,27,24,.25);  /* 거의 안 씀 */
+
+  /* ── 모션 ── */
+  --ease: cubic-bezier(.25,.6,.2,1);
+  --dur: 180ms;
+}

@@ -1,0 +1,51 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>러닝 가이드 글 | Run우리</title>
+<meta name="description" content="Run우리 러닝 가이드 글. 훈련 계획, 부상 예방, 대회 준비 정보.">
+<meta name="theme-color" content="#F6F2EA">
+<meta name="robots" content="index,follow">
+<meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="러닝 가이드 글 | Run우리"><meta property="og:description" content="Run우리 러닝 가이드 글. 훈련 계획, 부상 예방, 대회 준비 정보."><meta property="og:image" content="assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Run우리 — 마라톤·러닝 대회 일정">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="러닝 가이드 글 | Run우리"><meta name="twitter:description" content="Run우리 러닝 가이드 글. 훈련 계획, 부상 예방, 대회 준비 정보."><meta name="twitter:image" content="assets/icons/og-image.png">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css">
+<script src="app.js"></script></head><body>
+
+<main class="ed-wrap" id="main"><div id="view" aria-live="polite"><div class="ed-empty" style="margin:40px var(--page-x)">불러오는 중…</div></div></main>
+<script>
+layout('blog');
+(function(){
+  const id=new URLSearchParams(location.search).get('id'), view=$('#view');
+  const notFound=()=>{ document.title=`글을 찾을 수 없어요 | ${SITE.name}`; view.innerHTML='<div style="padding:40px var(--page-x)"><div class="ed-label">러닝 가이드</div><h1 class="ed-h1" style="margin:12px 0 10px">글을 찾을 수 없어요</h1><p class="ed-lede">주소가 바뀌었거나 없는 글이에요. 목록에서 다시 찾아보세요.</p><p style="margin-top:22px"><a class="ed-btn" href="blog.html">러닝 가이드 목록 <span class="ed-arrow">→</span></a></p></div>'; };
+  if(!id||!/^[a-z0-9-]+$/.test(id)) return notFound();
+  Promise.all([loadBlogIndex(), fetch('data/blog/'+id+'.json').then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })]).then(([IDX,P])=>{
+    const i=IDX.posts.findIndex(p=>p.id===id), prev=IDX.posts[i-1], next=IDX.posts[i+1];
+    const same=IDX.posts.filter(p=>p.level===P.level&&p.id!==id).slice(0,3);
+    document.title=`${P.title} | ${SITE.name} 러닝 가이드`;
+    const setMeta=(sel,v)=>{ const m=$(sel); if(m) m.setAttribute('content',v); };
+    setMeta('meta[name=description]',P.summary); setMeta('meta[property="og:title"]',document.title); setMeta('meta[property="og:description"]',P.summary); setMeta('meta[name="twitter:title"]',document.title); setMeta('meta[name="twitter:description"]',P.summary);
+    view.innerHTML=`
+    <article class="ed-post">
+      <div class="ed-post-top"><a class="ed-link ed-small" href="blog.html?level=${encodeURIComponent(P.level)}">← 러닝 가이드 · ${esc(P.level)}</a></div>
+      <header class="ed-post-head">
+        <div class="ed-label accent">${esc(P.level)}${sep}읽는 시간 ${P.minutes}분</div>
+        <h1 class="ed-h1 ed-post-title">${esc(P.title)}</h1>
+        <p class="ed-lede">${esc(P.summary)}</p>
+      </header>
+      <div class="ed-prose">${P.html}</div>
+      <p class="ed-note ed-post-note">이 글은 일반적인 참고 정보이며 개인의 건강 상태에 맞춘 처방이 아니에요. 훈련 계획과 페이스, 심박 수치는 사람마다 크게 다를 수 있어요. 가슴 통증, 어지러움, 지속되는 통증이나 지병이 있다면 시작하기 전에 의사와 상담하세요.</p>
+      <nav class="ed-post-nav" aria-label="이전·다음 글">
+        ${prev?`<a href="post.html?id=${encodeURIComponent(prev.id)}" rel="prev"><span class="ed-label">이전 글</span><b>${esc(prev.title)}</b></a>`:'<span></span>'}
+        ${next?`<a href="post.html?id=${encodeURIComponent(next.id)}" rel="next"><span class="ed-label">다음 글</span><b>${esc(next.title)}</b></a>`:'<span></span>'}
+      </nav>
+    </article>
+    ${same.length?`<section class="ed-section ed-post-more"><div class="ed-section-head"><h2 class="ed-h2">${esc(P.level)} 글 더 보기</h2><a class="ed-link" href="blog.html?level=${encodeURIComponent(P.level)}">전체 보기 →</a></div><div class="ed-list" style="border-top:0">${same.map(p=>blogRow(p)).join('')}</div></section>`:''}`;
+    const ld={'@context':'https://schema.org','@type':'Article',headline:P.title,description:P.summary,inLanguage:'ko',articleSection:P.level,publisher:{'@type':'Organization',name:SITE.name}};
+    const sc=document.createElement('script'); sc.type='application/ld+json'; sc.textContent=JSON.stringify(ld); document.head.appendChild(sc);
+    if(location.hash){ const h=document.getElementById(location.hash.slice(1)); if(h) h.scrollIntoView(); }
+  }).catch(notFound);
+})();
+</script></body></html>

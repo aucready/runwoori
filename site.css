@@ -1,0 +1,182 @@
+/* Run우리 v3 사이트 레이어 — 에디토리얼 시안(ed- 컴포넌트)을 실제 사이트/데스크톱으로 확장 */
+body{margin:0;padding-bottom:78px}
+.ed-wrap{max-width:1080px;margin:0 auto;width:100%}
+.ed-mast{padding:0}
+.ed-mast>.ed-wrap{padding:10px var(--page-x) 0}
+.ed-mast-nav{display:none}
+.ed-mast-links a.is-on,.ed-mast-nav a.is-on{color:var(--ink);font-weight:700}
+.ed-tabbar{position:fixed;left:0;right:0;bottom:0}
+.ed-tabbar .n[hidden]{display:none}
+.ed-status.info{color:var(--ink-3)}
+.ed-status.info::before{background:none;box-shadow:inset 0 0 0 1.5px currentColor;border-radius:1px;transform:rotate(45deg) scale(.85)}
+.ed-cal-day .m i.info{background:none;box-shadow:inset 0 0 0 1.2px var(--ink-3);border-radius:1px}
+.ed-cal-day.today{border-color:var(--accent)}
+.ed-cal-day:disabled{opacity:1}
+.ed-race-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ed-tag.sample{border-style:dashed;color:var(--ink-3)}
+.ed-hero{display:block}
+.ed-plate{position:relative;aspect-ratio:390/250;background:var(--paper-2);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);overflow:hidden}
+.ed-plate svg.lanes{position:absolute;inset:0;width:100%;height:100%}
+.ed-plate .cap{position:absolute;left:var(--page-x);bottom:16px;right:var(--page-x)}
+.ed-plate .cap .big{font-family:var(--font-serif);font-size:64px;line-height:1;font-weight:400;letter-spacing:-.06em;font-variant-numeric:tabular-nums}
+.ed-plate .cap .nm{font-family:var(--font-serif);font-size:16px;font-weight:600;margin-top:6px;letter-spacing:-.01em}
+.ed-hero-text{padding:26px var(--page-x) 0}
+.ed-cols{display:block}
+.ed-sheet-bg{position:fixed;inset:0;background:rgba(28,27,24,.5);display:none;align-items:flex-end;justify-content:center;z-index:100}
+.ed-sheet-bg.show{display:flex}
+.ed-sheet{background:var(--paper);width:100%;max-width:640px;border-top:2px solid var(--ink);padding:20px 22px 34px;max-height:88vh;overflow:auto}
+.ed-sheet ul{padding-left:18px;margin:14px 0}.ed-sheet li{margin:8px 0;color:var(--ink-2)}
+.ed-sheet-x{float:right;background:none;border:0;font-size:13px;cursor:pointer;color:var(--ink-3);padding:4px 0}
+.ed-toastwrap{position:fixed;left:0;right:0;bottom:88px;display:flex;justify-content:center;pointer-events:none;z-index:200;opacity:0;transform:translateY(10px);transition:.25s}
+.ed-toastwrap.show{opacity:1;transform:none}
+.ed-note{border-left:2px solid var(--ink);padding:4px 0 4px 12px;font-size:13px;color:var(--ink-2);margin:0 0 10px}
+.ed-footer{padding:48px var(--page-x) 12px}
+.ed-guide{width:100%;background:none;border-top:0;border-left:0;border-right:0;text-align:left;cursor:pointer;color:inherit;font-family:inherit}
+.ed-guide:hover{padding-left:6px}
+.ed-picker{display:grid;gap:18px}
+.ed-dates{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ed-chiprow{display:flex;gap:18px;flex-wrap:wrap;margin-top:6px}
+.ed-chiprow button{background:none;border:0;border-bottom:1px solid var(--rule);padding:6px 0;font-size:13.5px;color:var(--ink-2);cursor:pointer}
+.ed-chiprow button:hover{color:var(--ink);border-color:var(--ink)}
+.ed-sp{height:18px}
+.ed-searchrow{display:flex;gap:12px;align-items:center}
+.ed-vol div i{width:60%;max-width:8px}
+.ed-pc-km{margin-top:6px}
+.ed-bookmark.sq{margin:0}
+@media(min-width:900px){
+  :root{--page-x:40px}
+  body{padding-bottom:0}
+  .ed-tabbar{display:none}
+  .ed-mast-row{align-items:center}
+  .ed-mast-nav{display:flex;gap:28px;font-size:14.5px;color:var(--ink-2);font-weight:500}
+  .ed-mast-nav a{padding:4px 0;border-bottom:2px solid transparent}
+  .ed-mast-nav a:hover{color:var(--ink)}
+  .ed-mast-nav a.is-on{border-color:var(--ink)}
+  .ed-mast-links{display:none}
+  .ed-hero{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;align-items:stretch;padding:0 var(--page-x)}
+  .ed-hero .ed-plate{order:2;aspect-ratio:auto;min-height:340px;border:1px solid var(--ink);margin-top:32px}
+  .ed-hero .ed-plate .cap{left:24px;right:24px}
+  .ed-hero-text{padding:36px 0 0;align-self:center}
+  .ed-hero-text .ed-display{font-size:46px}
+  .ed-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;padding:0 var(--page-x)}
+  .ed-cols>.ed-section{padding:0}
+  .ed-list.two{display:grid;grid-template-columns:1fr 1fr;column-gap:48px}
+  .ed-figure b{font-size:44px}
+  .ed-sheet-bg{align-items:center}
+  .ed-sheet{border:1px solid var(--ink);border-top-width:2px}
+  .ed-toastwrap{bottom:32px}
+  .split{display:grid;grid-template-columns:400px minmax(0,1fr);gap:0 56px;padding:0 var(--page-x);align-items:start}
+  .split>.side{position:sticky;top:96px}
+  .split .ed-section{padding:0}
+  .ed-weeks,.ed-filter-row{margin-left:0;margin-right:0;padding-left:0;padding-right:0}
+  .ed-guide-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:48px}
+  .ed-course-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:48px}
+  .ed-course.is-on::before{left:-14px}
+  .ed-day.is-today{margin:0 -12px;padding-left:12px;padding-right:12px}
+  .ed-map{height:380px}
+}
+@media(min-width:900px){ .split .side>div[style*="padding"]{padding-left:0!important;padding-right:0!important} .split .side .ed-section{margin-top:28px} }
+@media(min-width:900px){ .ed-map{margin:0 var(--page-x)} .ed-sample{margin:0 var(--page-x);padding-left:0;padding-right:0} }
+
+/* ── v4 추가 ── */
+.skip-link{position:absolute;left:12px;top:-60px;z-index:2000;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:2px;font-weight:600;font-size:14px}
+.skip-link:focus{top:10px;outline:2px solid var(--accent);outline-offset:2px}
+.row-link{color:inherit;text-decoration:none} .row-link:hover{text-decoration:underline;text-underline-offset:3px}
+.row-link:focus-visible,.ed-link:focus-visible,.ed-mast-nav a:focus-visible,.ed-tabbar a:focus-visible,.ed-wordmark:focus-visible,.ed-guide:focus-visible,.ed-course:focus-visible,.ed-cal-day:focus-visible,.ed-weeks button:focus-visible,.ed-seg button:focus-visible,.ed-calc-dist button:focus-visible,.ed-textbtn:focus-visible,.ed-sheet button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ed-textbtn{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}
+.muted{color:var(--ink-3);font-weight:400}
+.ed-more{padding:18px 0;text-align:center}
+.ed-savebtn .on{display:none}.ed-savebtn.is-on .on{display:inline}.ed-savebtn.is-on .off{display:none}
+.ed-savebtn.is-on{border-color:var(--accent);color:var(--accent)}
+.ed-status.closed{color:var(--ink-3)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* 터치 대상 최소 크기 */
+.ed-mast-links .ed-link,.ed-section-head .ed-link{display:inline-block;line-height:26px;min-width:28px;text-align:center}
+.ed-calc-dist button,.ed-filter-row button{min-width:36px}
+.ed-calc-dist button{padding-left:6px;padding-right:6px}
+/* 대비(WCAG AA) 보정: 읽는 글자에는 ink-4(2.2:1) 대신 ink-3(5:1) */
+.ed-filter button .c,.ed-input::placeholder,.ed-search input::placeholder,.ed-weeks button,.ed-weeks button small,.ed-day.rest .km,.ed-dday.past{color:var(--ink-3)}
+.ed-weeks button.is-on{color:var(--ink)}
+.ed-day.is-today .d small,.ed-day.is-today .w b,.ed-day.is-today .w span{color:var(--ink-2)}
+.ed-day.is-today .w .kind{color:var(--accent-deep)}
+@media(min-width:900px){ .ed-filter[style*="padding:0 var(--page-x)"]{padding:0!important;margin-left:var(--page-x);margin-right:var(--page-x)} }
+@media(min-width:900px){ .split .ed-filter-row{flex-wrap:wrap;gap:0 18px;overflow:visible} }
+.fold-btn{display:none;width:100%;margin-top:14px;min-height:44px}
+@media(max-width:899px){ .fold-btn{display:inline-flex} .side:not(.open) #filters,.side:not(.open) #calwrap{display:none} .split .main{margin-top:28px!important} }
+.ed-sample .ed-label{color:var(--ink-2)}
+#sortBtn{text-decoration:underline;text-underline-offset:3px;margin-left:8px;min-height:24px;color:var(--ink-2)}
+
+/* ── v8 러닝 가이드(블로그) ── */
+.ed-post{padding:0 var(--page-x)}
+.ed-post-top{padding-top:24px}
+.ed-post-head,.ed-prose,.ed-post-note,.ed-post-nav,.ed-post-top{max-width:680px;margin-left:auto;margin-right:auto}
+.ed-post-head{padding-top:18px;padding-bottom:22px;border-bottom:var(--line-bold) solid var(--ink)}
+.ed-post-title{margin:12px 0 12px;word-break:keep-all;text-wrap:balance}
+.ed-prose{padding-top:6px;word-break:keep-all;overflow-wrap:break-word}
+.ed-prose h2{font-family:var(--font-serif);font-size:var(--fs-h2);line-height:var(--lh-h2);font-weight:600;letter-spacing:var(--ls-head);margin:38px 0 12px;padding-top:18px;border-top:var(--line) solid var(--rule)}
+.ed-prose h2:first-child{border-top:0;padding-top:12px;margin-top:20px}
+.ed-prose h3{font-family:var(--font-serif);font-size:var(--fs-h3);line-height:var(--lh-h3);font-weight:600;margin:24px 0 8px}
+.ed-prose p{font-size:16px;line-height:1.9;color:var(--ink);margin:0 0 14px}
+.ed-prose ul,.ed-prose ol{margin:4px 0 16px;padding-left:22px}
+.ed-prose li{font-size:16px;line-height:1.8;color:var(--ink-2);margin:7px 0;padding-left:2px}
+.ed-prose li::marker{color:var(--ink-3)}
+.ed-post-note{margin-top:36px;margin-bottom:0;line-height:1.75}
+.ed-post-nav{display:grid;grid-template-columns:1fr;gap:0;margin-top:36px;border-top:var(--line) solid var(--ink)}
+.ed-post-nav a,.ed-post-nav span{display:block}
+.ed-post-nav a{padding:16px 0;border-bottom:var(--line) solid var(--rule);color:inherit;text-decoration:none}
+.ed-post-nav a:hover b{text-decoration:underline;text-underline-offset:3px}
+.ed-post-nav a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ed-post-nav b{display:block;font-family:var(--font-serif);font-size:15.5px;font-weight:600;line-height:1.5;margin-top:6px;word-break:keep-all}
+.ed-post-more{margin-top:44px}
+.ed-post-row h3,.ed-guide h3{word-break:keep-all}
+@media(min-width:900px){
+  .ed-post-nav{grid-template-columns:1fr 1fr;column-gap:40px}
+  .ed-post-nav a:nth-child(2){text-align:right}
+  .ed-prose p,.ed-prose li{font-size:16.5px}
+  .ed-post-more{padding:0}
+}
+
+/* ── v9 레이아웃: 하단 탭바(모바일 ≤640) · 상단 메뉴(≥641) · 홈 모바일 순서 ── */
+.ed-tabbar{grid-template-columns:repeat(4,1fr);padding:0 4px calc(8px + env(safe-area-inset-bottom));z-index:60}
+.ed-tabbar a{min-height:52px;justify-content:center;padding:6px 0 2px}
+body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+.ed-toastwrap{bottom:calc(88px + env(safe-area-inset-bottom))}
+@media(min-width:641px){
+  body{padding-bottom:0}
+  .ed-tabbar{display:none}
+  .ed-mast-row{align-items:center}
+  .ed-mast-nav{display:flex;gap:24px;font-size:14.5px;color:var(--ink-2);font-weight:500}
+  .ed-mast-nav a{padding:4px 0;border-bottom:2px solid transparent}
+  .ed-mast-nav a:hover{color:var(--ink)}
+  .ed-mast-nav a.is-on{border-color:var(--ink)}
+  .ed-mast-links{display:none}
+  .ed-toastwrap{bottom:32px}
+  .home-week{display:none}
+}
+@media(min-width:900px){ .ed-mast-nav{gap:28px} }
+/* 홈 탭 목록 */
+#raceSec .ed-filter{margin-top:0}
+#upcoming:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+#raceTabs button[aria-selected=true]{color:var(--ink);font-weight:700}
+/* 이번 주 대회(모바일 전용, 컴팩트) */
+.ed-wk-list{border-top:0}
+.ed-wk{display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:var(--line) solid var(--rule);color:inherit;text-decoration:none}
+.ed-wk:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ed-wk .dt{white-space:nowrap;font-family:var(--font-serif);font-size:21px;line-height:1.1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ed-wk .dt small{display:block;font-family:var(--font-sans);font-size:11.5px;letter-spacing:0;color:var(--ink-3);margin-top:2px}
+.ed-wk .bd b{display:block;font-size:14.5px;font-weight:600;line-height:1.4;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ed-wk .bd .ed-meta{display:block;margin-top:2px;font-size:12.5px}
+.ed-wk .st{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.ed-wk .st .ed-dday{font-size:15px}
+@media(max-width:640px){
+  .home-flow{display:flex;flex-direction:column}
+  .home-flow>*{order:5}
+  .home-flow .ed-hero{display:contents}
+  .home-flow #heroText{order:1;padding:22px var(--page-x) 0}
+  .home-flow #heroText .ed-display{font-size:30px;margin:10px 0 0!important}
+  .home-flow #heroText .ed-lede{display:none}
+  .home-flow #heroText .ed-search{margin-top:14px!important}
+  .home-flow #weekSec{order:2;margin-top:26px}
+  .home-flow #figSec{order:3}
+  .home-flow #plate{order:4;margin-top:var(--sp-12)}
+}

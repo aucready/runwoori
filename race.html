@@ -1,0 +1,69 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>마라톤 대회 상세 · 일정·참가비·접수 | Run우리</title>
+<meta name="description" content="대회 일정, 장소, 접수 기간, 종목별 참가비와 공식 홈페이지 링크.">
+<meta name="theme-color" content="#F6F2EA">
+<meta name="robots" content="index,follow">
+<meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="마라톤 대회 상세 · 일정·참가비·접수 | Run우리"><meta property="og:description" content="대회 일정, 장소, 접수 기간, 종목별 참가비와 공식 홈페이지 링크."><meta property="og:image" content="assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Run우리 — 마라톤·러닝 대회 일정">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="마라톤 대회 상세 · 일정·참가비·접수 | Run우리"><meta name="twitter:description" content="대회 일정, 장소, 접수 기간, 종목별 참가비와 공식 홈페이지 링크."><meta name="twitter:image" content="assets/icons/og-image.png">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css">
+<script src="app.js"></script></head><body>
+<main class="ed-wrap" id="main"><div id="view" aria-live="polite"><div class="ed-empty" style="margin:40px var(--page-x)">불러오는 중…</div></div></main>
+<script>
+layout('races');
+RACES_READY.then(()=>{
+  const id=new URLSearchParams(location.search).get('id'), view=$('#view');
+  const r=allRaces().find(x=>x.id===id);
+  if(!r){ document.title='대회를 찾을 수 없어요 | Run우리'; view.innerHTML=`<div style="padding:40px var(--page-x)"><div class="ed-label">대회 상세</div><h1 class="ed-h1" style="margin:12px 0 10px">대회를 찾을 수 없어요</h1><p class="ed-lede">지난 대회이거나 주소가 바뀌었을 수 있어요. 대회 달력에서 다시 찾아보세요.</p><p style="margin-top:22px"><a class="ed-btn" href="races.html">대회 달력으로 <span class="ed-arrow">→</span></a></p></div>`; return; }
+  const t=today(), nameQ=r.name;
+  document.title=`${r.name} — 일정·참가비·접수 | Run우리`;
+  const md=$('meta[name=description]'); if(md) md.content=`${r.name} · ${fmtFull(r.dt)}${r.venue?' · '+r.venue:''}${r.fee?' · 참가비 '+r.fee:''}. 접수 기간과 공식 홈페이지 링크.`;
+  const official=safeUrl(r.official), reg=safeUrl(r.regUrl), fav=favs.has(r.id);
+  const dateTxt = r.start!==r.end ? `${fmtFull(pd(r.start))} ~ ${fmtFull(pd(r.end))}` : fmtFull(r.dt);
+  const regPeriod = (r.open||r.close) ? `${r.open?fmtFull(pd(r.open)):'시작일 미확인'} ~ ${r.close?fmtFull(pd(r.close)):'정원 마감 시까지'}` : (r.regNote||'');
+  const row=(k,v,cls)=>`<dt>${k}</dt><dd class="${cls||''}">${v||'<span class="muted">확인 필요</span>'}</dd>`;
+  const dists=r.distances.length?`<table class="ed-table"><thead><tr><th scope="col">종목</th><th scope="col" style="text-align:right">참가비</th></tr></thead><tbody>${r.distances.map(d=>`<tr><td>${esc(d.label)}</td><td style="text-align:right">${d.fee==null?'<span class="muted">확인 필요</span>':d.fee===0?'무료':d.fee.toLocaleString('ko-KR')+'원'}</td></tr>`).join('')}</tbody></table>`:'<p class="ed-small">종목 정보가 아직 없어요. 공식 홈페이지에서 확인하세요.</p>';
+  const src=Object.entries(r.sources).map(([k,u])=>`<a class="ed-link" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${k==='runningon'?'러닝온':'KorMarathon'} ↗</a>`).join(' · ');
+  const related=allRaces().filter(x=>x.id!==r.id&&x.st.key!=='ended'&&x.d>=0&&((r.region&&x.region===r.region)||false)).sort((a,b)=>Math.abs(a.d-r.d)-Math.abs(b.d-r.d)).slice(0,4);
+  view.innerHTML=`
+  <div style="padding:24px var(--page-x) 0"><a class="ed-link ed-small" href="races.html">← 대회 달력</a></div>
+  <header style="padding:20px var(--page-x) 0">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
+      <div class="ed-race-top"><span class="ed-status ${r.st.key}">${r.st.label}</span>${r.type?`<span class="ed-tag">${esc(r.type)}</span>`:''}</div>
+      <div class="ed-dday ${ddayCls(r)}" style="font-size:34px">${r.ongoing?'진행 중':ddayText(r.d)}</div></div>
+    <h1 class="ed-h1" style="margin:14px 0 8px">${esc(r.name)}</h1>
+    <p class="ed-lede">${dateTxt}${r.startTime?` · 출발 ${r.startTime}`:''}${r.venue?` · ${esc(r.venue)}`:''}${r.region?` (${r.region})`:''}</p>
+    <div class="ed-actions" style="display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0">
+      ${official?`<a class="ed-btn" href="${esc(official)}" target="_blank" rel="noopener noreferrer">공식 홈페이지 <span class="ed-arrow">↗</span></a>`:''}
+      ${reg?`<a class="ed-btn ghost" href="${esc(reg)}" target="_blank" rel="noopener noreferrer">접수 페이지 <span class="ed-arrow">↗</span></a>`:''}
+      <button type="button" class="ed-btn ghost ed-savebtn ${fav?'is-on':''}" data-fav="${r.id}" aria-pressed="${fav}"><span class="off">북마크 저장</span><span class="on">저장됨</span></button>
+    </div>
+    <p class="ed-small" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px">
+      <a class="ed-link" href="tools.html?date=${r.date}">이 대회로 훈련 계획 만들기</a>
+      <button type="button" class="ed-link ed-textbtn" id="ics">캘린더에 추가(.ics)</button>
+      <button type="button" class="ed-link ed-textbtn" id="copy">링크 복사</button>
+      ${r.venue?`<a class="ed-link" href="${naverMap(r.venue)}" target="_blank" rel="noopener noreferrer">네이버 지도에서 장소 보기 ↗</a>`:''}</p>
+  </header>
+  <div class="ed-cols" style="margin-top:36px">
+    <section class="ed-section"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">대회 정보</h2></div>
+      <dl class="ed-dl">${row('대회일',dateTxt,'serif')}${row('장소',esc(r.venue))}${row('지역',esc(r.region))}${row('주최',esc(r.organizer))}${row('출발',r.startTime)}${row('참가비',esc(r.fee))}</dl></section>
+    <section class="ed-section"><div class="ed-section-head major"><span class="no">02</span><h2 class="ed-h2">접수</h2></div>
+      <dl class="ed-dl">${row('상태',`<span class="ed-status ${r.st.key}">${r.st.label}</span>`)}${row('접수 기간',regPeriod)}${row('안내',esc(regText(r)))}</dl>
+      ${r.regNote&&(r.open||r.close)?`<p class="ed-small" style="margin-top:8px">출처 원문: ${esc(r.regNote)}</p>`:''}</section>
+  </div>
+  <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">종목 · 참가비</h2></div>${dists}</section>
+  <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">출처</h2></div>
+    <p class="ed-small" style="line-height:1.8">자동 수집 출처: ${src||'—'}<br><span data-updated>${updatedText()}</span><br>일정·참가비·접수 기간은 주최 측 사정으로 바뀔 수 있어요. 신청 전에 공식 홈페이지에서 최신 정보를 꼭 확인하세요.</p></section>
+  ${related.length?`<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">05</span><h2 class="ed-h2">${r.region} 지역의 다른 대회</h2></div><div class="ed-list" style="border-top:0">${related.map(raceRow).join('')}</div></section>`:''}`;
+  $('#ics').onclick=()=>downloadText((r.id)+'.ics',raceIcs([r]),'text/calendar');
+  $('#copy').onclick=()=>{ const u=location.href; (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('링크를 복사했어요'),()=>toast('복사하지 못했어요. 주소창의 주소를 복사해 주세요')); };
+  bindFav(); 
+  const ld={'@context':'https://schema.org','@type':'SportsEvent',name:r.name,startDate:r.start,endDate:r.end,eventStatus:'https://schema.org/EventScheduled',location:{'@type':'Place',name:r.venue||r.region||'미정'},...(official?{url:official}:{})};
+  const sc=document.createElement('script'); sc.type='application/ld+json'; sc.textContent=JSON.stringify(ld); document.head.appendChild(sc);
+});
+</script></body></html>

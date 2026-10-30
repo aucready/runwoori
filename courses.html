@@ -19,12 +19,12 @@
 
 <main class="ed-wrap" id="main">
 <div style="padding:28px var(--page-x) 0"><div class="ed-label">03 — Courses</div><h1 class="ed-h1" style="margin:12px 0 10px">러닝 코스</h1><p class="ed-lede">권역별로 모은 전국 러닝 코스. 코스 이름은 러닝온 목록을 참고했고, 정확한 위치는 ‘지도에서 보기’로 확인하세요.</p></div>
-<div style="margin-top:18px"><div class="ed-sample"><span class="ed-label">안내</span><span>코스 이름은 러닝온 목록을 참고했어요. 거리는 목록에 표기된 코스만 적었고, 지도에는 코스 위치·경로를 표시하지 않아요.</span></div></div>
+<div style="margin-top:18px"><div class="ed-sample"><span class="ed-label">안내</span><span>코스 이름은 러닝온 목록을 참고했어요. 거리는 목록에 표기된 코스만 적었고, 지도의 핀은 코스 대표 위치예요 · 경로는 표시하지 않아요.</span></div></div>
 <div class="ed-filter" style="padding:0 var(--page-x);margin-top:22px"><div class="ed-filter-row" id="tabs"></div></div>
 <div class="ed-map" style="margin-top:20px"><div id="map" style="position:absolute;inset:0"></div>
  <div class="ed-map-fallback" id="fallback" hidden><div id="fbsvg" style="position:absolute;inset:0"></div><div class="ed-small" style="position:absolute;left:12px;bottom:10px;right:12px" id="fbmsg"></div></div>
  <div class="ed-map-tag ed-label ink" id="maptag"></div></div>
-<div class="ed-caption" style="margin-top:8px"><span>지도 © OpenStreetMap · 코스 위치와 경로는 표시하지 않아요 (좌표 정보가 없는 코스는 지도 링크로 확인)</span></div>
+<div class="ed-caption" style="margin-top:8px"><span>지도 © OpenStreetMap · 지도의 핀은 코스 대표 위치예요 · 경로는 표시하지 않아요 (핀이 없는 코스는 ‘지도에서 보기’로 확인)</span></div>
 <div style="padding:22px var(--page-x) 0"><div class="ed-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><input id="q" type="search" placeholder="코스 검색 (예: 호수, 한강, 해안)" aria-label="코스 검색"></div>
   <div class="ed-filter"><div class="ed-filter-label"><span class="ed-label">지역</span></div><div class="ed-filter-row" id="chips"></div></div></div>
 <section class="ed-section" style="margin-top:36px"><div class="ed-section-head" style="margin-bottom:0"><h2 class="ed-h2">코스 목록</h2><span class="ed-small ed-tab-num"><b id="count" style="color:var(--ink)">0</b>곳 · 저장한 코스 <b id="ccount" style="color:var(--ink)">0</b></span></div>
@@ -53,7 +53,7 @@ function initMap(){
 function focusMap(){
   const key=S.r!=='전체'?S.r:S.g, v=VIEW[key]||VIEW['전체'];
   if(map){ map.setView([v[0],v[1]],v[2],{animate:false}); markers.forEach(m=>map.removeLayer(m)); markers=[];
-    COURSES.filter(c=>c.lat&&c.lng&&inGroup(c)&&(S.r==='전체'||c.region===S.r)).forEach((c,i)=>{ const m=L.marker([c.lat,c.lng],{icon:L.divIcon({className:'',html:`<div class="ed-pin ${c.id===S.sel?'on':''}">${i+1}</div>`,iconSize:[0,0]})}).addTo(map); markers.push(m); }); }
+    COURSES.filter(c=>inGroup(c)&&(S.r==='전체'||c.region===S.r)).forEach((c,i)=>{ if(!(c.lat&&c.lng)) return; const m=L.marker([c.lat,c.lng],{icon:L.divIcon({className:'',html:`<div class="ed-pin ${c.id===S.sel?'on':''}">${i+1}</div>`,iconSize:[0,0]})}).addTo(map); markers.push(m); }); }
   const cur=COURSES.find(c=>c.id===S.sel);
   $('#maptag').textContent=cur?`${cur.region} · ${cur.name}`:`${key}`;
   if(!fb.hidden) drawFallback();

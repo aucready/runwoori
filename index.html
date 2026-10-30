@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap"></noscript>
-<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
-<script src="assets/vendor/leaflet/leaflet.js"></script><script src="app.js"></script></head><body>
+<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css">
+<script src="app.js"></script></head><body>
 
 <main class="ed-wrap" id="main">
 <div style="padding:28px var(--page-x) 0"><div class="ed-label">Race Calendar</div><h1 class="ed-h1" style="margin:12px 0 10px">마라톤 대회 달력</h1><p class="ed-lede">날짜를 눌러 그날 열리는 전국 마라톤·러닝 대회를 바로 확인하세요. 마음에 드는 대회는 북마크로 저장해 둘 수 있어요.</p></div>
@@ -38,15 +38,7 @@
 </div>
 </div>
 <section class="ed-section main" id="mainCol" style="margin-top:22px">
-  <div class="stage-bar"><div class="ed-seg" id="stageSeg" role="tablist" aria-label="보기 방식"><button type="button" data-stage="cal" class="is-on" role="tab" aria-selected="true">달력</button><button type="button" data-stage="map" role="tab" aria-selected="false">지도</button></div><span class="ed-small ed-tab-num" id="stageNote"></span></div>
-  <div id="stageCal"><div class="ed-cal race-cal" id="cal"></div></div>
-  <div id="stageMap" hidden>
-    <div class="race-map-head"><span class="ed-small ed-tab-num"><b id="pinCount" style="color:var(--ink)">0</b>개 대회 지도 표시<span id="noPinWrap"> · 장소 미확인 <span id="noPin">0</span>개</span></span></div>
-    <div class="ed-map race-map-box"><div id="map" style="position:absolute;inset:0"></div>
-      <div class="ed-map-fallback" id="fallback" hidden><div class="ed-small" style="position:absolute;left:12px;bottom:10px;right:12px" id="fbmsg"></div></div>
-      <div class="race-map-empty ed-small" id="mapEmpty" hidden>조건에 맞는 대회 중 지도에 표시할 수 있는 장소가 없어요.</div></div>
-    <div class="ed-caption" style="margin-top:8px"><span>지도 © OpenStreetMap · 핀은 대회 장소의 대표 위치예요 (채워진 핀: 접수중·마감임박 · 숫자: 같은 장소 대회 수). 온라인·장소 미확인 대회는 표시하지 않아요.</span></div>
-  </div>
+  <div class="ed-cal race-cal" id="cal"></div>
   <div class="day-bar" id="dayBar" aria-live="polite"></div>
   <div class="ed-section-head" style="margin-bottom:0"><h2 class="ed-h2" id="listtitle">전체 대회</h2><span class="ed-small ed-tab-num"><b id="count" style="color:var(--ink)">0</b>개 · <span id="sortlbl">접수 중 먼저</span> <button type="button" class="ed-textbtn" id="sortBtn">날짜순으로 보기</button></span></div>
   <div class="ed-filter" style="margin-top:0"><div class="ed-filter-row" style="margin:0;padding:0"><button data-tab="all" class="is-on">전체</button><button data-tab="saved">관심 대회<span class="c" id="savedcnt">0</span></button></div></div>
@@ -55,8 +47,7 @@
 </div></main>
 <script>
 layout('races');
-const GEO_READY = fetch('data/venue_geo.json',{cache:'no-cache'}).then(r=>r.ok?r.json():{}).catch(()=>({}));
-Promise.all([RACES_READY,GEO_READY]).then(([,GEO])=>{
+RACES_READY.then(()=>{
 const S={sort:'reg',status:'all',region:'전체',dist:'전체',q:'',from:'',to:'',fav:false,day:null,month:null};
 const R=allRaces();
 const qs=new URLSearchParams(location.search);
@@ -91,47 +82,13 @@ function render(){
   $('#reset').hidden=!nActive();
   { const n=nActive(), o=$('#side').classList.contains('open'); $('#foldBtn').textContent=(o?'필터 닫기':'필터')+(n?` · ${n}`:''); $('#foldBtn').setAttribute('aria-expanded',o); }
   $('#list').innerHTML=L.length?L.slice(0,LIM).map(raceRow).join('')+(L.length>LIM?`<div class="ed-more"><button class="ed-btn ghost" id="more" type="button">${L.length-LIM}개 더 보기</button></div>`:''):`<div class="ed-empty">${S.fav?'저장한 대회가 없어요. 대회 옆 북마크를 눌러 보세요.':'조건에 맞는 대회가 없어요. 필터를 바꿔 보세요.'}</div>`;
-  cal(); drawMap(L);
+  cal();
 }
-/* ── 대회 지도: data/venue_geo.json(장소 좌표 캐시)을 런타임에 합쳐서 표시 ── */
-let map=null, layer=null, tileOK=false, tileErr=0, mapOpen=false; const fb=$('#fallback');
-function geoOf(r){ if(!r.venue||/온라인/.test(r.venue)||r.region==='전국') return null; const g=GEO[venueQuery(r.venue)]; return g&&g.lat&&g.lng?g:null; }
-function showFb(m){ fb.hidden=false; $('#fbmsg').textContent=m; }
-function initMap(){
-  if(!window.L){ showFb('지도 라이브러리를 불러오지 못했어요. 아래 목록에서 대회를 확인하세요.'); return; }
-  map=L.map('map',{zoomControl:false,attributionControl:true,scrollWheelZoom:false,zoomSnap:0.25}).setView([36.4,127.8],7);
-  const t=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
-  t.on('tileload',()=>{tileOK=true; fb.hidden=true;}); t.on('tileerror',()=>{tileErr++; if(!tileOK&&tileErr>=2) showFb('지도 타일을 불러오지 못했어요. 아래 목록에서 대회를 확인하세요.');});
-  L.control.zoom({position:'bottomright'}).addTo(map); layer=L.layerGroup().addTo(map);
-  setTimeout(()=>{ if(!tileOK) showFb('지도 타일을 불러오지 못했어요. 아래 목록에서 대회를 확인하세요.'); },6000);
-}
-function drawMap(L2){
-  const live=R.filter(r=>r.st.key!=='ended'), withGeo=L2.filter(geoOf);
-  $('#pinCount').textContent=withGeo.length; const miss=L2.length-withGeo.length; $('#noPin').textContent=miss; $('#noPinWrap').hidden=!miss;
-  $('#mapEmpty').hidden=withGeo.length>0;
-  if(!map||!mapOpen) return;
-  layer.clearLayers(); const groups={};
-  withGeo.forEach(r=>{ const g=geoOf(r), k=g.lat+','+g.lng; (groups[k]=groups[k]||{g,rs:[]}).rs.push(r); });
-  const pts=[];
-  Object.values(groups).forEach(({g,rs})=>{
-    const hot=rs.some(r=>r.st.key==='open'||r.st.key==='urgent'), n=rs.length;
-    const m=L.marker([g.lat,g.lng],{icon:L.divIcon({className:'',html:`<div class="ed-pin ${n>1?'':'dot'} ${hot?'open':''}">${n>1?n:''}</div>`,iconSize:[0,0]}),title:rs[0].name,keyboard:true,alt:rs[0].name}).addTo(layer);
-    const li=rs.slice(0,6).map(r=>`<li><a href="race.html?id=${encodeURIComponent(r.id)}">${esc(r.name)}</a><span>${r.dt.getMonth()+1}월 ${r.dt.getDate()}일 (${WD[r.dt.getDay()]}) · ${esc(r.st.label)}</span></li>`).join('')+(rs.length>6?`<li class="more">외 ${rs.length-6}개 — 목록에서 확인</li>`:'');
-    m.bindPopup(`<div class="race-pop"><ul>${li}</ul><div class="v">${esc(rs[0].venue.split(/[(（]/)[0].trim())}</div></div>`,{maxWidth:260,closeButton:true,autoPanPadding:[20,20]});
-    pts.push([g.lat,g.lng]);
-  });
-  map.invalidateSize(false);
-  if(pts.length) map.fitBounds(pts,{padding:[34,34],maxZoom:S.region==='전체'?8:12,animate:false}); else map.setView([36.4,127.8],7,{animate:false});
-}
-function setStage(st){ mapOpen=st==='map'; $('#stageCal').hidden=mapOpen; $('#stageMap').hidden=!mapOpen;
-  $$('#stageSeg button').forEach(b=>{ const on=b.dataset.stage===st; b.classList.toggle('is-on',on); b.setAttribute('aria-selected',on); });
-  if(mapOpen&&map){ map.invalidateSize(false); drawMap(filtered()); } }
 function dayBar(L){
   const el=$('#dayBar');
   if(S.day){ const d=pd(S.day); el.innerHTML=`<span class="dd"><b>${d.getMonth()+1}월 ${d.getDate()}일 (${WD[d.getDay()]})</b> · 대회 ${L.length}개</span><button type="button" class="ed-textbtn" id="dayClear">전체 보기 ✕</button>`; el.classList.add('on'); }
   else { el.innerHTML=`<span class="hint">날짜를 누르면 그날의 대회만 아래에 보여요</span>`; el.classList.remove('on'); }
 }
-initMap();
 document.addEventListener('click',e=>{ if(e.target.closest('#foldBtn')){ $('#side').classList.toggle('open'); render(); return; } if(e.target.closest('#more')){ LIM+=60; render(); } if(e.target.closest('#sortBtn')){ S.sort=S.sort==='reg'?'date':'reg'; render(); } });
 const t0=()=>today();
 function cal(){
@@ -154,7 +111,6 @@ function cal(){
   $('#cal').innerHTML=h;
 }
 document.addEventListener('click',e=>{
-  const sg=e.target.closest('[data-stage]'); if(sg){ setStage(sg.dataset.stage); return; }
   if(e.target.closest('#dayClear')){ S.day=null; render(); return; }
   const p=e.target.closest('[data-k]'); if(p){ S[p.dataset.k]=p.dataset.v; S.day=null; render(); return; }
   const d=e.target.closest('[data-day]'); if(d){ S.day=S.day===d.dataset.day?null:d.dataset.day; render(); if(S.day){ const y=$('#dayBar').getBoundingClientRect().top; if(y>innerHeight*0.8) window.scrollBy({top:y-innerHeight*0.62,behavior:'smooth'}); } return; }

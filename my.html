@@ -27,13 +27,10 @@
     <div class="ed-label accent">Running Journal — 이번 주</div>
     <h1 class="ed-display" style="margin:14px 0 14px">다음 레이스까지,<br>차분하게 준비하세요.</h1>
     <p class="ed-lede">전국 마라톤 대회 일정과 접수 상태, 러닝 코스, 목표 대회에 맞춘 훈련 계획을 한곳에 모았습니다.</p>
-    <form class="ed-search" id="heroSearch" role="search" style="margin-top:22px"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><input id="hq" placeholder="대회명, 지역 검색" aria-label="대회 검색"></form>
   </div>
 </div>
 
-<section class="ed-section home-week" id="weekSec" aria-labelledby="weekTitle"><div class="ed-section-head major"><h2 class="ed-h2" id="weekTitle">이번 주 대회</h2><a class="ed-link" id="weekAll" href="index.html?range=week">전체 보기 →</a></div><div class="ed-wk-list" id="weekList"></div></section>
 
-<section class="ed-section home-figs" id="figSec"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">오늘의 마라톤</h2></div><div class="ed-figures" id="figures"></div><p class="ed-small" id="figNote" style="margin-top:10px"></p></section>
 
 <div class="ed-cols">
 <section class="ed-section"><div class="ed-section-head"><span class="no">02</span><h2 class="ed-h2">내 목표 대회</h2></div><div id="goal"></div></section>
@@ -61,11 +58,6 @@ const empty=m=>`<div class="ed-empty" style="grid-column:1/-1">${m}</div>`;
 const t=today();
 /* 히어로: 사진 대신 트랙 레인 선화 + 가장 가까운 대회 D-day */
 { const n=R.find(r=>r.d>=0); $('#plateCap').innerHTML=n?`<div class="ed-label">NEXT RACE</div><div class="big">${ddayText(n.d)}</div><div class="nm">${esc(n.name)}</div><div class="ed-small" style="margin-top:2px">${fmtFull(n.dt)} · ${n.region}</div>`:''; }
-function renderFigures(){
-  const F=[['접수중',by('open').length,'index.html?status=open',''],['마감임박',by('urgent').length,'index.html?status=urgent','accent'],['접수예정',by('soon').length,'index.html?status=soon',''],['이번 주말',wk.length,'index.html?range=week','']];
-  $('#figures').innerHTML=F.map(f=>`<a class="ed-figure" href="${f[2]}"><b class="${f[3]}">${f[1]}</b><span>${f[0]}</span></a>`).join('');
-  $('#figNote').textContent=`${t.getMonth()+1}.${t.getDate()}(${WD[t.getDay()]}) 기준 · 수록 대회 ${RACES.length}개`;
-}
 function renderGoal(){
   const f=R.filter(r=>favs.has(r.id))[0];
   $('#goal').innerHTML=f?`<div class="ed-label">D-Day · 남은 날</div><div class="ed-num" style="font-size:var(--fs-num-xl);line-height:1;margin-top:10px;font-weight:400;letter-spacing:-0.06em">${f.d}<span style="font-size:18px;letter-spacing:0;margin-left:6px;font-family:var(--font-sans);color:var(--ink-3)">일</span></div>
@@ -95,17 +87,10 @@ $('#raceTabs').addEventListener('keydown',e=>{
   if(n>=0){ e.preventDefault(); tabK=TABS[n].k; drawTabs(true); }
 });
 drawTabs();
-/* 모바일 상단: 이번 주 대회 (오늘~7일, 대회 달력의 '이번 주' 필터와 같은 범위) */
-{ let W=R.filter(r=>r.d>=0&&r.d<=7).sort((a,b)=>a.d-b.d||a.name.localeCompare(b.name));
-  const n=W.length; let title='이번 주 대회', link=`index.html?range=week`;
-  if(!n){ W=R.filter(r=>r.d>=0).slice(0,3); title='가까운 대회'; link='index.html'; }
-  $('#weekTitle').textContent=title; $('#weekAll').href=link; $('#weekAll').textContent=n>5?`${n}개 모두 보기 →`:'전체 보기 →';
-  $('#weekList').innerHTML=(W.length?W.slice(0,5).map(r=>`<a class="ed-wk" href="race.html?id=${r.id}"><span class="dt">${r.dt.getMonth()+1}.${r.dt.getDate()}<small>${WD[r.dt.getDay()]}</small></span><span class="bd"><b>${esc(r.name)}</b><span class="ed-meta">${[esc(r.region||'지역 확인 필요'),esc(r.dist.slice(0,2).join(' · '))].filter(Boolean).join(sep)}</span></span><span class="st"><span class="ed-status ${r.st.key}">${r.st.label}</span><span class="ed-dday ${ddayCls(r)}">${ddayText(r.d)}</span></span></a>`).join(''):empty('예정된 대회가 없어요.')); }
-renderFigures(); renderFavs(); bindFav(renderFavs);
+renderFavs(); bindFav(renderFavs);
 $('#quickPace').innerHTML=paceCalcHtml(); initPace($('#quickPace'));
 $('#regs').innerHTML=Object.entries(REGION_GROUPS).map(([g,rs],i)=>`<a class="ed-course" href="courses.html?group=${encodeURIComponent(g)}" style="grid-template-columns:30px 1fr auto"><span class="ix">${p2(i+1)}</span><div><h3>${g}</h3><p class="ed-meta">${rs.join(' · ')}</p></div><div class="km">${COURSES.filter(c=>rs.includes(c.region)).length}<small>곳</small></div></a>`).join('');
 loadBlogIndex().then(j=>{ const F=j.featured.map(id=>j.posts.find(p=>p.id===id)).filter(Boolean); $('#guides').innerHTML=F.map((p,i)=>blogRow(p,i+1)).join('')+`<p class="ed-small" style="grid-column:1/-1;margin-top:14px">초급 ${j.levels['초급']}편 · 중급 ${j.levels['중급']}편 · 고급 ${j.levels['고급']}편의 글이 있어요. <a class="ed-link" href="blog.html">수준별로 보기</a></p>`; }).catch(()=>{ $('#guides').innerHTML='<div class="ed-empty" style="grid-column:1/-1">가이드 글을 불러오지 못했어요.</div>'; });
-$('#heroSearch').onsubmit=e=>{e.preventDefault(); location.href='index.html?q='+encodeURIComponent($('#hq').value.trim());};
 
 });
 </script></body></html>

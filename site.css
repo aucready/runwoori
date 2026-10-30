@@ -289,3 +289,15 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .ed-crumbs a{color:var(--ink-2);text-decoration:underline;text-underline-offset:3px}
 .ed-crumbs [aria-current]{color:var(--ink);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .race-note{margin-top:14px}
+
+/* 달력 아래 대회 검색 */
+.race-search{display:flex;gap:10px;align-items:stretch;margin:18px 0 0}
+.race-search .ed-search{flex:1;min-width:0}
+.race-search-btn{flex:none;min-height:44px;padding:0 20px;white-space:nowrap}
+.search-status{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:12px 0 0;padding:10px 12px;border-left:3px solid var(--ink);background:var(--paper-2,rgba(0,0,0,.03));font-size:14px;color:var(--ink-2)}
+.search-status[hidden]{display:none}
+.search-status.none{border-left-color:var(--accent)}
+.search-status b{color:var(--ink)}
+.search-status .ed-textbtn{flex:none;white-space:nowrap}
+.side-top:empty{display:none}
+@media(max-width:899px){ .side-top{margin-top:-6px} .side-top .fold-btn{width:100%} .search-status{flex-wrap:wrap} }

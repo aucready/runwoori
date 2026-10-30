@@ -24,8 +24,7 @@
 <div class="split">
 <div class="side" id="side">
 <div style="padding:22px var(--page-x) 0">
-  <div class="side-top"><div class="ed-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><input id="q" type="search" placeholder="대회명을 검색해 보세요" aria-label="대회 검색"></div>
-  <button type="button" class="ed-btn ghost fold-btn" id="foldBtn" aria-expanded="false" aria-controls="filters">필터</button></div>
+  <div class="side-top"><button type="button" class="ed-btn ghost fold-btn" id="foldBtn" aria-expanded="false" aria-controls="filters">필터</button></div>
   <div id="filters">
   <div class="ed-filter"><div class="ed-filter-label"><span class="ed-label">접수 상태</span></div><div class="ed-filter-row" id="fStatus"></div></div>
   <div class="ed-filter"><div class="ed-filter-label"><span class="ed-label">거리</span></div><div class="ed-filter-row" id="fDist"></div></div>
@@ -39,6 +38,11 @@
 <section class="ed-section main" id="mainCol" style="margin-top:22px">
   <div class="region-bar ed-filter" aria-label="지역 필터"><span class="ed-label">지역</span><div class="ed-filter-row" id="fRegion"></div></div>
   <div class="ed-cal race-cal" id="cal"></div>
+  <form class="race-search" id="searchForm" role="search" action="#" novalidate>
+    <div class="ed-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><input id="q" name="q" type="search" enterkeyhint="search" autocomplete="off" placeholder="대회 이름으로 찾기" aria-label="대회 이름 검색"></div>
+    <button type="submit" class="ed-btn race-search-btn">검색</button>
+  </form>
+  <div class="search-status" id="searchStatus" aria-live="polite" hidden></div>
   <div class="day-bar" id="dayBar" aria-live="polite"></div>
   <div class="ed-section-head" style="margin-bottom:0"><h2 class="ed-h2" id="listtitle">전체 대회</h2><span class="ed-small ed-tab-num"><b id="count" style="color:var(--ink)">0</b>개 · <span id="sortlbl">접수 중 먼저</span> <button type="button" class="ed-textbtn" id="sortBtn">날짜순으로 보기</button></span></div>
   <div class="ed-filter list-tabs" style="margin-top:0"><div class="ed-filter-row" id="listTabs" role="group" aria-label="접수 상태별 목록"></div></div>
@@ -85,13 +89,17 @@ function render(){
   const L=filtered(); $('#count').textContent=L.length;
   const sig=JSON.stringify([S.status,S.region,S.dist,S.q,S.from,S.to,S.fav,S.day]); if(sig!==SIG){LIM=60;SIG=sig;}
   $('#sortlbl').textContent=S.sort==='reg'?'접수 중 먼저':'대회일 순'; $('#sortBtn').textContent=S.sort==='reg'?'날짜순으로 보기':'접수 중 먼저 보기';
-  $('#listtitle').textContent=S.fav?'관심 대회':(S.day?'그날의 대회':'전체 대회'); dayBar(L);
+  $('#listtitle').textContent=S.q?'검색 결과':(S.fav?'관심 대회':(S.day?'그날의 대회':'전체 대회')); dayBar(L);
+  if(S.q&&!S.day){ const db=$('#dayBar'); db.innerHTML=''; db.classList.remove('on'); }
+  { const el=$('#searchStatus'); if(S.q){ el.hidden=false; el.className='search-status '+(L.length?'has':'none');
+      el.innerHTML=`<span>${L.length?`‘${esc(S.q)}’ 검색 결과 <b>${L.length}</b>개`:`‘${esc(S.q)}’ <b>검색 결과 없음</b> · 다른 이름이나 짧은 단어로 찾아 보세요`}</span><button type="button" class="ed-textbtn" id="searchClear">검색어 지우기 ✕</button>`; }
+    else { el.hidden=true; el.innerHTML=''; } }
   { const base=filtered(true,true), c=k=>k==='all'?base.length:k==='saved'?base.filter(r=>favs.has(r.id)).length:base.filter(r=>r.st.key===k).length;
     const cur=S.fav?'saved':S.status;
     $('#listTabs').innerHTML=[['all','전체'],['open','접수 중'],['urgent','마감 임박'],['soon','접수 예정'],['saved','관심대회']].map(([k,l])=>`<button type="button" data-tab="${k}" class="${cur===k?'is-on':''}" aria-pressed="${cur===k}">${l}<span class="c">${c(k)}</span></button>`).join(''); }
   $('#reset').hidden=!nActive();
-  { const n=nActive()-(S.region!=='전체'?1:0)-(S.day?1:0), o=$('#side').classList.contains('open'); $('#foldBtn').textContent=(o?'필터 닫기':'필터')+(n?` · ${n}`:''); $('#foldBtn').setAttribute('aria-expanded',o); }
-  $('#list').innerHTML=L.length?L.slice(0,LIM).map(raceRow).join('')+(L.length>LIM?`<div class="ed-more"><button class="ed-btn ghost" id="more" type="button">${L.length-LIM}개 더 보기</button></div>`:''):`<div class="ed-empty">${S.fav?'저장한 대회가 없어요. 대회 옆 북마크를 눌러 보세요.':'조건에 맞는 대회가 없어요. 필터를 바꿔 보세요.'}</div>`;
+  { const n=nActive()-(S.region!=='전체'?1:0)-(S.day?1:0)-(S.q?1:0), o=$('#side').classList.contains('open'); $('#foldBtn').textContent=(o?'필터 닫기':'필터')+(n?` · ${n}`:''); $('#foldBtn').setAttribute('aria-expanded',o); }
+  $('#list').innerHTML=L.length?L.slice(0,LIM).map(raceRow).join('')+(L.length>LIM?`<div class="ed-more"><button class="ed-btn ghost" id="more" type="button">${L.length-LIM}개 더 보기</button></div>`:''):`<div class="ed-empty">${S.q?'검색 결과 없음':(S.fav?'저장한 대회가 없어요. 대회 옆 북마크를 눌러 보세요.':'조건에 맞는 대회가 없어요. 필터를 바꿔 보세요.')}</div>`;
   cal();
 }
 function dayBar(L){
@@ -131,7 +139,16 @@ document.addEventListener('click',e=>{
   const q=e.target.closest('[data-q]'); if(q){ const t=today(); let f=t,to; if(q.dataset.q==='wk'){ const add=(6-t.getDay()+7)%7; f=new Date(+t+add*DAY); to=new Date(+f+DAY);} else if(q.dataset.q==='m1') to=new Date(+t+30*DAY); else to=new Date(+t+90*DAY);
     S.from=iso(f); S.to=iso(to); $('#from').value=S.from; $('#to').value=S.to; S.day=null; S.month=new Date(f.getFullYear(),f.getMonth(),1); render(); }
 });
-$('#q').oninput=e=>{S.q=e.target.value.trim();S.day=null;render();};
+function runSearch(){
+  const v=$('#q').value.trim(); S.q=v; S.day=null;
+  if(v){ Object.assign(S,{status:'all',region:'전체',dist:'전체',from:'',to:'',fav:false}); $('#from').value=$('#to').value=''; }
+  render();
+  if(v) setTimeout(()=>{ const el=$('#searchStatus'); window.scrollTo({top:el.getBoundingClientRect().top+scrollY-70,behavior:'smooth'}); },30);
+  if(document.activeElement===$('#q')) $('#q').blur();
+}
+$('#searchForm').addEventListener('submit',e=>{ e.preventDefault(); runSearch(); });
+$('#q').addEventListener('input',e=>{ if(!e.target.value.trim()&&S.q){ S.q=''; render(); } });
+document.addEventListener('click',e=>{ if(e.target.closest('#searchClear')){ S.q=''; $('#q').value=''; render(); $('#q').focus({preventScroll:true}); } });
 $('#from').onchange=e=>{S.from=e.target.value;render();}; $('#to').onchange=e=>{S.to=e.target.value;render();};
 $('#reset').onclick=()=>{Object.assign(S,{status:'all',region:'전체',dist:'전체',q:'',from:'',to:'',day:null});['q','from','to'].forEach(i=>$('#'+i).value='');render();};
 bindFav(()=>{ render(); });

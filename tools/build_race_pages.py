@@ -12,6 +12,8 @@
 import json, os, re, sys, html, glob, datetime
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import weather_lib   # 대회 날씨 예보 표시 (data/weather.json 이 없으면 아무것도 표시하지 않는다)
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 SITE = os.environ.get('SITE_URL', 'https://runwoori.com').rstrip('/')
@@ -72,6 +74,7 @@ def fee_range(r):
     return f(a) if a == b else f(a) + ' ~ ' + f(b)
 
 
+WX = weather_lib.load()   # data/weather.json (tools/fetch_weather.py 산출물)
 PRIOR = {}   # data/prior_year.json: 올해 접수 일정이 없는 대회의 '작년 접수' 참고값 (main 에서 읽음)
 
 
@@ -151,7 +154,7 @@ def race_row(r):
     fee = r['fee'] or '참가비 확인 필요'
     return (f'<article class="ed-race" data-id="{r["id"]}">'
             f'<div class="ed-race-date"><b>{r["dt"].day:02d}</b><span>{r["dt"].month}월 {wd(r["dt"])}</span></div>'
-            f'<div class="ed-race-body"><div class="ed-race-top"><span class="ed-status {r["st"]["key"]}">{r["st"]["label"]}</span></div>'
+            f'<div class="ed-race-body"><div class="ed-race-top"><span class="ed-status {r["st"]["key"]}">{r["st"]["label"]}</span>{weather_lib.chip(WX, r["id"], TODAY)}</div>'
             f'<h3><a class="row-link" href="race/{r["id"]}.html">{esc(r["name"])}</a></h3>'
             f'<p class="ed-meta">{meta1}</p><p class="ed-meta">{esc(reg_text(r))}{SEP}{esc(fee)}</p></div>'
             f'<div class="ed-race-side"><div class="ed-dday {dday_cls(r)}">{dday_text(r["d"])}</div>'
@@ -349,6 +352,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
       {f'<a class="ed-btn ghost" href="{esc(reg)}" target="_blank" rel="noopener noreferrer">접수 페이지 <span class="ed-arrow">↗</span></a>' if reg else ''}
       <button type="button" class="ed-btn ghost ed-savebtn" data-fav="{r['id']}" aria-pressed="false"><span class="off">북마크 저장</span><span class="on">저장됨</span></button>
     </div>
+    {weather_lib.panel(WX, r['id'], TODAY)}
     {ver_badge}{official_note}
     <p class="ed-small" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px">
       <a class="ed-link" href="tools.html?date={r['date']}">이 대회로 훈련 계획 만들기</a>

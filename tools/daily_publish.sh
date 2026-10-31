@@ -16,6 +16,9 @@ if [ "${1:-}" = "--collect" ]; then
 fi
 
 cd "$SRC"
+echo "== 1a) 새 장소 좌표(캐시에 없는 곳만) + 날씨 예보 수집 — 실패해도 계속 진행"
+timeout 300 python3 tools/geocode_venues.py --max 40 || echo "  (장소 지오코딩 건너뜀)"
+timeout 600 python3 tools/fetch_weather.py || echo "  (날씨 수집 건너뜀 — 날씨 없이 빌드해요)"
 echo "== 2) 대회별 정적 페이지 생성"; python3 tools/build_race_pages.py
 echo "== 2a) 해외 주요 대회 페이지 생성"; python3 tools/build_overseas.py
 echo "== 2a-2) 랜딩 페이지(마감 임박·월별·지역별) 생성"; python3 tools/build_landing.py
@@ -38,13 +41,14 @@ echo "== 4) 배포 저장소로 복사 ($DEPLOY)"
 mkdir -p "$DEPLOY/data"
 rm -rf "$DEPLOY/race" && cp -a race "$DEPLOY/race"
 rm -rf "$DEPLOY/overseas" && cp -a overseas "$DEPLOY/overseas" && cp overseas.html "$DEPLOY/overseas.html"
+[ -f data/weather.json ] && cp data/weather.json "$DEPLOY/data/"   # 날씨 예보(목록 카드용)
 cp data/races.json data/race_archive.json data/race_pages.json data/overseas.json data/overseas_pages.json "$DEPLOY/data/"
 [ -f data/prior_year.json ] && cp data/prior_year.json "$DEPLOY/data/"
 cp *.html data.js app.js site.css "$DEPLOY/"; cp tools/set_ga4.sh "$DEPLOY/tools/" 2>/dev/null || true; cp data/courses.json "$DEPLOY/data/"   # 화면 코드도 함께(수정 누락 방지)
 [ -d data/blog ] && { rm -rf "$DEPLOY/data/blog" && cp -a data/blog "$DEPLOY/data/blog"; }
 rm -rf "$DEPLOY/month" "$DEPLOY/region" && cp -a month "$DEPLOY/month" && cp -a region "$DEPLOY/region" && cp deadline.html "$DEPLOY/deadline.html" && cp data/landing_pages.json "$DEPLOY/data/"
 cp sitemap.xml "$DEPLOY/sitemap.xml"
-cp tools/build_race_pages.py tools/build_overseas.py tools/build_landing.py tools/build_sitemap.py tools/daily_publish.sh "$DEPLOY/tools/" 2>/dev/null || true
+cp tools/build_race_pages.py tools/build_overseas.py tools/build_landing.py tools/build_sitemap.py tools/daily_publish.sh tools/weather_lib.py tools/fetch_weather.py tools/geocode_venues.py "$DEPLOY/tools/" 2>/dev/null || true
 
 cd "$DEPLOY"
 echo "$DOMAIN" > CNAME                                    # 커스텀 도메인 파일 유지

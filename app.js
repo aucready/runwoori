@@ -22,7 +22,7 @@ const SEARCH_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" 
 /* 접수 상태: 접수중 / 마감임박(마감 10일 이내) / 접수예정 / 마감 / 일정 미공지(정보 없음) */
 const URGENT_DAYS = 10;
 /* ── 데이터 로드: data/races.json (수집기 산출물) → window.RACES ── */
-window.RACES = []; window.RACES_META = null; window.PRIOR_YEAR = {};
+window.RACES = []; window.RACES_META = null; window.PRIOR_YEAR = {}; window.WX = {};
 function man(n){ if(n==null) return null; const m=n/10000; return (Number.isInteger(m)?m:+m.toFixed(2).replace(/0+$/,''))+'만원'; }
 function feeRange(r){
   if(r.fee_min==null) return '';
@@ -50,7 +50,8 @@ function priorText(p){
 const unannounced = r => '접수 일정 미공지'+(r.prior&&priorText(r.prior)?' · '+priorText(r.prior):'');
 function loadRaces(){
   const pr=fetch('data/prior_year.json',{cache:'no-cache'}).then(x=>x.ok?x.json():{}).catch(()=>({}));
-  return pr.then(p=>{ window.PRIOR_YEAR=p||{}; return fetch('data/races.json',{cache:'no-cache'}); }).then(x=>{ if(!x.ok) throw new Error('races.json '+x.status); return x.json(); })
+  const wx=fetch('data/weather.json',{cache:'no-cache'}).then(x=>x.ok?x.json():{}).then(j=>{ window.WX=(j&&j.items)||{}; }).catch(()=>{});   /* 날씨는 없어도 된다 */
+  return Promise.all([pr,wx]).then(a=>{ window.PRIOR_YEAR=a[0]||{}; return fetch('data/races.json',{cache:'no-cache'}); }).then(x=>{ if(!x.ok) throw new Error('races.json '+x.status); return x.json(); })
    .then(j=>{ window.RACES_META={fetched_at:j.fetched_at,count:j.count,window:j.window,sources:j.sources,coverage:j.coverage}; window.RACES=j.races.map(adapt); })
    .catch(e=>{ console.warn('대회 데이터를 불러오지 못했어요',e); window.RACES_FAILED=true; });
 }
@@ -98,11 +99,21 @@ function regText(r){
 const sep='<span class="sep">·</span>';
 function bookmark(id,on,attr='data-fav',label='관심 대회 저장'){ return `<button class="ed-bookmark ${on?'is-on':''}" aria-pressed="${!!on}" aria-label="${label}" ${attr}="${id}">${BM}</button>`; }
 function ddayCls(r){ if(r.st.key==='closed'||r.st.key==='ended') return ''; return (r.st.key==='urgent'||(r.d>=0&&r.d<=7))?'soon':''; }
+
+/* 대회 당일 날씨 칩(아이콘 + 기온). 예보는 data/weather.json — 지난 대회·오래된 예보는 표시하지 않는다 */
+const WX_ICONS={sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>',partly:'<path d="M9 3.5v1.6M3.6 6.2l1.2 1M2.5 11.5h1.6M14.6 6.2l-1.2 1"/><path d="M6.2 11.5a3.3 3.3 0 0 1 6.2-1.6"/><path transform="translate(2.5 2)" d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/>',cloud:'<path d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/>',fog:'<path d="M5 8.5h14M3.5 12.5h17M6 16.5h12M9 20.5h6"/>',rain:'<path transform="translate(0 -3)" d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/><path d="M8.5 17.5l-1 3M12.5 17.5l-1 3M16.5 17.5l-1 3"/>',snow:'<path transform="translate(0 -3)" d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/><path d="M8.5 18v3M7 19.5h3M15.5 18v3M14 19.5h3"/>',thunder:'<path transform="translate(0 -3)" d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/><path d="M12.8 15.5l-2.3 3h3l-2.3 3"/>'};
+function wxChip(id,date){
+  const w=window.WX&&window.WX[id]; if(!w||!w.fetched) return '';
+  if(w.date<iso(today())) return '';
+  if(Date.now()-new Date(w.fetched).getTime()>40*3600*1000) return '';
+  const dg=n=>Math.round(n)+'°', tip=`대회 당일 예보 · ${w.label} · 최저 ${dg(w.tmin)} 최고 ${dg(w.tmax)}`;
+  return `<span class="ed-wx" title="${esc(tip)}" aria-label="${esc(tip)}"><svg class="wx-ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${WX_ICONS[w.cat]||WX_ICONS.cloud}</svg><span class="ed-wx-t">${dg(w.tmin)}~${dg(w.tmax)}</span></span>`;
+}
 function raceRow(r){
   const fav=favs.has(r.id), dist=r.dist.length?(r.dist.slice(0,3).join(' · ')+(r.dist.length>3?` 외 ${r.dist.length-3}개`:'')):'종목 확인 필요';
   return `<article class="ed-race ${fav?'is-saved':''}" data-id="${r.id}">
     <div class="ed-race-date"><b>${p2(r.dt.getDate())}</b><span>${r.dt.getMonth()+1}월 ${WD[r.dt.getDay()]}</span></div>
-    <div class="ed-race-body"><div class="ed-race-top"><span class="ed-status ${r.st.key}">${r.st.label}</span></div>
+    <div class="ed-race-body"><div class="ed-race-top"><span class="ed-status ${r.st.key}">${r.st.label}</span>${wxChip(r.id)}</div>
       <h3><a class="row-link" href="race/${r.id}.html">${esc(r.name)}</a></h3>
       <p class="ed-meta">${[esc(r.region||'지역 확인 필요'),r.type?esc(r.type):'',esc(dist)].filter(Boolean).join(sep)}</p>
       <p class="ed-meta">${regText(r)}${sep}${esc(feeText(r))}</p></div>
@@ -231,7 +242,7 @@ function ovStatus(o){
 function ovRow(o){
   const d=pd(o.date), n=diff(d,today()), st=ovStatus(o), fav=favs.has(o.id);
   return `<article class="ed-race ${fav?'is-saved':''}" data-id="${o.id}"><div class="ed-race-date"><b>${p2(d.getDate())}</b><span>${d.getMonth()+1}월 ${WD[d.getDay()]}</span></div>
-    <div class="ed-race-body"><div class="ed-race-top"><span class="ed-status ${st.key}">${st.label}</span><span class="ed-tag">해외</span></div>
+    <div class="ed-race-body"><div class="ed-race-top"><span class="ed-status ${st.key}">${st.label}</span><span class="ed-tag">해외</span>${wxChip(o.id)}</div>
       <h3><a class="row-link" href="overseas/${o.slug}.html">${esc(o.name)}</a></h3>
       <p class="ed-meta">${fmtFull(d)}${sep}${esc(o.city)}${sep}${esc(o.country)}</p></div>
     <div class="ed-race-side"><div class="ed-dday ${(st.key==='closed'||st.key==='ended')?'':(n>=0&&n<=7?'soon':'')}">${ddayText(n)}</div>${bookmark(o.id,fav)}</div></article>`;

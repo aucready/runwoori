@@ -9,10 +9,13 @@
 """
 import json, os, re, sys, html, datetime
 from zoneinfo import ZoneInfo
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import weather_lib   # 대회 날씨 예보 표시 (data/weather.json 이 없으면 아무것도 표시하지 않는다)
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 SITE = os.environ.get('SITE_URL', 'https://runwoori.com').rstrip('/')
 TODAY = datetime.datetime.now(ZoneInfo('Asia/Seoul')).date()
+WX = weather_lib.load()
 WD = ['월', '화', '수', '목', '금', '토', '일']
 CC = {'일본': 'JP', '미국': 'US', '영국': 'GB', '호주': 'AU', '독일': 'DE', '대만': 'TW', '프랑스': 'FR', '홍콩': 'HK'}
 TZ = {'일본': '+09:00', '대만': '+08:00', '홍콩': '+08:00'}
@@ -94,7 +97,7 @@ def card(r):
     chips = ''.join(f'<span class="ed-tag">{esc(e["type"])}</span>' for e in r.get('entry', [])[:3])
     dist = ' · '.join(x['label'].split(' ')[0] + (' ' + x['label'].split(' ')[1] if x['label'].startswith('마라톤') and len(x['label'].split(' ')) > 1 else '') for x in r['distances'][:1])
     return (f'<article class="ed-race" data-id="{r["id"]}"><div class="ed-race-date"><b>{d.day:02d}</b><span>{d.month}월 {wd(d)}</span></div>'
-            f'<div class="ed-race-body"><div class="ed-race-top"><span class="ed-status {k}">{lab}</span></div>'
+            f'<div class="ed-race-body"><div class="ed-race-top"><span class="ed-status {k}">{lab}</span>{weather_lib.chip(WX, r["id"], TODAY)}</div>'
             f'<h3><a class="row-link" href="overseas/{r["slug"]}.html">{esc(r["name"])}</a></h3>'
             f'<p class="ed-meta">{full(d)}<span class="sep">·</span>{esc(meta_line(r))}</p><p class="ed-meta">{esc(dist)}</p>'
             f'<p class="ed-meta">{esc(reg_line(r))}</p><p class="ov-chips">{chips}</p></div>'
@@ -184,6 +187,7 @@ def page(r, others):
       <a class="ed-btn ghost" href="{esc(r["entry_url"])}" target="_blank" rel="noopener noreferrer">참가 안내 페이지 <span class="ed-arrow">↗</span></a>
       <button type="button" class="ed-btn ghost ed-savebtn" data-fav="{r["id"]}" aria-pressed="false"><span class="off">북마크 저장</span><span class="on">저장됨</span></button>
     </div>
+    {weather_lib.panel(WX, r['id'], TODAY)}
     <p class="ed-small" style="margin-top:14px;line-height:1.7"><b>공식 홈페이지 확인({vtxt})</b> · 확인한 항목: {esc(", ".join(r["checked"]))}.</p>
     <p class="ed-small" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 18px"><button type="button" class="ed-link ed-textbtn" id="ics">캘린더에 추가(.ics)</button><button type="button" class="ed-link ed-textbtn" id="copy">링크 복사</button></p>
   </header>

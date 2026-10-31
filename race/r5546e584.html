@@ -35,11 +35,12 @@
       
       <button type="button" class="ed-btn ghost ed-savebtn" data-fav="r5546e584" aria-pressed="false"><span class="off">북마크 저장</span><span class="on">저장됨</span></button>
     </div>
-    <section class="ed-wx-panel" aria-label="대회 당일 날씨 예보"><div class="ed-wx-head"><span class="ed-wx-ic"><svg class="wx-ic" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/></svg></span><div><p class="ed-wx-k">대회 당일 날씨 예보</p><p class="ed-wx-c">흐림<span> · 11.8(일)</span></p></div></div><dl class="ed-wx-grid"><div><dt>기온</dt><dd>-3°<i>/</i>9°</dd></div><div><dt>강수확률</dt><dd>3<small>%</small></dd></div><div><dt>바람</dt><dd>2<small>m/s</small></dd></div></dl><p class="ed-wx-src">Open-Meteo 예보 기준 · 10.31 14:52 갱신 · 예보는 바뀔 수 있어요</p></section>
+    <section class="ed-wx-panel" aria-label="대회 당일 날씨 예보"><div class="ed-wx-head"><span class="ed-wx-ic"><svg class="wx-ic" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/></svg></span><div><p class="ed-wx-k">대회 당일 날씨 예보</p><p class="ed-wx-c">흐림<span> · 11.8(일)</span></p></div></div><dl class="ed-wx-grid"><div><dt>기온</dt><dd>-3°<i>/</i>9°</dd></div><div><dt>강수확률</dt><dd>3<small>%</small></dd></div><div><dt>바람</dt><dd>2<small>m/s</small></dd></div></dl><p class="ed-wx-src">Open-Meteo 예보 기준 · 10.31 16:42 갱신 · 예보는 바뀔 수 있어요</p></section>
     <p class="ed-small" style="margin-top:14px;line-height:1.7">정보는 각 대회 공식 안내를 기준으로 정리해요. 일정·참가비·접수 기간은 바뀔 수 있으니 신청 전에 <a class="ed-link" href="https://kiccrace.com" target="_blank" rel="noopener noreferrer">공식 홈페이지</a>에서 한 번 더 확인하세요.</p>
     <p class="ed-small" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px">
       <a class="ed-link" href="tools.html?date=2026-11-08">이 대회로 훈련 계획 만들기</a>
       <button type="button" class="ed-link ed-textbtn" id="ics">캘린더에 추가(.ics)</button>
+      <button type="button" class="ed-link ed-textbtn" id="share" hidden>공유</button>
       <button type="button" class="ed-link ed-textbtn" id="copy">링크 복사</button>
       <a class="ed-link" href="https://map.naver.com/p/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%99%94%EC%84%B1%EC%8B%9C%20%EA%B6%81%ED%8F%89%ED%95%AD%20%EB%B0%8F%20%EC%98%81%EC%A2%85%EB%A1%9C" target="_blank" rel="noopener noreferrer">네이버 지도에서 장소 보기 ↗</a></p>
   </header>
@@ -64,7 +65,9 @@ layout('races');
   const r=enrich(adapt(window.RACE_REC));
   const sync=()=>{ $$('[data-fav]').forEach(b=>{ const on=favs.has(b.dataset.fav); b.classList.toggle('is-on',on); b.setAttribute('aria-pressed',on); }); $$('.ed-race[data-id]').forEach(c=>c.classList.toggle('is-saved',favs.has(c.dataset.id))); };
   sync(); bindFav();
-  $('#ics').onclick=()=>downloadText(r.id+'.ics',raceIcs([r]),'text/calendar');
+  $('#ics').onclick=()=>RW.addToCalendar(r);
+  if(RW.native) $('#ics').textContent='캘린더에 추가';
+  if(RW.native||navigator.share){ const sb=$('#share'); sb.hidden=false; sb.onclick=()=>RW.share({title:r.name+' | Run우리',text:r.name+' 대회 일정',url:location.origin+location.pathname}); }
   $('#copy').onclick=()=>{ const u=location.origin+location.pathname; (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('링크를 복사했어요'),()=>toast('복사하지 못했어요. 주소창의 주소를 복사해 주세요')); };
 })();
 </script></body></html>

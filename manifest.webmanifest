@@ -1,1 +1,71 @@
-{"name": "Run우리 — 마라톤·러닝 대회 일정", "short_name": "Run우리", "description": "전국 마라톤 대회 일정 · 러닝 코스 · 훈련 계획", "lang": "ko", "start_url": "index.html", "display": "standalone", "background_color": "#F6F2EA", "theme_color": "#F6F2EA", "icons": [{"src": "assets/logo/favicon-48.png", "sizes": "48x48", "type": "image/png"}, {"src": "assets/logo/icon-any-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"}, {"src": "assets/logo/icon-any-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}, {"src": "assets/logo/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"}, {"src": "assets/logo/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}
+{
+ "id": "/",
+ "name": "Run우리 — 마라톤·러닝 대회 일정",
+ "short_name": "Run우리",
+ "description": "전국 마라톤 대회 일정 · 러닝 코스 · 훈련 계획",
+ "lang": "ko",
+ "dir": "ltr",
+ "start_url": "/?source=pwa",
+ "scope": "/",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#F6F2EA",
+ "theme_color": "#F6F2EA",
+ "categories": [
+  "sports",
+  "health",
+  "lifestyle"
+ ],
+ "icons": [
+  {
+   "src": "/assets/logo/icon-any-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/assets/logo/icon-any-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/assets/logo/icon-maskable-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "maskable"
+  },
+  {
+   "src": "/assets/logo/icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ],
+ "shortcuts": [
+  {
+   "name": "마감 임박 대회",
+   "short_name": "마감 임박",
+   "url": "/deadline.html?source=shortcut",
+   "icons": [
+    {
+     "src": "/assets/logo/icon-any-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  },
+  {
+   "name": "저장한 대회",
+   "short_name": "저장",
+   "url": "/saved.html?source=shortcut",
+   "icons": [
+    {
+     "src": "/assets/logo/icon-any-192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+    }
+   ]
+  }
+ ]
+}

@@ -7,7 +7,7 @@ ROOT=os.path.abspath(os.path.join(os.path.dirname(__file__),'..'))
 BASE=os.environ.get('SITE_URL','https://runwoori.com').rstrip('/')
 today=datetime.date.today().isoformat()
 pages=[('', 'daily','1.0'),('overseas.html','daily','0.8'),('my.html','weekly','0.7'),('blog.html','weekly','0.9'),('courses.html','monthly','0.6'),
-       ('tools.html','monthly','0.6'),('guide.html','monthly','0.5'),('about.html','monthly','0.4'),('contact.html','yearly','0.3'),
+       ('tools.html','monthly','0.6'),('guide.html','monthly','0.5'),('about.html','monthly','0.4'),('install.html','monthly','0.3'),('contact.html','yearly','0.3'),
        ('privacy.html','yearly','0.3'),('terms.html','yearly','0.3')]
 urls=[(BASE+'/'+p,'', cf, pr) for p,cf,pr in pages]
 idx=json.load(open(os.path.join(ROOT,'data','blog','index.json'),encoding='utf-8'))

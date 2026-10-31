@@ -189,7 +189,7 @@ def page(r, others):
     </div>
     {weather_lib.panel(WX, r['id'], TODAY)}
     <p class="ed-small" style="margin-top:14px;line-height:1.7"><b>공식 홈페이지 확인({vtxt})</b> · 확인한 항목: {esc(", ".join(r["checked"]))}.</p>
-    <p class="ed-small" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 18px"><button type="button" class="ed-link ed-textbtn" id="ics">캘린더에 추가(.ics)</button><button type="button" class="ed-link ed-textbtn" id="copy">링크 복사</button></p>
+    <p class="ed-small" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 18px"><button type="button" class="ed-link ed-textbtn" id="ics">캘린더에 추가(.ics)</button><button type="button" class="ed-link ed-textbtn" id="share" hidden>공유</button><button type="button" class="ed-link ed-textbtn" id="copy">링크 복사</button></p>
   </header>
   <div class="ed-cols" style="margin-top:36px">
     <section class="ed-section"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">대회 정보</h2></div>
@@ -211,7 +211,9 @@ def page(r, others):
 </div></main>
 <script>window.OV={js({"id": r["id"], "name": r["name"], "date": r["date"], "end": r.get("end_date") or r["date"], "venue": r.get("venue") or r["city"], "url": r["official_url"]})};</script>
 '''
-    extra = '''  $('#ics').onclick=()=>downloadText(OV.id+'.ics',raceIcs([{id:OV.id,name:OV.name,start:OV.date,end:OV.end,date:OV.date,venue:OV.venue,official:OV.url}]),'text/calendar');
+    extra = '''  $('#ics').onclick=()=>RW.addToCalendar({id:OV.id,name:OV.name,start:OV.date,end:OV.end,date:OV.date,venue:OV.venue,official:OV.url});
+  if(RW.native) $('#ics').textContent='캘린더에 추가';
+  if(RW.native||navigator.share){ const sb=$('#share'); sb.hidden=false; sb.onclick=()=>RW.share({title:OV.name+' | Run우리',text:OV.name+' 대회 일정',url:location.origin+location.pathname}); }
   $('#copy').onclick=()=>{ const u=location.origin+location.pathname; (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('링크를 복사했어요'),()=>toast('복사하지 못했어요. 주소창의 주소를 복사해 주세요')); };
 '''
     head = HEAD.format(title=esc(title), desc=esc(desc(r)), url=url, site=SITE, adsense=read_adsense(), ld=ld_html)

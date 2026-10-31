@@ -1,5 +1,6 @@
 /* Run우리 공통 스크립트 — 에디토리얼 시안(ed- 컴포넌트) + 실제 data.js 연동 */
 /* 사이트 이름은 여기 한 곳에서 관리 (정적 HTML의 <title>·메타·로고 이미지는 이름 변경 시 별도 교체: CHANGELOG 참고) */
+const IN_APP = !!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
 const SITE = { name: 'Run우리', tagline: '마라톤·러닝 대회 일정' };
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -131,7 +132,7 @@ function bindFav(onChange){
     const on=(isC?cfavs:favs).toggle(id);
     $$(`[${isC?'data-cfav':'data-fav'}="${id}"]`).forEach(x=>{ x.classList.toggle('is-on',on); x.setAttribute('aria-pressed',on); x.classList.remove('pop'); void x.offsetWidth; x.classList.add('pop'); });
     $$(`.ed-race[data-id="${id}"]`).forEach(c=>c.classList.toggle('is-saved',on));
-    updateNavCount(); toast(on?(isC?'관심 코스에 저장했어요':'관심 대회에 저장했어요'):'저장을 해제했어요'); if(onChange) onChange();
+    updateNavCount(); toast(on?(isC?'관심 코스에 저장했어요':'관심 대회에 저장했어요'):'저장을 해제했어요'); if(!isC&&window.RW&&RW.native) RW.afterFav(on); if(onChange) onChange();
   }, true);
 }
 
@@ -156,7 +157,7 @@ function layout(active){
     <div class="ed-mast-links"><a class="ed-link ${active==='courses'?'is-on':''}" href="courses.html">코스</a><a class="ed-link ${active==='tools'?'is-on':''}" href="tools.html">훈련</a></div></div></div></header>`;
   const bn=`<nav class="ed-tabbar" aria-label="하단 메뉴">${bottom.map(n=>{const on=n[2]===active||(active==='overseas'&&n[2]==='races');return `<a href="${n[0]}" class="${on?'is-on':''}" ${on?'aria-current="page"':''}>${n[1]}${badge(n[2])}</a>`}).join('')}</nav>`;
   const foot=`<footer class="ed-footer"><div class="ed-wrap"><div class="ed-rule" style="border-color:var(--ink)"></div><p class="ed-small" style="padding-top:14px"><img class="ed-foot-logo" src="assets/logo/runwoori-wordmark-light-small.svg" alt="${SITE.name}" width="101" height="24"><br>${SITE.name}는 개인 프로젝트입니다. 대회 일정은 <a href="https://www.kormarathon.com" rel="noopener" target="_blank">KorMarathon</a>의 공개 정보를 하루 한 번 수집하고, 주요 대회는 공식 홈페이지로 직접 확인해 정리합니다. 일정·참가비·접수 기간은 바뀔 수 있으니 신청 전 반드시 공식 홈페이지에서 확인하세요.<br><span data-updated>${updatedText()}</span></p>
-    <nav class="ed-foot-links" aria-label="사이트 정보"><a href="about.html">사이트 소개</a><a href="privacy.html">개인정보처리방침</a><a href="terms.html">이용약관</a><a href="contact.html">문의하기</a></nav></div></footer>`;
+    <nav class="ed-foot-links" aria-label="사이트 정보"><a href="about.html">사이트 소개</a><a href="privacy.html">개인정보처리방침</a>${IN_APP?'':'<a href="install.html">앱으로 설치</a>'}<a href="terms.html">이용약관</a><a href="contact.html">문의하기</a></nav></div></footer>`;
   document.body.insertAdjacentHTML('afterbegin',head);
   document.body.insertAdjacentHTML('beforeend',foot+bn);
   updateNavCount();
@@ -247,3 +248,87 @@ function ovRow(o){
       <p class="ed-meta">${fmtFull(d)}${sep}${esc(o.city)}${sep}${esc(o.country)}</p></div>
     <div class="ed-race-side"><div class="ed-dday ${(st.key==='closed'||st.key==='ended')?'':(n>=0&&n<=7?'soon':'')}">${ddayText(n)}</div>${bookmark(o.id,fav)}</div></article>`;
 }
+
+
+/* ── PWA: service worker 등록 (https 또는 localhost 에서만) ── */
+if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){
+  window.addEventListener('load',()=>{ navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(()=>{}); });
+}
+/* 설치 버튼용: 브라우저가 설치 가능하다고 알려 주면 보관해 둔다(자동 팝업은 띄우지 않는다) */
+window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); window.RW_INSTALL=e; document.dispatchEvent(new Event('rw-installable')); });
+window.addEventListener('appinstalled',()=>{ window.RW_INSTALL=null; document.dispatchEvent(new Event('rw-installed')); });
+
+/* ── 공유 · 캘린더 · 접수 알림 (앱에서는 안드로이드 기능, 웹에서는 가능한 범위만) ── */
+const RW = (function(){
+  const cap=window.Capacitor, native=IN_APP&&typeof cap.nativePromise==='function';
+  const call=(plugin,method,opts)=>cap.nativePromise(plugin,method,opts||{});
+  const KEY_NOTIFY='rr_notify_v1';           // '0' = 끔 (기본: 켬)
+  const notifyOn=()=>localStorage.getItem(KEY_NOTIFY)!=='0';
+  const hash=s=>{ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return (h>>>0)%200000000; };
+  const at9=(ds,addDays)=>{ const d=pd(ds); d.setDate(d.getDate()+(addDays||0)); d.setHours(9,0,0,0); return d; };
+
+  async function share(o){
+    const data={title:o.title,text:o.text||'',url:o.url};
+    try{
+      if(native){ await call('Share','share',{title:data.title,text:data.text,url:data.url,dialogTitle:'공유'}); return true; }
+      if(navigator.share){ await navigator.share(data); return true; }
+    }catch(e){ if(e&&e.name==='AbortError') return true; }
+    try{ await navigator.clipboard.writeText(data.url); toast('링크를 복사했어요'); return true; }catch(e){ toast('복사하지 못했어요. 주소창의 주소를 복사해 주세요'); return false; }
+  }
+  /* 앱: 기본 캘린더 앱의 일정 만들기 화면을 연다 / 웹: .ics 파일 내려받기 */
+  function addToCalendar(r){
+    if(native){
+      const s=pd(r.start||r.date), e=pd(r.end||r.date); e.setDate(e.getDate()+1);
+      return call('RunwooriNative','addToCalendar',{title:r.name,location:r.venue||'',description:'일정은 바뀔 수 있어요. 공식 홈페이지에서 확인하세요.'+(r.official?'\n'+r.official:''),start:s.getTime(),end:e.getTime(),allDay:true})
+        .catch(()=>toast('캘린더 앱을 열지 못했어요'));
+    }
+    downloadText(r.id+'.ics',raceIcs([r]),'text/calendar');
+  }
+
+  /* 알림 예약: 저장한 대회의 접수 시작일·마감 전날 오전 9시 */
+  function plan(){
+    const items=[], now=Date.now();
+    const push=(id,kind,at,title,body,url)=>{ if(at.getTime()>now+60000) items.push({id:hash(id)*10+kind,title,body,schedule:{at:at.toISOString(),allowWhileIdle:false},extra:{url}}); };
+    allRaces().filter(r=>favs.has(r.id)&&r.st.key!=='ended').forEach(r=>{
+      const url='/race/'+r.id+'.html';
+      if(r.open) push(r.id,1,at9(r.open),'접수가 시작돼요',`${r.name} 접수가 오늘 시작해요. 시각은 공식 홈페이지에서 확인하세요.`,url);
+      if(r.close) push(r.id,2,at9(r.close,-1),'접수 마감이 하루 남았어요',`${r.name} 접수가 내일 마감돼요. 공식 홈페이지에서 확인하세요.`,url);
+    });
+    return loadOverseas().then(ov=>{
+      (ov||[]).filter(o=>favs.has(o.id)&&ovStatus(o).key!=='ended').forEach(o=>{
+        const p=(o.periods||[]).find(x=>x.primary); if(!p) return; const url='/overseas/'+o.slug+'.html';
+        if(p.start) push(o.id,1,at9(p.start),'접수가 시작돼요',`${o.name} 접수가 오늘 시작해요. 시각은 공식 홈페이지에서 확인하세요.`,url);
+        if(p.end) push(o.id,2,at9(p.end,-1),'접수 마감이 하루 남았어요',`${o.name} 접수가 내일 마감돼요. 공식 홈페이지에서 확인하세요.`,url);
+      });
+      return items.slice(0,60);
+    });
+  }
+  async function perm(ask){
+    let p=await call('LocalNotifications','checkPermissions'); let st=p&&p.display;
+    if(st!=='granted'&&ask&&st!=='denied') { p=await call('LocalNotifications','requestPermissions'); st=p&&p.display; }
+    return st==='granted';
+  }
+  async function sync(askPermission){
+    if(!native) return false;
+    try{
+      const pend=await call('LocalNotifications','getPending');
+      if(pend&&pend.notifications&&pend.notifications.length) await call('LocalNotifications','cancel',{notifications:pend.notifications.map(n=>({id:n.id}))});
+      if(!notifyOn()) return true;
+      const list=await plan(); if(!list.length) return true;
+      if(!(await perm(askPermission))) return false;
+      await call('LocalNotifications','schedule',{notifications:list});
+      return true;
+    }catch(e){ console.warn('알림 예약 실패',e); return false; }
+  }
+  function afterFav(on){ if(on&&notifyOn()) RACES_READY.then(()=>sync(true)).then(ok=>{ if(ok===false) toast('알림 권한이 꺼져 있어요. 설정에서 켤 수 있어요'); }); else RACES_READY.then(()=>sync(false)); }
+  function renderNotifyBox(sel){
+    const el=$(sel); if(!el||!native) return; el.hidden=false;
+    const draw=()=>{ el.innerHTML=`저장한 대회의 <b>접수 시작일·마감 전날 오전 9시</b>에 알려 드려요. 지금 <b>${notifyOn()?'켜짐':'꺼짐'}</b> · <button type="button" class="ed-link ed-textbtn" id="notifyToggle">${notifyOn()?'끄기':'켜기'}</button>`; $('#notifyToggle').onclick=async()=>{ localStorage.setItem(KEY_NOTIFY,notifyOn()?'0':'1'); draw(); const ok=await sync(true); if(notifyOn()) toast(ok?'접수 알림을 켰어요':'알림 권한을 허용해 주세요'); else toast('접수 알림을 껐어요'); }; };
+    draw();
+  }
+  if(native){
+    RACES_READY.then(()=>sync(false));
+    try{ cap.addListener('LocalNotifications','localNotificationActionPerformed',ev=>{ const u=ev&&ev.notification&&ev.notification.extra&&ev.notification.extra.url; if(u&&u.startsWith('/')) location.href=u; }); }catch(e){}
+  }
+  return {native,share,addToCalendar,sync,afterFav,renderNotifyBox,notifyOn};
+})();

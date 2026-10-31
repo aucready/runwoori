@@ -21,7 +21,8 @@
 <div style="padding:28px var(--page-x) 0"><div class="ed-label">06 — Saved</div><h1 class="ed-h1" style="margin:12px 0 10px">저장</h1><p class="ed-lede">북마크한 대회와 코스예요. 저장 목록은 이 기기의 브라우저에만 보관돼요.</p></div>
 <section class="ed-section" style="margin-top:32px"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">저장한 대회</h2><span class="ed-small ed-tab-num"><b id="n1" style="color:var(--ink)">0</b>개</span></div>
   <div id="goalBox"></div><div class="ed-list" id="raceOut" style="border-top:0"></div>
-  <p class="ed-small" id="raceTools" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px"></p></section>
+  <p class="ed-small" id="raceTools" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px"></p>
+  <p class="ed-small" id="notifyBox" style="margin-top:10px" hidden></p></section>
 <section class="ed-section" style="margin-top:36px"><div class="ed-section-head major"><span class="no">02</span><h2 class="ed-h2">저장한 해외 대회</h2><span class="ed-small ed-tab-num"><b id="n3" style="color:var(--ink)">0</b>개</span></div>
   <div class="ed-list" id="ovOut" style="border-top:0"></div></section>
 <section class="ed-section" style="margin-top:36px"><div class="ed-section-head major"><span class="no">03</span><h2 class="ed-h2">저장한 코스</h2><span class="ed-small ed-tab-num"><b id="n2" style="color:var(--ink)">0</b>개</span></div>
@@ -39,7 +40,7 @@ Promise.all([RACES_READY,loadOverseas()]).then(([,OV])=>{
     $('#raceOut').innerHTML=up.length?up.map(raceRow).join(''):`<div class="ed-empty">저장한 대회가 없어요. <a class="ed-link" href="index.html">대회 달력</a>에서 북마크를 눌러 보세요.</div>`;
     if(past.length) $('#raceOut').insertAdjacentHTML('beforeend',`<h3 class="ed-label" style="margin:22px 0 4px">지난 대회</h3>${past.map(raceRow).join('')}`);
     if(lost) $('#raceOut').insertAdjacentHTML('beforeend',`<p class="ed-small" style="margin-top:10px">목록에서 사라진 대회 ${lost}개는 지난 대회이거나 수집 범위(향후 6개월) 밖이에요.</p>`);
-    $('#raceTools').innerHTML=up.length?`<button type="button" class="ed-link ed-textbtn" id="icsAll">저장한 대회 모두 캘린더에 추가(.ics)</button>`:'';
+    $('#raceTools').innerHTML=(up.length&&!RW.native)?`<button type="button" class="ed-link ed-textbtn" id="icsAll">저장한 대회 모두 캘린더에 추가(.ics)</button>`:'';
     const b=$('#icsAll'); if(b) b.onclick=()=>downloadText('saved-races.ics',raceIcs(up),'text/calendar');
   }
   function drawOverseas(){
@@ -52,7 +53,7 @@ Promise.all([RACES_READY,loadOverseas()]).then(([,OV])=>{
     $('#n2').textContent=ids.length;
     $('#courseOut').innerHTML=cs.length?cs.map((c,i)=>`<article class="ed-course" data-id="${c.id}"><span class="ix">${p2(i+1)}</span><div><h3>${esc(c.name)}</h3><p class="ed-meta">${esc(c.region)}${sep}${c.kmv!=null?c.kmv+'km'+(c.kmnote?' · '+esc(c.kmnote):''):'거리 미공표'}</p><a class="ed-link ed-small" style="display:inline-block;margin-top:6px;margin-right:14px;color:var(--ink-2)" target="_blank" rel="noopener noreferrer" href="${naverMap(c.name)}">지도에서 보기 ↗</a><a class="ed-link ed-small" style="display:inline-block;margin-top:6px;color:var(--ink-2)" target="_blank" rel="noopener noreferrer" href="${esc(c.src)}">공식 안내 ↗</a></div><div class="ed-race-side">${bookmark(c.id,true,'data-cfav','코스 저장 해제')}</div></article>`).join(''):`<div class="ed-empty">저장한 코스가 없어요. <a class="ed-link" href="courses.html">러닝 코스</a>에서 북마크를 눌러 보세요.</div>`;
   }
-  drawRaces(); drawOverseas(); drawCourses();
+  drawRaces(); drawOverseas(); drawCourses(); RW.renderNotifyBox('#notifyBox');
   bindFav(()=>{ drawRaces(); drawOverseas(); drawCourses(); });
 });
 </script></body></html>

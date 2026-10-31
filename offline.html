@@ -1,0 +1,27 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>오프라인 | Run우리</title>
+<meta name="theme-color" content="#F6F2EA"><meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="apple-touch-icon" href="/assets/logo/apple-touch-icon.png">
+<link rel="stylesheet" href="/design-tokens.css"><link rel="stylesheet" href="/components.css"><link rel="stylesheet" href="/site.css">
+</head><body class="ed-root">
+<main class="ed-wrap" id="main"><div style="padding:56px var(--page-x) 24px">
+<div class="ed-label">Offline</div><h1 class="ed-display" style="margin:14px 0 14px">연결이 끊겼어요.</h1>
+<p class="ed-lede">인터넷에 다시 연결되면 최신 대회 정보를 불러올 수 있어요.<br>이전에 열어 본 페이지와 저장한 대회는 아래에서 확인할 수 있어요.</p>
+<p style="margin-top:26px;display:flex;flex-wrap:wrap;gap:10px"><button class="ed-btn" type="button" onclick="location.reload()">다시 시도 <span class="ed-arrow">→</span></button><a class="ed-btn ghost" href="/saved.html">저장한 대회</a></p>
+<section style="margin-top:40px"><div class="ed-label">저장한 대회 (마지막으로 불러온 정보)</div><div id="list" class="ed-list" style="margin-top:10px;border-top:0"></div>
+<p class="ed-small" style="margin-top:14px">마지막으로 불러온 정보라 일정이 바뀌었을 수 있어요. 신청 전에는 공식 홈페이지에서 확인해 주세요.</p></section>
+</div></main>
+<script>
+(function(){
+  var out=document.getElementById('list'), ids=[]; try{ ids=JSON.parse(localStorage.getItem('rr_favs_v1'))||[]; }catch(e){}
+  if(!ids.length){ out.innerHTML='<div class="ed-empty">저장한 대회가 없어요.</div>'; return; }
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  fetch('/data/races.json').then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(j){
+    var map={}; (j.races||[]).forEach(function(r){ map[r.id]=r; });
+    var rows=ids.map(function(id){return map[id];}).filter(Boolean).sort(function(a,b){return a.date<b.date?-1:1;});
+    out.innerHTML=rows.length?rows.map(function(r){
+      return '<article class="ed-race"><div class="ed-race-date"><b>'+r.date.slice(8,10)+'</b><span>'+(+r.date.slice(5,7))+'월</span></div><div class="ed-race-body"><h3>'+esc(r.name)+'</h3><p class="ed-meta">'+esc(r.region||'')+(r.venue?' · '+esc(r.venue):'')+'</p><p class="ed-meta">'+(r.reg_close?'접수 ~'+r.reg_close.slice(5).replace('-','.'):'접수 기간 미공지')+'</p></div></article>';
+    }).join(''):'<div class="ed-empty">저장한 대회 정보를 오프라인에서 불러올 수 없어요.</div>';
+  }).catch(function(){ out.innerHTML='<div class="ed-empty">저장한 대회 정보를 오프라인에서 불러올 수 없어요.</div>'; });
+})();
+</script></body></html>

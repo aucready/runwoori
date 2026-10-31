@@ -189,7 +189,7 @@ def build_month(key, allr, fetched, months, regions):
             + (f', 이미 끝난 대회가 {len(ended)}개' if ended else '') + '입니다. '
             + (f'종목은 {dtxt}(한 대회에 여러 종목이 있으면 각각 셈)이고, ' if dtxt else '') + (f'지역은 {rtxt} 순으로 많아요.' if rtxt else ''))
     secs = []; no = 1
-    note = para(esc(weekday_sentence(L) + ' 출발 시각, 짐 보관, 교통, 기상 악화 시 일정 변경 같은 조건은 대회마다 달라요. 신청 전에 각 대회 공식 안내에서 확인하세요.')) + para(f'접수 중인 대회만 보려면 <a class="ed-link" href="deadline.html">마감 임박 대회</a> 페이지를, 지역을 좁히려면 아래 지역별 모아보기를 이용하세요.')
+    note = para(esc((weekday_sentence(L) + ' 출발 시각, 짐 보관, 교통, 기상 악화 시 일정 변경 같은 조건은 대회마다 달라요. 신청 전에 각 대회 공식 안내에서 확인하세요.').strip())) + para(f'접수 중인 대회만 보려면 <a class="ed-link" href="deadline.html">마감 임박 대회</a> 페이지를, 지역을 좁히려면 아래 지역별 모아보기를 이용하세요.')
     secs.append(section(no, f'{m}월 대회, 이렇게 보세요', note, major=True)); no += 1
     trs = ''.join(f'<tr><td>{ks(dt)}</td><td>{c}개</td><td>{esc(", ".join(g for g, _ in collections.Counter(r["region"] for r in L if r["date"] == dt and r["region"]).most_common(3)))}</td></tr>' for dt, c in sorted(top, key=lambda x: x[0]))
     secs.append(section(no, '대회가 몰리는 날', para('같은 날 대회가 많이 겹치는 날이에요. 가고 싶은 대회가 겹치면 접수 마감이 더 빠른 쪽부터 신청하세요.') +
@@ -239,7 +239,7 @@ def build_region(g, cur, fetched, months, regions):
     lede = (f'{g}에서 앞으로 열리는 대회는 <b>{n}개</b>이고, 이 가운데 지금 접수 중인 대회는 {len(openn)}개예요. '
             f'대회가 가장 많은 달은 {int(peak[0][:4])}년 {int(peak[0][5:])}월({peak[1]}개)입니다.' + (f' 종목은 {dtxt}예요.' if dtxt else ''))
     secs = []; no = 1
-    note = para(esc(weekday_sentence(L) + ' 출발지까지 가는 방법(대중교통·셔틀·주차)과 짐 보관 같은 조건은 대회마다 달라요. 신청 전에 각 대회 공식 안내에서 확인하세요.'))
+    note = para(esc((weekday_sentence(L) + ' 출발지까지 가는 방법(대중교통·셔틀·주차)과 짐 보관 같은 조건은 대회마다 달라요. 신청 전에 각 대회 공식 안내에서 확인하세요.').strip()))
     if venues: note += para('수집된 대회 중 출발지로 자주 나오는 곳은 ' + esc(', '.join(venues)) + '이에요.')
     secs.append(section(no, f'{g} 대회, 이렇게 고르세요', note, major=True)); no += 1
     trs = ''.join(f'<tr><td><a class="ed-link" href="month/{k}.html">{int(k[:4])}년 {int(k[5:])}월</a></td><td>{bm[k]}개</td></tr>' if k in months else f'<tr><td>{int(k[:4])}년 {int(k[5:])}월</td><td>{bm[k]}개</td></tr>' for k in sorted(bm))

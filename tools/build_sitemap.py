@@ -23,6 +23,12 @@ op=os.path.join(ROOT,'data','overseas_pages.json')
 if os.path.exists(op):
     for pg in json.load(open(op,encoding='utf-8'))['pages']:
         urls.append((BASE+'/overseas/'+pg['slug']+'.html', pg.get('lastmod') or today, 'weekly' if not pg.get('ended') else 'yearly', '0.6' if not pg.get('ended') else '0.3'))
+# 랜딩 페이지(마감 임박·월별·지역별, tools/build_landing.py 가 만든 data/landing_pages.json, 색인 허용된 것만)
+lp=os.path.join(ROOT,'data','landing_pages.json')
+if os.path.exists(lp):
+    for pg in json.load(open(lp,encoding='utf-8'))['pages']:
+        if pg.get('indexable'):
+            urls.append((pg['url'], pg.get('lastmod') or today, pg.get('changefreq','daily'), pg.get('priority','0.7')))
 out=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for loc,lm,cf,pr in urls:
     out.append('  <url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%s</priority></url>'%(loc,lm or today,cf,pr))

@@ -335,3 +335,20 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .ed-clinks{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px}
 .ed-clinks .ed-link{color:var(--ink-2)}
 .course-pop a{display:inline-block;margin:2px 10px 0 0}
+
+/* landing: 마감 임박 · 월별 · 지역별 모아보기 */
+.lp-lede{padding:12px var(--page-x) 0;max-width:46em;line-height:1.8}
+.lp-p{line-height:1.85;max-width:46em;margin:0 0 10px}
+.lp-src{line-height:1.8;max-width:46em;color:var(--ink-3)}
+.lp-end{padding:36px var(--page-x) 0}
+.lp-h3{margin:26px 0 6px;font-size:15px;font-weight:600;color:var(--ink)}
+.lp-h3 .ed-small{color:var(--ink-3);font-weight:400}
+.lp-links{margin:18px var(--page-x) 0;padding:12px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:grid;gap:8px}
+.lp-links-row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.lp-links-row .ed-label{min-width:3.2em}
+.lp-links a,.lp-pills a{font-size:14px;color:var(--ink-2);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--rule)}
+.lp-links a:hover,.lp-pills a:hover{color:var(--ink);text-decoration-color:var(--ink)}
+.lp-links a.is-on{color:var(--ink);font-weight:600;text-decoration-color:var(--ink)}
+.lp-pills{display:flex;flex-wrap:wrap;gap:8px 16px}
+.lp-home{margin-top:28px}
+.lp-home .lp-links{margin:0;border-top:0;padding-top:0}

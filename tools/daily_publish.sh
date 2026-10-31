@@ -18,6 +18,7 @@ fi
 cd "$SRC"
 echo "== 2) 대회별 정적 페이지 생성"; python3 tools/build_race_pages.py
 echo "== 2a) 해외 주요 대회 페이지 생성"; python3 tools/build_overseas.py
+echo "== 2a-2) 랜딩 페이지(마감 임박·월별·지역별) 생성"; python3 tools/build_landing.py
 echo "== 2b) 공식 홈페이지 링크 점검"
 python3 - <<'PY'
 import json, sys
@@ -41,8 +42,9 @@ cp data/races.json data/race_archive.json data/race_pages.json data/overseas.jso
 [ -f data/prior_year.json ] && cp data/prior_year.json "$DEPLOY/data/"
 cp index.html saved.html courses.html data.js app.js site.css "$DEPLOY/"; cp data/courses.json "$DEPLOY/data/"   # 화면 코드도 함께(수정 누락 방지)
 [ -d data/blog ] && { rm -rf "$DEPLOY/data/blog" && cp -a data/blog "$DEPLOY/data/blog"; }
+rm -rf "$DEPLOY/month" "$DEPLOY/region" && cp -a month "$DEPLOY/month" && cp -a region "$DEPLOY/region" && cp deadline.html "$DEPLOY/deadline.html" && cp data/landing_pages.json "$DEPLOY/data/"
 cp sitemap.xml "$DEPLOY/sitemap.xml"
-cp tools/build_race_pages.py tools/build_overseas.py tools/build_sitemap.py tools/daily_publish.sh "$DEPLOY/tools/" 2>/dev/null || true
+cp tools/build_race_pages.py tools/build_overseas.py tools/build_landing.py tools/build_sitemap.py tools/daily_publish.sh "$DEPLOY/tools/" 2>/dev/null || true
 
 cd "$DEPLOY"
 echo "$DOMAIN" > CNAME                                    # 커스텀 도메인 파일 유지

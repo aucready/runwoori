@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://runwoori.com/sitemap.xml
+#DaumWebMasterTool:e2d7b3661a321562cb9774522579c42952f289eda11ee5e233d55e1210d562df:IvLhJkVn51ozGzUxUVcQlQ==

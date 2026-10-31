@@ -78,6 +78,10 @@ function store(key){ return { get(){ try{return JSON.parse(localStorage.getItem(
   has(id){return this.get().includes(id)},
   toggle(id){ let a=this.get(); a=a.includes(id)?a.filter(x=>x!==id):[...a,id]; localStorage.setItem(key,JSON.stringify(a)); return a.includes(id);} }; }
 const favs = store('rr_favs_v1'), cfavs = store('rr_cfavs_v1');
+/* 코스 목록을 새로 만들면서 id가 바뀌었어요: 예전에 저장한 코스는 같은 장소의 새 id로 옮기고, 사라진 코스는 정리합니다. */
+(function(){ try{ const L=window.COURSE_LEGACY, C=window.COURSES; if(!L||!C) return; const a=cfavs.get(); if(!a.length) return;
+  const ok=new Set(C.map(c=>c.id)); const n=[...new Set(a.map(x=>ok.has(x)?x:(L[x]||null)).filter(Boolean))];
+  if(JSON.stringify(n)!==JSON.stringify(a)) localStorage.setItem('rr_cfavs_v1',JSON.stringify(n)); }catch(e){} })();
 
 function feeText(r){ return r.fee||'참가비 확인 필요'; }
 function regText(r){

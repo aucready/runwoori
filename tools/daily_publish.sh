@@ -39,7 +39,7 @@ rm -rf "$DEPLOY/race" && cp -a race "$DEPLOY/race"
 rm -rf "$DEPLOY/overseas" && cp -a overseas "$DEPLOY/overseas" && cp overseas.html "$DEPLOY/overseas.html"
 cp data/races.json data/race_archive.json data/race_pages.json data/overseas.json data/overseas_pages.json "$DEPLOY/data/"
 [ -f data/prior_year.json ] && cp data/prior_year.json "$DEPLOY/data/"
-cp index.html saved.html app.js site.css "$DEPLOY/"   # 화면 코드도 함께(수정 누락 방지)
+cp index.html saved.html courses.html data.js app.js site.css "$DEPLOY/"; cp data/courses.json "$DEPLOY/data/"   # 화면 코드도 함께(수정 누락 방지)
 [ -d data/blog ] && { rm -rf "$DEPLOY/data/blog" && cp -a data/blog "$DEPLOY/data/blog"; }
 cp sitemap.xml "$DEPLOY/sitemap.xml"
 cp tools/build_race_pages.py tools/build_overseas.py tools/build_sitemap.py tools/daily_publish.sh "$DEPLOY/tools/" 2>/dev/null || true

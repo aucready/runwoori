@@ -40,7 +40,7 @@ rm -rf "$DEPLOY/race" && cp -a race "$DEPLOY/race"
 rm -rf "$DEPLOY/overseas" && cp -a overseas "$DEPLOY/overseas" && cp overseas.html "$DEPLOY/overseas.html"
 cp data/races.json data/race_archive.json data/race_pages.json data/overseas.json data/overseas_pages.json "$DEPLOY/data/"
 [ -f data/prior_year.json ] && cp data/prior_year.json "$DEPLOY/data/"
-cp index.html saved.html courses.html data.js app.js site.css "$DEPLOY/"; cp data/courses.json "$DEPLOY/data/"   # 화면 코드도 함께(수정 누락 방지)
+cp *.html data.js app.js site.css "$DEPLOY/"; cp tools/set_ga4.sh "$DEPLOY/tools/" 2>/dev/null || true; cp data/courses.json "$DEPLOY/data/"   # 화면 코드도 함께(수정 누락 방지)
 [ -d data/blog ] && { rm -rf "$DEPLOY/data/blog" && cp -a data/blog "$DEPLOY/data/blog"; }
 rm -rf "$DEPLOY/month" "$DEPLOY/region" && cp -a month "$DEPLOY/month" && cp -a region "$DEPLOY/region" && cp deadline.html "$DEPLOY/deadline.html" && cp data/landing_pages.json "$DEPLOY/data/"
 cp sitemap.xml "$DEPLOY/sitemap.xml"

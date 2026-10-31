@@ -162,7 +162,8 @@ def read_snippet(name):
     """index.html 에서 AdSense 등 공통 조각을 읽는다(켜짐/꺼짐 상태가 그대로 따라온다)."""
     s = open(os.path.join(ROOT, 'index.html'), encoding='utf8').read()
     m = re.search(r'<!--ADSENSE:START-->.*?<!--ADSENSE:END-->', s, re.S)
-    return m.group(0) if m else ''
+    g = re.search(r'<!--GA4:START-->.*?<!--GA4:END-->', s, re.S)   # 방문 통계(GA4) 블록도 함께 따라온다
+    return (m.group(0) if m else '') + (('\n' + g.group(0)) if g else '')
 
 
 def js(o): return json.dumps(o, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')

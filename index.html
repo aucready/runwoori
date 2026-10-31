@@ -65,7 +65,7 @@ const R=allRaces();
 const qs=new URLSearchParams(location.search);
 if(qs.get('status')) S.status=qs.get('status'); if(qs.get('fav')||qs.get('tab')==='saved') S.fav=true; if(qs.get('q')){S.q=qs.get('q');$('#q').value=S.q;}
 if(qs.get('range')==='week'){ const t=today(); S.from=iso(t); S.to=iso(new Date(+t+7*DAY)); }
-const STAT=[['all','전체'],['open','접수중'],['urgent','마감임박'],['soon','접수예정'],['info','접수 확인'],['closed','마감']];
+const STAT=[['all','전체'],['open','접수중'],['urgent','마감임박'],['soon','접수예정'],['info','일정 미공지'],['closed','마감']];
 const REG=['전체',...['서울','경기','인천','강원','충북','충남','대전','세종','전북','전남','광주','경북','경남','대구','울산','부산','제주','전국'].filter(x=>RACES.some(r=>r.region===x))], DIST=[['전체','전체'],['5K','5K'],['10K','10K'],['하프','하프'],['풀','풀코스']];
 if(qs.get('region')&&REG.includes(qs.get('region'))) S.region=qs.get('region');
 function chips(id,items,key,counts){ $(id).innerHTML=items.map(([v,l])=>`<button class="${S[key]===v?'is-on':''}" data-k="${key}" data-v="${v}">${l}${counts&&counts[v]!=null?`<span class="c">${counts[v]}</span>`:''}</button>`).join(''); }
@@ -125,7 +125,7 @@ function cal(){
     const cls=`ed-cal-day ${dw===0?'sun':''} ${dw===6?'sat':''} ${rs.length?'has':''} ${k===iso(t)?'today':''} ${S.day===k?'sel':''}`;
     h+=rs.length?`<button class="${cls}" data-day="${k}" aria-pressed="${S.day===k}" aria-label="${mo+1}월 ${d}일 대회 ${rs.length}개">${d}<span class="m">${dots}</span><span class="nms">${nm}</span></button>`:`<div class="${cls}">${d}<span class="m"></span></div>`; }
   const used=first+n, tail=(7-used%7)%7; for(let i=1;i<=tail;i++) h+=`<div class="ed-cal-day mute">${i}</div>`;
-  h+=`</div><div class="ed-cal-legend"><span class="ed-status open">접수중</span><span class="ed-status urgent">마감임박</span><span class="ed-status soon">접수예정</span><span class="ed-status closed">마감</span><span class="ed-status info">접수 확인</span></div><p class="ed-small" style="margin-top:12px">${mo+1}월 대회 ${base.length}개</p>`;
+  h+=`</div><div class="ed-cal-legend"><span class="ed-status open">접수중</span><span class="ed-status urgent">마감임박</span><span class="ed-status soon">접수예정</span><span class="ed-status closed">마감</span><span class="ed-status info">일정 미공지</span></div><p class="ed-small" style="margin-top:12px">${mo+1}월 대회 ${base.length}개</p>`;
   $('#cal').innerHTML=h;
 }
 document.addEventListener('click',e=>{

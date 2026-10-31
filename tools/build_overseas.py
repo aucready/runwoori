@@ -51,7 +51,7 @@ def status(r):
             return ('urgent', '마감임박') if (e - TODAY).days <= 10 else ('open', '접수중')
         return ('closed', '접수 마감')
     h = r.get('status_hint')
-    return {'open': ('open', '접수중'), 'soon': ('soon', '접수예정'), 'info': ('info', '접수 확인')}.get(h, ('info', '접수 확인'))
+    return {'open': ('open', '접수중'), 'soon': ('soon', '접수예정'), 'info': ('info', '일정 미공지')}.get(h, ('info', '일정 미공지'))
 
 
 def reg_line(r):
@@ -61,7 +61,7 @@ def reg_line(r):
         if st == 'soon': return f'{p["label"]} {short(s)} 시작'
         if st in ('open', 'urgent'): return f'{p["label"]} ~{short(e)} (D-{(e - TODAY).days})'
         if st == 'closed': return f'{p["label"]} {short(e)} 마감'
-    return {'soon': '신청 일정 공지 전', 'open': '접수 진행 중'}.get(st, '접수 일정은 공식 페이지 확인')
+    return {'open': '접수 진행 중'}.get(st, '접수 일정 미공지')
 
 
 def meta_line(r): return f'{r["city"]} · {r["country"]}'
@@ -232,7 +232,7 @@ def hub(races):
             f'<li><a class="ed-link" href="overseas/{r["slug"]}.html">{esc(r["name"])}</a><span>{esc(reg_line(r))}</span></li>' for r in sorted(openn, key=lambda r: prim(r)['end'] if prim(r) else '9')) + '</ul></div>')
     body = f'''<main class="ed-wrap" id="main">
 <div class="landing-title"><h1 class="ed-h1">해외 주요 대회</h1>{TOGGLE}</div>
-<p class="ed-lede" style="padding:12px var(--page-x) 0;max-width:46em">월드 마라톤 메이저스 7개와 한국 러너가 많이 찾는 9개 대회예요. 값은 모두 각 대회 공식 홈페이지에서 직접 확인했고, 공식 페이지에서 찾지 못한 항목은 추측하지 않고 비워 뒀어요. <span class="muted">(마지막 확인 {vtxt})</span></p>
+<p class="ed-lede" style="padding:12px var(--page-x) 0;max-width:46em">월드 마라톤 메이저스 {len(wmm)}개와 한국 러너가 많이 찾는 {len(pop)}개 대회예요. 값은 모두 각 대회 공식 홈페이지에서 직접 확인했고, 공식 페이지에서 찾지 못한 항목은 추측하지 않고 비워 뒀어요. <span class="muted">(마지막 확인 {vtxt})</span></p>
 {open_html}
 <section class="ed-section" style="margin-top:28px"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">월드 마라톤 메이저스</h2><span class="ed-small ed-tab-num"><b style="color:var(--ink)">{len(wmm)}</b>개 · 대회일 순</span></div>
 <div class="ed-list" style="border-top:0">{''.join(card(r) for r in wmm)}</div></section>

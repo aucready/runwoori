@@ -72,6 +72,27 @@ def fee_range(r):
     return f(a) if a == b else f(a) + ' ~ ' + f(b)
 
 
+PRIOR = {}   # data/prior_year.json: 올해 접수 일정이 없는 대회의 '작년 접수' 참고값 (main 에서 읽음)
+
+
+def prior_text(p):
+    if not p: return ''
+    f = lambda s: pd(s)
+    o, c = p.get('open'), p.get('close')
+    if o and c:
+        a, b = f(o), f(c)
+        rng = f'{a.year}.{a.month}.{a.day}~{b.month}.{b.day}' if a.year == b.year else f'{a.year}.{a.month}.{a.day}~{b.year}.{b.month}.{b.day}'
+    elif o: a = f(o); rng = f'{a.year}.{a.month}.{a.day}~'
+    elif c: b = f(c); rng = f'~{b.year}.{b.month}.{b.day}'
+    else: return ''
+    return f'작년 접수 {rng} (참고)'
+
+
+def unannounced(r):
+    t = prior_text(r.get('prior'))
+    return '접수 일정 미공지' + (f' · {t}' if t else '')
+
+
 def adapt(r):
     start, end = r['date'], r.get('end_date') or r['date']
     ongoing = start < TODAY.isoformat() and end >= TODAY.isoformat()
@@ -80,7 +101,8 @@ def adapt(r):
              region=r.get('region') or '', venue=r.get('venue') or '', organizer=r.get('organizer') or '', type=r.get('category') or '',
              distances=dists, distTags=r.get('dist_tags') or [], fee=fee_range(r), fee_min=r.get('fee_min'), fee_max=r.get('fee_max'),
              open=r.get('reg_open'), close=r.get('reg_close'), regState=r.get('reg_state'), regNote=r.get('reg_note'),
-             official=r.get('official_url'), regUrl=r.get('reg_url'), sources=r.get('sources') or {}, startTime=r.get('start_time'), verified=r.get('verified'))
+             official=r.get('official_url'), regUrl=r.get('reg_url'), sources=r.get('sources') or {}, startTime=r.get('start_time'), verified=r.get('verified'),
+             prior=(PRIOR.get(r['id']) if not (r.get('reg_open') or r.get('reg_close')) else None))
     a['dist'] = [d['label'] for d in dists]
     race = pd(a['date']); a['d'] = (race - TODAY).days; a['dt'] = race
     a['st'] = status(a)
@@ -98,7 +120,7 @@ def status(r):
     if r['regState'] == 'upcoming': return dict(key='soon', label='접수예정')
     if cl and (cl - t).days <= URGENT_DAYS: return dict(key='urgent', label='마감임박')
     if cl or op or r['regState'] in ('open', 'ongoing'): return dict(key='open', label='접수중')
-    return dict(key='info', label='접수 확인')
+    return dict(key='info', label='일정 미공지')
 
 
 def reg_text(r):
@@ -106,12 +128,12 @@ def reg_text(r):
     if r['ongoing']: return f"진행 중 · ~{fmt_short(pd(r['end']))} 까지"
     k = r['st']['key']
     if k == 'soon' and r['open']: return f"접수 {fmt_short(pd(r['open']))} 시작 (D-{(pd(r['open']) - t).days})"
-    if k == 'soon': return '접수 예정 · 일정 확인 필요'
+    if k == 'soon': return unannounced(r)
     if r['close'] and k != 'closed': return f"접수 ~{fmt_short(pd(r['close']))} (D-{(pd(r['close']) - t).days})"
     if r['close']: return f"접수 마감 {fmt_short(pd(r['close']))}"
     if k == 'closed': return '접수 마감'
-    if k == 'info': return '접수 정보 확인 필요'
-    return '마감일 확인 필요'
+    if k == 'info': return unannounced(r)
+    return '마감일 미공지'
 
 
 def dday_cls(r):
@@ -264,6 +286,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
     date_txt = f"{fmt_full(pd(r['start']))} ~ {fmt_full(pd(r['end']))}" if r['start'] != r['end'] else fmt_full(r['dt'])
     if r['open'] or r['close']:
         reg_period = f"{fmt_full(pd(r['open'])) if r['open'] else '시작일 미확인'} ~ {fmt_full(pd(r['close'])) if r['close'] else '정원 마감 시까지'}"
+    elif r['st']['key'] in ('soon', 'info'): reg_period = unannounced(r)
     else: reg_period = r['regNote'] or ''
     row = lambda k, v, cls='': f'<dt>{k}</dt><dd class="{cls}">{v or "<span class=\"muted\">확인 필요</span>"}</dd>'
     if r['distances']:
@@ -364,6 +387,9 @@ layout('races');
 
 
 def main():
+    global PRIOR
+    pp = os.path.join(ROOT, 'data', 'prior_year.json')
+    PRIOR = json.load(open(pp, encoding='utf8')) if os.path.exists(pp) else {}
     src = json.load(open(os.path.join(ROOT, 'data', 'races.json'), encoding='utf8'))
     fetched = (src.get('fetched_at') or '')[:10] or TODAY.isoformat()
     arch_p = os.path.join(ROOT, 'data', 'race_archive.json')

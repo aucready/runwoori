@@ -28,16 +28,21 @@
 "official_url": "https://giverun.kr/home/main.ubs",
 "organizer": "굿피플",
 "reg_close": null,
-"reg_note": null,
-"reg_open": null,
-"reg_state": "upcoming",
+"reg_note": "2026.09.16 11:00 ~ 선착순 4,000명",
+"reg_open": "2026-09-16",
+"reg_state": "open",
 "reg_url": null,
 "region": "부산",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/give-run-2026-busan"
-},
+"sources": {},
 "start_time": null,
-"venue": "부산 삼락생태공원"
+"venue": "부산 삼락생태공원",
+"verified": {
+"date": "2026-10-31",
+"fields": [
+"접수 기간"
+],
+"url": "https://giverun.kr/home/main.ubs"
+}
 },
 "r0638ebcd": {
 "_last_seen": "2026-10-31",
@@ -732,16 +737,21 @@
 "official_url": "https://yhitf.co.kr",
 "organizer": null,
 "reg_close": null,
-"reg_note": null,
-"reg_open": null,
-"reg_state": "upcoming",
+"reg_note": "2026.10.08 10:00 ~ 선착순 마감",
+"reg_open": "2026-10-08",
+"reg_state": "open",
 "reg_url": null,
 "region": "경기",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/2026-yonhap-news-hanam-international-trail-run-festival-44ea415725f745708495f2cc23bd8810"
-},
+"sources": {},
 "start_time": null,
-"venue": "미사경정공원 및 하남시 일대"
+"venue": "미사경정공원 및 하남시 일대",
+"verified": {
+"date": "2026-10-31",
+"fields": [
+"접수 기간"
+],
+"url": "https://yhitf.co.kr"
+}
 },
 "r253ace2c": {
 "_last_seen": "2026-10-31",
@@ -1184,7 +1194,7 @@
 "reg_close": null,
 "reg_note": null,
 "reg_open": null,
-"reg_state": null,
+"reg_state": "closed",
 "reg_url": null,
 "region": "전북",
 "sources": {},
@@ -1194,10 +1204,11 @@
 "date": "2026-10-31",
 "fields": [
 "대회일",
-"출발 시각",
 "장소",
+"접수 상태",
 "종목·참가비",
-"주최"
+"주최",
+"출발 시각"
 ],
 "url": "https://wjrun.co.kr/"
 }
@@ -1772,17 +1783,22 @@
 "name": "2026 우리함께런 with 빗썸나눔",
 "official_url": "https://bithumbnanumrun.com",
 "organizer": "빗썸나눔, 이투데이",
-"reg_close": null,
-"reg_note": null,
-"reg_open": null,
-"reg_state": "open",
+"reg_close": "2026-10-26",
+"reg_note": "2026.10.06 14:00 ~ 10.26 23:59 (선착순 마감)",
+"reg_open": "2026-10-06",
+"reg_state": "closed",
 "reg_url": null,
 "region": "서울",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/2026-run-together-with-bithumb-sharing-d143977b11474a9298a6da27680e7a06"
-},
+"sources": {},
 "start_time": null,
-"venue": "여의도한강공원 물빛무대앞 광장"
+"venue": "여의도한강공원 물빛무대앞 광장",
+"verified": {
+"date": "2026-10-31",
+"fields": [
+"접수 기간"
+],
+"url": "https://bithumbnanumrun.com"
+}
 },
 "r52f183ec": {
 "_last_seen": "2026-10-31",
@@ -4057,7 +4073,7 @@
 "reg_close": "2026-11-22",
 "reg_note": null,
 "reg_open": null,
-"reg_state": "upcoming",
+"reg_state": "open",
 "reg_url": null,
 "region": "서울",
 "sources": {},
@@ -4067,10 +4083,11 @@
 "date": "2026-10-31",
 "fields": [
 "대회일",
-"출발 시각",
 "장소",
+"접수 기간",
 "접수 마감",
-"종목·참가비"
+"종목·참가비",
+"출발 시각"
 ],
 "url": "https://ajgrun.kr/"
 }

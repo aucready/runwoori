@@ -19,10 +19,10 @@ function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;',
 const BM = '<svg viewBox="0 0 18 22" aria-hidden="true"><path d="M3 2.5h12v17.2l-6-4.2-6 4.2z"/></svg>';
 const SEARCH_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>';
 
-/* 접수 상태: 접수중 / 마감임박(마감 10일 이내) / 접수예정 / 마감 / 접수 확인(정보 없음) */
+/* 접수 상태: 접수중 / 마감임박(마감 10일 이내) / 접수예정 / 마감 / 일정 미공지(정보 없음) */
 const URGENT_DAYS = 10;
 /* ── 데이터 로드: data/races.json (수집기 산출물) → window.RACES ── */
-window.RACES = []; window.RACES_META = null;
+window.RACES = []; window.RACES_META = null; window.PRIOR_YEAR = {};
 function man(n){ if(n==null) return null; const m=n/10000; return (Number.isInteger(m)?m:+m.toFixed(2).replace(/0+$/,''))+'만원'; }
 function feeRange(r){
   if(r.fee_min==null) return '';
@@ -37,16 +37,26 @@ function adapt(r){
     region:r.region||'', venue:r.venue||'', organizer:r.organizer||'', type:r.category||'',
     dist:r.distances.map(d=>d.label), distances:r.distances, distTags:r.dist_tags||[],
     fee:feeRange(r), fee_min:r.fee_min, fee_max:r.fee_max, open:r.reg_open, close:r.reg_close, regState:r.reg_state, regNote:r.reg_note,
-    official:r.official_url, regUrl:r.reg_url, sources:r.sources||{}, startTime:r.start_time, real:true };
+    official:r.official_url, regUrl:r.reg_url, sources:r.sources||{}, startTime:r.start_time, real:true,
+    prior:(!r.reg_open&&!r.reg_close&&window.PRIOR_YEAR[r.id])||null };
 }
+function priorText(p){
+  if(!p) return ''; const f=s=>{const d=pd(s); return {y:d.getFullYear(),m:d.getMonth()+1,d:d.getDate()}};
+  const o=p.open&&f(p.open), c=p.close&&f(p.close); let rng;
+  if(o&&c) rng=o.y===c.y?`${o.y}.${o.m}.${o.d}~${c.m}.${c.d}`:`${o.y}.${o.m}.${o.d}~${c.y}.${c.m}.${c.d}`;
+  else if(o) rng=`${o.y}.${o.m}.${o.d}~`; else if(c) rng=`~${c.y}.${c.m}.${c.d}`; else return '';
+  return `작년 접수 ${rng} (참고)`;
+}
+const unannounced = r => '접수 일정 미공지'+(r.prior&&priorText(r.prior)?' · '+priorText(r.prior):'');
 function loadRaces(){
-  return fetch('data/races.json',{cache:'no-cache'}).then(x=>{ if(!x.ok) throw new Error('races.json '+x.status); return x.json(); })
+  const pr=fetch('data/prior_year.json',{cache:'no-cache'}).then(x=>x.ok?x.json():{}).catch(()=>({}));
+  return pr.then(p=>{ window.PRIOR_YEAR=p||{}; return fetch('data/races.json',{cache:'no-cache'}); }).then(x=>{ if(!x.ok) throw new Error('races.json '+x.status); return x.json(); })
    .then(j=>{ window.RACES_META={fetched_at:j.fetched_at,count:j.count,window:j.window,sources:j.sources,coverage:j.coverage}; window.RACES=j.races.map(adapt); })
    .catch(e=>{ console.warn('대회 데이터를 불러오지 못했어요',e); window.RACES_FAILED=true; });
 }
 const RACES_READY = loadRaces();
 
-/* 접수 상태: 접수중 / 마감임박(마감 10일 이내) / 접수예정 / 마감 / 접수 확인(정보 없음) */
+/* 접수 상태: 접수중 / 마감임박(마감 10일 이내) / 접수예정 / 마감 / 일정 미공지(정보 없음) */
 function status(r){
   const t=today(), race=pd(r.date), open=pd(r.open), close=pd(r.close);
   if(race<t) return {key:'ended', label:'종료'};
@@ -58,7 +68,7 @@ function status(r){
   if(r.regState==='upcoming') return {key:'soon', label:'접수예정'};
   if(close && diff(close,t)<=URGENT_DAYS) return {key:'urgent', label:'마감임박', n:diff(close,t)};
   if(close || open || r.regState==='open' || r.regState==='ongoing') return {key:'open', label:'접수중'};
-  return {key:'info', label:'접수 확인'};
+  return {key:'info', label:'일정 미공지'};
 }
 function enrich(r){ const t=today(); return {...r, st:status(r), d:diff(pd(r.date),t), dt:pd(r.date)}; }
 const allRaces = () => window.RACES.map(enrich);
@@ -74,12 +84,12 @@ function regText(r){
   const t=today();
   if(r.ongoing) return `진행 중 · ~${fmtShort(pd(r.end))} 까지`;
   if(r.st.key==='soon' && r.open) return `접수 ${fmtShort(pd(r.open))} 시작 (D-${diff(pd(r.open),t)})`;
-  if(r.st.key==='soon') return '접수 예정 · 일정 확인 필요';
+  if(r.st.key==='soon') return unannounced(r);
   if(r.close && r.st.key!=='closed') return `접수 ~${fmtShort(pd(r.close))} (D-${diff(pd(r.close),t)})`;
   if(r.close) return `접수 마감 ${fmtShort(pd(r.close))}`;
   if(r.st.key==='closed') return '접수 마감';
-  if(r.st.key==='info') return '접수 정보 확인 필요';
-  return '마감일 확인 필요';
+  if(r.st.key==='info') return unannounced(r);
+  return '마감일 미공지';
 }
 const sep='<span class="sep">·</span>';
 function bookmark(id,on,attr='data-fav',label='관심 대회 저장'){ return `<button class="ed-bookmark ${on?'is-on':''}" aria-pressed="${!!on}" aria-label="${label}" ${attr}="${id}">${BM}</button>`; }
@@ -212,7 +222,7 @@ function ovStatus(o){
   const t=today(), end=pd(o.end_date||o.date); if(end<t) return {key:'ended',label:'종료'};
   const p=(o.periods||[]).find(x=>x.primary);
   if(p){ const s=pd(p.start), e=pd(p.end); if(t<s) return {key:'soon',label:'접수예정'}; if(t<=e) return {key:diff(e,t)<=URGENT_DAYS?'urgent':'open',label:diff(e,t)<=URGENT_DAYS?'마감임박':'접수중'}; return {key:'closed',label:'접수 마감'}; }
-  return {open:{key:'open',label:'접수중'},soon:{key:'soon',label:'접수예정'}}[o.status_hint]||{key:'info',label:'접수 확인'};
+  return {open:{key:'open',label:'접수중'},soon:{key:'soon',label:'접수예정'}}[o.status_hint]||{key:'info',label:'일정 미공지'};
 }
 function ovRow(o){
   const d=pd(o.date), n=diff(d,today()), st=ovStatus(o), fav=favs.has(o.id);

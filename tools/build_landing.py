@@ -46,7 +46,7 @@ MONTH_NOTE = {
     12: '12월은 연말 분위기의 이색 대회와 송년 러닝이 많은 달이에요. 11월보다 대회 수는 줄고, 기온이 영하로 내려가는 날도 있어 손과 귀를 보호할 장비가 필요합니다. 크리스마스·송년 대회는 기념품이나 의상 규정이 따로 있는 경우가 있으니 안내를 읽어 보세요.',
 }
 REGION_NOTE = {
-    '서울': '서울의 대회는 한강 둔치와 하천변 러닝 트랙, 상암월드컵공원, 여의도공원처럼 평지가 이어지는 곳에서 많이 열려요. 도심 구간을 쓰는 대회는 교통 통제 때문에 지하철로 이동하는 것이 편하고, 짐 보관 시간이 짧은 경우가 있어 출발 전 보관 마감 시각을 확인하는 것이 좋아요.',
+    '서울': '서울의 대회는 안양천 같은 하천변 러닝 트랙, 상암월드컵공원, 여의도공원처럼 평지가 이어지는 곳에서 많이 열려요. 도심 구간을 쓰는 대회는 교통 통제 때문에 지하철로 이동하는 것이 편하고, 짐 보관 시간이 짧은 경우가 있어 출발 전 보관 마감 시각을 확인하는 것이 좋아요.',
     '경기': '경기도는 수도권 접근성이 좋은 호수공원·하천변·임진강 일대 대회가 많아요. 서울 시내보다 코스가 넓어 비교적 한적하게 달릴 수 있지만, 대중교통이 닿지 않는 출발지가 있어 셔틀버스 운행 여부를 확인해 두세요.',
     '인천': '인천은 바다와 맞닿은 송도·영종 일대와 공원 코스에서 대회가 열려요. 바닷바람이 센 날은 체감 온도가 크게 내려가니 겉옷 계획을 세워 두세요.',
     '강원': '강원도는 호수·강변·산악 코스가 다양해 풍경을 즐기며 달리는 대회가 많아요. 고도 변화와 아침 기온이 수도권과 달라서 코스 고저도를 꼭 확인하세요.',
@@ -285,12 +285,12 @@ def build_region(g, cur, fetched, months, regions):
 
 
 def inject_index(months, regions):
+    """홈(index.html)의 제목 아래에 정적 링크 블록을 넣는다(크롤러·이용자 모두 바로 보이게)."""
     p = os.path.join(ROOT, 'index.html'); s = open(p, encoding='utf8').read()
-    block = ('<!--LANDING:START--><section class="ed-section lp-home" aria-labelledby="lpHomeT"><div class="ed-section-head"><h2 class="ed-h2" id="lpHomeT">대회 모아보기</h2></div>'
-             + nav_block(months, regions, '').replace('<nav class="lp-links" aria-label="대회 모아보기">', '<nav class="lp-links" aria-label="마감·월별·지역별 모아보기">') + '</section><!--LANDING:END-->')
-    if 'LANDING:START' in s: s = re.sub(r'<!--LANDING:START-->.*?<!--LANDING:END-->', lambda m: block, s, flags=re.S)
-    else: s = s.replace('</section>\n</div></main>', '</section>\n' + block + '\n</div></main>', 1)
-    assert 'LANDING:START' in s
+    block = ('<!--LANDING:START-->' + nav_block(months, regions, '').replace('class="lp-links"', 'class="lp-links lp-home"').replace('aria-label="대회 모아보기"', 'aria-label="마감·월별·지역별 모아보기"') + '<!--LANDING:END-->')
+    s = re.sub(r'\n?<!--LANDING:START-->.*?<!--LANDING:END-->', '', s, flags=re.S)
+    assert '<div class="split">' in s
+    s = s.replace('<div class="split">', block + '\n<div class="split">', 1)
     open(p, 'w', encoding='utf8').write(s)
 
 

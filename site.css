@@ -350,5 +350,4 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .lp-links a:hover,.lp-pills a:hover{color:var(--ink);text-decoration-color:var(--ink)}
 .lp-links a.is-on{color:var(--ink);font-weight:600;text-decoration-color:var(--ink)}
 .lp-pills{display:flex;flex-wrap:wrap;gap:8px 16px}
-.lp-home{margin-top:28px}
-.lp-home .lp-links{margin:0;border-top:0;padding-top:0}
+.lp-links.lp-home{margin-top:14px;margin-bottom:4px}

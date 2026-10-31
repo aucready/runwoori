@@ -278,7 +278,9 @@ const RW = (function(){
   /* 앱: 기본 캘린더 앱의 일정 만들기 화면을 연다 / 웹: .ics 파일 내려받기 */
   function addToCalendar(r){
     if(native){
-      const s=pd(r.start||r.date), e=pd(r.end||r.date); e.setDate(e.getDate()+1);
+      /* 종일 일정은 캘린더 앱이 UTC 자정 기준으로 읽는다(현지 자정을 넘기면 하루 전으로 보임) */
+      const u=ds=>{ const [y,m,d]=ds.split('-').map(Number); return Date.UTC(y,m-1,d); };
+      const s={getTime:()=>u(r.start||r.date)}, e={getTime:()=>u(r.end||r.date)+86400000};
       return call('RunwooriNative','addToCalendar',{title:r.name,location:r.venue||'',description:'일정은 바뀔 수 있어요. 공식 홈페이지에서 확인하세요.'+(r.official?'\n'+r.official:''),start:s.getTime(),end:e.getTime(),allDay:true})
         .catch(()=>toast('캘린더 앱을 열지 못했어요'));
     }

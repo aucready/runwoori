@@ -1,0 +1,109 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>훈련 플랜 | Run우리</title>
+<meta name="description" content="목표 대회 날짜에 맞춘 주차별 훈련 계획 예시">
+<meta name="theme-color" content="#F6F2EA">
+<meta name="robots" content="noindex,follow">
+
+<!-- Google AdSense: 지금은 비활성(주석). 도메인 연결·승인 후 tools/set_adsense.sh PUBID 로 활성화 -->
+<!--ADSENSE:START--><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7338943288925151" crossorigin="anonymous"></script><!--ADSENSE:END-->
+<!--GA4:START--><script async src="https://www.googletagmanager.com/gtag/js?id=G-9CNWJMZ71Q"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9CNWJMZ71Q',{anonymize_ip:true});</script><!--GA4:END-->
+<meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="훈련 플랜 | Run우리"><meta property="og:description" content="목표 대회 날짜에 맞춘 주차별 훈련 계획 예시"><meta property="og:image" content="https://runwoori.com/assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Run우리 — 마라톤·러닝 대회 일정">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="훈련 플랜 | Run우리"><meta name="twitter:description" content="목표 대회 날짜에 맞춘 주차별 훈련 계획 예시"><meta name="twitter:image" content="https://runwoori.com/assets/icons/og-image.png">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css">
+<script src="data.js"></script><script src="app.js"></script><script src="pro.js"></script></head><body>
+
+<main class="ed-wrap" id="main">
+<p class="rw-preview" id="pvBar" hidden>프로 미리보기 · 아직 출시 전 기능이에요. 이 기기에서만 열려 있어요.</p>
+<div style="padding:28px var(--page-x) 0"><div class="ed-label accent">Run우리 프로</div><h1 class="ed-h1" style="margin:12px 0 10px">훈련 플랜</h1>
+<p class="ed-lede">목표 대회 날짜까지 주차별로 달릴 거리를 정리해요. 일반적인 예시이고, 몸 상태에 맞게 줄이거나 쉬어 가세요.</p></div>
+<div id="lock"></div>
+<div id="tool" hidden>
+<section style="padding:0 var(--page-x)">
+  <div class="rw-form">
+    <div class="full"><label>목표 종목</label><div class="rw-seg" id="segDist"><button type="button" data-k="10k">10K</button><button type="button" data-k="half" class="is-on">하프</button><button type="button" data-k="full">풀</button></div></div>
+    <div><label for="raceDate">대회 날짜</label><input class="ed-input" type="date" id="raceDate"></div>
+    <div id="savedBox" hidden><label for="savedSel">저장한 대회에서 고르기</label><select id="savedSel"><option value="">선택</option></select></div>
+    <div><label>주당 러닝 횟수</label><div class="rw-seg" id="segRuns"><button type="button" data-k="3">3회</button><button type="button" data-k="4" class="is-on">4회</button><button type="button" data-k="5">5회</button></div></div>
+    <div><label for="baseKm">요즘 일주일에 달리는 거리(km)</label><input class="ed-input" type="number" id="baseKm" min="5" max="80" step="1" value="20" inputmode="numeric"></div>
+    <div class="full"><button type="button" class="ed-btn" id="make">계획 만들기 <span class="ed-arrow">→</span></button></div>
+  </div>
+</section>
+<section id="out" style="padding:28px var(--page-x) 0"></section>
+<p class="ed-small" style="padding:22px var(--page-x) 0;line-height:1.8">이 계획은 일반적으로 알려진 훈련 원칙(주간 거리를 조금씩 늘리고, 4주마다 한 번 줄이고, 대회 직전에는 줄이는 방식)을 단순하게 옮긴 예시예요. 개인의 건강 상태와 경험을 반영하지 않으며, 의학적·전문적 조언이 아니에요. 통증이나 지병이 있다면 무리하지 말고 전문가와 상담하세요.</p>
+</div>
+</main>
+<script>
+layout('');
+(function(){
+  if(RWPro.preview()) document.getElementById('pvBar').hidden=false;
+  if(!RWPro.has('training_plan')){ document.getElementById('lock').innerHTML=RWPro.lockCard('training_plan'); return; }
+  document.getElementById('tool').hidden=false;
+  var TPL={'10k':{label:'10K',km:10,weeks:8,cap:40,longCap:14,taper:[0.75,0.5],warn:0},
+           'half':{label:'하프',km:21.0975,weeks:12,cap:55,longCap:20,taper:[0.75,0.5],warn:25},
+           'full':{label:'풀코스',km:42.195,weeks:16,cap:70,longCap:32,taper:[0.8,0.6,0.4],warn:40}};
+  var KEY='rr_plan_v1', st=load()||{dist:'half',runs:4,base:20,date:'',done:{}};
+  function load(){ try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null;} }
+  function save(){ localStorage.setItem(KEY,JSON.stringify(st)); }
+  function mondayOf(d){ var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()); x.setDate(x.getDate()-((x.getDay()+6)%7)); return x; }
+  function mmdd(d){ return (d.getMonth()+1)+'.'+d.getDate(); }
+  function seg(id,key){ var el=document.getElementById(id); Array.prototype.forEach.call(el.children,function(b){ b.classList.toggle('is-on',String(st[key])===b.dataset.k); b.onclick=function(){ st[key]=b.dataset.k; if(key==='runs') st.runs=+st.runs; seg(id,key); }; }); }
+  seg('segDist','dist'); seg('segRuns','runs');
+  var dEl=document.getElementById('raceDate'), bEl=document.getElementById('baseKm'); dEl.value=st.date||''; bEl.value=st.base;
+  var q=(location.search.match(/[?&]date=(\d{4}-\d\d-\d\d)/)||[])[1]; if(q&&!st.date){ dEl.value=q; }
+  RACES_READY.then(function(){ var l=allRaces().filter(function(r){return favs.has(r.id)&&r.d>=14;}).sort(function(a,b){return a.d-b.d;});
+    if(!l.length) return; var sel=document.getElementById('savedSel'); document.getElementById('savedBox').hidden=false;
+    l.forEach(function(r){ var o=document.createElement('option'); o.value=r.date; o.textContent=r.date.slice(5).replace('-','.')+' '+r.name; sel.appendChild(o); });
+    sel.onchange=function(){ if(sel.value) dEl.value=sel.value; }; });
+
+  function build(){
+    var T=TPL[st.dist], today=new Date(); today.setHours(0,0,0,0);
+    var rd=dEl.value?new Date(dEl.value+'T00:00:00'):null, base=Math.max(5,Math.min(80,Math.round(+bEl.value)||0)), runs=st.runs;
+    var out=document.getElementById('out');
+    if(!rd||rd<=today){ out.innerHTML='<div class="ed-empty">오늘 이후의 대회 날짜를 골라 주세요.</div>'; return; }
+    st.date=dEl.value; st.base=base; save();
+    var m0=mondayOf(today), m1=mondayOf(rd), N=Math.round((m1-m0)/604800000)+1;
+    if(N<4){ out.innerHTML='<div class="ed-empty">대회까지 남은 기간이 너무 짧아요(4주 미만). 이 기간에는 새 계획을 세우기보다 지금 달리는 양을 유지하고 컨디션을 관리하는 편이 안전해요.</div>'; return; }
+    var tp=T.taper, nT=tp.length, nBase=Math.max(0,N-T.weeks), nBuild=N-nT-nBase;
+    var peakCap=Math.min(T.cap, Math.round(base*(st.dist==='full'?2.2:2.0)));
+    peakCap=Math.max(peakCap,base);
+    var rows=[], cur=base, peak=base, j=0, w;
+    for(w=0;w<N;w++){
+      var phase, vol;
+      if(w<nBase){ phase='기초 다지기'; vol=base; }
+      else if(w<nBase+nBuild){ var b=w-nBase; var down=(b+1)%4===0&&b<nBuild-1;
+        if(b>0&&!down){ var prevFull=cur; cur=Math.min(peakCap,Math.max(cur,Math.round(cur*1.08+0.4))); if(cur>prevFull*1.12) cur=Math.round(prevFull*1.1); }
+        if(down){ phase='휴식 주'; vol=Math.round(cur*0.75); } else { phase=b===0?'빌드 시작':'빌드'; vol=cur; peak=Math.max(peak,cur); } }
+      else { var ti=w-nBase-nBuild; phase=ti===nT-1?'대회 주':'테이퍼(줄이기)'; vol=Math.round(peak*tp[ti]); }
+      rows.push({w:w,phase:phase,vol:vol});
+    }
+    var h='<div class="ed-label nocase">'+T.label+' · '+N+'주 계획 · 정점 주간 거리 약 '+peak+'km</div>';
+    var warns=[];
+    if(nBuild<Math.min(6,T.weeks-nT)) warns.push('남은 기간이 권장 기간('+T.weeks+'주)보다 짧아서 늘리는 구간이 짧아요. 목표 기록보다 완주와 부상 예방을 우선하세요.');
+    if(T.warn&&peak<T.warn) warns.push('이 계획의 정점 주간 거리('+peak+'km)는 '+T.label+' 준비로는 적은 편일 수 있어요. 대회 날짜를 늦추거나 더 짧은 종목을 먼저 고려해 보세요.');
+    if(warns.length) h+='<p class="ed-note" style="margin:12px 0 0">'+warns.join('<br>')+'</p>';
+    h+='<table class="rw-weeks"><thead><tr><th>주</th><th>기간</th><th>합계</th><th>구성</th></tr></thead><tbody>';
+    rows.forEach(function(r){
+      var ws=new Date(m0); ws.setDate(ws.getDate()+7*r.w); var we=new Date(ws); we.setDate(we.getDate()+6);
+      var isRace=r.w===N-1, comp, note='';
+      if(isRace){ comp='가벼운 러닝 2회 합계 약 '+Math.max(5,Math.round(r.vol*0.5))+'km + 대회('+T.label+')'; note='대회 전날과 전전날은 쉬거나 아주 가볍게.'; }
+      else { var long=Math.min(T.longCap,Math.max(3,Math.round(r.vol*0.35))), rest=Math.max(0,r.vol-long), n=runs-1, each=Math.max(2,Math.round(rest/n*2)/2);
+        comp='롱런 '+long+'km + 쉬운 러닝 '+n+'회(회당 약 '+each+'km)';
+        note={'기초 다지기':'지금 달리는 양을 유지해요.','빌드 시작':'대화가 가능한 속도로.','빌드':'쉬운 속도 위주. 원하면 짧은 스트라이드 4~6회를 한 번만.','휴식 주':'몸이 회복하는 주예요. 거리를 줄여요.','테이퍼(줄이기)':'거리를 줄여 컨디션을 올려요.'}[r.phase]||''; }
+      var done=st.done[r.w]?' checked':'';
+      h+='<tr'+(isRace?' class="is-race"':'')+'><td class="num">'+(r.w+1)+'</td><td class="num">'+mmdd(ws)+'~'+mmdd(we)+'</td><td class="num">'+(isRace?'':r.vol+'km')+'</td><td>'+r.phase+(isRace?' · '+mmdd(rd)+'(대회일)':'')+'<br><span class="ed-small">'+comp+(note?'<br>'+note:'')+'</span><br><label class="ed-small" style="display:inline-flex;gap:6px;align-items:center;margin-top:4px"><input type="checkbox" data-w="'+r.w+'"'+done+'> 완료</label></td></tr>';
+    });
+    h+='</tbody></table>';
+    out.innerHTML=h;
+    Array.prototype.forEach.call(out.querySelectorAll('input[data-w]'),function(c){ c.onchange=function(){ if(c.checked) st.done[c.dataset.w]=1; else delete st.done[c.dataset.w]; save(); }; });
+  }
+  document.getElementById('make').onclick=build;
+  if(st.date) build();
+})();
+</script></body></html>

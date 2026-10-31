@@ -44,12 +44,12 @@ rm -rf "$DEPLOY/overseas" && cp -a overseas "$DEPLOY/overseas" && cp overseas.ht
 [ -f data/weather.json ] && cp data/weather.json "$DEPLOY/data/"   # 날씨 예보(목록 카드용)
 cp data/races.json data/race_archive.json data/race_pages.json data/overseas.json data/overseas_pages.json "$DEPLOY/data/"
 [ -f data/prior_year.json ] && cp data/prior_year.json "$DEPLOY/data/"
-cp *.html data.js app.js site.css sw.js manifest.webmanifest components.css design-tokens.css favicon.ico "$DEPLOY/"; cp -a assets/. "$DEPLOY/assets/";   # PWA(서비스 워커·매니페스트·아이콘)도 함께
+cp *.html data.js app.js site.css sw.js pro.js manifest.webmanifest components.css design-tokens.css favicon.ico "$DEPLOY/"; cp -a assets/. "$DEPLOY/assets/";   # PWA(서비스 워커·매니페스트·아이콘)도 함께
 cp tools/set_ga4.sh "$DEPLOY/tools/" 2>/dev/null || true; cp data/courses.json "$DEPLOY/data/"   # 화면 코드도 함께(수정 누락 방지)
 [ -d data/blog ] && { rm -rf "$DEPLOY/data/blog" && cp -a data/blog "$DEPLOY/data/blog"; }
 rm -rf "$DEPLOY/month" "$DEPLOY/region" && cp -a month "$DEPLOY/month" && cp -a region "$DEPLOY/region" && cp deadline.html "$DEPLOY/deadline.html" && cp data/landing_pages.json "$DEPLOY/data/"
 cp sitemap.xml "$DEPLOY/sitemap.xml"
-cp tools/build_race_pages.py tools/build_overseas.py tools/build_landing.py tools/build_sitemap.py tools/daily_publish.sh tools/weather_lib.py tools/fetch_weather.py tools/geocode_venues.py "$DEPLOY/tools/" 2>/dev/null || true
+cp tools/build_race_pages.py tools/build_overseas.py tools/build_landing.py tools/make_pro_pages.py tools/build_sitemap.py tools/daily_publish.sh tools/weather_lib.py tools/fetch_weather.py tools/geocode_venues.py "$DEPLOY/tools/" 2>/dev/null || true
 
 cd "$DEPLOY"
 echo "$DOMAIN" > CNAME                                    # 커스텀 도메인 파일 유지

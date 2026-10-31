@@ -1,0 +1,76 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>기록 관리 | Run우리</title>
+<meta name="description" content="대회 기록을 저장하고 개인 최고 기록(PB)을 확인해요">
+<meta name="theme-color" content="#F6F2EA">
+<meta name="robots" content="noindex,follow">
+
+<!-- Google AdSense: 지금은 비활성(주석). 도메인 연결·승인 후 tools/set_adsense.sh PUBID 로 활성화 -->
+<!--ADSENSE:START--><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7338943288925151" crossorigin="anonymous"></script><!--ADSENSE:END-->
+<!--GA4:START--><script async src="https://www.googletagmanager.com/gtag/js?id=G-9CNWJMZ71Q"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9CNWJMZ71Q',{anonymize_ip:true});</script><!--GA4:END-->
+<meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="기록 관리 | Run우리"><meta property="og:description" content="대회 기록을 저장하고 개인 최고 기록(PB)을 확인해요"><meta property="og:image" content="https://runwoori.com/assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Run우리 — 마라톤·러닝 대회 일정">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="기록 관리 | Run우리"><meta name="twitter:description" content="대회 기록을 저장하고 개인 최고 기록(PB)을 확인해요"><meta name="twitter:image" content="https://runwoori.com/assets/icons/og-image.png">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css">
+<script src="data.js"></script><script src="app.js"></script><script src="pro.js"></script></head><body>
+
+<main class="ed-wrap" id="main">
+<p class="rw-preview" id="pvBar" hidden>프로 미리보기 · 아직 출시 전 기능이에요. 이 기기에서만 열려 있어요.</p>
+<div style="padding:28px var(--page-x) 0"><div class="ed-label accent">Run우리 프로</div><h1 class="ed-h1" style="margin:12px 0 10px">기록 관리</h1>
+<p class="ed-lede">완주한 대회 기록을 저장하고 종목별 개인 최고 기록(PB)을 확인해요. 기록은 이 기기에만 저장돼요.</p></div>
+<div id="lock"></div>
+<div id="tool" hidden>
+<section style="padding:0 var(--page-x)">
+  <div class="rw-form">
+    <div class="full"><label for="rName">대회 이름</label><input class="ed-input" id="rName" maxlength="60" autocomplete="off"></div>
+    <div><label for="rDate">날짜</label><input class="ed-input" type="date" id="rDate"></div>
+    <div><label for="rDist">종목</label><select id="rDist"><option value="5k">5K</option><option value="10k">10K</option><option value="half">하프</option><option value="full">풀</option><option value="custom">직접 입력</option></select></div>
+    <div id="kmBox" hidden><label for="rKm">거리(km)</label><input class="ed-input" type="number" id="rKm" step="0.01" min="0.5" inputmode="decimal"></div>
+    <div><label>기록 (시 · 분 · 초)</label><div class="rw-row2" style="grid-template-columns:1fr 1fr 1fr"><input class="ed-input" id="rH" inputmode="numeric" placeholder="시" aria-label="시"><input class="ed-input" id="rM" inputmode="numeric" placeholder="분" aria-label="분"><input class="ed-input" id="rS" inputmode="numeric" placeholder="초" aria-label="초"></div></div>
+    <div class="full"><label for="rMemo">메모 (선택)</label><input class="ed-input" id="rMemo" maxlength="80" autocomplete="off"></div>
+    <div class="full"><button type="button" class="ed-btn" id="rAdd">기록 저장 <span class="ed-arrow">→</span></button></div>
+  </div>
+</section>
+<section style="padding:30px var(--page-x) 0"><div class="ed-label">개인 최고 기록(PB)</div><div id="pbs" style="margin-top:8px"></div></section>
+<section style="padding:30px var(--page-x) 0"><div class="ed-label">전체 기록</div><div id="list" style="margin-top:6px;border-top:var(--line) solid var(--rule)"></div>
+<p class="ed-small" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 18px"><button type="button" class="ed-link ed-textbtn" id="rCsv">CSV로 복사</button></p></section>
+</div>
+</main>
+<script>
+layout('');
+(function(){
+  if(RWPro.preview()) document.getElementById('pvBar').hidden=false;
+  if(!RWPro.has('records')){ document.getElementById('lock').innerHTML=RWPro.lockCard('records'); return; }
+  document.getElementById('tool').hidden=false;
+  var KEY='rr_records_v1', D={'5k':5,'10k':10,'half':21.0975,'full':42.195}, N={'5k':'5K','10k':'10K','half':'하프','full':'풀','custom':'기타'};
+  function load(){ try{return JSON.parse(localStorage.getItem(KEY))||[];}catch(e){return [];} }
+  function save(a){ localStorage.setItem(KEY,JSON.stringify(a)); }
+  var $=function(s){return document.querySelector(s);};
+  $('#rDist').onchange=function(){ $('#kmBox').hidden=$('#rDist').value!=='custom'; };
+  function pbMap(a){ var m={}; a.forEach(function(r){ if(r.dist==='custom') return; if(!m[r.dist]||r.sec<m[r.dist].sec) m[r.dist]=r; }); return m; }
+  function draw(){
+    var a=load().sort(function(x,y){return x.date<y.date?1:-1;}), pb=pbMap(a);
+    $('#pbs').innerHTML=Object.keys(D).map(function(k){ var r=pb[k]; return '<div class="rw-rec"><span class="ed-label">'+N[k]+'</span><span>'+(r?esc(r.name)+' <span class="ed-small">'+r.date+'</span>':'<span class="ed-small">아직 기록이 없어요</span>')+'</span><b>'+(r?fmtTime(r.sec):'–')+'</b></div>'; }).join('');
+    $('#list').innerHTML=a.length?a.map(function(r){ var isPb=r.dist!=='custom'&&pb[r.dist]&&pb[r.dist].id===r.id;
+      return '<div class="rw-rec"><span class="ed-label">'+N[r.dist]+'</span><span>'+esc(r.name)+(isPb?'<span class="rw-pb">PB</span>':'')+'<br><span class="ed-small">'+r.date+' · 페이스 '+fmtPace(r.sec/r.km)+'/km'+(r.memo?' · '+esc(r.memo):'')+'</span></span><span style="text-align:right"><b>'+fmtTime(r.sec)+'</b><br><button type="button" class="ed-link ed-textbtn ed-small" data-del="'+r.id+'">삭제</button></span></div>'; }).join('')
+      :'<div class="ed-empty">저장한 기록이 없어요.</div>';
+    Array.prototype.forEach.call(document.querySelectorAll('[data-del]'),function(b){ b.onclick=function(){ if(!confirm('이 기록을 삭제할까요?')) return; save(load().filter(function(r){return r.id!==b.dataset.del;})); draw(); }; });
+  }
+  $('#rAdd').onclick=function(){
+    var name=$('#rName').value.trim(), date=$('#rDate').value, dist=$('#rDist').value, km=dist==='custom'?parseFloat($('#rKm').value):D[dist];
+    var sec=(parseInt($('#rH').value)||0)*3600+(parseInt($('#rM').value)||0)*60+(parseInt($('#rS').value)||0);
+    if(!name||!date||!km||km<=0||sec<=0){ toast('이름, 날짜, 거리, 기록을 모두 입력해 주세요'); return; }
+    if(date>iso(new Date())){ toast('오늘 이후 날짜는 기록으로 저장할 수 없어요'); return; }
+    var a=load(); a.push({id:'r'+Date.now().toString(36),name:name,date:date,dist:dist,km:km,sec:sec,memo:$('#rMemo').value.trim()}); save(a);
+    ['#rName','#rH','#rM','#rS','#rMemo'].forEach(function(s){$(s).value='';}); toast('기록을 저장했어요'); draw();
+  };
+  $('#rCsv').onclick=function(){ var a=load(); var csv='날짜,대회,종목,거리(km),기록,메모\n'+a.map(function(r){ return [r.date,'"'+r.name.replace(/"/g,'""')+'"',N[r.dist],r.km,fmtTime(r.sec),'"'+(r.memo||'').replace(/"/g,'""')+'"'].join(','); }).join('\n');
+    (navigator.clipboard?navigator.clipboard.writeText(csv):Promise.reject()).then(function(){toast('CSV를 복사했어요');},function(){toast('복사하지 못했어요');}); };
+  draw();
+})();
+</script></body></html>

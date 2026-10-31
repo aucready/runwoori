@@ -374,3 +374,25 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .ed-wx-later{margin:0;font-size:12.5px;color:var(--ink-3)}
 .ed-wx-later .ed-wx-k{display:inline;margin-right:8px;color:var(--ink-2);font-weight:600}
 @media (min-width:760px){.ed-wx-panel{max-width:620px}}
+
+/* Run우리 프로: 잠금 카드 · 미리보기 띠 · 훈련 플랜 · 기록 */
+.rw-lock{border:var(--line) solid var(--rule);padding:24px 22px;margin:28px var(--page-x) 0;background:transparent}
+.rw-lock-slot{margin-top:10px;color:var(--ink-2)}
+.rw-preview{margin:0 var(--page-x);padding:10px 0;border-bottom:var(--line) solid var(--rule);font-size:12px;color:var(--ink-2)}
+.rw-form{display:grid;grid-template-columns:1fr;gap:16px;margin-top:22px}
+.rw-form label{display:block;font-size:12px;letter-spacing:.06em;color:var(--ink-2);margin-bottom:6px}
+.rw-form .ed-input,.rw-form select{width:100%}
+.rw-form select{font:inherit;min-height:44px;padding:0 10px;background:transparent;border:var(--line) solid var(--ink);color:var(--ink);border-radius:0}
+.rw-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rw-seg{display:flex;flex-wrap:wrap;gap:8px}
+.rw-seg button{font:inherit;font-size:14px;min-height:44px;padding:0 16px;border:var(--line) solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;border-radius:0}
+.rw-seg button.is-on{background:var(--ink);color:var(--paper,#F6F2EA)}
+.rw-weeks{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+.rw-weeks th,.rw-weeks td{text-align:left;padding:10px 6px;border-bottom:var(--line) solid var(--rule);vertical-align:top}
+.rw-weeks th{font-size:11px;letter-spacing:.1em;color:var(--ink-2);font-weight:600}
+.rw-weeks tr.is-race td{font-weight:700}
+.rw-weeks .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.rw-pb{display:inline-block;font-size:11px;letter-spacing:.08em;border:var(--line) solid var(--accent,#B8432B);color:var(--accent,#B8432B);padding:1px 6px;margin-left:8px}
+.rw-rec{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:baseline;padding:14px 0;border-bottom:var(--line) solid var(--rule)}
+.rw-rec b{font-variant-numeric:tabular-nums}
+@media (min-width:720px){.rw-form{grid-template-columns:1fr 1fr}.rw-form .full{grid-column:1/-1}}

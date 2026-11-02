@@ -17,7 +17,7 @@ SITE = os.environ.get('SITE_URL', 'https://runwoori.com').rstrip('/')
 TODAY = datetime.datetime.now(ZoneInfo('Asia/Seoul')).date()
 WX = weather_lib.load()
 WD = ['월', '화', '수', '목', '금', '토', '일']
-CC = {'일본': 'JP', '미국': 'US', '영국': 'GB', '호주': 'AU', '독일': 'DE', '대만': 'TW', '프랑스': 'FR', '홍콩': 'HK'}
+CC = {'일본': 'JP', '미국': 'US', '영국': 'GB', '호주': 'AU', '독일': 'DE', '대만': 'TW', '프랑스': 'FR', '홍콩': 'HK', '스페인': 'ES'}
 TZ = {'일본': '+09:00', '대만': '+08:00', '홍콩': '+08:00'}
 
 
@@ -47,25 +47,36 @@ def prim(r):
 def status(r):
     d = pd(r['date']); end = pd(r.get('end_date') or r['date'])
     if end < TODAY: return ('ended', '종료')
+    if r.get('reg_state') == 'full': return ('closed', '정원 마감')       # 공식 사이트가 정원 도달·매진을 알린 대회
     p = prim(r)
     if p:
-        s, e = pd(p['start']), pd(p['end'])
-        if TODAY < s: return ('soon', '접수예정')
-        if TODAY <= e:
-            return ('urgent', '마감임박') if (e - TODAY).days <= 10 else ('open', '접수중')
-        return ('closed', '접수 마감')
+        s = pd(p['start']) if p.get('start') else None                    # 시작일을 확인하지 못한 접수는 start 를 비워 둔다
+        e = pd(p['end']) if p.get('end') else None
+        if s and TODAY < s: return ('soon', '접수예정')
+        if e is None or TODAY <= e:
+            return ('urgent', '마감임박') if (e and (e - TODAY).days <= 10) else ('open', '접수중')
+        return ('closed', r.get('reg_label') or '접수 마감')
+    if r.get('reg_state') == 'closed': return ('closed', r.get('reg_label') or '접수 마감')
     h = r.get('status_hint')
     return {'open': ('open', '접수중'), 'soon': ('soon', '접수예정'), 'info': ('info', '일정 미공지')}.get(h, ('info', '일정 미공지'))
 
 
 def reg_line(r):
     p = prim(r); st = status(r)[0]
+    if st == 'closed' and r.get('reg_line'): return r['reg_line']
     if p:
-        s, e = pd(p['start']), pd(p['end'])
-        if st == 'soon': return f'{p["label"]} {short(s)} 시작'
-        if st in ('open', 'urgent'): return f'{p["label"]} ~{short(e)} (D-{(e - TODAY).days})'
-        if st == 'closed': return f'{p["label"]} {short(e)} 마감'
-    return {'open': '접수 진행 중'}.get(st, '접수 일정 미공지')
+        s = pd(p['start']) if p.get('start') else None
+        e = pd(p['end']) if p.get('end') else None
+        if st == 'soon' and s: return f'{p["label"]} {short(s)} 시작'
+        if st in ('open', 'urgent'): return f'{p["label"]} ~{short(e)} (D-{(e - TODAY).days})' if e else f'{p["label"]} 진행 중'
+        if st == 'closed': return f'{p["label"]} {short(e)} 마감' if e else f'{p["label"]} 마감'
+    return {'open': '접수 진행 중', 'closed': r.get('reg_label') or '접수 마감'}.get(st, '접수 일정 미공지')
+
+
+def prange(p):
+    s = full(pd(p['start'])) if p.get('start') else ''
+    e = full(pd(p['end'])) if p.get('end') else ''
+    return f'{s} ~ {e}'.strip() if s and e else (f'~ {e}' if e else f'{s} ~')
 
 
 def meta_line(r): return f'{r["city"]} · {r["country"]}'
@@ -99,7 +110,7 @@ def card(r):
     return (f'<article class="ed-race" data-id="{r["id"]}"><div class="ed-race-date"><b>{d.day:02d}</b><span>{d.month}월 {wd(d)}</span></div>'
             f'<div class="ed-race-body"><div class="ed-race-top"><span class="ed-status {k}">{lab}</span>{weather_lib.chip(WX, r["id"], TODAY)}</div>'
             f'<h3><a class="row-link" href="overseas/{r["slug"]}.html">{esc(r["name"])}</a></h3>'
-            f'<p class="ed-meta">{full(d)}<span class="sep">·</span>{esc(meta_line(r))}</p><p class="ed-meta">{esc(dist)}</p>'
+            f'<p class="ed-meta">{date_txt(r)}<span class="sep">·</span>{esc(meta_line(r))}</p><p class="ed-meta">{esc(dist)}</p>'
             f'<p class="ed-meta">{esc(reg_line(r))}</p><p class="ov-chips">{chips}</p></div>'
             f'<div class="ed-race-side"><div class="ed-dday {cls}">{dday(n)}</div>{bookmark(r["id"])}</div></article>')
 
@@ -136,7 +147,7 @@ layout('overseas');
 '''
 
 
-def group_label(r): return '월드 마라톤 메이저스' if r['group'] == 'wmm' else '한국 러너 인기 대회'
+def group_label(r): return {'wmm': '월드 마라톤 메이저스', 'more': '그 밖의 해외 마라톤'}.get(r['group'], '한국 러너 인기 대회')
 
 
 def page(r, others):
@@ -160,7 +171,7 @@ def page(r, others):
     entry_html = ''.join(f'<div class="ov-entry"><span class="ed-tag">{esc(e["type"])}</span><p>{esc(e["text"])}</p></div>' for e in r.get('entry', []))
     per = r.get('periods', [])
     if per:
-        trs = ''.join(f'<tr><td>{esc(p["label"])}</td><td>{full(pd(p["start"]))} ~ {full(pd(p["end"]))}<br><span class="muted">{esc(p.get("note",""))}</span></td></tr>' for p in per)
+        trs = ''.join(f'<tr><td>{esc(p["label"])}</td><td>{prange(p)}<br><span class="muted">{esc(p.get("note",""))}</span></td></tr>' for p in per)
         per_html = f'<table class="ed-table"><thead><tr><th scope="col">구분</th><th scope="col">접수 기간</th></tr></thead><tbody>{trs}</tbody></table>'
     else:
         per_html = '<p class="ed-small">공식 페이지에서 확인된 접수 기간이 없어요. 신청 전에 공식 홈페이지의 최신 공지를 확인하세요.</p>'
@@ -225,8 +236,9 @@ def hub(races):
     title = '해외 주요 대회 — 월드 마라톤 메이저스·인기 대회 일정 | Run우리'
     d = '도쿄·보스턴·런던·시드니·베를린·시카고·뉴욕과 오사카·나고야·후쿠오카·타이베이 등 해외 마라톤의 일정과 참가 방식을 각 대회 공식 홈페이지 기준으로 정리했어요.'
     wmm = sorted([r for r in races if r['group'] == 'wmm'], key=lambda r: r['date'])
-    pop = sorted([r for r in races if r['group'] != 'wmm'], key=lambda r: r['date'])
-    items = [{'@type': 'ListItem', 'position': i + 1, 'url': f'{SITE}/overseas/{r["slug"]}.html', 'name': r['name']} for i, r in enumerate(wmm + pop)]
+    pop = sorted([r for r in races if r['group'] == 'popular'], key=lambda r: r['date'])
+    more = sorted([r for r in races if r['group'] == 'more'], key=lambda r: r['date'])
+    items = [{'@type': 'ListItem', 'position': i + 1, 'url': f'{SITE}/overseas/{r["slug"]}.html', 'name': r['name']} for i, r in enumerate(wmm + pop + more)]
     ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': '해외 주요 대회', 'itemListElement': items}
     crumb = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
         {'@type': 'ListItem', 'position': 1, 'name': '대회 달력', 'item': SITE + '/'}, {'@type': 'ListItem', 'position': 2, 'name': '해외 주요 대회', 'item': url}]}
@@ -239,13 +251,15 @@ def hub(races):
             f'<li><a class="ed-link" href="overseas/{r["slug"]}.html">{esc(r["name"])}</a><span>{esc(reg_line(r))}</span></li>' for r in sorted(openn, key=lambda r: prim(r)['end'] if prim(r) else '9')) + '</ul></div>')
     body = f'''<main class="ed-wrap" id="main">
 <div class="landing-title"><h1 class="ed-h1">해외 주요 대회</h1>{TOGGLE}</div>
-<p class="ed-lede" style="padding:12px var(--page-x) 0;max-width:46em">월드 마라톤 메이저스 {len(wmm)}개와 한국 러너가 많이 찾는 {len(pop)}개 대회예요. 값은 모두 각 대회 공식 홈페이지에서 직접 확인했고, 공식 페이지에서 찾지 못한 항목은 추측하지 않고 비워 뒀어요. <span class="muted">(마지막 확인 {vtxt})</span></p>
+<p class="ed-lede" style="padding:12px var(--page-x) 0;max-width:46em">월드 마라톤 메이저스 {len(wmm)}개, 한국 러너가 많이 찾는 {len(pop)}개, 그 밖의 일본·스페인 마라톤 {len(more)}개를 담았어요. 값은 모두 각 대회 공식 홈페이지에서 직접 확인했고, 공식 페이지에서 찾지 못한 항목은 추측하지 않고 비워 뒀어요. <span class="muted">(마지막 확인 {vtxt})</span></p>
 {open_html}
 <section class="ed-section" style="margin-top:28px"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">월드 마라톤 메이저스</h2><span class="ed-small ed-tab-num"><b style="color:var(--ink)">{len(wmm)}</b>개 · 대회일 순</span></div>
 <div class="ed-list" style="border-top:0">{''.join(card(r) for r in wmm)}</div></section>
 <section class="ed-section" style="margin-top:36px"><div class="ed-section-head major"><span class="no">02</span><h2 class="ed-h2">한국 러너에게 인기 있는 대회</h2><span class="ed-small ed-tab-num"><b style="color:var(--ink)">{len(pop)}</b>개 · 대회일 순</span></div>
 <div class="ed-list" style="border-top:0">{''.join(card(r) for r in pop)}</div></section>
-<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">참가 방식, 이렇게 달라요</h2></div>
+<section class="ed-section" style="margin-top:36px"><div class="ed-section-head major"><span class="no">03</span><h2 class="ed-h2">그 밖의 해외 마라톤</h2><span class="ed-small ed-tab-num"><b style="color:var(--ink)">{len(more)}</b>개 · 대회일 순</span></div>
+<div class="ed-list" style="border-top:0">{''.join(card(r) for r in more)}</div></section>
+<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">참가 방식, 이렇게 달라요</h2></div>
 <dl class="ed-dl ov-dl ov-ways"><dt>추첨</dt><dd>접수 기간 안에 신청한 사람 가운데 무작위로 뽑아요. 기간 안이라면 일찍 신청해도 확률은 같고, 참가비는 보통 당첨된 뒤에 내요.</dd>
 <dt>기록 기준</dt><dd>대회가 정한 연령·성별별 기록을 넘은 사람만 신청할 수 있어요. 기준을 넘어도 정원이 차면 떨어질 수 있는 대회도 있어요.</dd>
 <dt>자선(채리티)</dt><dd>자선단체를 정해 일정 금액을 모금하거나 기부하는 조건으로 참가권을 받아요. 모금액과 신청 방법은 단체마다 달라요.</dd>

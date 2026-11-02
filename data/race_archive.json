@@ -2140,17 +2140,17 @@
 "name": "2027 대구마라톤",
 "official_url": "https://daegumarathon.daegu.go.kr/",
 "organizer": null,
-"reg_close": null,
-"reg_note": "풀코스 2차 접수 11.23~11.24, 10km·건강달리기 2차 접수 11.30~12.1",
-"reg_open": null,
-"reg_state": "closed",
+"reg_close": "2026-12-01",
+"reg_note": "풀코스 2차 접수 11.23(월) 10:00~11.24(화) 23:59 · 10km·건강달리기 2차 접수 11.30(월) 10:00~12.1(화) 23:59",
+"reg_open": "2026-11-23",
+"reg_state": "upcoming",
 "reg_url": null,
 "region": "대구",
 "sources": {},
 "start_time": null,
 "venue": "국채보상공원",
 "verified": {
-"date": "2026-10-31",
+"date": "2026-11-02",
 "fields": [
 "접수 일정"
 ],
@@ -5363,20 +5363,23 @@
 "official_url": "http://haenammarathon.co.kr/shop/main.ubs",
 "organizer": "해남군육상연맹",
 "reg_close": null,
-"reg_note": null,
+"reg_note": "대회일시는 예정이고, 접수 일정은 추후 공지",
 "reg_open": null,
 "reg_state": "upcoming",
 "reg_url": null,
 "region": "전남",
 "sources": {},
-"start_time": null,
-"venue": "대흥사쉼터 일원",
+"start_time": "08:00",
+"venue": "전라남도 해남군 일원(세부 집결지는 추후 공지)",
 "verified": {
-"date": "2026-10-31",
+"date": "2026-11-02",
 "fields": [
-"대회일(예정)"
+"대회일(예정)",
+"출발 시각(예정)",
+"장소",
+"참가비"
 ],
-"url": "http://haenammarathon.co.kr"
+"url": "http://haenammarathon.co.kr/shop/main.ubs"
 }
 },
 "rd6ca0623": {

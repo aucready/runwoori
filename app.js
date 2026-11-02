@@ -236,8 +236,10 @@ let _ov=null;
 function loadOverseas(){ return _ov || (_ov=fetch('data/overseas.json',{cache:'no-cache'}).then(r=>{ if(!r.ok) throw new Error('overseas '+r.status); return r.json(); }).then(j=>j.races).catch(()=>[])); }
 function ovStatus(o){
   const t=today(), end=pd(o.end_date||o.date); if(end<t) return {key:'ended',label:'종료'};
+  if(o.reg_state==='full') return {key:'closed',label:'정원 마감'};
   const p=(o.periods||[]).find(x=>x.primary);
-  if(p){ const s=pd(p.start), e=pd(p.end); if(t<s) return {key:'soon',label:'접수예정'}; if(t<=e) return {key:diff(e,t)<=URGENT_DAYS?'urgent':'open',label:diff(e,t)<=URGENT_DAYS?'마감임박':'접수중'}; return {key:'closed',label:'접수 마감'}; }
+  if(p){ const s=p.start?pd(p.start):null, e=p.end?pd(p.end):null; if(s&&t<s) return {key:'soon',label:'접수예정'}; if(!e||t<=e){ const u=e&&diff(e,t)<=URGENT_DAYS; return {key:u?'urgent':'open',label:u?'마감임박':'접수중'}; } return {key:'closed',label:o.reg_label||'접수 마감'}; }
+  if(o.reg_state==='closed') return {key:'closed',label:o.reg_label||'접수 마감'};
   return {open:{key:'open',label:'접수중'},soon:{key:'soon',label:'접수예정'}}[o.status_hint]||{key:'info',label:'일정 미공지'};
 }
 function ovRow(o){
@@ -245,7 +247,7 @@ function ovRow(o){
   return `<article class="ed-race ${fav?'is-saved':''}" data-id="${o.id}"><div class="ed-race-date"><b>${p2(d.getDate())}</b><span>${d.getMonth()+1}월 ${WD[d.getDay()]}</span></div>
     <div class="ed-race-body"><div class="ed-race-top"><span class="ed-status ${st.key}">${st.label}</span><span class="ed-tag">해외</span>${wxChip(o.id)}</div>
       <h3><a class="row-link" href="overseas/${o.slug}.html">${esc(o.name)}</a></h3>
-      <p class="ed-meta">${fmtFull(d)}${sep}${esc(o.city)}${sep}${esc(o.country)}</p></div>
+      <p class="ed-meta">${fmtFull(d)}${o.end_date&&o.end_date!==o.date?' ~ '+fmtFull(pd(o.end_date)):''}${sep}${esc(o.city)}${sep}${esc(o.country)}</p></div>
     <div class="ed-race-side"><div class="ed-dday ${(st.key==='closed'||st.key==='ended')?'':(n>=0&&n<=7?'soon':'')}">${ddayText(n)}</div>${bookmark(o.id,fav)}</div></article>`;
 }
 

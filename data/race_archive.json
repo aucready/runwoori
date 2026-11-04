@@ -159,7 +159,7 @@
 "official_url": "http://11bridge.com/",
 "organizer": null,
 "reg_close": "2026-10-23",
-"reg_note": null,
+"reg_note": "공식(http://11bridge.com/) 확인 · 접수 ~2026-10-23 (조기 마감될 수 있음)",
 "reg_open": null,
 "reg_state": null,
 "reg_url": null,
@@ -823,7 +823,7 @@
 {
 "fee": 50000,
 "km": 21.0975,
-"label": "Half"
+"label": "하프"
 }
 ],
 "end_date": null,
@@ -833,8 +833,8 @@
 "name": "제2회 안양천 단풍길 마라톤",
 "official_url": "http://maplerun.kr",
 "organizer": "(사)대한생활체육연맹",
-"reg_close": "2026-11-05",
-"reg_note": "2026.08.01 ~ 2026.11.05",
+"reg_close": "2026-11-08",
+"reg_note": "공식(http://maplerun.kr/) 확인 · 접수 ~2026-11-08 (조기 마감될 수 있음)",
 "reg_open": "2026-08-01",
 "reg_state": "open",
 "reg_url": null,
@@ -842,8 +842,19 @@
 "sources": {
 "kormarathon": "https://www.kormarathon.com/ko/races/2nd-anyangcheon-maple-run"
 },
-"start_time": null,
-"venue": "신정교 하부 영롱이 억새구장"
+"start_time": "09:00",
+"venue": "신정교 하부 영롱이 억새구장",
+"verified": {
+"date": "2026-11-04",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"접수 마감",
+"종목·참가비"
+],
+"url": "http://maplerun.kr/"
+}
 },
 "r2877f069": {
 "_last_seen": "2026-10-31",
@@ -1050,7 +1061,7 @@
 "official_url": "https://marathon.ihalla.com/",
 "organizer": "(주)한라일보사",
 "reg_close": "2026-07-17",
-"reg_note": "2026.07.01 ~ 2026.09.11",
+"reg_note": "공식(https://marathon.ihalla.com/) 확인 · 접수 ~2026-07-17 (조기 마감될 수 있음)",
 "reg_open": "2026-07-01",
 "reg_state": "closed",
 "reg_url": null,
@@ -1643,7 +1654,7 @@
 "official_url": "https://gimhaemarathon.imweb.me/",
 "organizer": "김해시장애인육상연맹",
 "reg_close": "2026-10-25",
-"reg_note": "2026.08.13 ~ 2026.10.25",
+"reg_note": "공식(https://gimhaemarathon.imweb.me/) 확인 · 접수 ~2026-10-25 (조기 마감될 수 있음)",
 "reg_open": "2026-08-13",
 "reg_state": "closed",
 "reg_url": null,
@@ -4228,7 +4239,7 @@
 "official_url": "https://ajgrun.kr/",
 "organizer": "안중근평화재단청년아카데미",
 "reg_close": "2026-11-22",
-"reg_note": null,
+"reg_note": "공식(https://ajgrun.kr/) 확인 · 접수 ~2026-11-22 (조기 마감될 수 있음)",
 "reg_open": null,
 "reg_state": "open",
 "reg_url": null,
@@ -4722,7 +4733,7 @@
 "official_url": "http://bamseom.com",
 "organizer": "(사)대한생활체육연맹",
 "reg_close": "2026-12-06",
-"reg_note": "2026.08.15 ~ 2026.12.06",
+"reg_note": "공식(https://bamseom.com) 확인 · 접수 ~2026-12-06 (조기 마감될 수 있음)",
 "reg_open": "2026-08-15",
 "reg_state": "open",
 "reg_url": null,

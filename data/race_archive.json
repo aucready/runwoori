@@ -1,6 +1,6 @@
 {
 "r04ec0f08": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-21",
@@ -45,7 +45,7 @@
 }
 },
 "r0638ebcd": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -85,7 +85,7 @@
 "venue": "다대포 해수욕장"
 },
 "r0720104a": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -131,7 +131,7 @@
 "venue": "원주종합운동장"
 },
 "r0909d56f": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -157,11 +157,11 @@
 "id": "r0909d56f",
 "name": "2026 여수 일레븐브리지마라톤",
 "official_url": "http://11bridge.com/",
-"organizer": null,
+"organizer": "일레븐브리지마라톤조직위원회",
 "reg_close": "2026-10-23",
 "reg_note": null,
 "reg_open": null,
-"reg_state": null,
+"reg_state": "closed",
 "reg_url": null,
 "region": "전남",
 "sources": {},
@@ -180,7 +180,7 @@
 }
 },
 "r0c3dacb3": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -226,7 +226,7 @@
 "venue": "화순공설운동장"
 },
 "r0c43b83e": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -266,7 +266,7 @@
 "venue": "사상구 삼락생태공원 일원"
 },
 "r0c5fc213": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -305,8 +305,50 @@
 "start_time": null,
 "venue": "정읍천변 어린이전용축구장 (정읍시 벚꽃로 401)"
 },
+"r0dc6f6b9": {
+"_last_seen": "2026-11-07",
+"category": "트레일",
+"conflicts": [],
+"date": "2026-11-21",
+"dist_tags": [],
+"distances": [
+{
+"fee": 70000,
+"km": 12.0,
+"label": "12km"
+},
+{
+"fee": 120000,
+"km": 30.0,
+"label": "30km"
+},
+{
+"fee": 160000,
+"km": 41.0,
+"label": "41km"
+}
+],
+"end_date": null,
+"fee_max": 160000,
+"fee_min": 70000,
+"id": "r0dc6f6b9",
+"name": "2026 남해트레일레이스 Fall",
+"official_url": "https://rocknrun.co.kr/contest/RE26266001/course",
+"organizer": "남해군",
+"reg_close": null,
+"reg_note": "2026.09.24 ~ 미정",
+"reg_open": "2026-09-24",
+"reg_state": "upcoming",
+"reg_url": null,
+"region": "경남",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2026-namhae-trail-race-fall-148244e7b1d6487ea58c296314377408"
+},
+"start_time": null,
+"venue": "남해공설운동장 (경남 남해군 남해읍 망운로9번길 42-17)"
+},
 "r143cac41": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -456,7 +498,7 @@
 }
 },
 "r1b0ccc66": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -490,7 +532,7 @@
 "venue": "서울 월드컵공원 평화의 광장"
 },
 "r1f8ed5c5": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -535,7 +577,7 @@
 "venue": "월드컵공원 평화광장"
 },
 "r1f994495": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -569,7 +611,7 @@
 "venue": "하남 미사 경정공원"
 },
 "r20ab1961": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -609,7 +651,7 @@
 "venue": "상암동 평화의공원 평화광장"
 },
 "r21ba6435": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -655,7 +697,7 @@
 "venue": "울주군 영남알프스 일원"
 },
 "r2459eb26": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -699,7 +741,7 @@
 "venue": "청양군 청양목재문화자연사체험관 및 칠갑저수지 일원"
 },
 "r24bb6b9a": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": "트레일",
 "conflicts": [],
 "date": "2026-12-12",
@@ -754,7 +796,7 @@
 }
 },
 "r253ace2c": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-19",
@@ -800,7 +842,7 @@
 "venue": "상암월드컵공원 평화의광장"
 },
 "r27a44c25": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -900,7 +942,7 @@
 "venue": "상암 평화의공원 평화광장"
 },
 "r28d5a0c5": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -958,8 +1000,89 @@
 "start_time": null,
 "venue": "나주 동신대학교 운동장"
 },
+"r2c33e945": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2027-02-27",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 30000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 40000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 40000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 40000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "Half"
+},
+{
+"fee": 60000,
+"km": 21.0975,
+"label": "Half"
+},
+{
+"fee": 55000,
+"km": 32.2,
+"label": "32.2km"
+},
+{
+"fee": 65000,
+"km": 32.2,
+"label": "32.2km"
+}
+],
+"end_date": null,
+"fee_max": 65000,
+"fee_min": 30000,
+"id": "r2c33e945",
+"name": "희망드림 제24회 동계 국제마라톤대회",
+"official_url": "https://dkrun.co.kr",
+"organizer": "세계일보, 한국마라톤협회",
+"reg_close": "2026-12-31",
+"reg_note": "2026.11.23 ~ 2026.12.31",
+"reg_open": "2026-11-23",
+"reg_state": "upcoming",
+"reg_url": null,
+"region": "서울",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/hope-dream-24th-winter-international-marathon-2fa4f4185ca443e8b68f78819df2c113"
+},
+"start_time": null,
+"venue": "여의도 한강공원 물빛광장"
+},
 "r2c692f36": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -1024,8 +1147,69 @@
 "start_time": null,
 "venue": "임진각"
 },
+"r2cf726da": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-12-05",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 30000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 99000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 45000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 99000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 45000,
+"km": 21.0975,
+"label": "Half"
+},
+{
+"fee": 99000,
+"km": 21.0975,
+"label": "Half"
+}
+],
+"end_date": null,
+"fee_max": 99000,
+"fee_min": 30000,
+"id": "r2cf726da",
+"name": "전국마라톤협회 2026 골드런 레이스",
+"official_url": "http://mara1080.com/event/df4b4e7d-4fbc-4843-858c-f15c032e92cb",
+"organizer": "전국마라톤협회",
+"reg_close": "2026-11-06",
+"reg_note": "2026.10.01 ~ 2026.11.06",
+"reg_open": "2026-10-01",
+"reg_state": "open",
+"reg_url": null,
+"region": "충남",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/national-marathon-association-2026-gold-run-race-9edbeefdd0fb40db98fcf9316e00c03a"
+},
+"start_time": null,
+"venue": "금산세계인삼엑스포주차장"
+},
 "r2daac927": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -1077,7 +1261,7 @@
 }
 },
 "r2f2c85cf": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -1126,8 +1310,48 @@
 "url": "https://www.mbn-seoulmarathon.com/"
 }
 },
+"r2fc15a89": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-11-14",
+"dist_tags": [
+"5K",
+"10K"
+],
+"distances": [
+{
+"fee": 69000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 79000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 79000,
+"fee_min": 69000,
+"id": "r2fc15a89",
+"name": "스타콜x롤링스톤 레트로 런 IN 증평",
+"official_url": "https://n-runplus.co.kr/Jeungpyeong",
+"organizer": "스타콜, 롤링스톤 코리아",
+"reg_close": null,
+"reg_note": null,
+"reg_open": null,
+"reg_state": "closed",
+"reg_url": null,
+"region": "충북",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/starcall-x-rolling-stone-retro-run-in-jeungpyeong-ba9581daa23746058d5b92059cde2ff6"
+},
+"start_time": null,
+"venue": "증평 보강천 시민체육공원"
+},
 "r31520433": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -1167,7 +1391,7 @@
 "venue": "청주 무심천체육공원"
 },
 "r3675a963": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -1222,8 +1446,47 @@
 "url": "https://wjrun.co.kr/"
 }
 },
+"r385c2854": {
+"_last_seen": "2026-11-07",
+"category": "트레일",
+"conflicts": [],
+"date": "2026-11-15",
+"dist_tags": [
+"10K"
+],
+"distances": [
+{
+"fee": 60000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 70000,
+"km": 20.0,
+"label": "20km"
+}
+],
+"end_date": null,
+"fee_max": 70000,
+"fee_min": 60000,
+"id": "r385c2854",
+"name": "소아암 환우돕기 제17회 행복 트레일런 축제",
+"official_url": "http://happytrailrun.com/",
+"organizer": "(사)소아암환우돕기마라톤 조직위원회",
+"reg_close": null,
+"reg_note": null,
+"reg_open": null,
+"reg_state": "closed",
+"reg_url": null,
+"region": "서울",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/happy-trail-run-festival-for-children-with-cancer-544df82abab64c1b8785a4e27a481655"
+},
+"start_time": null,
+"venue": "청계산 수변공원 (서울 서초구 청계산로7길 9-52)"
+},
 "r38c9b9f5": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -1263,7 +1526,7 @@
 "venue": "화성시 제부도"
 },
 "r38fbf7f8": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -1307,8 +1570,42 @@
 "start_time": null,
 "venue": "대전 엑스포 다리 밑 (갑천변)"
 },
+"r3ba3b95c": {
+"_last_seen": "2026-11-07",
+"category": "걷기",
+"conflicts": [],
+"date": "2026-11-07",
+"dist_tags": [
+"10K"
+],
+"distances": [
+{
+"fee": 20000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 20000,
+"fee_min": 20000,
+"id": "r3ba3b95c",
+"name": "2026 Ten Bridges Night Walk Festival in 밀양",
+"official_url": "https://www.mywalk.kr",
+"organizer": "밀양시",
+"reg_close": "2026-10-30",
+"reg_note": "2026.09.21 ~ 2026.10.30",
+"reg_open": "2026-09-21",
+"reg_state": "closed",
+"reg_url": null,
+"region": "경남",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2026-ten-bridges-night-walk-festival-in-miryang-6c379efe597d434fab6f0bbcbdc31274"
+},
+"start_time": null,
+"venue": "밀양시 일원"
+},
 "r3ce10701": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -1348,7 +1645,7 @@
 "venue": "상암 월드컵공원(평화광장 집결)"
 },
 "r3ed175a5": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -1402,7 +1699,7 @@
 }
 },
 "r3f7255c2": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-21",
@@ -1462,8 +1759,40 @@
 "start_time": null,
 "venue": "상암 평화의공원 평화광장"
 },
+"r41a6e620": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-11-22",
+"dist_tags": [],
+"distances": [
+{
+"fee": null,
+"km": 16.0,
+"label": "16km"
+}
+],
+"end_date": null,
+"fee_max": null,
+"fee_min": null,
+"id": "r41a6e620",
+"name": "부산항일학생의거 86주년 부산학생시민 이어달리기",
+"official_url": "https://forms.gle/kuXEkqnkUQPY8Twm6",
+"organizer": "사단법인 부산항일학생의거기념사업회",
+"reg_close": "2026-11-10",
+"reg_note": "2026.10.13 ~ 2026.11.10",
+"reg_open": "2026-10-13",
+"reg_state": "open",
+"reg_url": null,
+"region": "부산",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/busan-student-and-citizen-relay-run-0d5bce9df881499584b12ad08231e47f"
+},
+"start_time": null,
+"venue": "구덕운동장 → 남포동·부산역·서면 → 부산학생교육문화회관"
+},
 "r453a834e": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -1500,7 +1829,7 @@
 "venue": "금산세계인삼엑스포광장"
 },
 "r45bf47ab": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -1532,7 +1861,7 @@
 "venue": "미정"
 },
 "r4607c04a": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-03-21",
@@ -1572,7 +1901,7 @@
 "venue": "풀코스 광화문 광장, 10km 잠실종합운동장"
 },
 "r47974721": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -1618,7 +1947,7 @@
 "venue": "영등포 영롱이 억새구장"
 },
 "r4854da76": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -1671,7 +2000,7 @@
 }
 },
 "r4993d29a": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-01-01",
@@ -1711,7 +2040,7 @@
 "venue": "신정교하부육상트랙구장"
 },
 "r49c8c8ca": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -1780,7 +2109,7 @@
 "venue": "연세대학교 신촌캠퍼스 대운동장"
 },
 "r4b2df54d": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -1826,7 +2155,7 @@
 "venue": "우이천 다목적광장 (서울특별시 성북구 석관동 376)"
 },
 "r4cd17c3f": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -1922,7 +2251,7 @@
 "venue": "문경시민운동장"
 },
 "r4f63127a": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -1967,7 +2296,7 @@
 }
 },
 "r52f183ec": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -2007,7 +2336,7 @@
 "venue": "갑천 러닝성지"
 },
 "r5546e584": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -2078,7 +2407,7 @@
 "venue": "경기도 화성시 궁평항 및 영종로 일대"
 },
 "r55f54a4c": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -2118,7 +2447,7 @@
 "venue": "올림픽공원 송파구여성축구장"
 },
 "r57051267": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -2176,7 +2505,7 @@
 }
 },
 "r57d9ff66": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -2233,7 +2562,7 @@
 "venue": "부여 구드래 나루터 선착장"
 },
 "r590dd5f4": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-02-13",
@@ -2279,7 +2608,7 @@
 "venue": "고흥만 수변노을공원"
 },
 "r5a4760e3": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-02-28",
@@ -2324,7 +2653,7 @@
 }
 },
 "r5d8ab8ab": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -2364,7 +2693,7 @@
 "venue": "광려천 공원 일원 (창원시 마산회원구 내서읍 신감리)"
 },
 "r5ebf8d91": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -2404,7 +2733,7 @@
 "venue": "상암 월드컵공원 평화광장"
 },
 "r5ed038a0": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -2492,24 +2821,88 @@
 "start_time": null,
 "venue": "영도구 태종대 자동차야외극장 (Drive In 영도)"
 },
+"r5fbf8382": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2027-03-01",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 35000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 60000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 60000,
+"km": 21.0975,
+"label": "Half"
+}
+],
+"end_date": null,
+"fee_max": 60000,
+"fee_min": 35000,
+"id": "r5fbf8382",
+"name": "2027 머니투데이방송 삼일절 마라톤",
+"official_url": "https://mara1080.com/event/83acaaf1-1e30-411a-ac71-5e909ba1f7d9/registration/apply",
+"organizer": "(주)머니투데이방송",
+"reg_close": "2027-01-31",
+"reg_note": "2026.10.01 ~ 2027.01.31",
+"reg_open": "2026-10-01",
+"reg_state": "open",
+"reg_url": null,
+"region": "서울",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2027-money-today-broadcasting-independence-movement-day-marathon-c65fea9e2fe54544be61abbabb4c60fd"
+},
+"start_time": null,
+"venue": "뚝섬한강공원 수변무대"
+},
 "r6297098d": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": "트레일",
 "conflicts": [],
 "date": "2026-11-07",
-"dist_tags": [],
-"distances": [],
+"dist_tags": [
+"하프"
+],
+"distances": [
+{
+"fee": 70000,
+"km": 21.0,
+"label": "21km"
+},
+{
+"fee": 90000,
+"km": 34.0,
+"label": "34km"
+},
+{
+"fee": 120000,
+"km": 50.0,
+"label": "50km"
+}
+],
 "end_date": null,
-"fee_max": null,
-"fee_min": null,
+"fee_max": 120000,
+"fee_min": 70000,
 "id": "r6297098d",
 "name": "2026 문경 레전드 트레일 백두대간",
 "official_url": "https://legendtrail.kr/",
-"organizer": null,
+"organizer": "에코라인",
 "reg_close": null,
 "reg_note": null,
 "reg_open": null,
-"reg_state": null,
+"reg_state": "closed",
 "reg_url": null,
 "region": "경북",
 "sources": {},
@@ -2525,7 +2918,7 @@
 }
 },
 "r63c942af": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -2564,8 +2957,57 @@
 "start_time": null,
 "venue": "하남미사 경정공원"
 },
+"r6453aed9": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-11-22",
+"dist_tags": [
+"10K"
+],
+"distances": [
+{
+"fee": 20000,
+"km": 0.1,
+"label": "0.1km"
+},
+{
+"fee": 20000,
+"km": 0.2,
+"label": "0.2km"
+},
+{
+"fee": 20000,
+"km": 0.4,
+"label": "0.4km"
+},
+{
+"fee": 20000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 20000,
+"fee_min": 20000,
+"id": "r6453aed9",
+"name": "제19회 대구광역시장기 생활체육 육상대회",
+"official_url": "http://marathon.pe.kr/",
+"organizer": "대구광역시체육회",
+"reg_close": "2026-11-05",
+"reg_note": "2026.10.15 ~ 2026.11.05",
+"reg_open": "2026-10-15",
+"reg_state": "closed",
+"reg_url": null,
+"region": "대구",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/19th-daegu-mayor-s-cup-sports-for-all-athletics-championships-6be7c6878d9b42d4aaaa85a481ab7edf"
+},
+"start_time": null,
+"venue": "대구스타디움 (대구 수성구 유니버시아드로 180)"
+},
 "r65df87b7": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -2611,7 +3053,7 @@
 "venue": "신정교 하부 영롱이 억새구장"
 },
 "r67f45c41": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -2650,7 +3092,7 @@
 "venue": "창원종합운동장 보조경기장"
 },
 "r688ac3f6": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-26",
@@ -2694,6 +3136,52 @@
 },
 "start_time": null,
 "venue": "상암월드컵공원 평화광장"
+},
+"r690a98d2": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2027-01-23",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 50000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "Half"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 50000,
+"id": "r690a98d2",
+"name": "2027 북극곰 마라톤",
+"official_url": "https://polarbearrun.kr/join/register.asp",
+"organizer": "(사)대한이에스지협회",
+"reg_close": null,
+"reg_note": null,
+"reg_open": null,
+"reg_state": "upcoming",
+"reg_url": null,
+"region": "서울",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2027-polar-bear-marathon-a34e9e8dd5bc4899bd3503b5aabda316"
+},
+"start_time": null,
+"venue": "신정교 하부 영롱이억새구장"
 },
 "r69b9cf3c": {
 "_last_seen": "2026-11-01",
@@ -2741,7 +3229,7 @@
 "venue": "무안낙지공원"
 },
 "r6db5e1f6": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -2827,7 +3315,7 @@
 "venue": "서초구 반포한강공원 달빛광장"
 },
 "r6f546f92": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -2861,7 +3349,7 @@
 "venue": "서울 뚝섬한강공원 수변무대"
 },
 "r72242e18": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -2917,7 +3405,7 @@
 "venue": "송파구 가든파이브 라이프 중앙광장"
 },
 "r732a59c4": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -3012,7 +3500,7 @@
 "venue": "대전 뿌리공원 잔디광장"
 },
 "r75a21578": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -3092,7 +3580,7 @@
 "venue": "영월 강변저류지 수변공원 (신아아파트 앞)"
 },
 "r77f43033": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-13",
@@ -3131,7 +3619,7 @@
 "venue": "안양천 신정교 하부 육상트랙구장"
 },
 "r787d4a84": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -3171,7 +3659,7 @@
 "venue": "탄천종합운동장 (경기 성남시 분당구 탄천로 215)"
 },
 "r7ad1cfe9": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -3222,7 +3710,7 @@
 "venue": "과천 관문체육공원"
 },
 "r7b2c5b29": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -3262,7 +3750,7 @@
 "venue": "장선마을회관 앞"
 },
 "r7e857862": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -3317,8 +3805,79 @@
 "url": "https://incheonmarathon.or.kr"
 }
 },
+"r8019c636": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-11-15",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 25000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": null,
+"km": 5.0,
+"label": "WALK 5km"
+},
+{
+"fee": 45000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 25000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": null,
+"km": 10.0,
+"label": "WALK 10km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "Half"
+},
+{
+"fee": null,
+"km": 21.0975,
+"label": "RUN 하프 · 기록계측"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 25000,
+"id": "r8019c636",
+"name": "2026 연수구청장배 송도 WALK & RUN",
+"official_url": "http://walknrun.kr/",
+"organizer": "연수구",
+"reg_close": "2026-11-08",
+"reg_note": "2026.10.09 ~ 2026.11.08",
+"reg_open": "2026-10-09",
+"reg_state": "open",
+"reg_url": null,
+"region": "인천",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2026-yeonsu-district-mayor-s-cup-songdo-walk-run-3016fd52bd3a4921bfa03268f5da464f"
+},
+"start_time": null,
+"venue": "송도 달빛공원"
+},
 "r80a99af7": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -3373,7 +3932,7 @@
 }
 },
 "r825b4645": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -3415,7 +3974,7 @@
 "venue": "알펜시아 스키점프센터"
 },
 "r827a3b6c": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-21",
@@ -3454,7 +4013,7 @@
 "venue": "광주광역시 광산구 산월동 824-5"
 },
 "r83735807": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -3493,8 +4052,42 @@
 "start_time": null,
 "venue": "임진각 평화누리공원"
 },
+"r8383e2fc": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-11-07",
+"dist_tags": [
+"5K"
+],
+"distances": [
+{
+"fee": 5000,
+"km": 5.0,
+"label": "5km"
+}
+],
+"end_date": null,
+"fee_max": 5000,
+"fee_min": 5000,
+"id": "r8383e2fc",
+"name": "2026 에그런",
+"official_url": "http://eggrun2026.imweb.me/",
+"organizer": "굿네이버스 충청권역, 국립세종수목원",
+"reg_close": null,
+"reg_note": null,
+"reg_open": null,
+"reg_state": "closed",
+"reg_url": null,
+"region": "세종",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2026-egg-run-f2b6229023f54ffd9478fee3d29840ca"
+},
+"start_time": null,
+"venue": "국립세종수목원 축제마당"
+},
 "r83f3ad24": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -3579,7 +4172,7 @@
 "venue": "안양천 축구장"
 },
 "r89549e80": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -3624,7 +4217,7 @@
 "venue": "천안 독립기념관 겨레의큰마당"
 },
 "r8a109760": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -3656,7 +4249,7 @@
 "venue": "일산호수공원(노래하는 분수대)"
 },
 "r8a2c518d": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -3689,8 +4282,92 @@
 "start_time": null,
 "venue": "오크밸리"
 },
+"r8a9e5d42": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-11-29",
+"dist_tags": [
+"10K"
+],
+"distances": [
+{
+"fee": 45000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 45000,
+"fee_min": 45000,
+"id": "r8a9e5d42",
+"name": "제9회 광진구청장배 육상대회",
+"official_url": "https://ksgaaf.co.kr",
+"organizer": "광진구체육회",
+"reg_close": "2026-11-11",
+"reg_note": "2026.09.15 ~ 2026.11.11",
+"reg_open": "2026-09-15",
+"reg_state": "open",
+"reg_url": null,
+"region": "서울",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/9th-gwangjin-gu-mayor-s-cup-athletics-competition-d83e36e5d791418f9c2c339b7fca3730"
+},
+"start_time": null,
+"venue": "중랑천 체육공원 생활체육 에어로빅장 (중곡동 물놀이장 옆)"
+},
+"r8b667a11": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-12-06",
+"dist_tags": [
+"5K",
+"10K"
+],
+"distances": [
+{
+"fee": 30000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 100000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 30000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 100000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 100000,
+"fee_min": 30000,
+"id": "r8b667a11",
+"name": "제1회 정읍시 고향사랑기부마라톤대회",
+"official_url": "http://love.myrunup.kr/home/entry/participate/agree.ubs",
+"organizer": "정읍시육상연맹",
+"reg_close": "2026-11-20",
+"reg_note": "2026.10.01 ~ 2026.11.20",
+"reg_open": "2026-10-01",
+"reg_state": "open",
+"reg_url": null,
+"region": "전북",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2026-jeongeup-hometown-love-marathon-5b10e501c99d484f8311dea3aec5e08e"
+},
+"start_time": null,
+"venue": "정읍시 내장산 단풍생태공원 (전북특별자치도 정읍시 내장동364-2)"
+},
 "r8b895cbc": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -3767,7 +4444,7 @@
 "venue": "포천시종합운동장"
 },
 "r8de98667": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -3845,7 +4522,7 @@
 "venue": "전국 / 원하는 장소 어디서나"
 },
 "r91dac5ae": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -3900,7 +4577,7 @@
 }
 },
 "r92406ec7": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -3945,6 +4622,50 @@
 "start_time": null,
 "venue": "춘천 송암스포츠타운 종합경기장"
 },
+"r965f9241": {
+"_last_seen": "2026-11-07",
+"category": "트레일",
+"conflicts": [],
+"date": "2026-11-21",
+"dist_tags": [
+"5K"
+],
+"distances": [
+{
+"fee": 25000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 55000,
+"km": 19.0,
+"label": "19km"
+},
+{
+"fee": 60000,
+"km": 27.0,
+"label": "27km"
+}
+],
+"end_date": null,
+"fee_max": 60000,
+"fee_min": 25000,
+"id": "r965f9241",
+"name": "K-거상 트레일 러닝 대회",
+"official_url": "https://www.kpioneertrailrun.co.kr/ko/sub2_3.html",
+"organizer": "경상남도, 진주시, 의령군, 함안군",
+"reg_close": "2026-11-15",
+"reg_note": "2026.09.28 ~ 2026.11.15",
+"reg_open": "2026-09-28",
+"reg_state": "open",
+"reg_url": null,
+"region": "경남",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/k-geosang-trail-running-race-67bcddfd133646a4b5012d1377e0d84e"
+},
+"start_time": null,
+"venue": "의령여자중학교 (경남 의령군 가례면 의병로 67)"
+},
 "r96dbb182": {
 "_last_seen": "2026-10-31",
 "category": null,
@@ -3986,7 +4707,7 @@
 "venue": "경기 성남시 물빛정원 오리공원 탄천변"
 },
 "r982547a2": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -4032,7 +4753,7 @@
 "venue": "양산종합운동장"
 },
 "r98afb857": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -4077,7 +4798,7 @@
 "venue": "세종특별자치시민운동장"
 },
 "r9936fcbc": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -4117,7 +4838,7 @@
 "venue": "고양종합운동장"
 },
 "r998d950c": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -4163,7 +4884,7 @@
 "venue": "목포종합경기장"
 },
 "r9994cde5": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -4203,7 +4924,7 @@
 "venue": "뚝섬한강공원 수변무대"
 },
 "r9a0726d7": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -4259,7 +4980,7 @@
 }
 },
 "r9a8150ff": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-21",
@@ -4297,8 +5018,79 @@
 "start_time": null,
 "venue": "서울 올림픽공원 피크닉장 (송파구 올림픽로 424)"
 },
+"r9be770e4": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2027-03-28",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 20000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": null,
+"km": null,
+"label": "영광군민 · 제한 1시간"
+},
+{
+"fee": 35000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": null,
+"km": null,
+"label": "일반 · 제한 1시간"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": null,
+"km": null,
+"label": "일반 · 제한 2시간"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "Half"
+},
+{
+"fee": null,
+"km": null,
+"label": "일반 · 제한 3시간"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 20000,
+"id": "r9be770e4",
+"name": "제3회 영광광풍마라톤",
+"official_url": "https://mara1080.com/event/92394e8e-a27c-4c3a-b286-7233340a9e7a",
+"organizer": "영광군민의날 추진위원회/집행위원회",
+"reg_close": "2027-01-31",
+"reg_note": "2026.09.21 ~ 2027.01.31",
+"reg_open": "2026-09-21",
+"reg_state": "open",
+"reg_url": null,
+"region": "전남",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/the-3rd-yeonggwang-gwangpung-marathon-ffcf2cb209974006a5d722bc2021d312"
+},
+"start_time": null,
+"venue": "영광스포티움"
+},
 "ra0dc2ae0": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-02-20",
@@ -4349,7 +5141,7 @@
 "venue": "밀양종합운동장"
 },
 "ra4a2d83c": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-13",
@@ -4411,7 +5203,7 @@
 }
 },
 "ra689d1ed": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -4451,7 +5243,7 @@
 "venue": "하남 미사경정공원 일원"
 },
 "ra71a5bce": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -4504,7 +5296,7 @@
 }
 },
 "ra7bba518": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -4544,7 +5336,7 @@
 "venue": "여의도공원 문화의마당"
 },
 "ra94faf1c": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -4578,7 +5370,7 @@
 "venue": "대치유수지 체육공원"
 },
 "rad1d9160": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -4617,8 +5409,69 @@
 "start_time": null,
 "venue": "올림픽공원 88잔디마당"
 },
+"rb06fdfbb": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-12-13",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 60000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 65000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 60000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 65000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 60000,
+"km": 21.0975,
+"label": "Half"
+},
+{
+"fee": 65000,
+"km": 21.0975,
+"label": "Half"
+}
+],
+"end_date": null,
+"fee_max": 65000,
+"fee_min": 60000,
+"id": "rb06fdfbb",
+"name": "2026 시즌마감마라톤대회",
+"official_url": "https://42195race.com/apply/apply.php",
+"organizer": "기호일보",
+"reg_close": "2026-11-23",
+"reg_note": "2026.10.22 ~ 2026.11.23",
+"reg_open": "2026-10-22",
+"reg_state": "open",
+"reg_url": null,
+"region": "인천",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2026-season-end-marathon-f3610d51efff4ecea47481d8fa5f31d8"
+},
+"start_time": null,
+"venue": "아시아드경기장 북측 광장"
+},
 "rb0eaf58e": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -4657,7 +5510,7 @@
 "venue": "서울시청 광장"
 },
 "rb28a153b": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -4697,7 +5550,7 @@
 "venue": "안양천 신정교하부육상트랙구장"
 },
 "rb5a1faf4": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-13",
@@ -4752,8 +5605,75 @@
 "url": "https://bamseom.com"
 }
 },
+"rb7d9439c": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2027-02-21",
+"dist_tags": [
+"5K",
+"10K",
+"하프",
+"풀"
+],
+"distances": [
+{
+"fee": 35000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 99000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "Half"
+},
+{
+"fee": 99000,
+"km": 21.0975,
+"label": "Half"
+},
+{
+"fee": 55000,
+"km": 42.195,
+"label": "Full"
+},
+{
+"fee": 104000,
+"km": 42.195,
+"label": "Full"
+}
+],
+"end_date": null,
+"fee_max": 104000,
+"fee_min": 35000,
+"id": "rb7d9439c",
+"name": "2027 전마협 청주 무심천 투데이 마라톤",
+"official_url": "https://mara1080.com/event/b1aef378-cf4a-43b9-b2fd-a2d1ae33bc15/registration/apply",
+"organizer": "전국마라톤협회",
+"reg_close": "2026-12-31",
+"reg_note": "2026.10.01 ~ 2026.12.31",
+"reg_open": "2026-10-01",
+"reg_state": "open",
+"reg_url": null,
+"region": "충북",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2027-cheongju-musimcheon-2-day-marathon-sun-88e51e9541724836bda4a07a88b45ec8"
+},
+"start_time": null,
+"venue": "청주 무심천 롤러스케이트장"
+},
 "rb849c7c2": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-04-18",
@@ -4798,7 +5718,7 @@
 "venue": "부산 오시리아 일원"
 },
 "rb9292232": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-13",
@@ -4832,7 +5752,7 @@
 "venue": "기장해안로 대변항 멸치광장"
 },
 "rb9a1b966": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -4871,8 +5791,54 @@
 "start_time": null,
 "venue": "구미 낙동강체육공원 일대"
 },
+"rbb561813": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-12-12",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 50000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "Half"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 50000,
+"id": "rbb561813",
+"name": "2026 ONE MORE RUN",
+"official_url": "https://www.omrun.co.kr/register/",
+"organizer": "새마펄스",
+"reg_close": "2026-11-15",
+"reg_note": "2026.09.14 ~ 2026.11.15",
+"reg_open": "2026-09-14",
+"reg_state": "open",
+"reg_url": null,
+"region": "인천",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2026-one-more-run-e2a056302708429c915aceb7c34e132b"
+},
+"start_time": null,
+"venue": "영종구 씨사이드파크 하늘구름광장 야외무대 (인천 영종구 중산동1967-1)"
+},
 "rbb9ac089": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -4918,7 +5884,7 @@
 "venue": "경주 서천둔치 생활체육광장"
 },
 "rbc82d418": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -4974,7 +5940,7 @@
 "venue": "상주시민운동장"
 },
 "rbd420a1f": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -5008,7 +5974,7 @@
 "venue": "뚝섬 한강공원"
 },
 "rbd708c45": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -5096,7 +6062,7 @@
 "venue": "당진 석문방조제"
 },
 "rbf17d376": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -5138,7 +6104,7 @@
 "venue": "렛츠런파크 (과천시 경마공원대로 107)"
 },
 "rc08d5a73": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -5177,7 +6143,7 @@
 "venue": "담양추성경기장, 전남 담양군 담양읍 관방제림길 69"
 },
 "rc148a3d1": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -5226,7 +6192,7 @@
 }
 },
 "rc28e7295": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -5260,7 +6226,7 @@
 "venue": "상암 월드컵공원"
 },
 "rc2fd5343": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -5303,8 +6269,53 @@
 "start_time": null,
 "venue": "진해공설운동장 및 해군 영내 일원"
 },
+"rc68fd737": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-11-28",
+"dist_tags": [
+"5K",
+"10K"
+],
+"distances": [
+{
+"fee": 25000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": null,
+"km": null,
+"label": "버프 · 제한시간 1시간"
+},
+{
+"fee": 40000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 40000,
+"fee_min": 25000,
+"id": "rc68fd737",
+"name": "2026 착한서구 공부방 GIVE & RUN",
+"official_url": "https://www.xn--ok0by8pbse4oj.kr:9021/run/1100.asp?T=5&wgu=1",
+"organizer": "전남광주통합특별시 서구, 서구지역사회보장협의체",
+"reg_close": "2026-11-17",
+"reg_note": "2026.10.15 ~ 2026.11.17",
+"reg_open": "2026-10-15",
+"reg_state": "open",
+"reg_url": null,
+"region": "광주",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2026-kind-seo-gu-study-room-give-run-dfe28bfd5a4a46dcaac5d0334a35d1c2"
+},
+"start_time": null,
+"venue": "영산강 자전거길 (전남광주통합특별시 서구 서창둑길 377, 극락교~서창교)"
+},
 "rc6f005c8": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -5400,7 +6411,7 @@
 "venue": "태화강 둔치"
 },
 "rcf581c7d": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-02-28",
@@ -5451,7 +6462,7 @@
 "venue": "한강시민공원 뚝섬유원지 수변마당"
 },
 "rd5288d23": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-21",
@@ -5491,7 +6502,7 @@
 "venue": "여의도 공원"
 },
 "rd5fa86ee": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -5531,7 +6542,7 @@
 "venue": "경인아라뱃길 여객터미널 아라타워 일원"
 },
 "rd6665e53": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-02-14",
@@ -5591,7 +6602,7 @@
 }
 },
 "rd6ca0623": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -5631,7 +6642,7 @@
 "venue": "상암 월드컵경기장 평화의공원 평화광장"
 },
 "rd7917e7d": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-21",
@@ -5680,8 +6691,53 @@
 "start_time": null,
 "venue": "하남미사 경정공원"
 },
+"rd9643408": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2027-01-03",
+"dist_tags": [
+"5K",
+"10K"
+],
+"distances": [
+{
+"fee": 20000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 40000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 20000,
+"id": "rd9643408",
+"name": "제19회 전국새해알몸마라톤대회",
+"official_url": "https://r.dgrunner.co.kr:9023/run/1100.asp?T=3&wgu=1",
+"organizer": "대구광역시육상연맹",
+"reg_close": "2026-12-10",
+"reg_note": "2026.10.28 ~ 2026.12.10",
+"reg_open": "2026-10-28",
+"reg_state": "open",
+"reg_url": null,
+"region": "대구",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/19th-national-new-year-shirtless-marathon-092b37aa38f04ab7bec53a1183237bfa"
+},
+"start_time": null,
+"venue": "대구육상진흥센터 앞 (대구 수성구 미술관로88)"
+},
 "rda49b29f": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -5721,7 +6777,7 @@
 "venue": "영일대해상누각"
 },
 "rdabfffca": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -5755,7 +6811,7 @@
 "venue": "여의도공원 문화의마당"
 },
 "rde35f1e6": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -5807,7 +6863,7 @@
 "venue": "남원 종합스포츠타운 운동장"
 },
 "rdf34c83e": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-15",
@@ -5853,7 +6909,7 @@
 "venue": "고창공설운동장"
 },
 "re0ce8869": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -5936,7 +6992,7 @@
 "venue": "사천 선진거북선공원 및 무지갯빛 해안도로"
 },
 "re376d7ad": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -5976,7 +7032,7 @@
 "venue": "안양천 신정교하부육상트랙구장"
 },
 "re8953c5e": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -6026,7 +7082,7 @@
 "venue": "안산호수공원 중앙무대 일대"
 },
 "reeb82e1b": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-04-11",
@@ -6079,7 +7135,7 @@
 }
 },
 "refbd2058": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -6131,7 +7187,7 @@
 "venue": "순천팔마종합운동장"
 },
 "rf04a28a1": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -6283,6 +7339,46 @@
 "start_time": null,
 "venue": "목동종합운동장 주경기장 일원"
 },
+"rf41e3b3f": {
+"_last_seen": "2026-11-07",
+"category": null,
+"conflicts": [],
+"date": "2026-11-21",
+"dist_tags": [
+"5K",
+"10K"
+],
+"distances": [
+{
+"fee": 45000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 45000,
+"id": "rf41e3b3f",
+"name": "런텐 JUST RUN10 대구 하반기",
+"official_url": "https://runten.co.kr/competitions/58e65d73-a79a-4ab9-bf91-b7b0a1606388",
+"organizer": "(주)러닝브레이커",
+"reg_close": null,
+"reg_note": null,
+"reg_open": null,
+"reg_state": "closed",
+"reg_url": null,
+"region": "대구",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/just-run10-daegu-autumn-aa735c49245b451a81e08d30c909ddd5"
+},
+"start_time": null,
+"venue": "금호강 러닝성지"
+},
 "rf4803988": {
 "_last_seen": "2026-10-31",
 "category": "걷기",
@@ -6388,7 +7484,7 @@
 "venue": "인제스피디움"
 },
 "rf63dd5d8": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -6434,7 +7530,7 @@
 "venue": "여의도 한강공원 너른들판"
 },
 "rf8f0d1a5": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-14",
@@ -6479,8 +7575,47 @@
 "start_time": null,
 "venue": "금산 인삼골 오토캠핑장"
 },
+"rfd1c33f3": {
+"_last_seen": "2026-11-07",
+"category": "트레일",
+"conflicts": [],
+"date": "2026-12-05",
+"dist_tags": [
+"10K"
+],
+"distances": [
+{
+"fee": 40000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 60000,
+"km": 23.0,
+"label": "23km"
+}
+],
+"end_date": null,
+"fee_max": 60000,
+"fee_min": 40000,
+"id": "rfd1c33f3",
+"name": "2026 모악트레일런",
+"official_url": "https://samsam3315.imweb.me/77",
+"organizer": "완주군, 완주군체육회",
+"reg_close": "2026-11-20",
+"reg_note": "2026.10.01 ~ 2026.11.20",
+"reg_open": "2026-10-01",
+"reg_state": "open",
+"reg_url": null,
+"region": "전북",
+"sources": {
+"kormarathon": "https://www.kormarathon.com/ko/races/2026-moak-trail-run-41df47c07e1b4237a10110f2eef09945"
+},
+"start_time": null,
+"venue": "대한민국술테마박물관 (전북 완주군 구이면 덕천전원길 232-58)"
+},
 "rfe052da3": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -6514,7 +7649,7 @@
 "venue": "파주 출판도시 일대 (지혜의숲 ~ 샛강 산책로)"
 },
 "rfecc9904": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -6593,7 +7728,7 @@
 "venue": "경주 보문 보덕동 행정복지센터 옆 헬기장"
 },
 "rfffaa9a5": {
-"_last_seen": "2026-11-06",
+"_last_seen": "2026-11-07",
 "category": null,
 "conflicts": [],
 "date": "2027-01-10",

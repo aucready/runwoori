@@ -1,41 +1,41 @@
 {
-"generated": "2026-11-06",
+"generated": "2026-11-07",
 "pages": [
 {
 "path": "deadline.html",
 "url": "https://runwoori.com/deadline.html",
 "indexable": true,
-"count": 13,
+"count": 15,
 "changefreq": "daily",
 "priority": "0.9",
-"lastmod": "2026-11-06"
+"lastmod": "2026-11-07"
 },
 {
 "path": "month/2026-11.html",
 "url": "https://runwoori.com/month/2026-11.html",
 "indexable": true,
-"count": 104,
+"count": 116,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-06"
+"lastmod": "2026-11-07"
 },
 {
 "path": "month/2026-12.html",
 "url": "https://runwoori.com/month/2026-12.html",
 "indexable": true,
-"count": 23,
+"count": 28,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-06"
+"lastmod": "2026-11-07"
 },
 {
 "path": "region/seoul.html",
 "url": "https://runwoori.com/region/seoul.html",
 "indexable": true,
-"count": 43,
+"count": 48,
 "changefreq": "daily",
 "priority": "0.7",
-"lastmod": "2026-11-06"
+"lastmod": "2026-11-07"
 },
 {
 "path": "region/gyeonggi.html",
@@ -44,7 +44,7 @@
 "count": 18,
 "changefreq": "daily",
 "priority": "0.7",
-"lastmod": "2026-11-06"
+"lastmod": "2026-11-07"
 }
 ]
 }

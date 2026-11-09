@@ -347,6 +347,48 @@
 "start_time": null,
 "venue": "남해공설운동장 (경남 남해군 남해읍 망운로9번길 42-17)"
 },
+"r0ec21263": {
+"_last_seen": "2026-11-09",
+"category": null,
+"conflicts": [],
+"date": "2026-12-13",
+"dist_tags": [],
+"distances": [
+{
+"fee": 10000,
+"km": 6.4,
+"label": "6.4km"
+}
+],
+"end_date": null,
+"fee_max": 10000,
+"fee_min": 10000,
+"id": "r0ec21263",
+"name": "2026 이순신 런 페스타",
+"official_url": "https://yssmarathon.com/",
+"organizer": "(사)이순신백의종군길마라톤",
+"reg_close": "2026-12-02",
+"reg_note": "신청 후 입금 확인 시 참가 확정 · 07:30 집결 · 제한시간 1시간",
+"reg_open": "2026-11-03",
+"reg_state": null,
+"reg_url": null,
+"region": "충남",
+"sources": {},
+"start_time": "08:30",
+"venue": "아산 신정호 국민관광지 야외음악당",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 기간"
+],
+"url": "https://yssmarathon.com/"
+}
+},
 "r143cac41": {
 "_last_seen": "2026-11-09",
 "category": null,
@@ -1012,39 +1054,24 @@
 ],
 "distances": [
 {
+"fee": 40000,
+"km": 5.0,
+"label": "5km"
+},
+{
 "fee": 30000,
 "km": 5.0,
-"label": "5km"
-},
-{
-"fee": 40000,
-"km": 5.0,
-"label": "5km"
-},
-{
-"fee": 40000,
-"km": 10.0,
-"label": "10km"
-},
-{
-"fee": 40000,
-"km": 10.0,
-"label": "10km"
+"label": "5km(마니아)"
 },
 {
 "fee": 50000,
 "km": 10.0,
-"label": "10km"
+"label": "10km·커플"
 },
 {
-"fee": 50000,
+"fee": 40000,
 "km": 10.0,
-"label": "10km"
-},
-{
-"fee": 50000,
-"km": 21.0975,
-"label": "Half"
+"label": "10km·커플(마니아)"
 },
 {
 "fee": 60000,
@@ -1052,14 +1079,19 @@
 "label": "Half"
 },
 {
-"fee": 55000,
-"km": 32.2,
-"label": "32.2km"
+"fee": 50000,
+"km": 21.0975,
+"label": "Half(마니아)"
 },
 {
 "fee": 65000,
-"km": 32.2,
-"label": "32.2km"
+"km": 32.195,
+"label": "32.195km"
+},
+{
+"fee": 55000,
+"km": 32.195,
+"label": "32.195km(마니아)"
 }
 ],
 "end_date": null,
@@ -1067,19 +1099,29 @@
 "fee_min": 30000,
 "id": "r2c33e945",
 "name": "희망드림 제24회 동계 국제마라톤대회",
-"official_url": "https://dkrun.co.kr",
+"official_url": "https://dkrun.co.kr/",
 "organizer": "세계일보, 한국마라톤협회",
-"reg_close": "2026-12-31",
-"reg_note": "2026.11.23 ~ 2026.12.31",
+"reg_close": null,
+"reg_note": "11/23(월) 10시부터 선착순 3,000명 마감 시까지 · 정보수정·환불은 2027-01-19 16시까지 · 마니아는 기념품 없이 1만원 할인",
 "reg_open": "2026-11-23",
-"reg_state": "upcoming",
+"reg_state": null,
 "reg_url": null,
 "region": "서울",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/hope-dream-24th-winter-international-marathon-2fa4f4185ca443e8b68f78819df2c113"
-},
-"start_time": null,
-"venue": "여의도 한강공원 물빛광장"
+"sources": {},
+"start_time": "08:00",
+"venue": "여의도 한강공원 물빛광장",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"종목·참가비",
+"접수 시작",
+"모집 방식"
+],
+"url": "https://dkrun.co.kr/board/notice/view?idx=3307"
+}
 },
 "r2c692f36": {
 "_last_seen": "2026-11-09",
@@ -1759,6 +1801,61 @@
 "start_time": null,
 "venue": "상암 평화의공원 평화광장"
 },
+"r4085cd4e": {
+"_last_seen": "2026-11-09",
+"category": null,
+"conflicts": [],
+"date": "2027-02-20",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 35000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "Half"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 35000,
+"id": "r4085cd4e",
+"name": "2027 전마협 청주 무심천 투데이 마라톤대회 (토)",
+"official_url": "https://mara1080.com/event/3a1225a6-b473-4fb7-8f26-cda304cff617",
+"organizer": "전국마라톤협회",
+"reg_close": null,
+"reg_note": "이틀 대회 중 토요일 · 10km·하프는 마라톤화 패키지 선택 시 99,000원",
+"reg_open": null,
+"reg_state": "open",
+"reg_url": null,
+"region": "충북",
+"sources": {},
+"start_time": null,
+"venue": "청주 무심천 롤러스케이트장",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일",
+"장소",
+"주최",
+"종목·참가비",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/3a1225a6-b473-4fb7-8f26-cda304cff617"
+}
+},
 "r41a6e620": {
 "_last_seen": "2026-11-09",
 "category": null,
@@ -1795,38 +1892,49 @@
 "_last_seen": "2026-11-09",
 "category": null,
 "conflicts": [],
-"date": "2026-12-05",
-"dist_tags": [],
+"date": "2027-05-15",
+"dist_tags": [
+"5K",
+"10K"
+],
 "distances": [
 {
-"fee": 100000,
-"km": 14.0,
-"label": "14km"
+"fee": null,
+"km": 5.0,
+"label": "5km"
 },
 {
-"fee": 250000,
-"km": 14.0,
-"label": "14km"
+"fee": null,
+"km": 10.0,
+"label": "10km"
 }
 ],
 "end_date": null,
-"fee_max": 250000,
-"fee_min": 100000,
+"fee_max": null,
+"fee_min": null,
 "id": "r453a834e",
-"name": "2026 월드 레코드 금산 국제 마라톤 축제",
-"official_url": "https://mara1080.com/event/ccf77de8-1b14-4170-afcb-c2eeaee1a78d/registration/apply",
+"name": "사바스티안 사웨 월드 레코드 국제 마라톤 축제 (2027년 5월로 연기)",
+"official_url": "https://mara1080.com/event/ccf77de8-1b14-4170-afcb-c2eeaee1a78d",
 "organizer": "전국마라톤협회",
-"reg_close": "2026-09-10",
-"reg_note": "2026.08.31 ~ 2026.09.10",
-"reg_open": "2026-08-31",
-"reg_state": "closed",
+"reg_close": null,
+"reg_note": "2026-09-17 공식 공지: 사웨 선수 부상·재활로 2026-12-05~06 대회를 2027년 5월로 연기(공식 페이지 대회일 2027-05-15) · 접수는 재오픈 예정 · 기존 신청자는 전액 환불",
+"reg_open": null,
+"reg_state": "upcoming",
 "reg_url": null,
 "region": "충남",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/sawe-2026-world-record-international-marathon-festival"
-},
+"sources": {},
 "start_time": null,
-"venue": "금산세계인삼엑스포광장"
+"venue": "금산세계인삼엑스포광장",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회 연기",
+"대회일",
+"장소",
+"주최"
+],
+"url": "https://mara1080.com/event/ccf77de8-1b14-4170-afcb-c2eeaee1a78d/notices/notice/aaa4eaea-9bbb-4e63-947d-b9bb2049354e"
+}
 },
 "r45bf47ab": {
 "_last_seen": "2026-11-09",
@@ -2335,6 +2443,55 @@
 "start_time": null,
 "venue": "갑천 러닝성지"
 },
+"r545adea2": {
+"_last_seen": "2026-11-09",
+"category": null,
+"conflicts": [],
+"date": "2027-03-07",
+"dist_tags": [
+"10K"
+],
+"distances": [
+{
+"fee": null,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": null,
+"km": 3.5,
+"label": "3.5km 건강달리기"
+}
+],
+"end_date": null,
+"fee_max": null,
+"fee_min": null,
+"id": "r545adea2",
+"name": "2027 부천국제 10km 로드레이스",
+"official_url": "https://www.bskrun.co.kr/",
+"organizer": "부천시체육회, 한국실업육상연맹, 경기일보",
+"reg_close": null,
+"reg_note": "대회일·출발 시각은 공식 홈페이지 예정 표기 · 접수 11/10 14:00 오픈 · 선착순 10,000명 · 참가비·마감일은 공식 홈페이지에 아직 없음",
+"reg_open": "2026-11-10",
+"reg_state": null,
+"reg_url": null,
+"region": "경기",
+"sources": {},
+"start_time": "08:00",
+"venue": "부천중앙공원 ~ 심곡천 일원",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일(예정)",
+"출발 시각(예정)",
+"장소",
+"주최",
+"종목",
+"접수 시작"
+],
+"url": "https://www.bskrun.co.kr/"
+}
+},
 "r5546e584": {
 "_last_seen": "2026-11-08",
 "category": null,
@@ -2561,6 +2718,56 @@
 "start_time": null,
 "venue": "부여 구드래 나루터 선착장"
 },
+"r58ae6b29": {
+"_last_seen": "2026-11-09",
+"category": null,
+"conflicts": [],
+"date": "2027-02-20",
+"dist_tags": [
+"5K",
+"10K"
+],
+"distances": [
+{
+"fee": 35000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 35000,
+"id": "r58ae6b29",
+"name": "2027 전마협 청주 무심천 노을 마라톤대회 (토)",
+"official_url": "https://mara1080.com/event/b8949d3b-ed3e-4cc5-86d1-49f7e1b02546",
+"organizer": "전국마라톤협회",
+"reg_close": null,
+"reg_note": "오후 3시 출발 · 마라톤화 패키지 선택 시 99,000원",
+"reg_open": null,
+"reg_state": "open",
+"reg_url": null,
+"region": "충북",
+"sources": {},
+"start_time": "15:00",
+"venue": "청주 무심천 롤러스케이트장",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/b8949d3b-ed3e-4cc5-86d1-49f7e1b02546"
+}
+},
 "r590dd5f4": {
 "_last_seen": "2026-11-09",
 "category": null,
@@ -2600,12 +2807,17 @@
 "reg_open": "2026-10-30",
 "reg_state": "open",
 "reg_url": null,
-"region": "전북",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/2027-jeonmahyeop-goheung-nuriho-marathon-cd28112a28d04ab7ac9141a02a466473"
-},
+"region": "전남",
+"sources": {},
 "start_time": null,
-"venue": "고흥만 수변노을공원"
+"venue": "고흥만 수변노을공원",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"장소(지역)"
+],
+"url": "https://mara1080.com/event/c0c0a4a4-eb54-4f93-a0b8-f21d9b2bd168"
+}
 },
 "r5a4760e3": {
 "_last_seen": "2026-11-09",
@@ -2650,6 +2862,54 @@
 "접수 일정"
 ],
 "url": "https://daegumarathon.daegu.go.kr/"
+}
+},
+"r5d0604a7": {
+"_last_seen": "2026-11-09",
+"category": null,
+"conflicts": [],
+"date": "2027-01-01",
+"dist_tags": [],
+"distances": [
+{
+"fee": 30000,
+"km": 7.0,
+"label": "7km"
+},
+{
+"fee": 20000,
+"km": 7.0,
+"label": "7km(청소년)"
+}
+],
+"end_date": null,
+"fee_max": 30000,
+"fee_min": 20000,
+"id": "r5d0604a7",
+"name": "2027 선양 맨몸마라톤",
+"official_url": "https://www.djmmrun.co.kr/",
+"organizer": "㈜선양소주",
+"reg_close": "2026-11-22",
+"reg_note": "랜덤 추첨 2,027명(개인 1,027명·단체 1,000명) · 접수 11/9 10:00 ~ 11/22 23:59 · 1차 당첨 발표 11/24, 2차 11/30 · 어린이(2015년생 이하) 무료",
+"reg_open": "2026-11-09",
+"reg_state": null,
+"reg_url": "https://www.djmmrun.co.kr/sub.php?code=02_part020100",
+"region": "대전",
+"sources": {},
+"start_time": "11:11",
+"venue": "대전 엑스포과학공원 물빛광장(한빛탑 앞 광장)",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 기간",
+"추첨 방식"
+],
+"url": "https://www.djmmrun.co.kr/sub.php?code=01_abou02"
 }
 },
 "r5d8ab8ab": {
@@ -3034,6 +3294,66 @@
 "start_time": null,
 "venue": "신정교 하부 영롱이 억새구장"
 },
+"r65ed36cf": {
+"_last_seen": "2026-11-09",
+"category": null,
+"conflicts": [],
+"date": "2027-03-13",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 15000,
+"km": 5.0,
+"label": "5km(금산군민)"
+},
+{
+"fee": 40000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "Half"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 15000,
+"id": "r65ed36cf",
+"name": "2027 금산 인삼 웰빙 마라톤대회",
+"official_url": "https://mara1080.com/event/6397382b-be8d-4aee-b724-68f9fad03f29",
+"organizer": "금산군육상연맹 (주관 로컬투데이·전국마라톤협회)",
+"reg_close": null,
+"reg_note": null,
+"reg_open": null,
+"reg_state": "open",
+"reg_url": null,
+"region": "충남",
+"sources": {},
+"start_time": null,
+"venue": "금산인삼엑스포주차장",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일",
+"장소",
+"주최",
+"종목·참가비",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/6397382b-be8d-4aee-b724-68f9fad03f29"
+}
+},
 "r67f45c41": {
 "_last_seen": "2026-11-09",
 "category": null,
@@ -3151,19 +3471,29 @@
 "fee_min": 50000,
 "id": "r690a98d2",
 "name": "2027 북극곰 마라톤",
-"official_url": "https://polarbearrun.kr/join/register.asp",
+"official_url": "https://polarbearrun.kr/",
 "organizer": "(사)대한이에스지협회",
-"reg_close": null,
-"reg_note": null,
+"reg_close": "2027-01-17",
+"reg_note": "조기 마감될 수 있음 · 참가취소·환불은 2027-01-03까지",
 "reg_open": null,
-"reg_state": "upcoming",
-"reg_url": null,
+"reg_state": "open",
+"reg_url": "https://polarbearrun.kr/join/register.asp",
 "region": "서울",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/2027-polar-bear-marathon-a34e9e8dd5bc4899bd3503b5aabda316"
-},
-"start_time": null,
-"venue": "신정교 하부 영롱이억새구장"
+"sources": {},
+"start_time": "09:00",
+"venue": "신정교 하부 영롱이억새구장",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 마감"
+],
+"url": "https://polarbearrun.kr/"
+}
 },
 "r69b9cf3c": {
 "_last_seen": "2026-11-01",
@@ -4264,6 +4594,50 @@
 "start_time": null,
 "venue": "오크밸리"
 },
+"r8a4e9167": {
+"_last_seen": "2026-11-09",
+"category": null,
+"conflicts": [],
+"date": "2027-01-24",
+"dist_tags": [
+"10K"
+],
+"distances": [
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 50000,
+"id": "r8a4e9167",
+"name": "2027 전국마라톤협회 제주 10km 마라톤",
+"official_url": "https://mara1080.com/event/15658a1d-d102-42e7-8123-9e20c73aa767",
+"organizer": "전국마라톤협회",
+"reg_close": null,
+"reg_note": "공식 홈페이지에 접수 마감으로 표시 · 기념품·배번호 택배 발송",
+"reg_open": null,
+"reg_state": "closed",
+"reg_url": null,
+"region": "제주",
+"sources": {},
+"start_time": "09:00",
+"venue": "서귀포 축구 공원(예정)",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일",
+"출발 시각",
+"장소(예정)",
+"주최",
+"종목·참가비",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/15658a1d-d102-42e7-8123-9e20c73aa767"
+}
+},
 "r8a9e5d42": {
 "_last_seen": "2026-11-09",
 "category": null,
@@ -5223,6 +5597,49 @@
 },
 "start_time": null,
 "venue": "하남 미사경정공원 일원"
+},
+"ra6ab5e7a": {
+"_last_seen": "2026-11-09",
+"category": null,
+"conflicts": [],
+"date": "2027-01-22",
+"dist_tags": [
+"풀"
+],
+"distances": [
+{
+"fee": 55000,
+"km": 42.195,
+"label": "풀(1회)"
+}
+],
+"end_date": "2027-01-25",
+"fee_max": 55000,
+"fee_min": 55000,
+"id": "ra6ab5e7a",
+"name": "2027 전국마라톤협회 제주 4Full 마라톤",
+"official_url": "https://mara1080.com/event/f3c362bc-532f-4f3c-bc21-76d3023bfb3a",
+"organizer": "전국마라톤협회",
+"reg_close": null,
+"reg_note": "1/22(금)~1/25(월) 매일 풀코스 · 출발 22일 09:00, 23일 08:00, 24일 08:30, 25일 07:30 · 2회 110,000원, 3회 165,000원, 4회 제주도민 220,000원, 타지역 4회(숙박 포함·선착순 80명) 700,000원 · 1년 이내 풀 5시간 또는 하프 1시간 50분 이내 기록증 제출 필수 · 입금·변경·환불은 11/30(월)까지(공지)",
+"reg_open": null,
+"reg_state": "open",
+"reg_url": null,
+"region": "제주",
+"sources": {},
+"start_time": "09:00",
+"venue": "제주도 일원",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일(4일간)",
+"출발 시각",
+"주최",
+"종목·참가비",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/f3c362bc-532f-4f3c-bc21-76d3023bfb3a"
+}
 },
 "ra71a5bce": {
 "_last_seen": "2026-11-09",
@@ -6250,6 +6667,67 @@
 },
 "start_time": null,
 "venue": "진해공설운동장 및 해군 영내 일원"
+},
+"rc5d1af20": {
+"_last_seen": "2026-11-09",
+"category": null,
+"conflicts": [],
+"date": "2027-03-07",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 25000,
+"km": 5.0,
+"label": "5km(무주군민)"
+},
+{
+"fee": 35000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "Half"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 25000,
+"id": "rc5d1af20",
+"name": "2027 무주 반딧불 하프마라톤대회",
+"official_url": "https://mara1080.com/event/6b68a627-24cf-4844-ac1d-9358b2a54227",
+"organizer": "무주군체육회 (주관 무주군마라톤협회·전국마라톤협회)",
+"reg_close": null,
+"reg_note": null,
+"reg_open": null,
+"reg_state": "open",
+"reg_url": null,
+"region": "전북",
+"sources": {},
+"start_time": "08:30",
+"venue": "무주 등나무운동장",
+"verified": {
+"date": "2026-11-09",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/6b68a627-24cf-4844-ac1d-9358b2a54227"
+}
 },
 "rc68fd737": {
 "_last_seen": "2026-11-09",

@@ -40,7 +40,7 @@ GEO_OVERSEAS = {
     'taipei': ('Taipei', 'TW', None), 'hong-kong': ('Hong Kong', 'HK', None),
     'kitakyushu': ('Kitakyushu', 'JP', 'Fukuoka'), 'kumamoto': ('Kumamoto', 'JP', 'Kumamoto'), 'kochi': ('Kochi', 'JP', 'Kochi'),
     'kagoshima': ('Kagoshima', 'JP', 'Kagoshima'), 'tokushima': ('Tokushima', 'JP', 'Tokushima'), 'nagano': ('Nagano', 'JP', 'Nagano'),
-    'naha': ('Naha', 'JP', 'Okinawa'), 'barcelona': ('Barcelona', 'ES', 'Catalonia'), 'valencia': ('Valencia', 'ES', 'Valencia'),
+    'naha': ('Naha', 'JP', 'Okinawa'), 'aomori': ('Aomori', 'JP', 'Aomori'), 'barcelona': ('Barcelona', 'ES', 'Catalonia'), 'valencia': ('Valencia', 'ES', 'Valencia'),
 }
 # 광역시 중심(지오코딩 실패 시 도시 단위로만 표시). (검색어, 시·도 범위는 geocode_venues.BB 사용)
 METRO = {'서울': 'Seoul', '부산': 'Busan', '대구': 'Daegu', '인천': 'Incheon', '광주': 'Gwangju', '대전': 'Daejeon', '울산': 'Ulsan', '세종': 'Sejong'}

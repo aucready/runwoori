@@ -228,7 +228,7 @@ const BLOG_LEVELS = ['초급','중급','고급'];
 let _blogIdx = null;
 function loadBlogIndex(){ return _blogIdx || (_blogIdx = fetch('data/blog/index.json').then(r=>{ if(!r.ok) throw new Error('blog index '+r.status); return r.json(); })); }
 function blogRow(p, i){
-  return `<a class="ed-guide ed-post-row" href="post.html?id=${encodeURIComponent(p.id)}"><span class="ix">${p2(i!=null?i:p.no)}</span><div><span class="ed-label">${esc(p.level)}${sep}${p.minutes}분</span><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></div><span class="ed-arrow" style="color:var(--ink-3)" aria-hidden="true">→</span></a>`;
+  return `<a class="ed-guide ed-post-row" href="guide/${encodeURIComponent(p.id)}.html"><span class="ix">${p2(i!=null?i:p.no)}</span><div><span class="ed-label">${esc(p.level)}${sep}${p.minutes}분</span><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></div><span class="ed-arrow" style="color:var(--ink-3)" aria-hidden="true">→</span></a>`;
 }
 
 /* ── 해외 주요 대회: data/overseas.json (공식 홈페이지 확인값) — 저장 페이지 등에서 사용 ── */

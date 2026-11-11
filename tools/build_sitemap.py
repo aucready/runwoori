@@ -11,8 +11,9 @@ pages=[('', 'daily','1.0'),('overseas.html','daily','0.8'),('my.html','weekly','
        ('privacy.html','yearly','0.3'),('terms.html','yearly','0.3')]
 urls=[(BASE+'/'+p,'', cf, pr) for p,cf,pr in pages]
 idx=json.load(open(os.path.join(ROOT,'data','blog','index.json'),encoding='utf-8'))
-for p in idx['posts']:
-    urls.append((f"{BASE}/post.html?id={p['id']}", p.get('date',today), 'monthly','0.7'))
+for p in idx['posts']:   # 러닝 가이드: tools/build_guides.py 가 만든 정적 글 페이지 guide/<id>.html
+    lm = p.get('dateModified') or p.get('date_modified') or p.get('date') or today
+    urls.append((f"{BASE}/guide/{p['id']}.html", lm, 'monthly','0.7'))
 # 대회별 정적 페이지 (tools/build_race_pages.py 가 만든 data/race_pages.json, 색인 허용된 것만)
 rp=os.path.join(ROOT,'data','race_pages.json')
 if os.path.exists(rp):

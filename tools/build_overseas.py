@@ -32,10 +32,9 @@ MUTED = '<span class="muted">공식 페이지에서 확인하지 못했어요</s
 
 
 def read_adsense():
-    s = open(os.path.join(ROOT, 'index.html'), encoding='utf8').read()
-    m = re.search(r'<!--ADSENSE:START-->.*?<!--ADSENSE:END-->', s, re.S)
-    g = re.search(r'<!--GA4:START-->.*?<!--GA4:END-->', s, re.S)   # 방문 통계(GA4) 블록도 함께 따라온다
-    return (m.group(0) if m else '') + (('\n' + g.group(0)) if g else '')
+    """내용 페이지의 AdSense + index.html 의 GA4. 얇은 화면(홈·계산기 등)은 소스로 쓰지 않는다."""
+    import head_snippets
+    return head_snippets.adsense_and_ga4(ROOT)
 
 
 def prim(r):

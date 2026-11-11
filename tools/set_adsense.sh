@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # 사용법: tools/set_adsense.sh PUBID      예) tools/set_adsense.sh pub-1234567890123456
 #         tools/set_adsense.sh --off      광고 스크립트를 다시 주석(비활성)으로 되돌림
-# 하는 일: 모든 페이지 <head> 의 AdSense 스니펫 주석을 활성화하고 ads.txt 를 채웁니다.
+# 하는 일: 루트 HTML <head> 의 AdSense 스니펫을 켜거나 주석으로 되돌리고 ads.txt 를 채웁니다.
+#   홈·계산기·개인 도구처럼 본문이 얇은 화면(tools/head_snippets.py AD_FREE)은 건너뜁니다.
 #   PUBID 는 pub-숫자16자리 / ca-pub-숫자16자리 / 숫자16자리 모두 가능.
 # 주의: AdSense 사이트 승인(또는 사이트 추가·코드 확인 단계)에 맞춰 실행하세요.
 set -euo pipefail
@@ -14,10 +15,16 @@ if [ "$ARG" = "--off" ]; then MODE=off; PUB=""; else
 fi
 python3 - "$ROOT" "$MODE" "$PUB" <<'PY'
 import sys, os, re, glob
+sys.path.insert(0, os.path.join(sys.argv[1], 'tools'))
+import head_snippets
 root, mode, pub = sys.argv[1:4]
 SRC = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-'
 n = 0
+skipped = []
 for f in sorted(glob.glob(os.path.join(root, '*.html'))):
+    if os.path.basename(f) in head_snippets.AD_FREE:
+        skipped.append(os.path.basename(f))
+        continue
     s = open(f, encoding='utf-8').read()
     if 'ADSENSE:START' not in s: continue
     if mode == 'on':
@@ -30,6 +37,7 @@ ads = os.path.join(root, 'ads.txt')
 line = 'google.com, pub-%s, DIRECT, f08c47fec0942fa0' % (pub if mode == 'on' else 'XXXXXXXXXXXXXXXX')
 open(ads, 'w').write(line + '\n')
 print(('활성화' if mode == 'on' else '비활성화') + f': 페이지 {n}개 수정, ads.txt = {line}')
+print('광고 없음 유지(얇은 화면): ' + ', '.join(skipped))
 PY
 if [ "$MODE" = on ]; then cat <<EOF
 

@@ -53,7 +53,7 @@ cp tools/set_ga4.sh "$DEPLOY/tools/" 2>/dev/null || true; cp data/courses.json "
 rm -rf "$DEPLOY/guide" && cp -a guide "$DEPLOY/guide"   # 러닝 가이드 정적 글 페이지(tools/build_guides.py 산출물)
 rm -rf "$DEPLOY/month" "$DEPLOY/region" && cp -a month "$DEPLOY/month" && cp -a region "$DEPLOY/region" && cp deadline.html "$DEPLOY/deadline.html" && cp data/landing_pages.json "$DEPLOY/data/"
 cp sitemap.xml "$DEPLOY/sitemap.xml"
-cp tools/build_guides.py tools/build_race_pages.py tools/build_overseas.py tools/build_landing.py tools/make_pro_pages.py tools/build_sitemap.py tools/daily_publish.sh tools/weather_lib.py tools/fetch_weather.py tools/geocode_venues.py "$DEPLOY/tools/" 2>/dev/null || true
+cp tools/build_guides.py tools/build_race_pages.py tools/head_snippets.py tools/build_overseas.py tools/build_landing.py tools/make_pro_pages.py tools/build_sitemap.py tools/daily_publish.sh tools/weather_lib.py tools/fetch_weather.py tools/geocode_venues.py "$DEPLOY/tools/" 2>/dev/null || true
 
 cd "$DEPLOY"
 echo "$DOMAIN" > CNAME                                    # 커스텀 도메인 파일 유지

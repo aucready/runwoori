@@ -6221,20 +6221,28 @@
 "fee_max": 50000,
 "fee_min": 50000,
 "id": "rbb561813",
-"name": "2026 ONE MORE RUN",
-"official_url": "https://www.omrun.co.kr/register/",
+"name": "2026 ONE MORE RUN (개최 취소)",
+"official_url": "https://www.omrun.co.kr/",
 "organizer": "새마펄스",
-"reg_close": "2026-11-15",
-"reg_note": "2026.09.14 ~ 2026.11.15",
+"reg_close": "2026-11-10",
+"reg_note": "2026-11-10 공식 공지: 2026.12.12(토) 대회 개최 취소 · 참가비 전액(100%) 환불(결제대행사 KCP에서 카드·계좌 순차 취소, 완료 후 문자 안내) · 공식 접수 페이지는 참가신청 종료로 표시 · 이용약관 제6조는 접수 마감일을 2026년 11월 23일로 적었으나 개최 취소로 더 이상 접수하지 않음",
 "reg_open": "2026-09-14",
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "인천",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/2026-one-more-run-e2a056302708429c915aceb7c34e132b"
-},
-"start_time": null,
-"venue": "영종구 씨사이드파크 하늘구름광장 야외무대 (인천 영종구 중산동1967-1)"
+"sources": {},
+"start_time": "09:00",
+"venue": "영종구 씨사이드파크 하늘구름광장 야외무대 (인천 영종구 중산동1967-1)",
+"verified": {
+"date": "2026-11-11",
+"fields": [
+"개최 취소",
+"출발 시각",
+"접수 상태",
+"접수 마감"
+],
+"url": "https://www.omrun.co.kr/notice/view.php?id=8"
+}
 },
 "rbb9ac089": {
 "_last_seen": "2026-11-08",

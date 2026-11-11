@@ -221,7 +221,7 @@ PREP_POSTS = {  # 거리 구간 → (권장 준비 주수, 읽어 볼 가이드 
     '하프': (12, [('half-marathon-prep', '하프마라톤 준비: 12주 훈련 구조')]),
     '풀':   (16, [('marathon-prep-and-taper', '풀코스 준비와 테이퍼링'), ('first-marathon-checklist', '마라톤 첫 참가 준비 순서')]),
 }
-PREP_COMMON = [('race-gear-checklist', '대회 준비물 점검'), ('race-day-routine', '대회 당일 루틴')]
+PREP_COMMON = [('first-marathon-checklist#gear', '대회 준비물 점검'), ('first-marathon-checklist#raceday', '대회 전날·당일 루틴')]  # 2026-11-11 병합: 옛 race-gear-checklist·race-day-routine → 첫 참가 준비 글의 해당 절
 
 
 def longest_tag(r):
@@ -253,7 +253,7 @@ def prep_section(r):
         what = '종목 거리 정보가 아직 없어요.'
         tip = '공식 홈페이지에서 종목과 제한 시간을 먼저 확인한 뒤 훈련 계획을 잡으세요.'
     when = f'대회까지 {r["d"]}일({weeks}주)' if r['d'] >= 7 else f'대회까지 {r["d"]}일'
-    links = ''.join(f'<li><a class="ed-link" href="guide/{i}.html">{esc(t)}</a></li>' for i, t in posts)
+    links = ''.join(f'<li><a class="ed-link" href="guide/{i.split("#")[0]}.html{"#" + i.split("#")[1] if "#" in i else ""}">{esc(t)}</a></li>' for i, t in posts)
     return (f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">준비 기간 가늠하기</h2></div>'
             f'<p class="ed-small" style="line-height:1.8">{when} 남았어요. {what} {tip}</p>'
             f'<ul class="ed-small" style="line-height:2;margin:10px 0 0 18px;padding:0"><li><a class="ed-link" href="tools.html?date={r["date"]}">이 대회 날짜로 주간 훈련표 만들기</a></li>{links}</ul></section>')

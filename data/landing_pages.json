@@ -1,14 +1,14 @@
 {
-"generated": "2026-11-11",
+"generated": "2026-11-12",
 "pages": [
 {
 "path": "deadline.html",
 "url": "https://runwoori.com/deadline.html",
 "indexable": true,
-"count": 8,
+"count": 6,
 "changefreq": "daily",
 "priority": "0.9",
-"lastmod": "2026-11-11"
+"lastmod": "2026-11-12"
 },
 {
 "path": "month/2026-11.html",
@@ -17,7 +17,7 @@
 "count": 116,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-11"
+"lastmod": "2026-11-12"
 },
 {
 "path": "month/2026-12.html",
@@ -26,7 +26,7 @@
 "count": 28,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-11"
+"lastmod": "2026-11-12"
 },
 {
 "path": "region/seoul.html",
@@ -35,7 +35,7 @@
 "count": 40,
 "changefreq": "daily",
 "priority": "0.7",
-"lastmod": "2026-11-11"
+"lastmod": "2026-11-12"
 }
 ]
 }

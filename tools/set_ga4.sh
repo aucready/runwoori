@@ -3,6 +3,7 @@
 # 하는 일: 루트 *.html 의 <head> 에 <!--GA4:START-->…<!--GA4:END--> 블록을 넣거나 갱신/제거합니다.
 #   위치: <!--ADSENSE:END--> 바로 뒤, 없으면 </head> 바로 앞. (리다이렉트 전용 페이지는 건너뜀)
 #   생성 페이지(race/ overseas/ month/ region/)는 생성기가 index.html 의 GA4 블록을 읽어 자동으로 넣습니다.
+#   AdSense 조각은 index.html 이 아니라 about.html 에서 읽습니다(홈 등 얇은 화면은 광고 없음).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ARG="${1:-}"

@@ -52,8 +52,9 @@ cd /workspace/runwoori-deploy
 tools/set_adsense.sh pub-1234567890123456     # 본인 게시자 ID
 git add -A && git commit -m "AdSense 코드 활성화" && git push
 ```
-- 모든 페이지 `<head>`의 주석 처리된 스크립트가 활성화되고 `ads.txt`가 `google.com, pub-…, DIRECT, f08c47fec0942fa0`으로 채워져요. (404 페이지는 오류 화면에 광고가 뜨지 않도록 일부러 뺐어요.)
-- 1~2분 뒤 `https://runwoori.com/ads.txt`가 열리고, 페이지 소스에 `adsbygoogle.js`가 보이면 성공이에요.
+- 내용이 있는 페이지 `<head>`의 주석 처리된 스크립트가 활성화되고 `ads.txt`가 `google.com, pub-…, DIRECT, f08c47fec0942fa0`으로 채워져요.
+- 홈(`index.html`), 나의 레이스, 훈련 계산기·플랜·기록·프로, 저장 목록, 설치 안내, 오프라인, 404처럼 본문이 얇은 화면에는 광고 스크립트를 넣지 않아요. `tools/set_adsense.sh`도 이 목록(`tools/head_snippets.py`의 `AD_FREE`)은 건너뜁니다. 대회·해외·월별·지역 페이지는 생성기가 `about.html`의 AdSense 조각을 복사해요.
+- 1~2분 뒤 `https://runwoori.com/ads.txt`가 열리고, 대회 페이지 같은 내용 페이지 소스에 `adsbygoogle.js`가 보이면 성공이에요. 홈·계산기 화면에는 이 스크립트가 없어야 해요.
 - 되돌리려면 `tools/set_adsense.sh --off`.
 
 ## 7. 심사 요청과 대기

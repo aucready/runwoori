@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """프로(미리보기) 페이지 3개 생성: pro.html · plan.html · records.html  (about.html 의 머리말을 재사용, noindex)
-   본문 스크립트는 이 파일에 들어 있다. 실행: python3 tools/make_pro_pages.py"""
-import re, os
+   본문 스크립트는 이 파일에 들어 있다. 실행: python3 tools/make_pro_pages.py
+   about.html 의 AdSense 조각은 복사하지 않는다. 이 세 화면은 본문이 얇다."""
+import re, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import head_snippets
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 about = open(os.path.join(ROOT, 'about.html'), encoding='utf8').read()
 HEAD0 = about[:about.index('</head>')].replace('<script src="data.js"></script><script src="app.js"></script>', '')
+HEAD0 = head_snippets.strip_adsense(HEAD0)
 
 def head(path, title, desc):
     h = HEAD0

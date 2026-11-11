@@ -251,7 +251,7 @@ def prep_section(r):
         what = '종목 거리 정보가 아직 없어요.'
         tip = '공식 홈페이지에서 종목과 제한 시간을 먼저 확인한 뒤 훈련 계획을 잡으세요.'
     when = f'대회까지 {r["d"]}일({weeks}주)' if r['d'] >= 7 else f'대회까지 {r["d"]}일'
-    links = ''.join(f'<li><a class="ed-link" href="post.html?id={i}">{esc(t)}</a></li>' for i, t in posts)
+    links = ''.join(f'<li><a class="ed-link" href="guide/{i}.html">{esc(t)}</a></li>' for i, t in posts)
     return (f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">준비 기간 가늠하기</h2></div>'
             f'<p class="ed-small" style="line-height:1.8">{when} 남았어요. {what} {tip}</p>'
             f'<ul class="ed-small" style="line-height:2;margin:10px 0 0 18px;padding:0"><li><a class="ed-link" href="tools.html?date={r["date"]}">이 대회 날짜로 주간 훈련표 만들기</a></li>{links}</ul></section>')

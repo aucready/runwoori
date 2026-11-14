@@ -34,14 +34,18 @@
 "reg_url": null,
 "region": "부산",
 "sources": {},
-"start_time": null,
-"venue": "부산 삼락생태공원",
+"start_time": "09:00",
+"venue": "부산 대저생태공원 일원",
 "verified": {
-"date": "2026-10-31",
+"date": "2026-11-14",
 "fields": [
+"대회일",
+"출발 시각",
+"장소",
+"종목·참가비",
 "접수 기간"
 ],
-"url": "https://giverun.kr/home/main.ubs"
+"url": "https://giverun.kr/home/introduce/outline/pageView.ubs"
 }
 },
 "r0638ebcd": {
@@ -8127,42 +8131,43 @@
 },
 "rfecc9904": {
 "_last_seen": "2026-11-14",
-"category": null,
+"category": "버추얼",
 "conflicts": [],
-"date": "2026-11-22",
-"dist_tags": [
-"10K"
-],
+"date": "2026-11-11",
+"dist_tags": [],
 "distances": [
 {
-"fee": 85000,
-"km": 10.0,
-"label": "10km"
-},
-{
-"fee": 94900,
-"km": 10.0,
-"label": "10km"
+"fee": 25900,
+"km": null,
+"label": "버추얼런"
 }
 ],
-"end_date": null,
-"fee_max": 94900,
-"fee_min": 85000,
+"end_date": "2026-11-22",
+"fee_max": 25900,
+"fee_min": 25900,
 "id": "rfecc9904",
 "name": "2026 The Last Run : 굿바이잠실",
 "official_url": "https://lgtwinslastrungoodbyejamsil.com/",
 "organizer": "중앙일보S",
-"reg_close": null,
-"reg_note": null,
-"reg_open": null,
-"reg_state": "closed",
+"reg_close": "2026-11-15",
+"reg_note": "버추얼런 · 접수 11.11 10:00 ~ 11.15 23:59 · 기록 인증은 11.22 23:59까지 · 참가비 25,900원, 예매 수수료 1,000원 별도",
+"reg_open": "2026-11-11",
+"reg_state": "open",
 "reg_url": null,
-"region": "서울",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/2026-the-last-run-goodbye-jamsil-2c3264b4e42349e08ac8d2dc3b0f6a4d"
-},
+"region": "전국",
+"sources": {},
 "start_time": null,
-"venue": "서울 잠실종합운동장"
+"venue": "온라인 (장소 무관, 버추얼런)",
+"verified": {
+"date": "2026-11-14",
+"fields": [
+"유형·장소",
+"대회 일정",
+"참가비",
+"접수 기간"
+],
+"url": "https://lgtwinslastrungoodbyejamsil.com/"
+}
 },
 "rff333c22": {
 "_last_seen": "2026-10-31",

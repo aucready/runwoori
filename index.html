@@ -67,11 +67,11 @@ const R=allRaces();
 const qs=new URLSearchParams(location.search);
 if(qs.get('status')) S.status=qs.get('status'); if(qs.get('fav')||qs.get('tab')==='saved') S.fav=true; if(qs.get('q')){S.q=qs.get('q');$('#q').value=S.q;}
 if(qs.get('range')==='week'){ const t=today(); S.from=iso(t); S.to=iso(new Date(+t+7*DAY)); }
-const STAT=[['all','전체'],['open','접수중'],['urgent','마감임박'],['soon','접수예정'],['info','일정 미공지'],['closed','마감']];
+const STAT=[['all','전체'],['ongoing','진행 중'],['open','접수중'],['urgent','마감임박'],['soon','접수예정'],['info','일정 미공지'],['closed','마감']];
 const REG=['전체',...['서울','경기','인천','강원','충북','충남','대전','세종','전북','전남','광주','경북','경남','대구','울산','부산','제주','전국'].filter(x=>RACES.some(r=>r.region===x))], DIST=[['전체','전체'],['5K','5K'],['10K','10K'],['하프','하프'],['풀','풀코스']];
 if(qs.get('region')&&REG.includes(qs.get('region'))) S.region=qs.get('region');
 function chips(id,items,key,counts){ $(id).innerHTML=items.map(([v,l])=>`<button class="${S[key]===v?'is-on':''}" data-k="${key}" data-v="${v}">${l}${counts&&counts[v]!=null?`<span class="c">${counts[v]}</span>`:''}</button>`).join(''); }
-const RANK={urgent:0,open:0,soon:1,info:2,closed:3,ended:4};
+const RANK={ongoing:-1,urgent:0,open:0,soon:1,info:2,closed:3,ended:4};
 function filtered(ignoreDay,ignoreStatus){
   return R.filter(r=>{
     if(r.st.key==='ended') return false;
@@ -79,9 +79,9 @@ function filtered(ignoreDay,ignoreStatus){
     if(S.region!=='전체' && r.region!==S.region) return false;
     if(S.dist!=='전체' && !r.distTags.includes(S.dist)) return false;
     if(S.q && !(r.name+' '+r.region+' '+r.type+' '+r.venue+' '+r.organizer).toLowerCase().includes(S.q.toLowerCase())) return false;
-    if(S.from && r.date<S.from) return false; if(S.to && r.date>S.to) return false;
+    if(S.from && (r.end||r.date)<S.from) return false; if(S.to && (r.start||r.date)>S.to) return false;
     if(!ignoreStatus && S.fav && !favs.has(r.id)) return false;
-    if(!ignoreDay && S.day && r.date!==S.day) return false; return true; }).sort((a,b)=> S.sort==='reg' ? (RANK[a.st.key]-RANK[b.st.key])||(a.d-b.d) : a.d-b.d);
+    if(!ignoreDay && S.day && !((r.start||r.date)<=S.day && (r.end||r.date)>=S.day)) return false; return true; }).sort((a,b)=> S.sort==='reg' ? (RANK[a.st.key]-RANK[b.st.key])||(a.d-b.d) : a.d-b.d);
 }
 function nActive(){ return [S.status!=='all',S.region!=='전체',S.dist!=='전체',!!S.q,!!(S.from||S.to),!!S.day].filter(Boolean).length; }
 let LIM=60, SIG='';
@@ -114,8 +114,13 @@ const t0=()=>today();
 function cal(){
   const t=today(); if(!S.month) S.month=new Date(t.getFullYear(),t.getMonth(),1);
   const y=S.month.getFullYear(), mo=S.month.getMonth();
-  const base=filtered(true).filter(r=>r.date.startsWith(`${y}-${p2(mo+1)}`));
-  const map={}; base.forEach(r=>{(map[r.date]=map[r.date]||[]).push(r);});
+  const from=`${y}-${p2(mo+1)}-01`, to=iso(new Date(y,mo+1,0));
+  const base=filtered(true).filter(r=>(r.start||r.date)<=to && (r.end||r.date)>=from);
+  const map={}; base.forEach(r=>{
+    const s=pd(r.start||r.date), e=pd(r.end||r.date);
+    const a=new Date(Math.max(+s, +new Date(y,mo,1))), b=new Date(Math.min(+e, +new Date(y,mo+1,0)));
+    for(let d=new Date(a); d<=b; d=new Date(+d+DAY)){ const k=iso(d); (map[k]=map[k]||[]).push(r); }
+  });
   const first=new Date(y,mo,1).getDay(), n=new Date(y,mo+1,0).getDate(), prevN=new Date(y,mo,0).getDate();
   const pm=new Date(y,mo-1,1).getMonth()+1, nm=new Date(y,mo+1,1).getMonth()+1;
   let h=`<div class="ed-cal-head"><h2>${y}년 ${mo+1}월</h2><div class="nav"><button id="prev" aria-label="${pm}월로">← ${pm}월</button><button id="todayBtn">오늘</button><button id="next" aria-label="${nm}월로">${nm}월 →</button></div></div><div class="ed-cal-grid">`;
@@ -127,7 +132,7 @@ function cal(){
     const cls=`ed-cal-day ${dw===0?'sun':''} ${dw===6?'sat':''} ${rs.length?'has':''} ${k===iso(t)?'today':''} ${S.day===k?'sel':''}`;
     h+=rs.length?`<button class="${cls}" data-day="${k}" aria-pressed="${S.day===k}" aria-label="${mo+1}월 ${d}일 대회 ${rs.length}개">${d}<span class="m">${dots}</span><span class="nms">${nm}</span></button>`:`<div class="${cls}">${d}<span class="m"></span></div>`; }
   const used=first+n, tail=(7-used%7)%7; for(let i=1;i<=tail;i++) h+=`<div class="ed-cal-day mute">${i}</div>`;
-  h+=`</div><div class="ed-cal-legend"><span class="ed-status open">접수중</span><span class="ed-status urgent">마감임박</span><span class="ed-status soon">접수예정</span><span class="ed-status closed">마감</span><span class="ed-status info">일정 미공지</span></div><p class="ed-small" style="margin-top:12px">${mo+1}월 대회 ${base.length}개</p>`;
+  h+=`</div><div class="ed-cal-legend"><span class="ed-status ongoing">진행 중</span><span class="ed-status open">접수중</span><span class="ed-status urgent">마감임박</span><span class="ed-status soon">접수예정</span><span class="ed-status closed">마감</span><span class="ed-status info">일정 미공지</span></div><p class="ed-small" style="margin-top:12px">${mo+1}월 대회 ${base.length}개</p>`;
   $('#cal').innerHTML=h;
 }
 document.addEventListener('click',e=>{

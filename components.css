@@ -84,6 +84,7 @@
 .ed-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; letter-spacing: 0; line-height: 1; white-space: nowrap; }
 .ed-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex: none; }
 .ed-status.open { color: var(--st-open); } .ed-status.urgent { color: var(--st-urgent); }
+.ed-status.ongoing { color: var(--ink); }
 .ed-status.soon { color: var(--st-soon); } .ed-status.soon::before { background: none; box-shadow: inset 0 0 0 1.5px currentColor; }
 .ed-status.closed { color: var(--st-closed); } .ed-status.closed::before { background: none; box-shadow: inset 0 0 0 1.5px currentColor; }
 

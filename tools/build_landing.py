@@ -27,6 +27,22 @@ WDK = ['월', '화', '수', '목', '금', '토', '일']   # date.weekday() 기�
 def kd(d): return f'{d.month}/{d.day}({WDK[d.weekday()]})'
 def ks(s): d = brp.pd(s); return f'{d.month}/{d.day}({WDK[d.weekday()]})'
 
+def months_of(r):
+    y, m = int(r['start'][:4]), int(r['start'][5:7])
+    ey, em = int(r['end'][:4]), int(r['end'][5:7])
+    while (y, m) <= (ey, em):
+        yield f'{y:04d}-{m:02d}'
+        m += 1
+        if m > 12:
+            m, y = 1, y + 1
+
+def month_overlap(r, key):
+    return r['start'][:7] <= key <= r['end'][:7]
+
+def week_overlap(r, y, m, a, b, last):
+    s, e = brp.pd(r['start']), brp.pd(r['end'])
+    return s <= datetime.date(y, m, min(b, last)) and e >= datetime.date(y, m, a)
+
 REGIONS = {'서울': 'seoul', '경기': 'gyeonggi', '인천': 'incheon', '강원': 'gangwon', '충북': 'chungbuk', '충남': 'chungnam', '대전': 'daejeon', '세종': 'sejong',
            '전북': 'jeonbuk', '전남': 'jeonnam', '광주': 'gwangju', '경북': 'gyeongbuk', '경남': 'gyeongnam', '대구': 'daegu', '울산': 'ulsan', '부산': 'busan', '제주': 'jeju'}
 
@@ -161,13 +177,16 @@ def build_deadline(cur, fetched, months, regions):
 
 # ── 월별 ────────────────────────────────────────────────────────
 def month_keys(allr):
-    c = collections.Counter(r['date'][:7] for r in allr.values())
+    c = collections.Counter()
+    for r in allr.values():
+        for k in months_of(r):
+            c[k] += 1
     return sorted(k for k, v in c.items() if v >= MIN_MONTH)
 
 
 def build_month(key, allr, fetched, months, regions):
     y, m = int(key[:4]), int(key[5:])
-    L = sorted([r for r in allr.values() if r['date'][:7] == key], key=lambda r: (r['date'], r['name']))
+    L = sorted([r for r in allr.values() if month_overlap(r, key)], key=lambda r: (r['start'], r['name']))
     n = len(L)
     live = [r for r in L if r['st']['key'] != 'ended']
     openn = [r for r in L if r['st']['key'] in ('open', 'urgent')]
@@ -199,7 +218,7 @@ def build_month(key, allr, fetched, months, regions):
     inner = ''
     last = (datetime.date(y + (m == 12), m % 12 + 1, 1) - datetime.timedelta(days=1)).day
     for a, b in buckets:
-        grp = [r for r in L if a <= brp.pd(r['date']).day <= b]
+        grp = [r for r in L if week_overlap(r, y, m, a, b, last)]
         if not grp: continue
         inner += f'<h3 class="lp-h3">{m}/{a} ~ {m}/{min(b, last)} <span class="ed-small">· {len(grp)}개</span></h3><div class="ed-list" style="border-top:0">{rows(grp)}</div>'
     secs.append(section(no, f'{m}월 전체 대회 (날짜 순)', inner)); no += 1
@@ -225,8 +244,9 @@ def region_keys(cur):
 def build_region(g, cur, fetched, months, regions):
     L = sorted([r for r in cur.values() if r['region'] == g and r['st']['key'] != 'ended'], key=lambda r: (r['date'], r['name']))
     n = len(L)
+    running = [r for r in L if r['st']['key'] == 'ongoing']
     openn = [r for r in L if r['st']['key'] in ('open', 'urgent')]
-    rest = [r for r in L if r['st']['key'] not in ('open', 'urgent')]
+    rest = [r for r in L if r['st']['key'] not in ('open', 'urgent', 'ongoing')]
     bm = collections.Counter(r['date'][:7] for r in L)
     dist = collections.Counter(t for r in L for t in r['distTags'])
     vn = collections.Counter(re.sub(r'\s+', ' ', r['venue']).strip() for r in L if r['venue'])
@@ -244,6 +264,7 @@ def build_region(g, cur, fetched, months, regions):
     secs.append(section(no, f'{g} 대회, 이렇게 고르세요', note, major=True)); no += 1
     trs = ''.join(f'<tr><td><a class="ed-link" href="month/{k}.html">{int(k[:4])}년 {int(k[5:])}월</a></td><td>{bm[k]}개</td></tr>' if k in months else f'<tr><td>{int(k[:4])}년 {int(k[5:])}월</td><td>{bm[k]}개</td></tr>' for k in sorted(bm))
     secs.append(section(no, '월별 대회 수', f'<table class="ed-table"><thead><tr><th scope="col">월</th><th scope="col">대회 수</th></tr></thead><tbody>{trs}</tbody></table>')); no += 1
+    if running: secs.append(section(no, '지금 진행 중인 대회', f'<div class="ed-list" style="border-top:0">{rows(running)}</div>')); no += 1
     if openn: secs.append(section(no, '지금 접수 중인 대회', f'<div class="ed-list" style="border-top:0">{rows(openn)}</div>')); no += 1
     if rest: secs.append(section(no, '접수 예정·일정 미공지·마감된 대회', f'<div class="ed-list" style="border-top:0">{rows(rest)}</div>')); no += 1
     others = ''.join(f'<a href="region/{REGIONS[x]}.html">{x}</a>' for x in regions if x != g)

@@ -31,10 +31,21 @@ function feeRange(r){
   const f=n=>n>=10000&&n%1000===0?man(n):n.toLocaleString('ko-KR')+'원';
   return r.fee_min===r.fee_max?f(r.fee_min):f(r.fee_min)+' ~ '+f(r.fee_max);
 }
+function eventSpan(r){
+  const start=r.start||r.date, end=r.end||r.end_date||start;
+  return [start, end];
+}
+function isCancelled(r){
+  return /개최 취소|대회 취소/.test((r.name||'')+' '+(r.regNote||r.reg_note||''));
+}
+function isOngoing(r,t){
+  const [start,end]=eventSpan(r), day=iso(t||today());
+  return start<end && start<=day && end>=day;
+}
 function adapt(r){
   const t=today(), start=r.date, end=r.end_date||r.date;
-  const ongoing = start<iso(t) && end>=iso(t);
-  return { id:r.id, name:r.name, start, end, date: ongoing?end:start, ongoing,
+  const ongoing = isOngoing({start,end},t);
+  return { id:r.id, name:r.name, start, end, date:start, ongoing,
     region:r.region||'', venue:r.venue||'', organizer:r.organizer||'', type:r.category||'',
     dist:r.distances.map(d=>d.label), distances:r.distances, distTags:r.dist_tags||[],
     fee:feeRange(r), fee_min:r.fee_min, fee_max:r.fee_max, open:r.reg_open, close:r.reg_close, regState:r.reg_state, regNote:r.reg_note,
@@ -59,9 +70,9 @@ function loadRaces(){
 const RACES_READY = loadRaces();
 
 /* 접수 상태: 접수중 / 마감임박(마감 10일 이내) / 접수예정 / 마감 / 일정 미공지(정보 없음) */
-function status(r){
-  const t=today(), race=pd(r.date), open=pd(r.open), close=pd(r.close);
-  if(race<t) return {key:'ended', label:'종료'};
+/* 접수 상태만 계산한다. 대회 종료·진행 중 여부는 status()가 종료일 기준으로 따로 판단한다. */
+function regStatus(r){
+  const t=today(), open=pd(r.open), close=pd(r.close);
   if(r.regState==='full') return {key:'closed', label:'정원 마감'};
   if(r.regState==='suspended') return {key:'closed', label:'접수 중단'};
   if(close && close<t) return {key:'closed', label:'마감'};
@@ -72,7 +83,18 @@ function status(r){
   if(close || open || r.regState==='open' || r.regState==='ongoing') return {key:'open', label:'접수중'};
   return {key:'info', label:'일정 미공지'};
 }
-function enrich(r){ const t=today(); return {...r, st:status(r), d:diff(pd(r.date),t), dt:pd(r.date)}; }
+function status(r){
+  const t=today(), end=pd(eventSpan(r)[1]);
+  if(end<t) return {key:'ended', label:'종료'};
+  if(r.ongoing || isOngoing(r,t)) return {key:'ongoing', label:'진행 중'};
+  return regStatus(r);
+}
+function enrich(r){
+  const t=today(), [start,end]=eventSpan(r), startD=pd(start), endD=pd(end);
+  const ongoing=isOngoing({start,end},t), past=endD<t;
+  const rec={...r, start, end, date:start, ongoing, d:diff(past||ongoing?endD:startD,t), dt:past?endD:startD};
+  rec.regSt=regStatus(rec); rec.st=status(rec); return rec;
+}
 const allRaces = () => window.RACES.map(enrich);
 
 /* 관심 대회 / 관심 코스 (localStorage) */
@@ -99,7 +121,7 @@ function regText(r){
 }
 const sep='<span class="sep">·</span>';
 function bookmark(id,on,attr='data-fav',label='관심 대회 저장'){ return `<button class="ed-bookmark ${on?'is-on':''}" aria-pressed="${!!on}" aria-label="${label}" ${attr}="${id}">${BM}</button>`; }
-function ddayCls(r){ if(r.st.key==='closed'||r.st.key==='ended') return ''; return (r.st.key==='urgent'||(r.d>=0&&r.d<=7))?'soon':''; }
+function ddayCls(r){ if(r.st.key==='closed'||r.st.key==='ended'||r.st.key==='ongoing') return ''; return (r.st.key==='urgent'||(r.d>=0&&r.d<=7))?'soon':''; }
 
 /* 대회 당일 날씨 칩(아이콘 + 기온). 예보는 data/weather.json — 지난 대회·오래된 예보는 표시하지 않는다 */
 const WX_ICONS={sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>',partly:'<path d="M9 3.5v1.6M3.6 6.2l1.2 1M2.5 11.5h1.6M14.6 6.2l-1.2 1"/><path d="M6.2 11.5a3.3 3.3 0 0 1 6.2-1.6"/><path transform="translate(2.5 2)" d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/>',cloud:'<path d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/>',fog:'<path d="M5 8.5h14M3.5 12.5h17M6 16.5h12M9 20.5h6"/>',rain:'<path transform="translate(0 -3)" d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/><path d="M8.5 17.5l-1 3M12.5 17.5l-1 3M16.5 17.5l-1 3"/>',snow:'<path transform="translate(0 -3)" d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/><path d="M8.5 18v3M7 19.5h3M15.5 18v3M14 19.5h3"/>',thunder:'<path transform="translate(0 -3)" d="M7.5 17.5h9a3.75 3.75 0 0 0 .5-7.46 5.25 5.25 0 0 0-10.1 1.2A3.15 3.15 0 0 0 7.5 17.5z"/><path d="M12.8 15.5l-2.3 3h3l-2.3 3"/>'};
@@ -118,7 +140,7 @@ function raceRow(r){
       <h3><a class="row-link" href="race/${r.id}.html">${esc(r.name)}</a></h3>
       <p class="ed-meta">${[esc(r.region||'지역 확인 필요'),r.type?esc(r.type):'',esc(dist)].filter(Boolean).join(sep)}</p>
       <p class="ed-meta">${regText(r)}${sep}${esc(feeText(r))}</p></div>
-    <div class="ed-race-side"><div class="ed-dday ${ddayCls(r)}">${ddayText(r.d)}</div>${bookmark(r.id,fav)}</div>
+    <div class="ed-race-side"><div class="ed-dday ${ddayCls(r)}">${r.ongoing||r.st.key==='ongoing'?'진행 중':ddayText(r.d)}</div>${bookmark(r.id,fav)}</div>
   </article>`;
 }
 

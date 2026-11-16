@@ -96,25 +96,45 @@ def unannounced(r):
     return '접수 일정 미공지' + (f' · {t}' if t else '')
 
 
+def event_span(r):
+    start = r.get('start') or r.get('date')
+    end = r.get('end') or r.get('end_date') or start
+    return start, end
+
+
+def is_cancelled(r):
+    text = (r.get('name') or '') + ' ' + (r.get('regNote') or r.get('reg_note') or '')
+    return '개최 취소' in text or '대회 취소' in text
+
+
+def is_ongoing(r, today=None):
+    today = (today or TODAY).isoformat() if hasattr(today or TODAY, 'isoformat') else (today or TODAY)
+    start, end = event_span(r)
+    return start < end and start <= today <= end
+
+
 def adapt(r):
     start, end = r['date'], r.get('end_date') or r['date']
-    ongoing = start < TODAY.isoformat() and end >= TODAY.isoformat()
+    ongoing = is_ongoing({'start': start, 'end': end})
     dists = r.get('distances') or []
-    a = dict(id=r['id'], name=r['name'], start=start, end=end, date=end if ongoing else start, ongoing=ongoing,
+    a = dict(id=r['id'], name=r['name'], start=start, end=end, date=start, ongoing=ongoing,
              region=r.get('region') or '', venue=r.get('venue') or '', organizer=r.get('organizer') or '', type=r.get('category') or '',
              distances=dists, distTags=r.get('dist_tags') or [], fee=fee_range(r), fee_min=r.get('fee_min'), fee_max=r.get('fee_max'),
              open=r.get('reg_open'), close=r.get('reg_close'), regState=r.get('reg_state'), regNote=r.get('reg_note'),
              official=r.get('official_url'), regUrl=r.get('reg_url'), sources=r.get('sources') or {}, startTime=r.get('start_time'), verified=r.get('verified'),
              prior=(PRIOR.get(r['id']) if not (r.get('reg_open') or r.get('reg_close')) else None))
     a['dist'] = [d['label'] for d in dists]
-    race = pd(a['date']); a['d'] = (race - TODAY).days; a['dt'] = race
+    start_d, end_d = pd(start), pd(end)
+    past = end_d < TODAY
+    a['d'] = ((end_d if past or ongoing else start_d) - TODAY).days
+    a['dt'] = end_d if past else start_d
+    a['regSt'] = reg_status(a)
     a['st'] = status(a)
     return a
 
 
-def status(r):
-    t, race, op, cl = TODAY, pd(r['date']), pd(r['open']), pd(r['close'])
-    if race < t: return dict(key='ended', label='종료')
+def reg_status(r):
+    t, op, cl = TODAY, pd(r['open']), pd(r['close'])
     if r['regState'] == 'full': return dict(key='closed', label='정원 마감')
     if r['regState'] == 'suspended': return dict(key='closed', label='접수 중단')
     if cl and cl < t: return dict(key='closed', label='마감')
@@ -124,6 +144,13 @@ def status(r):
     if cl and (cl - t).days <= URGENT_DAYS: return dict(key='urgent', label='마감임박')
     if cl or op or r['regState'] in ('open', 'ongoing'): return dict(key='open', label='접수중')
     return dict(key='info', label='일정 미공지')
+
+
+def status(r):
+    end = pd(event_span(r)[1])
+    if end < TODAY: return dict(key='ended', label='종료')
+    if r.get('ongoing') or is_ongoing(r): return dict(key='ongoing', label='진행 중')
+    return reg_status(r)
 
 
 def reg_text(r):
@@ -140,7 +167,7 @@ def reg_text(r):
 
 
 def dday_cls(r):
-    if r['st']['key'] in ('closed', 'ended'): return ''
+    if r['st']['key'] in ('closed', 'ended', 'ongoing'): return ''
     return 'soon' if (r['st']['key'] == 'urgent' or 0 <= r['d'] <= 7) else ''
 
 
@@ -157,7 +184,7 @@ def race_row(r):
             f'<div class="ed-race-body"><div class="ed-race-top"><span class="ed-status {r["st"]["key"]}">{r["st"]["label"]}</span>{weather_lib.chip(WX, r["id"], TODAY)}</div>'
             f'<h3><a class="row-link" href="race/{r["id"]}.html">{esc(r["name"])}</a></h3>'
             f'<p class="ed-meta">{meta1}</p><p class="ed-meta">{esc(reg_text(r))}{SEP}{esc(fee)}</p></div>'
-            f'<div class="ed-race-side"><div class="ed-dday {dday_cls(r)}">{dday_text(r["d"])}</div>'
+            f'<div class="ed-race-side"><div class="ed-dday {dday_cls(r)}>{"진행 중" if r["ongoing"] or r["st"]["key"] == "ongoing" else dday_text(r["d"])}</div>'
             f'<button class="ed-bookmark" aria-pressed="false" aria-label="관심 대회 저장" data-fav="{r["id"]}">{BM}</button></div></article>')
 
 
@@ -175,12 +202,20 @@ def js(o): return json.dumps(o, ensure_ascii=False, separators=(',', ':')).repla
 
 
 def description(r):
-    parts = [f"{r['name']} · {fmt_full(r['dt'])}"]
+    date_txt = fmt_full(pd(r['start'])) + (f" ~ {fmt_full(pd(r['end']))}" if r['start'] != r['end'] else '')
+    parts = [f"{r['name']} · {date_txt}"]
     if r['venue']: parts.append(re.split(r'[(（]', r['venue'])[0].strip())
     if r['dist']: parts.append(' · '.join(r['dist'][:3]))
     if r['fee']: parts.append('참가비 ' + r['fee'])
     s = ' · '.join(parts)
-    tail = '접수 상태가 지난 대회예요.' if r['st']['key'] == 'ended' else f"접수: {r['st']['label']}. 접수 기간·공식 홈페이지·지도 링크."
+    if is_cancelled(r):
+        tail = '개최가 취소된 대회예요.'
+    elif r['st']['key'] == 'ended':
+        tail = '이미 끝난 대회예요.'
+    elif r['ongoing'] or r['st']['key'] == 'ongoing':
+        tail = f"지금 진행 중이에요(~{fmt_short(pd(r['end']))}까지). 접수: {r['regSt']['label']}."
+    else:
+        tail = f"접수: {r['regSt']['label']}. 접수 기간·공식 홈페이지·지도 링크."
     s = f'{s}. {tail}'
     return s if len(s) <= 155 else s[:152].rstrip(' ·,.') + '…'
 
@@ -189,7 +224,8 @@ def json_ld(r, url, official, reg):
     online = '온라인' in r['venue'] or r['region'] == '전국'
     start = r['start'] + (f"T{r['startTime']}:00+09:00" if r['startTime'] and re.match(r'^\d\d:\d\d$', r['startTime']) else '')
     ld = {'@context': 'https://schema.org', '@type': 'SportsEvent', 'name': r['name'], 'description': description(r),
-          'startDate': start, 'endDate': r['end'], 'eventStatus': 'https://schema.org/EventScheduled',
+          'startDate': start, 'endDate': r['end'],
+          'eventStatus': 'https://schema.org/EventCancelled' if is_cancelled(r) else 'https://schema.org/EventScheduled',
           'url': url, 'image': SITE + '/assets/icons/og-image.png', 'inLanguage': 'ko-KR', 'sport': 'Running'}
     if online:
         ld['eventAttendanceMode'] = 'https://schema.org/OnlineEventAttendanceMode'
@@ -367,7 +403,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
     <section class="ed-section"><div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">대회 정보</h2></div>
       <dl class="ed-dl">{row('대회일', date_txt, 'serif')}{row('장소', esc(r['venue']))}{row('지역', esc(region))}{row('주최', esc(r['organizer']))}{row('출발', esc(r['startTime'] or ''))}{row('참가비', esc(r['fee']))}</dl></section>
     <section class="ed-section"><div class="ed-section-head major"><span class="no">02</span><h2 class="ed-h2">접수</h2></div>
-      <dl class="ed-dl">{row('상태', f'<span class="ed-status {r["st"]["key"]}">{r["st"]["label"]}</span>')}{row('접수 기간', esc(reg_period))}{row('안내', esc(reg_text(r)))}</dl>
+      <dl class="ed-dl">{row('상태', f'<span class="ed-status {r["regSt"]["key"]}">{r["regSt"]["label"]}</span>')}{row('접수 기간', esc(reg_period))}{row('안내', esc(reg_text(r)))}</dl>
       {f'<p class="ed-small" style="margin-top:8px">원문 표기: {esc(r["regNote"])}</p>' if r['regNote'] and (r['open'] or r['close']) else ''}</section>
   </div>
   <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">종목 · 참가비</h2></div>{dists}</section>

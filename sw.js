@@ -1,5 +1,5 @@
 /* Run우리 service worker — 정적 자산은 캐시, html·데이터는 network-first(오프라인이면 캐시 → 오프라인 안내 페이지) */
-const VER = 'rw-v1';
+const VER = 'rw-v2';
 const C_STATIC = VER + '-static', C_PAGES = VER + '-pages', C_DATA = VER + '-data';
 const PRECACHE = ['/offline.html', '/site.css', '/components.css', '/design-tokens.css', '/app.js', '/data.js',
   '/assets/logo/runwoori-wordmark-light-small.svg', '/assets/logo/icon-any-192.png', '/assets/logo/favicon.svg'];

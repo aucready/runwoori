@@ -183,6 +183,40 @@
 "url": "http://11bridge.com/"
 }
 },
+"r0b1bdfde": {
+"_last_seen": "2026-11-16",
+"category": null,
+"conflicts": [],
+"date": "2027-01-10",
+"dist_tags": [],
+"distances": [],
+"end_date": null,
+"fee_max": null,
+"fee_min": null,
+"id": "r0b1bdfde",
+"name": "제19회 제천의림지삼한초록길알몸마라톤대회",
+"official_url": "http://jcaaf.com/",
+"organizer": "제천시육상연맹",
+"reg_close": "2026-12-31",
+"reg_note": "공지사항 기준 접수 2026.11.10 ~ 12.31 (홈 화면에는 11.14 ~ 12.31로 적혀 있음) · 종목·참가비는 공식 홈페이지에서 확인하지 못함",
+"reg_open": "2026-11-10",
+"reg_state": null,
+"reg_url": null,
+"region": "충북",
+"sources": {},
+"start_time": "11:00",
+"venue": "제천 의림지역사박물관",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"접수 기간"
+],
+"url": "http://jcaaf.com/bbs/board.php?bo_table=notice"
+}
+},
 "r0c3dacb3": {
 "_last_seen": "2026-11-16",
 "category": null,
@@ -300,7 +334,7 @@
 "reg_close": null,
 "reg_note": null,
 "reg_open": null,
-"reg_state": "upcoming",
+"reg_state": "closed",
 "reg_url": null,
 "region": "전북",
 "sources": {
@@ -2220,6 +2254,40 @@
 "start_time": null,
 "venue": "연세대학교 신촌캠퍼스 대운동장"
 },
+"r4ab5eed3": {
+"_last_seen": "2026-11-16",
+"category": null,
+"conflicts": [],
+"date": "2026-12-12",
+"dist_tags": [],
+"distances": [],
+"end_date": null,
+"fee_max": null,
+"fee_min": null,
+"id": "r4ab5eed3",
+"name": "제주 웨이브 런 2026 with 제주 해녀",
+"official_url": "https://jejuwaverun.com/",
+"organizer": "에그쉘위 (COSMA)",
+"reg_close": null,
+"reg_note": "종목·참가비·접수 기간은 공식 홈페이지에서 확인하지 못함 · 2026.11.11(수) 18:00 이후 취소는 환불 불가",
+"reg_open": null,
+"reg_state": null,
+"reg_url": null,
+"region": "제주",
+"sources": {},
+"start_time": null,
+"venue": "서귀포 하모해수욕장",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"대회일",
+"장소",
+"운영사",
+"환불 기준"
+],
+"url": "https://jejuwaverun.com/"
+}
+},
 "r4b2df54d": {
 "_last_seen": "2026-11-15",
 "category": null,
@@ -2987,7 +3055,7 @@
 "reg_close": "2026-11-15",
 "reg_note": "2026.08.01 ~ 2026.11.15",
 "reg_open": "2026-08-01",
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "서울",
 "sources": {
@@ -3188,20 +3256,25 @@
 "fee_max": 50000,
 "fee_min": 50000,
 "id": "r63c942af",
-"name": "2026 하남 미사 호수 에너지런",
+"name": "2026 하남 미사 호수 에너지런 (개최 취소)",
 "official_url": "https://energyrun.kr",
 "organizer": "(사)행복한가게",
 "reg_close": "2026-11-26",
-"reg_note": "2026.08.01 ~ 2026.11.26",
+"reg_note": "공식 홈페이지 공지: 내부 사정 및 운영 여건 검토 결과 대회 개최 취소 · 참가비 수수료 없이 전액 환불(2026.10.22 환불 완료 안내)",
 "reg_open": "2026-08-01",
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "경기",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/2026-hanam-misa-lake-energy-run"
-},
+"sources": {},
 "start_time": null,
-"venue": "하남미사 경정공원"
+"venue": "하남미사 경정공원",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"개최 취소"
+],
+"url": "https://energyrun.kr"
+}
 },
 "r6453aed9": {
 "_last_seen": "2026-11-16",
@@ -3283,21 +3356,22 @@
 "fee_max": 50000,
 "fee_min": 50000,
 "id": "r65df87b7",
-"name": "제3회 긍정의 힘 마라톤",
+"name": "제3회 긍정의 힘 마라톤 (개최 취소)",
 "official_url": "https://www.powerrun.kr",
 "organizer": "(사)한국유튜브방송협회",
 "reg_close": "2026-11-04",
-"reg_note": "조기 마감될 수 있음",
+"reg_note": "공식 홈페이지 공지: 내부 사정 및 운영 여건 검토 결과 대회 개최 취소 · 참가비 수수료 없이 전액 환불 · 환불 신청 2026.11.20(금)까지(홈페이지 커뮤니티-환불신청), 환불 예정일 11.27(금)",
 "reg_open": "2026-08-01",
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "서울",
 "sources": {},
 "start_time": "09:00",
 "venue": "신정교 하부 영롱이 억새구장",
 "verified": {
-"date": "2026-11-11",
+"date": "2026-11-16",
 "fields": [
+"개최 취소",
 "대회일",
 "출발 시각",
 "장소",
@@ -4772,6 +4846,69 @@
 "start_time": null,
 "venue": "이월드 제1주차장 스타트존 (대구광역시 달서구 두류공원로 200)"
 },
+"r8badf7fe": {
+"_last_seen": "2026-11-16",
+"category": null,
+"conflicts": [],
+"date": "2027-01-10",
+"dist_tags": [
+"5K",
+"10K",
+"하프",
+"풀"
+],
+"distances": [
+{
+"fee": 60000,
+"km": 42.195,
+"label": "풀"
+},
+{
+"fee": 40000,
+"km": 21.0975,
+"label": "하프"
+},
+{
+"fee": 30000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 20000,
+"km": 5.0,
+"label": "5km"
+}
+],
+"end_date": null,
+"fee_max": 60000,
+"fee_min": 20000,
+"id": "r8badf7fe",
+"name": "제21회 여수해양마라톤대회",
+"official_url": "http://ysmarathon.co.kr/",
+"organizer": null,
+"reg_close": null,
+"reg_note": "선착순 마감(풀·하프·10km 각 1,500명, 5km 1,000명) · 접수 후 7일 이내 미입금 시 취소 · 환불 기한 2026.12.18(금) 자정 · 출발 풀 09:30·하프 09:40·10km 09:50·5km 10:00 · 접수 시작일은 공식 홈페이지에서 확인하지 못함",
+"reg_open": null,
+"reg_state": null,
+"reg_url": null,
+"region": "전남",
+"sources": {},
+"start_time": "09:30",
+"venue": "여수 진남경기장",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"종목·참가비",
+"정원",
+"접수 방식",
+"환불 기한"
+],
+"url": "http://ysmarathon.co.kr/"
+}
+},
 "r8d84b1cc": {
 "_last_seen": "2026-10-31",
 "category": null,
@@ -5026,7 +5163,7 @@
 "reg_close": "2026-11-15",
 "reg_note": "2026.09.28 ~ 2026.11.15",
 "reg_open": "2026-09-28",
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "경남",
 "sources": {
@@ -5508,6 +5645,58 @@
 },
 "start_time": null,
 "venue": "밀양종합운동장"
+},
+"ra3e02684": {
+"_last_seen": "2026-11-16",
+"category": null,
+"conflicts": [],
+"date": "2026-12-12",
+"dist_tags": [
+"5K",
+"10K"
+],
+"distances": [
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10K"
+},
+{
+"fee": 40000,
+"km": 5.0,
+"label": "5K"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 40000,
+"id": "ra3e02684",
+"name": "화성레이스 2026",
+"official_url": "https://hwaseongrace.com/",
+"organizer": "화성시러닝크루연맹 (주관 화성러닝크루)",
+"reg_close": "2026-11-14",
+"reg_note": "모집 11.4(수) ~ 11.14(토) · 10K 300명·5K 200명 모두 접수 마감 · 참가 신청은 런잇(RUNIT)",
+"reg_open": "2026-11-04",
+"reg_state": "closed",
+"reg_url": null,
+"region": "경기",
+"sources": {},
+"start_time": "09:00",
+"venue": "화성 봉담생태체육공원 (화성시 효행구 봉담읍 상리1길 87)",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"정원",
+"접수 기간",
+"접수 상태"
+],
+"url": "https://hwaseongrace.com/"
+}
 },
 "ra4a2d83c": {
 "_last_seen": "2026-11-16",
@@ -6514,7 +6703,7 @@
 "reg_close": "2026-11-14",
 "reg_note": "2026.10.31 ~ 2026.11.14",
 "reg_open": "2026-10-31",
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "경기",
 "sources": {
@@ -6522,6 +6711,63 @@
 },
 "start_time": null,
 "venue": "렛츠런파크 (과천시 경마공원대로 107)"
+},
+"rbff21584": {
+"_last_seen": "2026-11-16",
+"category": null,
+"conflicts": [],
+"date": "2027-02-20",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 50000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "하프"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 50000,
+"id": "rbff21584",
+"name": "2027 희망 청춘 런",
+"official_url": "https://hope-young.kr/",
+"organizer": "(사)중소자영업총연합회",
+"reg_close": "2027-02-11",
+"reg_note": "접수 마감 2027.2.11(목) · 환불 마감 2027.1.31(일) · 집결 08:00 · 접수 시작일은 공식 홈페이지에 없음",
+"reg_open": null,
+"reg_state": null,
+"reg_url": "https://hope-young.kr/join/",
+"region": "서울",
+"sources": {},
+"start_time": "09:00",
+"venue": "신정교 하부 영롱이억새구장 (서울 영등포구 문래동5가 31)",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 마감",
+"환불 마감"
+],
+"url": "https://hope-young.kr/info/"
+}
 },
 "rc08d5a73": {
 "_last_seen": "2026-11-07",
@@ -7172,6 +7418,69 @@
 "start_time": null,
 "venue": "하남미사 경정공원"
 },
+"rd7d8776f": {
+"_last_seen": "2026-11-16",
+"category": null,
+"conflicts": [],
+"date": "2027-03-28",
+"dist_tags": [
+"5K",
+"10K",
+"하프",
+"풀"
+],
+"distances": [
+{
+"fee": 50000,
+"km": 42.195,
+"label": "풀"
+},
+{
+"fee": 45000,
+"km": 21.0975,
+"label": "하프"
+},
+{
+"fee": 40000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 20000,
+"km": 5.0,
+"label": "5km 가족사랑 건강달리기"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 20000,
+"id": "rd7d8776f",
+"name": "제26회 합천벚꽃마라톤대회",
+"official_url": "https://hcmrt.or.kr/",
+"organizer": "경상남도 합천군 (주관 합천군체육회)",
+"reg_close": null,
+"reg_note": "선착순 10,000명 · 풀·하프 12.1(화) 10:00, 10km·5km 12.2(수) 10:00, 단체대항전 12.7(월) 10:00 접수 시작 · 집결 08:30 · 대한육상연맹 공인코스",
+"reg_open": "2026-12-01",
+"reg_state": "upcoming",
+"reg_url": null,
+"region": "경남",
+"sources": {},
+"start_time": "09:00",
+"venue": "합천 100리 벚꽃마라톤코스 일원 (집결: 합천공설운동장)",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"정원",
+"접수 시작"
+],
+"url": "https://hcmrt.or.kr/ko/sub1_2.html"
+}
+},
 "rd9643408": {
 "_last_seen": "2026-11-16",
 "category": null,
@@ -7389,6 +7698,55 @@
 "start_time": null,
 "venue": "고창공설운동장"
 },
+"rdf87fbc9": {
+"_last_seen": "2026-11-16",
+"category": null,
+"conflicts": [],
+"date": "2026-12-05",
+"dist_tags": [
+"5K",
+"10K"
+],
+"distances": [
+{
+"fee": 30000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 20000,
+"km": 5.0,
+"label": "5km"
+}
+],
+"end_date": null,
+"fee_max": 30000,
+"fee_min": 20000,
+"id": "rdf87fbc9",
+"name": "2026 유관순 평화 마라톤 대회",
+"official_url": "https://ryugwansun.co.kr/",
+"organizer": "천안시체육회 (주관 천안시체육회·대전일보사, 후원 천안시)",
+"reg_close": "2026-11-18",
+"reg_note": "접수 11.6(금) 10:00 ~ 11.18(수) 24:00 · 대회 운영 08:00~13:00 · 국가유공자 참가비 50% 할인 · 환불은 접수 마감일까지",
+"reg_open": "2026-11-06",
+"reg_state": "open",
+"reg_url": "https://ryugwansun.co.kr/apply/guide",
+"region": "충남",
+"sources": {},
+"start_time": null,
+"venue": "천안 독립기념관 겨레의 큰 마당",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"대회일",
+"장소",
+"주최",
+"종목·참가비",
+"접수 기간"
+],
+"url": "https://ryugwansun.co.kr/"
+}
+},
 "re0ce8869": {
 "_last_seen": "2026-11-14",
 "category": null,
@@ -7561,6 +7919,40 @@
 },
 "start_time": null,
 "venue": "안산호수공원 중앙무대 일대"
+},
+"re995dc74": {
+"_last_seen": "2026-11-16",
+"category": null,
+"conflicts": [],
+"date": "2027-03-28",
+"dist_tags": [],
+"distances": [],
+"end_date": null,
+"fee_max": null,
+"fee_min": null,
+"id": "re995dc74",
+"name": "2027 제주MBC 국제평화마라톤",
+"official_url": "https://marathon.jejumbc.com/",
+"organizer": "한국실업육상연맹, 제주MBC (주관 제주특별자치도육상연맹)",
+"reg_close": null,
+"reg_note": "대회안내·접수는 공식 홈페이지에서 '준비 중' · 종목·참가비·접수 기간 미공지",
+"reg_open": null,
+"reg_state": "upcoming",
+"reg_url": null,
+"region": "제주",
+"sources": {},
+"start_time": null,
+"venue": "한림종합운동장",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"대회일",
+"장소",
+"주최",
+"접수 상태"
+],
+"url": "https://marathon.jejumbc.com/"
+}
 },
 "reeb82e1b": {
 "_last_seen": "2026-11-16",
@@ -8009,6 +8401,55 @@
 },
 "start_time": null,
 "venue": "여의도 한강공원 너른들판"
+},
+"rf85a3d62": {
+"_last_seen": "2026-11-16",
+"category": null,
+"conflicts": [],
+"date": "2027-03-07",
+"dist_tags": [
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 100000,
+"km": 21.0975,
+"label": "하프"
+},
+{
+"fee": 70000,
+"km": 10.0,
+"label": "10km"
+}
+],
+"end_date": null,
+"fee_max": 100000,
+"fee_min": 70000,
+"id": "rf85a3d62",
+"name": "2027 나눔레이스 in 서울",
+"official_url": "https://k-player.or.kr/seoul2027",
+"organizer": "나눔레이스 조직위원회",
+"reg_close": null,
+"reg_note": "공식 대회개요·참가신청 페이지: 접수 기간 추후 공지, 선착순 마감 (공지 게시글에는 10.21~11.08로 적혀 있어 서로 다름) · 하프는 만 18세 이상",
+"reg_open": null,
+"reg_state": "upcoming",
+"reg_url": "https://k-player.or.kr/seoul2027/apply",
+"region": "서울",
+"sources": {},
+"start_time": "07:30",
+"venue": "광화문광장 앞 대로변 출발(예정) → 무교로 도착",
+"verified": {
+"date": "2026-11-16",
+"fields": [
+"대회일",
+"출발 시각",
+"장소(예정)",
+"종목·참가비",
+"접수 상태"
+],
+"url": "https://k-player.or.kr/seoul2027/about"
+}
 },
 "rf8f0d1a5": {
 "_last_seen": "2026-11-14",

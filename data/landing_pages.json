@@ -1,5 +1,5 @@
 {
-"generated": "2026-11-19",
+"generated": "2026-11-20",
 "pages": [
 {
 "path": "deadline.html",
@@ -8,7 +8,7 @@
 "count": 8,
 "changefreq": "daily",
 "priority": "0.9",
-"lastmod": "2026-11-19"
+"lastmod": "2026-11-20"
 },
 {
 "path": "month/2026-11.html",
@@ -17,7 +17,7 @@
 "count": 116,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-19"
+"lastmod": "2026-11-20"
 },
 {
 "path": "month/2026-12.html",
@@ -26,7 +26,7 @@
 "count": 31,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-19"
+"lastmod": "2026-11-20"
 },
 {
 "path": "region/seoul.html",
@@ -35,7 +35,7 @@
 "count": 31,
 "changefreq": "daily",
 "priority": "0.7",
-"lastmod": "2026-11-19"
+"lastmod": "2026-11-20"
 }
 ]
 }

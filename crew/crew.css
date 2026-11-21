@@ -1,0 +1,66 @@
+/* 크루 러닝 약속. 사이트 토큰(종이·잉크) 안에서만 더한다. */
+.ed-post > .cr-block,
+.ed-post > .cr-plan,
+.ed-post > .cr-steps,
+.ed-post > #made,
+.ed-post > #prep,
+.ed-post > form.cr-block{max-width:680px;margin-left:auto;margin-right:auto}
+.cr-steps{display:grid;gap:0;margin-top:28px;border-top:var(--line) solid var(--ink)}
+.cr-steps > div{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:var(--line) solid var(--rule);align-items:start}
+.cr-steps > div > b{font-family:var(--font-serif);font-size:20px;font-weight:500;line-height:1.2}
+.cr-steps > div p{margin:2px 0 0;color:var(--ink-2);font-size:14px;line-height:1.6}
+.cr-block{margin-top:36px}
+.cr-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px;padding:10px 0;border-bottom:var(--line) solid var(--rule)}
+.cr-row.two .name{grid-column:1;grid-row:1}
+.cr-row.two .x{grid-column:2;grid-row:1}
+.cr-row.two .place{grid-column:1 / -1;grid-row:2}
+.cr-row .x{justify-self:end;min-height:44px;border:0;background:none;color:var(--ink-3);cursor:pointer;padding:0 2px}
+.cr-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.cr-opt{padding:14px 0;border-bottom:var(--line) solid var(--rule)}
+.cr-opt-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.cr-opt .ed-seg{display:flex;width:100%;margin-top:8px}
+.cr-opt .ed-seg button{flex:1;min-height:44px;padding:0 6px}
+.cr-count{font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:13px}
+.cr-plan{padding-top:8px}
+.cr-plan-time{font-family:var(--font-serif);font-size:22px;margin:6px 0 14px}
+.cr-seats{display:flex;align-items:baseline;gap:8px;margin:18px 0;padding-top:12px;border-top:var(--line-bold) solid var(--ink)}
+.cr-seats b{font-family:var(--font-serif);font-size:56px;line-height:1;font-weight:500;letter-spacing:-.04em}
+.cr-seats span{color:var(--ink-2)}
+.cr-maps,.cr-cal{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:12px}
+.cr-maps a,.cr-cal a,.cr-cal button{min-height:44px;display:inline-flex;align-items:center}
+.cr-cost-line{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:var(--line) solid var(--rule)}
+.cr-cost-line b{font-family:var(--font-serif);font-weight:500;font-size:18px}
+.cr-per{font-family:var(--font-serif);font-size:22px;margin:14px 0 6px}
+.cr-board{list-style:none;margin:0;padding:0;border-top:var(--line) solid var(--ink)}
+.cr-board li{display:grid;grid-template-columns:36px 1fr;gap:10px;padding:12px 0;border-bottom:var(--line) solid var(--rule)}
+.cr-board .ix{font-family:var(--font-serif);font-size:18px;color:var(--ink-3)}
+.cr-board .meta{display:block;color:var(--ink-2);font-variant-numeric:tabular-nums;margin-top:2px}
+.cr-board .memo{display:block;color:var(--ink-3);margin-top:2px}
+.cr-heat{display:grid;gap:4px;margin-top:8px}
+.cr-heat-h{font-size:12px;color:var(--ink-3);display:flex;align-items:end;min-height:32px;line-height:1.3}
+.cr-cell{min-height:52px;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:20px}
+.cr-roster{list-style:none;margin:0;padding:0}
+.cr-roster li{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:var(--line) solid var(--rule)}
+.cr-tag{font-size:12px;font-weight:600}
+.cr-tag.replied{color:var(--ink)}
+.cr-tag.joined{color:var(--ink-2)}
+.cr-tag.missing{color:var(--ink-3)}
+.cr-combo{padding:16px 0;border-bottom:var(--line) solid var(--rule)}
+.cr-combo.is-top{border-top:var(--line-bold) solid var(--ink);margin-top:8px}
+.cr-combo h3{margin:6px 0}
+.cr-names{margin:8px 0 0}
+.cr-names li{padding:6px 0;border-bottom:var(--line) solid var(--rule);font-size:14px}
+.cr-key{word-break:break-all}
+.cr-check{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:14.5px;line-height:1.5}
+.cr-check input{width:18px;height:18px;margin-top:3px;accent-color:var(--ink)}
+textarea.ed-input{min-height:88px;resize:vertical;padding-top:10px}
+.cr-linkbox{background:var(--paper-2);padding:12px;margin-top:10px}
+.cr-key{font-size:13px;line-height:1.5;word-break:break-all;margin-top:6px}
+@media(min-width:900px){
+  .cr-steps{grid-template-columns:1fr 1fr 1fr}
+  .cr-steps > div{border-bottom:0;padding-right:18px}
+  .cr-row.two{grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr) auto}
+  .cr-row.two .name{grid-column:1;grid-row:1}
+  .cr-row.two .place{grid-column:2;grid-row:1}
+  .cr-row.two .x{grid-column:3;grid-row:1}
+}

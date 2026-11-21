@@ -21,9 +21,11 @@ root, mode, pub = sys.argv[1:4]
 SRC = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-'
 n = 0
 skipped = []
-for f in sorted(glob.glob(os.path.join(root, '*.html'))):
-    if os.path.basename(f) in head_snippets.AD_FREE:
-        skipped.append(os.path.basename(f))
+files = glob.glob(os.path.join(root, '*.html')) + glob.glob(os.path.join(root, 'crew', '*.html'))
+for f in sorted(files):
+    rel = os.path.relpath(f, root).replace(os.sep, '/')
+    if os.path.basename(f) in head_snippets.AD_FREE or rel in head_snippets.AD_FREE:
+        skipped.append(rel)
         continue
     s = open(f, encoding='utf-8').read()
     if 'ADSENSE:START' not in s: continue

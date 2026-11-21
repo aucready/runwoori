@@ -1,0 +1,197 @@
+<!doctype html><html lang="ko"><head>
+<base href="/">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>크루 러닝 약속 | Run우리</title>
+<meta name="description" content="가입 없이 닉네임으로 크루 러닝 날짜와 출발 시간, 코스를 골라요.">
+<meta name="theme-color" content="#F6F2EA">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="origin">
+<link rel="canonical" href="https://runwoori.com/crew/r.html">
+<meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="크루 러닝 약속 | Run우리"><meta property="og:description" content="가입 없이 가능한 날을 골라 주세요."><meta property="og:image" content="https://runwoori.com/assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="crew/crew.css">
+<script src="app.js"></script><script src="crew/config.js"></script><script src="crew/crew.js"></script>
+</head><body>
+<main class="ed-wrap" id="main"><article class="ed-post" id="view"><p class="ed-small" style="padding-top:28px">약속을 불러오고 있어요.</p></article></main>
+<script>
+layout('crew');
+const id = new URLSearchParams(location.search).get('id') || '';
+const TOKEN = /^[A-Za-z0-9_-]{20,80}$/;
+const SEAT = { voting:'답을 적는 중', going:'참가 확정', waitlist:'대기', out:'이번 조합은 어려워요', cancelled:'취소' };
+
+function voteGroup(opt, selected, locked){
+  const states=[[0,'어려워요'],[1,'괜찮아요'],[2,'좋아요']];
+  const btns=states.map(([n,label])=>`<button type="button" data-state="${n}" aria-pressed="${selected===n}" class="${selected===n?'is-on':''}" ${locked?'disabled':''}>${label}</button>`).join('');
+  const count=`<span class="cr-count">${opt.available||0}명 가능${opt.prefer?` · 좋아요 ${opt.prefer}`:''}</span>`;
+  const sub=opt.detail?`<p class="ed-small">${esc(opt.detail)}</p>`:'';
+  return `<div class="cr-opt" data-opt="${esc(opt.id)}"><div class="cr-opt-top"><div><b>${esc(opt.text)}</b>${sub}</div>${count}</div><div class="ed-seg" role="radiogroup" aria-label="${esc(opt.text)}">${btns}</div></div>`;
+}
+function groups(run, votes, locked){
+  const block=(title, no, kind)=>`<section class="cr-block"><div class="ed-section-head"><span class="no">${no}</span><h2 class="ed-h2">${title}</h2></div>${crewByKind(run.options, kind).map(o=>voteGroup(o, votes[o.id], locked)).join('')}</section>`;
+  return block('날짜','01','date')+block('출발 시간','02','time')+block('코스 · 집결지','03','course');
+}
+function readVotes(){
+  const votes=[];
+  let missing=false;
+  document.querySelectorAll('.cr-opt').forEach(box=>{
+    const on=box.querySelector('[aria-pressed="true"]');
+    if(!on) missing=true;
+    else votes.push({ optionId: box.dataset.opt, state: Number(on.dataset.state) });
+  });
+  return { votes, missing };
+}
+function recordForm(record){
+  const sec=record?.durationSec||0;
+  const h=Math.floor(sec/3600), m=Math.floor(sec%3600/60), s=sec%60;
+  return `<form id="recForm" class="cr-block"><div class="ed-section-head"><span class="no">기록</span><h2 class="ed-h2">내 기록 적기</h2></div>
+    <label class="ed-field"><span class="ed-label">거리 (km)</span><input class="ed-input" id="km" inputmode="decimal" step="0.01" min="0.1" max="300" value="${record?record.distanceKm:''}" required></label>
+    <div class="ed-hms" style="margin-top:12px"><div class="cell"><input class="ed-input" id="rh" inputmode="numeric" value="${h||''}" aria-label="시간" placeholder="0"><span class="u">시간</span></div><div class="cell"><input class="ed-input" id="rm" inputmode="numeric" value="${m||''}" aria-label="분" placeholder="0"><span class="u">분</span></div><div class="cell"><input class="ed-input" id="rs" inputmode="numeric" value="${s||''}" aria-label="초" placeholder="0"><span class="u">초</span></div></div>
+    <p class="ed-help" id="paceLive">${record?esc(record.pace)+'/km':''}</p>
+    <label class="ed-field" style="margin-top:12px"><span class="ed-label">메모 (선택)</span><input class="ed-input" id="rmemo" maxlength="200" value="${esc(record?.memo||'')}" placeholder="바람 맞으며 여유롭게"></label>
+    <button class="ed-btn block" style="margin-top:16px" type="submit">기록 저장</button></form>`;
+}
+function banner(me, run){
+  if(!me) return '';
+  if(me.participant.seat==='waitlist') return `<div class="ed-sample"><span class="ed-label">대기</span><span>${me.participant.waitlistPosition}번째로 기다리고 있어요. 누군가 빠지면 먼저 온 순서대로 올라가요.</span></div>`;
+  if(me.participant.seat==='going' && run.status!=='recruiting') return `<div class="ed-sample"><span class="ed-label">참가</span><span>${esc(me.participant.nickname)}님, 이 러닝에 함께해요.</span></div>`;
+  if(me.participant.seat==='out') return `<div class="ed-sample"><span class="ed-label">안내</span><span>고른 날과 이번 확정은 겹치지 않아요. 빈자리가 있으면 그대로 참가할 수 있어요.</span></div>`;
+  return '';
+}
+function joinBox(run, me){
+  if(run.status==='done') return '';
+  if(run.status==='confirmed' && !run.openJoin && !(me && (me.participant.seat==='going'||me.participant.seat==='waitlist'))) {
+    return `<p class="ed-small" style="margin-top:16px">새 참가는 받지 않아요. 이미 정해진 사람들끼리 달려요.</p>`;
+  }
+  if(me && run.status==='recruiting') return '';
+  if(me && (me.participant.seat==='going' || me.participant.seat==='waitlist')) return '';
+  const full=run.status==='confirmed' && run.maxHeadcount!=null && run.seatsLeft===0;
+  const label=me? (full?'대기로 들어갈게요':'이 러닝에 참가할래요') : (run.status==='recruiting'?'이 닉네임으로 답할게요':(full?'대기할래요':'참가할래요'));
+  const nick=me?`<p><b>${esc(me.participant.nickname)}</b>님으로 이어요.</p>`:`<label class="ed-field"><span class="ed-label">닉네임</span><input class="ed-input" id="nick" maxlength="16" required placeholder="부를 이름" autocomplete="nickname"></label>`;
+  return `<form id="joinForm" class="cr-block">${nick}<button class="ed-btn block" style="margin-top:16px" type="submit">${label}</button></form>`;
+}
+
+function render(run, me){
+  const votes=me?.votes||{};
+  const locked=run.status!=='recruiting';
+  const head=`<div class="ed-post-top"><a class="ed-link ed-small" href="crew/index.html">← 크루 러닝 약속</a></div>
+    <header class="ed-post-head"><div class="ed-label">${esc(run.statusLabel)} · ${esc(run.hostNickname)}님의 약속</div><h1 class="ed-h1 ed-post-title">${esc(run.title)}</h1>${run.memo?`<p class="ed-lede">${esc(run.memo)}</p>`:''}</header>`;
+  let body=banner(me, run);
+  if(run.confirmed) body+=crewPlanHtml(run);
+  if(run.status==='recruiting'){
+    body+=`<p class="ed-small" style="margin-top:18px">${run.counts.replied}명이 답했어요.${run.maxHeadcount?` 정원은 ${run.maxHeadcount}명이에요.`:''}</p>`;
+    body+=me?`<p style="margin-top:8px"><b>${esc(me.participant.nickname)}</b>님의 답을 이 브라우저에 저장해요.</p>`:'';
+    body+=groups(run, votes, false);
+    if(!me) body+=`<label class="ed-field" style="margin-top:18px"><span class="ed-label">닉네임</span><input class="ed-input" id="nick" maxlength="16" placeholder="부를 이름" autocomplete="nickname"></label>`;
+    body+=`<p id="err" class="ed-help error" role="alert" hidden></p><button class="ed-btn block" id="save" type="button" style="margin-top:18px">${me?'답 수정하기':'답 보내기'}</button>`;
+  } else {
+    body+=joinBox(run, me);
+    if(me && (me.participant.seat==='going'||me.participant.seat==='waitlist')) {
+      body+=`<div class="cr-actions"><button type="button" class="ed-btn ghost sm" id="cancel">참가 취소</button></div>`;
+    }
+  }
+  if(run.status!=='recruiting'){
+    body+=crewCostHtml(run.expenses);
+    body+=`<section class="cr-block" id="records"><div class="ed-section-head"><span class="no">기록</span><h2 class="ed-h2">달린 기록</h2></div><p class="ed-small">거리와 시간을 적으면 1km 페이스를 계산해요. 빠른 페이스가 위로 올라가요.</p>${crewRecordsHtml(run.records)}`;
+    if(me && me.participant.seat==='going') body+=recordForm(me.record);
+    body+=`</section>`;
+  }
+  body+=`<p class="ed-small" style="margin-top:28px"><button type="button" class="ed-textbtn" id="reload">다시 불러오기</button></p>`;
+  $('#view').innerHTML=head+body;
+  document.title=`${run.title} · 크루 러닝 약속 | Run우리`;
+  bind(run, me);
+}
+
+function bind(run, me){
+  $('#reload').onclick=()=>boot();
+  document.querySelectorAll('.cr-opt').forEach(box=>{
+    box.addEventListener('click', e=>{
+      const b=e.target.closest('[data-state]'); if(!b||b.disabled) return;
+      box.querySelectorAll('[data-state]').forEach(x=>{ x.classList.toggle('is-on', x===b); x.setAttribute('aria-pressed', x===b); });
+    });
+  });
+  const save=$('#save');
+  if(save) save.onclick=async ()=>{
+    const picked=readVotes();
+    const err=$('#err');
+    if(picked.missing){ err.hidden=false; err.textContent='날짜, 출발 시간, 코스를 모두 골라 주세요.'; return; }
+    let token=me?.token;
+    try{
+      save.disabled=true;
+      if(!token){
+        const nick=$('#nick').value.trim();
+        if(!nick){ err.hidden=false; err.textContent='닉네임을 적어 주세요.'; save.disabled=false; return; }
+        const joined=await crewApi(`/v1/runs/${id}/participants`,{ method:'POST', body:{ nickname:nick } });
+        token=joined.token;
+        crewSaveMe(id, token, joined.participant.nickname);
+      }
+      await crewApi(`/v1/runs/${id}/votes`,{ method:'PUT', headers:{ 'x-participant-token': token }, body:{ votes: picked.votes } });
+      toast('답을 저장했어요');
+      boot();
+    }catch(e){ err.hidden=false; err.textContent=e.message; save.disabled=false; }
+  };
+  const join=$('#joinForm');
+  if(join) join.onsubmit=async (e)=>{
+    e.preventDefault();
+    try{
+      const body=me?{ token: me.token }:{ nickname: $('#nick').value.trim() };
+      const res=await crewApi(`/v1/runs/${id}/participants`,{ method:'POST', body });
+      crewSaveMe(id, res.token, res.participant.nickname);
+      toast(res.participant.seat==='waitlist'?'대기에 올려 두었어요':'참가했어요');
+      boot();
+    }catch(err){ toast(err.message); }
+  };
+  const cancel=$('#cancel');
+  if(cancel) cancel.onclick=async ()=>{
+    if(!confirm('참가를 취소할까요? 대기 중인 분이 있으면 그 분이 올라와요.')) return;
+    try{
+      const res=await crewApi(`/v1/runs/${id}/cancel`,{ method:'POST', headers:{ 'x-participant-token': me.token } });
+      toast(res.promoted?`${res.promoted}님이 대기에서 올라왔어요`:'참가를 취소했어요');
+      boot();
+    }catch(err){ toast(err.message); }
+  };
+  const rec=$('#recForm');
+  if(rec){
+    const live=()=>{
+      const km=parseFloat($('#km').value);
+      const sec=(parseInt($('#rh').value,10)||0)*3600+(parseInt($('#rm').value,10)||0)*60+(parseInt($('#rs').value,10)||0);
+      $('#paceLive').textContent=crewPacePreview(km, sec);
+    };
+    ['km','rh','rm','rs'].forEach(i=>$('#'+i).addEventListener('input', live));
+    rec.onsubmit=async (e)=>{
+      e.preventDefault();
+      const distanceKm=parseFloat($('#km').value);
+      const durationSec=(parseInt($('#rh').value,10)||0)*3600+(parseInt($('#rm').value,10)||0)*60+(parseInt($('#rs').value,10)||0);
+      try{
+        await crewApi(`/v1/runs/${id}/record`,{ method:'PUT', headers:{ 'x-participant-token': me.token }, body:{ distanceKm, durationSec, memo:$('#rmemo').value } });
+        toast('기록을 저장했어요');
+        boot();
+      }catch(err){ toast(err.message); }
+    };
+  }
+}
+
+async function boot(){
+  if(!TOKEN.test(id)){ $('#view').innerHTML=crewEmpty('링크가 올바르지 않아요. 받은 주소를 다시 열어 주세요.'); return; }
+  try{
+    const run=await crewApi('/v1/runs/'+id);
+    let me=null;
+    const saved=crewMe(id);
+    if(saved?.token){
+      try{
+        me=await crewApi(`/v1/runs/${id}/me`,{ headers:{ 'x-participant-token': saved.token } });
+        me.token=saved.token;
+      }catch(e){ if(e.prep) throw e; me=null; }
+    }
+    render(run, me);
+  }catch(e){
+    $('#view').innerHTML=e.prep?`<div style="padding-top:28px">${crewPrepHtml()}</div>`:crewEmpty(e.message||'약속을 찾지 못했어요.');
+  }
+}
+boot();
+</script>
+</body></html>

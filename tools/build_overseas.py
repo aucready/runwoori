@@ -152,13 +152,16 @@ def group_label(r): return {'wmm': '월드 마라톤 메이저스', 'more': '그
 def page(r, others):
     url = f'{SITE}/overseas/{r["slug"]}.html'
     k, lab = status(r); n = (pd(r['date']) - TODAY).days
-    title = f'{r["name"]} 일정·참가 방식 | Run우리'
+    cb = re.split(r'[(（]', r['city'])[0].strip()
+    mid = ' '.join(x for x in [r['country'] if r['country'] not in r['name'] else '', cb if cb and cb not in r['name'] else ''] if x) + ' 해외 마라톤'   # 예: '일본 해외 마라톤', '미국 보스턴 …'
+    title = f'{r["name"]} — {mid} 일정·참가 방식 | Run우리'
+    if len(title) > 60: title = f'{r["name"]} 일정·참가 방식 | Run우리'
     d = pd(r['date'])
     start = r['date'] + (f'T{r["start_time"]}:00{TZ[r["country"]]}' if r.get('start_time') and r['country'] in TZ else '')
     ld = {'@context': 'https://schema.org', '@type': 'SportsEvent', 'name': r['name'], 'alternateName': r['name_en'], 'description': desc(r),
           'startDate': start, 'endDate': r.get('end_date') or r['date'], 'eventStatus': 'https://schema.org/EventScheduled',
           'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
-          'location': {'@type': 'Place', 'name': r.get('venue') or r['city'], 'address': {'@type': 'PostalAddress', 'addressLocality': r['city'], 'addressCountry': CC.get(r['country'], '')}},
+          'location': {'@type': 'Place', 'name': r.get('venue') or r['city'], 'address': {'@type': 'PostalAddress', 'addressLocality': r['city'], **({'addressCountry': CC[r['country']]} if r['country'] in CC else {})}},
           'url': url, 'image': SITE + '/assets/icons/og-image.png', 'inLanguage': 'ko-KR', 'sport': 'Running', 'sameAs': [r['official_url']]}
     crumb = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
         {'@type': 'ListItem', 'position': 1, 'name': '대회 달력', 'item': SITE + '/'},

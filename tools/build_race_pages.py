@@ -29,6 +29,124 @@ PROV = {'서울': '서울특별시', '경기': '경기도', '인천': '인천광
         '경남': '경상남도', '광주': '광주광역시', '전남': '전라남도', '전북': '전북특별자치도', '제주': '제주특별자치도'}
 
 
+# ── 시·군·구 (SEO: 제목·설명·본문 첫 문장·JSON-LD addressLocality) ──
+# 데이터에 시·군·구 칸이 없어서 ① 장소(venue) 글자 ② 장소 지오코딩 캐시(data/venue_geo.json, OSM 주소) ③ 대회 이름 순으로 찾는다.
+# 해당 시·도에 실제로 있는 시·군·구 이름과 맞을 때만 쓰고, 못 찾으면 시·도만 쓴다(지어내지 않음).
+_LOCAL_SRC = {
+    '서울': '종로구 중구 용산구 성동구 광진구 동대문구 중랑구 성북구 강북구 도봉구 노원구 은평구 서대문구 마포구 양천구 강서구 구로구 금천구 영등포구 동작구 관악구 서초구 강남구 송파구 강동구',
+    '부산': '중구 서구 동구 영도구 부산진구 동래구 남구 북구 해운대구 사하구 금정구 강서구 연제구 수영구 사상구 기장군',
+    '대구': '중구 동구 서구 남구 북구 수성구 달서구 달성군 군위군',
+    '인천': '중구 동구 미추홀구 연수구 남동구 부평구 계양구 서구 제물포구 영종구 서해구 검단구 강화군 옹진군',
+    '광주': '동구 서구 남구 북구 광산구',
+    '대전': '동구 중구 서구 유성구 대덕구',
+    '울산': '중구 남구 동구 북구 울주군',
+    '세종': '',
+    '경기': '수원시 성남시 의정부시 안양시 부천시 광명시 평택시 동두천시 안산시 고양시 과천시 구리시 남양주시 오산시 시흥시 군포시 의왕시 하남시 용인시 파주시 이천시 안성시 김포시 화성시 광주시 양주시 포천시 여주시 연천군 가평군 양평군',
+    '강원': '춘천시 원주시 강릉시 동해시 태백시 속초시 삼척시 홍천군 횡성군 영월군 평창군 정선군 철원군 화천군 양구군 인제군 고성군 양양군',
+    '충북': '청주시 충주시 제천시 보은군 옥천군 영동군 증평군 진천군 괴산군 음성군 단양군',
+    '충남': '천안시 공주시 보령시 아산시 서산시 논산시 계룡시 당진시 금산군 부여군 서천군 청양군 홍성군 예산군 태안군',
+    '전북': '전주시 군산시 익산시 정읍시 남원시 김제시 완주군 진안군 무주군 장수군 임실군 순창군 고창군 부안군',
+    '전남': '목포시 여수시 순천시 나주시 광양시 담양군 곡성군 구례군 고흥군 보성군 화순군 장흥군 강진군 해남군 영암군 무안군 함평군 영광군 장성군 완도군 진도군 신안군',
+    '경북': '포항시 경주시 김천시 안동시 구미시 영주시 영천시 상주시 문경시 경산시 의성군 청송군 영양군 영덕군 청도군 고령군 성주군 칠곡군 예천군 봉화군 울진군 울릉군',
+    '경남': '창원시 진주시 통영시 사천시 김해시 밀양시 거제시 양산시 의령군 함안군 창녕군 고성군 남해군 하동군 산청군 함양군 거창군 합천군',
+    '제주': '제주시 서귀포시',
+}
+LOCAL = {k: v.split() for k, v in _LOCAL_SRC.items()}
+METRO = {'서울', '부산', '대구', '인천', '광주', '대전', '울산'}
+_NOT_PLACE = ('동해안',)   # 시 이름으로 시작하지만 지명이 아닌 말
+
+
+def _base(full): return full[:-1] if len(full) > 2 else full   # 창원시→창원, 중구→중구(한 글자는 그대로)
+
+
+def _find_local(text, region, allow_base=True):
+    if not text: return None
+    text = str(text)
+    if any(w in text for w in _NOT_PLACE): text = text.replace('동해안', '')
+    cands = sorted(LOCAL.get(region, []), key=len, reverse=True)
+    pre = r'(?:^|(?<=[^가-힣])|(?<=' + re.escape(region) + r'))'
+    for full in cands:                                  # '창원시', '송파구', '대전서구' 같은 정식 이름
+        if re.search(pre + re.escape(full), text): return full
+    if not allow_base: return None
+    for full in cands:                                  # '창원 ...', '남해공설운동장' 처럼 '시·군'을 뺀 이름으로 시작하는 말
+        b = _base(full)
+        if b == full or len(b) < 2: continue
+        if region == '제주' and b == '제주': continue    # '제주도 일원'은 제주시가 아니다
+        if region in METRO and full.endswith('구'): continue   # 광역시의 구 이름은 '구'까지 쓴 경우만 인정(예: '강남' 단독은 지역 이름이 아닐 수 있음). 군(기장·울주 등)은 허용
+        if re.search(r'(?:^|(?<=[\s(（·,~/]))' + re.escape(b), text): return full
+    return None
+
+
+# 잘 알려진 동네·시설 이름 → 시·군·구 (장소 글자에 시·군·구가 없을 때만, 괄호 앞부분에서만 쓴다)
+ALIAS = {'경남': {'진해': '창원시', '마산': '창원시'}, '경기': {'일산': '고양시', '분당': '성남시', '임진각': '파주시'},
+         '서울': {'상암': '마포구', '여의도': '영등포구', '잠실': '송파구', '올림픽공원': '송파구', '뚝섬': '광진구', '반포한강': '서초구', '광화문': '종로구'},
+         '인천': {'송도': '연수구', '영종': '영종구'}}
+
+
+def _multi_site(venue):
+    head = re.split(r'[(（]', venue or '')[0]
+    return '→' in (venue or '') or bool(re.search(r'/|\d+\s*km|하프\s*:|풀코스', head))
+
+
+def _alias_local(venue, region):
+    head = re.split(r'[(（]', venue or '')[0]
+    for k, full in ALIAS.get(region, {}).items():
+        if re.search(r'(?:^|(?<=[\s·,]))' + re.escape(k), head): return full
+    return None
+
+
+def geo_hit(venue):
+    """지오코딩 캐시에서 이 장소와 같은 곳으로 볼 수 있는 결과만 돌려준다(다리 밑·경계 지점, 다른 시설로 잡힌 결과는 버림)."""
+    if not venue: return None
+    key = venue_query(venue)
+    v = GEO.get(key)
+    if not v or 'name' not in v: return None
+    first = v['name'].split(',')[0].strip()
+    if re.search(r'(교|다리|하부)$', first) or re.search(r'교\s*하부', first): return None
+    if v.get('q') != key and first.replace(' ', '') not in key.replace(' ', ''): return None
+    return v
+
+
+def _geo_local(venue, region):
+    v = geo_hit(venue)
+    if not v: return None
+    toks = [t.strip() for t in v['name'].split(',')]
+    if PROV.get(region) not in toks: return None
+    for t in toks:
+        if t in LOCAL.get(region, []): return t
+    return None
+
+
+def locality(r):
+    """정식 시·군·구 이름(예: '창원시', '송파구') 또는 None."""
+    reg = r.get('region') or ''
+    if reg not in LOCAL or not LOCAL[reg]: return None
+    v = r.get('venue') or ''
+    if _multi_site(v): return None if reg in METRO else _find_local(r.get('name'), reg, allow_base=False)   # 출발·도착이 다른 대회: 장소로 한 곳을 정하지 않는다
+    # 광역시는 대회 이름의 구 이름이 주최(구청장배 등)일 때가 많아 이름으로는 정하지 않는다
+    return (_find_local(v, reg) or _alias_local(v, reg) or _geo_local(v, reg) or (None if reg in METRO else _find_local(r.get('name'), reg)))
+
+
+def loc_label(r):
+    """사람이 읽는 지역 이름: '경남 창원', '서울 송파구', '제주 서귀포', '세종'. 온라인·전국이면 ''."""
+    reg = r.get('region') or ''
+    if not reg or reg == '전국': return ''
+    loc = r.get('locality')
+    if not loc: return reg
+    if reg in METRO: return f'{reg} {loc}'
+    b = _base(loc)
+    return loc if b == reg else f'{reg} {b}'
+
+
+def loc_short(r):
+    """제목용 짧은 지역 이름: '창원', '송파구', '서울'."""
+    reg = r.get('region') or ''
+    if not reg or reg == '전국': return ''
+    loc = r.get('locality')
+    if not loc: return reg
+    return f'{reg} {loc}' if reg in METRO else (loc if _base(loc) == reg else _base(loc))
+
+
 def esc(s):  # app.js esc() 와 동일 (& < > ")
     return html.escape(str(s), quote=True).replace('&#x27;', "'")
 
@@ -75,6 +193,8 @@ def fee_range(r):
 
 
 WX = weather_lib.load()   # data/weather.json (tools/fetch_weather.py 산출물)
+_gp = os.path.join(ROOT, 'data', 'venue_geo.json')
+GEO = json.load(open(_gp, encoding='utf8')) if os.path.exists(_gp) else {}   # tools/geocode_venues.py 캐시(시·군·구 찾기·좌표)
 PRIOR = {}   # data/prior_year.json: 올해 접수 일정이 없는 대회의 '작년 접수' 참고값 (main 에서 읽음)
 
 
@@ -103,6 +223,7 @@ def event_span(r):
 
 
 def is_cancelled(r):
+    if r.get('eventStatus') in ('EventCancelled', 'cancelled', 'https://schema.org/EventCancelled') or r.get('event_status') in ('EventCancelled', 'cancelled', 'https://schema.org/EventCancelled'): return True
     text = (r.get('name') or '') + ' ' + (r.get('regNote') or r.get('reg_note') or '')
     return '개최 취소' in text or '대회 취소' in text
 
@@ -124,6 +245,8 @@ def adapt(r):
              official=r.get('official_url'), regUrl=r.get('reg_url'), sources=r.get('sources') or {}, startTime=r.get('start_time'), verified=r.get('verified'),
              prior=(PRIOR.get(r['id']) if not (r.get('reg_open') or r.get('reg_close')) else None))
     a['dist'] = [d['label'] for d in dists]
+    a['eventStatus'] = r.get('event_status') or r.get('eventStatus')
+    a['locality'] = locality(r)
     start_d, end_d = pd(start), pd(end)
     past = end_d < TODAY
     a['d'] = ((end_d if past or ongoing else start_d) - TODAY).days
@@ -201,32 +324,162 @@ def read_snippet(name):
 def js(o): return json.dumps(o, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 
 
+def _josa(word, with_final, without_final):
+    """받침 여부에 맞는 조사. 영문·숫자로 끝나면 읽는 소리로 어림한다."""
+    w = re.sub(r'\s*[(（][^()（）]*[)）]\s*$', '', str(word or '')).strip() or str(word or '')
+    ch = w[-1:] if w else ''
+    if '가' <= ch <= '힣': return with_final if (ord(ch) - 0xAC00) % 28 else without_final
+    if ch.isdigit(): return with_final if ch in '013678' else without_final
+    if ch.lower() in 'aeiouyw': return without_final
+    return with_final if ch.isalpha() else without_final
+
+
+def venue_short(r):
+    v = re.split(r'[(（]', r.get('venue') or '')[0].strip(' ,·')
+    if not v or v in ('미정', '추후 공지') or '온라인' in v or '어디서나' in v: return ''
+    return v
+
+
+def is_online(r):
+    v = r.get('venue') or ''
+    return '온라인' in v or '어디서나' in v or r.get('region') == '전국' or r.get('type') == '버추얼'
+
+
+def is_rescheduled(r): return '연기' in (r.get('name') or '') and not is_cancelled(r)
+
+
+def kind_word(r):
+    t, n = r.get('type') or '', r.get('name') or ''
+    if t == '트레일' or '트레일' in n: return '트레일런'
+    if t == '버추얼': return '버추얼런'
+    if t == '걷기' or '걷기' in n or '워크' in n.lower(): return '걷기·달리기 대회'
+    if '마라톤' in n: return '마라톤'
+    return '러닝 대회'
+
+
+def where_text(r):
+    """'경남 창원 광려천 공원 일원'처럼 지역 + 장소. 장소 글자가 이미 지역 이름으로 시작하면 겹치지 않게 줄인다."""
+    loc, v = loc_label(r), venue_short(r)
+    if _multi_site(r.get('venue') or ''): v = ''
+    if not v: return loc
+    if not loc: return v
+    reg = r.get('region') or ''
+    lc = r.get('locality') or ''
+    for p in filter(None, [PROV.get(reg), reg]):
+        if v.startswith(p): return v                                         # '서울 올림픽공원', '경기도 하남시 …'
+    if lc and (lc in v or v.startswith(_base(lc))): return f'{reg} {v}'
+    return f'{loc} {v}'
+
+
+def kdate(s):
+    d = pd(s); return f'{d.year}년 {d.month}월 {d.day}일({wd(d)})'
+
+
+def name_year(r):
+    y = r['start'][:4]
+    return r['name'] if y in r['name'] else f"{r['name']} {y}"
+
+
+def page_title(r):
+    base = name_year(r)
+    loc = loc_short(r)
+    kw = kind_word(r)
+    if is_online(r): mids = [f'{kw} 접수·일정', '접수·일정']
+    elif loc: mids = [f'{loc} {kw} 접수·일정·코스', f'{loc} {kw} 접수·일정', f'{loc} {kw}', '접수·일정']
+    else: mids = [f'{kw} 접수·일정·코스', '접수·일정']
+    for m in mids:
+        t = f'{base} — {m} | Run우리'
+        if len(t) <= 60: return t
+    return f'{base} | Run우리'
+
+
+def reg_phrase(r):
+    """설명·첫 문장에 쓰는 접수 상태(생성 시점 기준)."""
+    k = r['regSt']['key']; op, cl = r['open'], r['close']
+    if k == 'urgent' and cl: return f"접수 마감 임박({fmt_short(pd(cl))}까지)"
+    if k == 'open': return f"접수 중({fmt_short(pd(cl))}까지)" if cl else '접수 중'
+    if k == 'soon' and op: return f"접수 {fmt_short(pd(op))} 시작 예정"
+    if k == 'closed': return r['regSt']['label'] if r['regSt']['label'] != '마감' else '접수 마감'
+    return '접수 일정 미공지'
+
+
 def description(r):
     date_txt = fmt_full(pd(r['start'])) + (f" ~ {fmt_full(pd(r['end']))}" if r['start'] != r['end'] else '')
-    parts = [f"{r['name']} · {date_txt}"]
-    if r['venue']: parts.append(re.split(r'[(（]', r['venue'])[0].strip())
-    if r['dist']: parts.append(' · '.join(r['dist'][:3]))
-    if r['fee']: parts.append('참가비 ' + r['fee'])
-    s = ' · '.join(parts)
-    if is_cancelled(r):
-        tail = '개최가 취소된 대회예요.'
-    elif r['st']['key'] == 'ended':
-        tail = '이미 끝난 대회예요.'
-    elif r['ongoing'] or r['st']['key'] == 'ongoing':
-        tail = f"지금 진행 중이에요(~{fmt_short(pd(r['end']))}까지). 접수: {r['regSt']['label']}."
-    else:
-        tail = f"접수: {r['regSt']['label']}. 접수 기간·공식 홈페이지·지도 링크."
-    s = f'{s}. {tail}'
+    where = where_text(r)
+    if is_cancelled(r): verb = '열릴 예정이던'
+    elif r['st']['key'] == 'ended': verb = '열린'
+    elif is_online(r): verb = '참가하는'
+    else: verb = '열리는'
+    if is_online(r): lead = f"{date_txt} 원하는 곳에서 {verb} {r['name']}"
+    else: lead = f"{date_txt} {where}에서 {verb} {r['name']}" if where else f"{date_txt} {verb} {r['name']}"
+    facts = []
+    dl = list(dict.fromkeys(r['dist']))   # 같은 이름 종목(예: 5km 두 부문)은 한 번만
+    if dl: facts.append('종목 ' + '·'.join(dl[:3]) + (' 등' if len(dl) > 3 else ''))
+    if r['fee']: facts.append('참가비 ' + r['fee'])
+    if is_cancelled(r): tail = '개최가 취소된 대회예요.'
+    elif r['st']['key'] == 'ended': tail = '이미 끝난 대회예요.'
+    elif r['ongoing'] or r['st']['key'] == 'ongoing': tail = f"지금 진행 중이에요(~{fmt_short(pd(r['end']))}까지)."
+    else: tail = reg_phrase(r) + '.'
+    for n in (len(facts), 1, 0):
+        s = f"{lead}. " + (', '.join(facts[:n]) + '. ' if n else '') + tail
+        if len(s) <= 155: return s
     return s if len(s) <= 155 else s[:152].rstrip(' ·,.') + '…'
 
 
+def lead_html(r):
+    """본문 맨 앞 한두 문장: 대회 이름 + 지역 + 날짜 + 장소 + 종목·참가비·접수를 자연스러운 문장으로."""
+    nm = r['name']
+    date_txt = kdate(r['start']) + (f"부터 {kdate(r['end'])}까지" if r['start'] != r['end'] else '')
+    where = where_text(r)
+    at = f"{where}에서 " if where and not is_online(r) else ('원하는 곳에서 달리는 방식으로 ' if is_online(r) else '')
+    subj = nm + _josa(nm, '은', '는')
+    if is_cancelled(r): s1 = f"{subj} {date_txt} {at}열릴 예정이었지만 개최가 취소됐어요."
+    elif r['st']['key'] == 'ended': s1 = f"{subj} {date_txt} {at}열린 대회예요."
+    elif r['ongoing'] or r['st']['key'] == 'ongoing': s1 = f"{subj} {date_txt} {at}열리고 있어요."
+    else: s1 = f"{subj} {date_txt} {at}열려요."
+    parts = [s1]
+    dl = list(dict.fromkeys(r['dist']))
+    if dl and r['fee']:
+        parts.append(f"{', '.join(dl[:5])} 종목이 있고, 참가비는 {r['fee']}{_josa(r['fee'], '이에요', '예요')}.")
+    elif dl: parts.append(f"{', '.join(dl[:5])} 종목이 있어요.")
+    elif r['fee']: parts.append(f"참가비는 {r['fee']}{_josa(r['fee'], '이에요', '예요')}.")
+    if not is_cancelled(r) and r['st']['key'] not in ('ended', 'ongoing') and not r['ongoing']:
+        k = r['regSt']['key']; op, cl = r['open'], r['close']
+        if k == 'urgent' and cl: parts.append(f"접수는 {fmt_short(pd(cl))}에 마감이라 얼마 안 남았어요.")
+        elif k == 'open': parts.append(f"지금 접수 중이고 {fmt_short(pd(cl))}에 마감해요." if cl else '지금 접수 중이에요.')
+        elif k == 'soon' and op: parts.append(f"접수는 {fmt_short(pd(op))}에 시작해요.")
+        elif k == 'closed': parts.append('정원이 차서 접수가 마감됐어요.' if r['regState'] == 'full' else '접수는 마감됐어요.')
+        else: parts.append('접수 일정은 아직 공지되지 않았어요.')
+    return f'<p class="ed-small race-lead" style="line-height:1.8;margin:10px 0 0">{esc(" ".join(parts))}</p>'
+
+
+_ROAD = re.compile(r'[가-힣0-9]+(?:로|길)\s*\d+(?:[-–]\d+)?(?:번길\s*\d+(?:-\d+)?)?')
+
+
+def street_address(r):
+    """장소 괄호 안에 도로명·지번 주소가 적혀 있을 때만 그대로 쓴다."""
+    m = re.search(r'[(（]([^()（）]+)[)）]', r.get('venue') or '')
+    cand = m.group(1) if m else ''
+    if not cand:
+        v = r.get('venue') or ''
+        if re.search(r'(시|군|구)\s', v) and (_ROAD.search(v) or re.search(r'[동리]\s*\d+(-\d+)?$', v)): cand = v
+    cand = cand.strip()
+    if cand and (_ROAD.search(cand) or re.search(r'[동리가]\s*\d+(-\d+)?$', cand) or re.search(r'(시|군|구)\s.*[가-힣](읍|면|동|리)(\s|$)', cand)): return cand
+    return None
+
+
 def json_ld(r, url, official, reg):
-    online = '온라인' in r['venue'] or r['region'] == '전국'
+    online = is_online(r) or str(r.get('eventStatus') or '').rsplit('/', 1)[-1] in ('EventMovedOnline', 'moved_online')
     start = r['start'] + (f"T{r['startTime']}:00+09:00" if r['startTime'] and re.match(r'^\d\d:\d\d$', r['startTime']) else '')
+    explicit = str(r.get('eventStatus') or '').rsplit('/', 1)[-1]
+    mapped = {'cancelled': 'EventCancelled', 'postponed': 'EventPostponed', 'rescheduled': 'EventRescheduled', 'moved_online': 'EventMovedOnline'}
+    explicit = mapped.get(explicit, explicit)
+    allowed = {'EventScheduled', 'EventCancelled', 'EventPostponed', 'EventRescheduled', 'EventMovedOnline'}
+    status_url = explicit if explicit in allowed else ('EventCancelled' if is_cancelled(r) else 'EventRescheduled' if is_rescheduled(r) else 'EventScheduled')
     ld = {'@context': 'https://schema.org', '@type': 'SportsEvent', 'name': r['name'], 'description': description(r),
           'startDate': start, 'endDate': r['end'],
-          'eventStatus': 'https://schema.org/EventCancelled' if is_cancelled(r) else 'https://schema.org/EventScheduled',
-          'url': url, 'image': SITE + '/assets/icons/og-image.png', 'inLanguage': 'ko-KR', 'sport': 'Running'}
+          'eventStatus': 'https://schema.org/' + status_url,
+          'url': url, 'image': [SITE + '/assets/icons/og-image.png'], 'inLanguage': 'ko-KR', 'sport': 'Running'}
     if online:
         ld['eventAttendanceMode'] = 'https://schema.org/OnlineEventAttendanceMode'
         ld['location'] = {'@type': 'VirtualLocation', 'url': official or url}
@@ -234,20 +487,37 @@ def json_ld(r, url, official, reg):
         ld['eventAttendanceMode'] = 'https://schema.org/OfflineEventAttendanceMode'
         addr = {'@type': 'PostalAddress', 'addressCountry': 'KR'}
         if r['region'] in PROV: addr['addressRegion'] = PROV[r['region']]
-        ld['location'] = {'@type': 'Place', 'name': r['venue'] or r['region'] or '장소 미정', 'address': addr}
+        if r.get('locality'): addr['addressLocality'] = r['locality']
+        sa = street_address(r)
+        if sa: addr['streetAddress'] = sa
+        vs = venue_short(r) if not _multi_site(r['venue']) else ''
+        place = {'@type': 'Place', 'name': vs or r['venue'] or loc_label(r) or r['region'] or '장소 미정', 'address': addr}
+        g = geo_hit(r['venue']) if vs else None
+        if g and g.get('q') == venue_query(r['venue']):
+            place['geo'] = {'@type': 'GeoCoordinates', 'latitude': g['lat'], 'longitude': g['lng']}
+        ld['location'] = place
     if r['organizer']: ld['organizer'] = {'@type': 'Organization', 'name': r['organizer'], **({'url': official} if official else {})}
     if official: ld['sameAs'] = [official]
-    avail = {'open': 'InStock', 'urgent': 'InStock', 'soon': 'PreOrder'}.get(r['st']['key'])
-    if r['regState'] == 'full': avail = 'SoldOut'
-    offers = []
-    for d in r['distances']:
-        if d.get('fee') is None: continue
-        o = {'@type': 'Offer', 'name': d['label'], 'price': d['fee'], 'priceCurrency': 'KRW', 'url': reg or official or url}
+    k = r['regSt']['key']
+    avail = {'open': 'InStock', 'urgent': 'InStock', 'soon': 'PreOrder', 'closed': 'SoldOut'}.get(k)
+    if r['regState'] == 'full' and k != 'ended': avail = 'SoldOut'
+    if is_cancelled(r): avail = None
+    def offer(**kw):
+        o = {'@type': 'Offer', **kw, 'priceCurrency': 'KRW', 'url': official or reg or url}
         if avail: o['availability'] = 'https://schema.org/' + avail
-        if r['open']: o['validFrom'] = r['open']
-        if r['close']: o['validThrough'] = r['close']
-        offers.append(o)
+        if r['open']: o['validFrom'] = r['open'] + 'T00:00:00+09:00'
+        if r['close']: o['validThrough'] = r['close'] + 'T23:59:59+09:00'
+        return o
+    offers = [offer(name=d['label'], price=d['fee']) for d in r['distances'] if d.get('fee') is not None]
     if offers: ld['offers'] = offers
+    elif r.get('fee_min') is not None:
+        o = offer(price=r['fee_min']); o['@type'] = 'AggregateOffer'; o['lowPrice'] = o.pop('price')
+        if r.get('fee_max') is not None: o['highPrice'] = r['fee_max']
+        ld['offers'] = o
+    subs = [{'@type': 'SportsEvent', 'name': f"{r['name']} {d['label']}", 'startDate': start, 'sport': 'Running',
+             'location': ld['location'], 'eventAttendanceMode': ld['eventAttendanceMode'],
+             'eventStatus': ld['eventStatus']} for d in r['distances'] if d.get('label')]
+    if len(subs) > 1: ld['subEvent'] = subs
     return ld
 
 
@@ -323,7 +593,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
     url = f"{SITE}/race/{r['id']}.html"
     official, reg = safe_url(r['official']), safe_url(r['regUrl'])
     ended = r['st']['key'] == 'ended'
-    title = f"{r['name']} 접수·일정·코스 | Run우리"
+    title = page_title(r)
     desc = description(r)
     date_txt = f"{fmt_full(pd(r['start']))} ~ {fmt_full(pd(r['end']))}" if r['start'] != r['end'] else fmt_full(r['dt'])
     if r['open'] or r['close']:
@@ -383,8 +653,9 @@ def build_page(r, related, rec, indexable, stale, adsense):
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
       <div class="ed-race-top"><span class="ed-status {r['st']['key']}">{r['st']['label']}</span>{f'<span class="ed-tag">{esc(r["type"])}</span>' if r['type'] else ''}</div>
       <div class="ed-dday {dday_cls(r)}" style="font-size:34px">{'진행 중' if r['ongoing'] else dday_text(r['d'])}</div></div>
-    <h1 class="ed-h1" style="margin:14px 0 8px">{esc(r['name'])}</h1>
-    <p class="ed-lede">{date_txt}{f" · 출발 {esc(r['startTime'])}" if r['startTime'] else ''}{f" · {esc(r['venue'])}" if r['venue'] else ''}{f" ({esc(region)})" if region else ''}</p>
+    <h1 class="ed-h1" style="margin:14px 0 8px">{esc(r['name'])}{(' — ' + esc(loc_label(r))) if loc_label(r) and not is_online(r) else ''}</h1>
+    <p class="ed-lede">{date_txt}{f" · 출발 {esc(r['startTime'])}" if r['startTime'] else ''}{f" · {esc(r['venue'])}" if r['venue'] else ''}{f" ({esc(region if (r.get('locality') and _base(r['locality']) in (r['venue'] or '')) else (loc_label(r) or region))})" if region else ''}</p>
+    {lead_html(r)}
     <div class="ed-actions" style="display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0">
       {f'<a class="ed-btn" href="{esc(official)}" target="_blank" rel="noopener noreferrer">공식 홈페이지 <span class="ed-arrow">↗</span></a>' if official else ''}
       {f'<a class="ed-btn ghost" href="{esc(reg)}" target="_blank" rel="noopener noreferrer">접수 페이지 <span class="ed-arrow">↗</span></a>' if reg else ''}

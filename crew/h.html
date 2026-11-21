@@ -1,0 +1,234 @@
+<!doctype html><html lang="ko"><head>
+<base href="/">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>약속 관리 | Run우리</title>
+<meta name="description" content="크루 러닝 약속 관리 화면. 답변과 추천 조합, 빈자리, 정산을 확인해요.">
+<meta name="theme-color" content="#F6F2EA">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="crew/crew.css">
+<script src="app.js"></script><script src="crew/config.js"></script><script src="crew/crew.js"></script>
+</head><body>
+<main class="ed-wrap" id="main"><article class="ed-post" id="view" style="max-width:840px"><p class="ed-small" style="padding-top:28px">관리 화면을 불러오고 있어요.</p></article></main>
+<script>
+layout('crew');
+const params = new URLSearchParams(location.search);
+const id = params.get('id') || '';
+const TOKEN = /^[A-Za-z0-9_-]{20,80}$/;
+let hostKey = '';
+const hash = new URLSearchParams((location.hash || '').replace(/^#/, ''));
+if (hash.get('k')) {
+  hostKey = hash.get('k');
+  if (TOKEN.test(id) && TOKEN.test(hostKey)) crewSaveHost(id, hostKey);
+  history.replaceState(null, '', `${location.pathname}?id=${encodeURIComponent(id)}`);
+} else hostKey = crewHostKey(id);
+
+const SEAT = { voting:'답변 중', going:'참가', waitlist:'대기', out:'불참', cancelled:'취소' };
+const REPLY = { replied:'답변함', joined:'들어옴', missing:'아직' };
+
+function authHeaders(){ return { 'x-host-key': hostKey }; }
+function askKey(message){
+  $('#view').innerHTML = `<div class="ed-post-top"><a class="ed-link ed-small" href="crew/index.html">← 크루 러닝 약속</a></div>
+    <header class="ed-post-head"><div class="ed-label">Host</div><h1 class="ed-h1 ed-post-title">관리 열쇠</h1><p class="ed-lede">${esc(message || '약속을 만들 때 저장한 관리 링크의 열쇠를 붙여 넣어 주세요.')}</p></header>
+    <label class="ed-field"><span class="ed-label">관리 열쇠</span><input class="ed-input" id="keyIn" autocomplete="off"></label>
+    <button class="ed-btn block" id="useKey" style="margin-top:16px" type="button">관리 화면 열기</button>`;
+  $('#useKey').onclick = () => {
+    hostKey = $('#keyIn').value.trim();
+    if (!TOKEN.test(hostKey)) { toast('열쇠 형식이 아니에요'); return; }
+    crewSaveHost(id, hostKey);
+    boot();
+  };
+}
+function namesOf(opt){
+  if (!opt.names) return '';
+  const bits = [];
+  if (opt.names.prefer.length) bits.push(`좋아요 ${opt.names.prefer.join(', ')}`);
+  if (opt.names.ok.length) bits.push(`괜찮아요 ${opt.names.ok.join(', ')}`);
+  if (opt.names.no.length) bits.push(`어려워요 ${opt.names.no.join(', ')}`);
+  if (!bits.length) return '<p class="ed-small">아직 답이 없어요.</p>';
+  return `<p class="ed-small">${esc(bits.join(' · '))}</p>`;
+}
+function heatHtml(run){
+  const times = crewByKind(run.options, 'time');
+  const max = Math.max(1, ...run.heatmap.flatMap((row) => row.cells.map((c) => c.available)));
+  let html = `<div class="cr-heat" style="grid-template-columns:88px repeat(${times.length}, minmax(52px,1fr))"><div></div>${times.map((t) => `<div class="cr-heat-h">${esc(t.text)}</div>`).join('')}`;
+  run.heatmap.forEach((row) => {
+    const date = run.options.find((o) => o.id === row.dateId);
+    html += `<div class="cr-heat-h">${esc(date ? date.text : row.label)}</div>`;
+    row.cells.forEach((cell) => {
+      const p = cell.available / max;
+      const light = p > 0.72;
+      html += `<div class="cr-cell" style="background:rgba(28,27,24,${(0.06 + p * 0.7).toFixed(3)});color:${light ? '#F6F2EA' : '#1C1B18'}" title="${esc(cell.courseLabel || '')}"><b>${cell.available}</b></div>`;
+    });
+  });
+  return html + '</div><p class="ed-help">칸의 숫자는 그 날짜·시간에 가장 많이 모이는 코스 기준이에요.</p>';
+}
+function rosterHtml(run){
+  const items = [
+    ...(run.roster.expected || []).map((r) => `<li><b>${esc(r.name)}</b><span class="cr-tag ${r.status}">${REPLY[r.status] || ''}</span></li>`),
+    ...(run.roster.others || []).map((r) => `<li><b>${esc(r.nickname)}</b><span class="cr-tag ${r.status}">${REPLY[r.status] || ''}</span></li>`),
+  ];
+  if (!items.length) return '<p class="ed-small">아직 아무도 들어오지 않았어요.</p>';
+  return `<ul class="cr-roster">${items.join('')}</ul>`;
+}
+function peopleBy(run, seat){
+  return (run.participants || []).filter((p) => p.seat === seat);
+}
+function settingsHtml(run){
+  const expected = (run.roster.expected || []).map((r) => r.name).join('\n');
+  return `<section class="cr-block"><div class="ed-section-head"><span class="no">설정</span><h2 class="ed-h2">인원과 메모</h2></div>
+    <label class="ed-field"><span class="ed-label">메모</span><input class="ed-input" id="memo" maxlength="400" value="${esc(run.memo || '')}"></label>
+    <label class="ed-field" style="margin-top:14px"><span class="ed-label">최대 인원</span><input class="ed-input" id="max" inputmode="numeric" placeholder="비워 두면 제한 없음" value="${run.maxHeadcount ?? ''}"></label>
+    <label class="cr-check"><input type="checkbox" id="openJoin" ${run.openJoin ? 'checked' : ''}><span>빈자리 모집. 확정 뒤 링크만 있으면 참가하고, 자리가 없으면 대기로 들어와요.</span></label>
+    <label class="ed-field" style="margin-top:14px"><span class="ed-label">부를 크루 (한 줄에 한 명)</span><textarea class="ed-input" id="expected">${esc(expected)}</textarea></label>
+    <button class="ed-btn ghost" id="saveSet" type="button" style="margin-top:14px">설정 저장</button>
+    <p id="setErr" class="ed-help error" role="alert" hidden></p></section>`;
+}
+function expenseHtml(run){
+  if (run.status === 'recruiting') return '<p class="ed-small">날짜를 정한 뒤에 뒤풀이, 간식, 장소비를 나눠 적을 수 있어요.</p>';
+  const rows = (run.expenses.items || []).map((it) => expenseRow(it.label, it.amount)).join('') || expenseRow('', '');
+  return `<section class="cr-block" id="cost"><div class="ed-section-head"><span class="no">정산</span><h2 class="ed-h2">같이 나눌 돈</h2></div><div id="exp">${rows}</div>
+    <div class="cr-actions"><button type="button" class="ed-btn ghost sm" id="addExp">항목 추가</button><button type="button" class="ed-btn sm" id="saveExp">정산 저장</button></div>
+    ${crewCostHtml(run.expenses)}</section>`;
+}
+function expenseRow(label, amount){
+  return `<div class="cr-row two"><input class="ed-input elabel" maxlength="30" placeholder="뒤풀이" aria-label="항목" value="${esc(label)}"><input class="ed-input eamt" inputmode="numeric" placeholder="0" aria-label="금액" value="${amount === '' || amount == null ? '' : amount}"><button type="button" class="x" data-x aria-label="항목 빼기">빼기</button></div>`;
+}
+function comboHtml(run){
+  if (!run.recommendation.length) return '<p class="ed-small">후보가 없어요.</p>';
+  return run.recommendation.map((c, i) => {
+    const d = run.options.find((o) => o.id === c.dateId);
+    const t = run.options.find((o) => o.id === c.timeId);
+    const course = run.options.find((o) => o.id === c.courseId);
+    const btn = run.status === 'recruiting' ? `<button type="button" class="ed-btn ${i === 0 ? '' : 'ghost'} sm" style="margin-top:10px" data-date="${esc(c.dateId)}" data-time="${esc(c.timeId)}" data-course="${esc(c.courseId)}">이 조합으로 확정</button>` : '';
+    return `<article class="cr-combo ${i === 0 ? 'is-top' : ''}"><div class="ed-label">${i === 0 ? '가장 잘 맞는 조합' : '다른 조합'}</div><h3 class="ed-h3">${esc(d.text)} · ${esc(t.text)}</h3><p>${esc(course.text)} · ${esc(course.detail || '')}</p><p><b>${c.available}명</b> 가능 · 선호 점수 ${c.preference}</p><p class="ed-small">${esc(c.nicknames.join(', ') || '가능한 사람이 아직 없어요')}</p>${btn}</article>`;
+  }).join('');
+}
+
+function render(run){
+  const share = crewShareUrl(id);
+  const manage = crewHostUrl(id, hostKey);
+  const seats = run.status === 'recruiting' ? '' : `<p class="ed-small" style="margin-top:8px">참가 ${run.counts.going} · 대기 ${run.counts.waitlist}${run.seatsLeft != null ? ` · ${run.seatsLeft}자리 남음` : ''}</p>`;
+  let html = `<div class="ed-post-top"><a class="ed-link ed-small" href="crew/index.html">← 크루 러닝 약속</a></div>
+    <header class="ed-post-head"><div class="ed-label accent">Host · ${esc(run.statusLabel)}</div><h1 class="ed-h1 ed-post-title">${esc(run.title)}</h1><p class="ed-lede">${run.memo ? esc(run.memo) : '참가자에게는 아래 링크만 보내면 돼요.'}</p></header>
+    <div class="cr-linkbox"><label class="ed-label">보낼 링크</label><p class="cr-key" id="shareOut">${esc(share)}</p></div>
+    <div class="cr-actions"><button type="button" class="ed-btn sm" id="copyShare">링크 복사</button><a class="ed-btn ghost sm" href="${esc(crewRunUrl(id))}">참가자 화면</a><button type="button" class="ed-textbtn" id="copyHost">관리 링크 다시 복사</button></div>
+    ${seats}`;
+  if (run.confirmed) html += crewPlanHtml(run);
+  html += `<section class="cr-block"><div class="ed-section-head"><span class="no">01</span><h2 class="ed-h2">누가 답했나요</h2></div>${rosterHtml(run)}
+    <ul class="cr-names">${(run.participants || []).map((p) => `<li>${esc(p.nickname)} · ${SEAT[p.seat] || p.seat}${p.responded ? '' : ' · 답 전'}</li>`).join('') || ''}</ul></section>`;
+  if (run.status === 'recruiting' || run.heatmap) {
+    html += `<section class="cr-block"><div class="ed-section-head"><span class="no">02</span><h2 class="ed-h2">한눈에 보는 표</h2></div>${heatHtml(run)}
+      ${crewByKind(run.options, 'date').concat(crewByKind(run.options, 'time'), crewByKind(run.options, 'course')).map((o) => `<div class="cr-opt"><b>${esc(o.text)}</b> <span class="cr-count">${o.available}명 가능</span>${namesOf(o)}</div>`).join('')}
+    </section>`;
+    html += `<section class="cr-block" id="pick"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">추천 조합</h2></div><p class="ed-small">가능한 사람이 많은 순이에요. 같으면 좋아요를 더 많이 받은 조합이 위로 와요. 정원보다 많으면 먼저 들어온 사람이 참가하고 나머지는 대기가 돼요.</p>${comboHtml(run)}</section>`;
+  }
+  html += settingsHtml(run);
+  html += expenseHtml(run);
+  if (run.status !== 'recruiting') {
+    const wait = peopleBy(run, 'waitlist');
+    html += `<section class="cr-block" id="records"><div class="ed-section-head"><span class="no">기록</span><h2 class="ed-h2">달린 기록</h2></div>${crewRecordsHtml(run.records)}`;
+    if (wait.length) html += `<p class="ed-small" style="margin-top:12px">대기 순서 · ${esc(wait.map((p) => p.nickname).join(' → '))}</p>`;
+    html += `</section>`;
+  }
+  html += `<div class="cr-actions" style="margin-top:28px">`;
+  if (run.status === 'confirmed') html += `<button type="button" class="ed-btn" id="doneBtn">러닝을 마쳤어요</button>`;
+  html += `<button type="button" class="ed-btn ghost" id="delBtn">약속 지우기</button><button type="button" class="ed-textbtn" id="reload">다시 불러오기</button></div>`;
+  $('#view').innerHTML = html;
+  document.title = `${run.title} 관리 · Run우리`;
+  $('#copyShare').onclick = () => crewCopy(share);
+  $('#copyHost').onclick = () => crewCopy(manage);
+  $('#reload').onclick = () => boot();
+  $('#saveSet').onclick = () => saveSettings(run, true);
+  document.querySelectorAll('[data-date]').forEach((btn) => btn.addEventListener('click', () => confirmCombo(run, btn)));
+  const add = $('#addExp');
+  if (add) add.onclick = () => { $('#exp').insertAdjacentHTML('beforeend', expenseRow('', '')); };
+  const saveExp = $('#saveExp');
+  if (saveExp) saveExp.onclick = () => saveExpenses();
+  const done = $('#doneBtn');
+  if (done) done.onclick = async () => {
+    if (!confirm('러닝을 완료로 바꿀까요? 새 참가는 받지 않고, 기록은 계속 적을 수 있어요.')) return;
+    try { await crewApi(`/v1/runs/${id}/done`, { method:'POST', headers: authHeaders() }); toast('완료로 바꿔 두었어요'); boot(); }
+    catch (err) { toast(err.message); }
+  };
+  $('#delBtn').onclick = async () => {
+    if (!confirm('이 약속과 답변, 기록을 지울까요? 보낸 링크도 더는 열리지 않아요.')) return;
+    try {
+      await crewApi(`/v1/runs/${id}`, { method:'DELETE', headers: authHeaders() });
+      location.href = '/crew/index.html';
+    } catch (err) { toast(err.message); }
+  };
+}
+
+function readSettings(){
+  const maxRaw = $('#max').value.trim();
+  return {
+    memo: $('#memo').value.trim(),
+    maxHeadcount: maxRaw === '' ? null : Number(maxRaw),
+    openJoin: $('#openJoin').checked,
+    expectedNames: $('#expected').value.split('\n'),
+  };
+}
+async function saveSettings(run, toastOk){
+  const err = $('#setErr');
+  try {
+    await crewApi(`/v1/runs/${id}`, { method:'PATCH', headers: authHeaders(), body: readSettings() });
+    if (toastOk) { toast('저장했어요'); boot(); }
+  } catch (e) {
+    if (err) { err.hidden = false; err.textContent = e.message; }
+    throw e;
+  }
+}
+async function confirmCombo(run, btn){
+  if (!confirm('이 날짜, 출발 시간, 코스로 확정할까요? 정원보다 많으면 먼저 들어온 사람이 참가하고 나머지는 대기가 돼요.')) return;
+  btn.disabled = true;
+  try {
+    await saveSettings(run, false);
+    await crewApi(`/v1/runs/${id}/confirm`, {
+      method:'POST', headers: authHeaders(),
+      body: { dateId: btn.dataset.date, timeId: btn.dataset.time, courseId: btn.dataset.course, ...readSettings() },
+    });
+    toast('날짜를 확정했어요');
+    boot();
+  } catch (err) { toast(err.message); btn.disabled = false; }
+}
+async function saveExpenses(){
+  const items = [...document.querySelectorAll('#exp .cr-row')].map((row) => ({
+    label: row.querySelector('.elabel').value.trim(),
+    amount: row.querySelector('.eamt').value.trim() === '' ? null : Number(row.querySelector('.eamt').value.trim()),
+  })).filter((it) => it.label || it.amount);
+  if (items.some((it) => !it.label || !Number.isInteger(it.amount))) { toast('항목 이름과 정수 금액을 적어 주세요'); return; }
+  try {
+    await crewApi(`/v1/runs/${id}/expenses`, { method:'PUT', headers: authHeaders(), body: { items } });
+    toast('정산을 저장했어요');
+    boot();
+  } catch (err) { toast(err.message); }
+}
+
+async function boot(){
+  if (!TOKEN.test(id)) { $('#view').innerHTML = crewEmpty('약속 주소가 올바르지 않아요.'); return; }
+  if (!TOKEN.test(hostKey)) { askKey(); return; }
+  try {
+    const run = await crewApi(`/v1/runs/${id}/host`, { headers: authHeaders() });
+    render(run);
+  } catch (e) {
+    if (e.prep) { $('#view').innerHTML = `<div style="padding-top:28px">${crewPrepHtml()}</div>`; return; }
+    if (e.status === 401) { askKey(e.message); return; }
+    $('#view').innerHTML = crewEmpty(e.message || '약속을 찾지 못했어요.');
+  }
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('#exp [data-x]');
+  if (!b) return;
+  const box = b.parentElement.parentElement;
+  if (box.children.length < 2) { b.parentElement.querySelectorAll('input').forEach((i) => { i.value = ''; }); return; }
+  b.parentElement.remove();
+});
+boot();
+</script>
+</body></html>

@@ -144,8 +144,8 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 @media(min-width:641px){
   body{padding-bottom:0}
   .ed-tabbar{display:none}
-  .ed-mast-row{align-items:center}
-  .ed-mast-nav{display:flex;gap:24px;font-size:14.5px;color:var(--ink-2);font-weight:500}
+  .ed-mast-row{align-items:center;flex-wrap:wrap;row-gap:6px}
+  .ed-mast-nav{display:flex;flex-wrap:wrap;row-gap:4px;gap:24px;font-size:14.5px;color:var(--ink-2);font-weight:500}
   .ed-mast-nav a{padding:4px 0;border-bottom:2px solid transparent}
   .ed-mast-nav a:hover{color:var(--ink)}
   .ed-mast-nav a.is-on{border-color:var(--ink)}

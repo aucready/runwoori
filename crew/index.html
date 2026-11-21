@@ -1,0 +1,117 @@
+<!doctype html><html lang="ko"><head>
+<base href="/">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>크루 러닝 약속 · 날짜 맞추기 | Run우리</title>
+<meta name="description" content="가입 없이 링크 하나로 크루 러닝 날짜, 출발 시간, 코스를 받아요. 되는 사람이 많은 조합을 골라 드리고, 빈자리와 정산, 기록까지 한곳에서 정리해요.">
+<meta name="theme-color" content="#F6F2EA">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://runwoori.com/crew/index.html"><meta property="og:url" content="https://runwoori.com/crew/index.html">
+<!--GA4:START--><script async src="https://www.googletagmanager.com/gtag/js?id=G-9CNWJMZ71Q"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-9CNWJMZ71Q',{anonymize_ip:true});</script><!--GA4:END-->
+<meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="크루 러닝 약속 · 날짜 맞추기 | Run우리"><meta property="og:description" content="가입 없이 링크 하나로 크루 러닝 날짜, 출발 시간, 코스를 받아요. 되는 사람이 많은 조합을 골라 드려요."><meta property="og:image" content="https://runwoori.com/assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Run우리 — 마라톤·러닝 대회 일정">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="크루 러닝 약속 · 날짜 맞추기 | Run우리"><meta name="twitter:description" content="가입 없이 링크 하나로 크루 러닝 날짜, 출발 시간, 코스를 받아요."><meta name="twitter:image" content="https://runwoori.com/assets/icons/og-image.png">
+<link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="design-tokens.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="crew/crew.css">
+<script src="app.js"></script><script src="crew/config.js"></script><script src="crew/crew.js"></script>
+</head><body>
+<main class="ed-wrap" id="main">
+<article class="ed-post">
+<div class="ed-post-top"><a class="ed-link ed-small" href="index.html">← 대회 달력</a></div>
+<header class="ed-post-head"><div class="ed-label accent">Crew Run</div><h1 class="ed-h1 ed-post-title">크루 러닝 약속</h1><p class="ed-lede">카톡에 링크 하나만 보내면 돼요. 가입 없이 닉네임으로 날짜, 출발 시간, 코스를 고르고, 되는 사람이 가장 많은 조합을 골라 드려요.</p></header>
+<div id="prep"></div>
+<div class="cr-steps" aria-label="이용 순서">
+<div><b>01</b><div><strong>약속을 만들어요</strong><p>후보 날짜와 출발 시간, 모일 곳을 적어요.</p></div></div>
+<div><b>02</b><div><strong>링크를 보내요</strong><p>받은 사람은 닉네임만 적고 가능한 날을 눌러요.</p></div></div>
+<div><b>03</b><div><strong>날을 확정해요</strong><p>빈자리, 대기, 정산, 달린 기록까지 이어서 정리해요.</p></div></div>
+</div>
+<div id="made" hidden></div>
+<form id="form" class="cr-block">
+<div class="ed-section-head major"><span class="no">01</span><h2 class="ed-h2">약속 만들기</h2></div>
+<label class="ed-field"><span class="ed-label">약속 이름</span><input class="ed-input" id="title" maxlength="40" required placeholder="토요일 아침 한강" autocomplete="off"></label>
+<label class="ed-field" style="margin-top:16px"><span class="ed-label">내 닉네임</span><input class="ed-input" id="nick" maxlength="16" required placeholder="민지" autocomplete="nickname"></label>
+<label class="ed-field" style="margin-top:16px"><span class="ed-label">한줄 메모 <span class="ed-small">(선택)</span></span><input class="ed-input" id="memo" maxlength="400" placeholder="10km 전후, 비 오면 다음 주로"></label>
+
+<section class="cr-block"><div class="ed-section-head"><span class="no">02</span><h2 class="ed-h2">날짜 후보</h2></div><div id="dates"></div><div class="cr-actions"><button type="button" class="ed-btn ghost sm" id="addDate">날짜 추가</button></div></section>
+<section class="cr-block"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">출발 시간</h2></div><div id="times"></div><div class="cr-actions"><button type="button" class="ed-btn ghost sm" id="addTime">시간 추가</button></div></section>
+<section class="cr-block"><div class="ed-section-head"><span class="no">04</span><h2 class="ed-h2">코스 · 집결지</h2></div><div id="courses"></div><div class="cr-actions"><button type="button" class="ed-btn ghost sm" id="addCourse">코스 추가</button></div><p class="ed-help">집결지는 네이버·카카오·구글 지도에서 찾을 말로 적어 주세요.</p></section>
+
+<section class="cr-block"><div class="ed-section-head"><span class="no">05</span><h2 class="ed-h2">인원 <span class="ed-small" style="font-family:var(--font-sans);font-weight:400">(선택)</span></h2></div>
+<label class="ed-field"><span class="ed-label">최대 인원</span><input class="ed-input" id="max" inputmode="numeric" placeholder="비워 두면 제한 없음"></label>
+<label class="cr-check"><input type="checkbox" id="openJoin" checked><span>날짜를 정한 뒤에도 링크만 있으면 빈자리를 받을게요. 자리가 없으면 대기로 들어와요.</span></label>
+<label class="ed-field" style="margin-top:18px"><span class="ed-label">부를 크루 <span class="ed-small">(한 줄에 한 명, 선택)</span></span><textarea class="ed-input" id="expected" placeholder="우진&#10;수아"></textarea></label>
+<p class="ed-help">적어 두면 누가 답했는지, 누가 아직인지 관리 화면에서 보여요. 닉네임은 이 약속에만 쓰여요.</p>
+</section>
+<p id="err" class="ed-help error" role="alert" hidden></p>
+<button class="ed-btn block" id="submit" type="submit" style="margin-top:22px">약속 만들고 링크 받기</button>
+<p class="ed-small" style="margin-top:14px">만든 뒤에는 날짜·시간·코스 후보를 바꿀 수 없어요. 관리 링크는 이 브라우저에 저장되고, 그 링크로만 확정할 수 있어요.</p>
+</form>
+</article>
+</main>
+<script>
+layout('crew');
+const minDate = iso(today());
+function nextSat(n){
+  const t = today();
+  const add = ((6 - t.getDay() + 7) % 7) || 7;
+  return iso(new Date(+t + (add + 7 * n) * DAY));
+}
+function rowX(){ return `<button type="button" class="x" data-x aria-label="이 줄 빼기">빼기</button>`; }
+function dateRow(v){ const d=document.createElement('div'); d.className='cr-row'; d.innerHTML=`<input class="ed-input" type="date" min="${minDate}" value="${v||''}" aria-label="날짜 후보" required>${rowX()}`; return d; }
+function timeRow(v){ const d=document.createElement('div'); d.className='cr-row'; d.innerHTML=`<input class="ed-input" type="time" value="${v||'07:00'}" aria-label="출발 시간" required>${rowX()}`; return d; }
+function courseRow(){ const d=document.createElement('div'); d.className='cr-row two'; d.innerHTML=`<input class="ed-input name" maxlength="40" placeholder="코스 이름" aria-label="코스 이름" required><input class="ed-input place" maxlength="80" placeholder="집결지 (예: 여의나루역 2번 출구)" aria-label="집결지" required>${rowX()}`; return d; }
+const datesEl=$('#dates'), timesEl=$('#times'), coursesEl=$('#courses');
+datesEl.append(dateRow(nextSat(0)), dateRow(nextSat(1)));
+timesEl.append(timeRow('07:00'), timeRow('08:00'));
+coursesEl.append(courseRow());
+function cap(el, max, make){ return ()=>{ if(el.children.length>=max){ toast(`후보는 ${max}개까지예요`); return; } el.append(make()); }; }
+$('#addDate').onclick=cap(datesEl, 8, ()=>dateRow(''));
+$('#addTime').onclick=cap(timesEl, 8, ()=>timeRow('18:00'));
+$('#addCourse').onclick=cap(coursesEl, 6, courseRow);
+document.addEventListener('click', e=>{ const b=e.target.closest('[data-x]'); if(!b) return; const box=b.parentElement.parentElement; if(box.children.length<2){ toast('후보는 하나 이상 필요해요'); return; } b.parentElement.remove(); });
+function vals(sel){ return [...document.querySelectorAll(sel)].map(i=>i.value.trim()).filter(Boolean); }
+function showErr(msg){ const el=$('#err'); el.hidden=!msg; el.textContent=msg||''; }
+$('#form').addEventListener('submit', async (e)=>{
+  e.preventDefault(); showErr('');
+  const btn=$('#submit'); btn.disabled=true;
+  const maxRaw=$('#max').value.trim();
+  const body={
+    title:$('#title').value.trim(),
+    hostNickname:$('#nick').value.trim(),
+    memo:$('#memo').value.trim(),
+    dates:vals('#dates input'),
+    times:vals('#times input'),
+    courses:[...coursesEl.children].map(row=>({ name:row.querySelector('.name').value.trim(), place:row.querySelector('.place').value.trim() })).filter(c=>c.name||c.place),
+    maxHeadcount:maxRaw===''?null:Number(maxRaw),
+    openJoin:$('#openJoin').checked,
+    expectedNames:$('#expected').value.split('\n'),
+  };
+  try{
+    const res=await crewApi('/v1/runs',{ method:'POST', body });
+    crewSaveHost(res.id, res.hostKey);
+    crewSaveMe(res.id, res.participantToken, body.hostNickname);
+    const share=crewShareUrl(res.id), host=crewHostUrl(res.id, res.hostKey), mine=crewRunUrl(res.id);
+    $('#form').hidden=true;
+    $('#made').hidden=false;
+    $('#made').innerHTML=`<div class="ed-section-head major"><span class="no">완료</span><h2 class="ed-h2">링크가 준비됐어요</h2></div>
+      <p>참가자에게는 이 링크만 보내면 돼요. 카카오톡에서 약속 이름이 보이도록 만든 주소예요.</p>
+      <div class="cr-linkbox"><label class="ed-label">보낼 링크</label><p class="cr-key" id="shareOut">${esc(share)}</p></div>
+      <div class="cr-actions"><button type="button" class="ed-btn sm" id="copyShare">링크 복사</button><a class="ed-btn ghost sm" href="${esc(mine)}">나도 가능한 날 고르기</a></div>
+      <p style="margin-top:22px">관리 링크는 이 기기에 저장해 뒀어요. 다른 폰에서 확정하려면 이 주소도 같이 보관해 주세요. 참가자 링크와는 달라요.</p>
+      <div class="cr-linkbox"><label class="ed-label">관리 링크</label><p class="cr-key" id="hostOut">${esc(host)}</p></div>
+      <div class="cr-actions"><button type="button" class="ed-btn ghost sm" id="copyHost">관리 링크 복사</button><a class="ed-btn sm" href="${esc(host)}">관리 화면 열기</a></div>`;
+    $('#copyShare').onclick=()=>crewCopy(share);
+    $('#copyHost').onclick=()=>crewCopy(host);
+    $('#made').scrollIntoView({ behavior:'smooth', block:'start' });
+  }catch(err){
+    showErr(err.message);
+    if(err.prep) $('#prep').innerHTML=crewPrepHtml();
+  }finally{ btn.disabled=false; }
+});
+crewApi('/health').then(()=>{ $('#prep').innerHTML=''; }).catch(()=>{ $('#prep').innerHTML=crewPrepHtml(); });
+</script>
+</body></html>

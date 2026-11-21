@@ -26,6 +26,9 @@ AD_FREE = frozenset({
     'install.html',
     'offline.html',
     '404.html',
+    'crew/index.html',  # 크루 러닝 약속. 도구형 화면이라 광고 없음
+    'crew/r.html',      # 참가자 화면. 가입 없이 닉네임만 받는다
+    'crew/h.html',      # 호스트 관리 화면
 })
 
 _ADS = re.compile(r'<!--ADSENSE:START-->.*?<!--ADSENSE:END-->', re.S)

@@ -121,6 +121,7 @@ def locality(r):
     """정식 시·군·구 이름(예: '창원시', '송파구') 또는 None."""
     reg = r.get('region') or ''
     if reg not in LOCAL or not LOCAL[reg]: return None
+    if r.get('locality') in LOCAL[reg]: return r['locality']   # data/official_overrides.json 에서 공식·시설 주소로 정한 값
     v = r.get('venue') or ''
     if _multi_site(v): return None if reg in METRO else _find_local(r.get('name'), reg, allow_base=False)   # 출발·도착이 다른 대회: 장소로 한 곳을 정하지 않는다
     # 광역시는 대회 이름의 구 이름이 주최(구청장배 등)일 때가 많아 이름으로는 정하지 않는다
@@ -247,6 +248,7 @@ def adapt(r):
     a['dist'] = [d['label'] for d in dists]
     a['eventStatus'] = r.get('event_status') or r.get('eventStatus')
     a['locality'] = locality(r)
+    a['address'] = r.get('address')
     start_d, end_d = pd(start), pd(end)
     past = end_d < TODAY
     a['d'] = ((end_d if past or ongoing else start_d) - TODAY).days
@@ -457,7 +459,8 @@ _ROAD = re.compile(r'[가-힣0-9]+(?:로|길)\s*\d+(?:[-–]\d+)?(?:번길\s*\d+
 
 
 def street_address(r):
-    """장소 괄호 안에 도로명·지번 주소가 적혀 있을 때만 그대로 쓴다."""
+    """확인된 주소(overrides 의 address)가 있으면 그것, 아니면 장소 괄호 안에 도로명·지번 주소가 적혀 있을 때만 그대로 쓴다."""
+    if r.get('address'): return r['address']
     m = re.search(r'[(（]([^()（）]+)[)）]', r.get('venue') or '')
     cand = m.group(1) if m else ''
     if not cand:
@@ -602,7 +605,8 @@ def build_page(r, related, rec, indexable, stale, adsense):
     else: reg_period = r['regNote'] or ''
     row = lambda k, v, cls='': f'<dt>{k}</dt><dd class="{cls}">{v or "<span class=\"muted\">확인 필요</span>"}</dd>'
     if r['distances']:
-        trs = ''.join('<tr><td>%s</td><td style="text-align:right">%s</td></tr>' % (esc(d['label']),
+        _nt = lambda d: (f' <span class="muted">· {esc(d["note"])}</span>' if d.get('note') and d['note'] not in d['label'] else '')
+        trs = ''.join('<tr><td>%s%s</td><td style="text-align:right">%s</td></tr>' % (esc(d['label']), _nt(d),
               '<span class="muted">확인 필요</span>' if d.get('fee') is None else ('무료' if d['fee'] == 0 else f"{d['fee']:,}원")) for d in r['distances'])
         dists = f'<table class="ed-table"><thead><tr><th scope="col">종목</th><th scope="col" style="text-align:right">참가비</th></tr></thead><tbody>{trs}</tbody></table>'
     else: dists = '<p class="ed-small">종목 정보가 아직 없어요. 공식 홈페이지에서 확인하세요.</p>'
@@ -703,6 +707,46 @@ layout('races');
     return head + body
 
 
+try:   # 수집기의 종목 정리(제한시간·연령·가족 같은 비거리 토큰 → 비고) — 수집기가 없는 환경이면 건너뛴다
+    sys.path.insert(0, '/workspace/running-site-collector')
+    from collector import norm as _norm
+except Exception:
+    _norm = None
+
+
+def _set_dists(t, dists):
+    t['distances'] = dists
+    fees = [d['fee'] for d in dists if d.get('fee') is not None]
+    t['fee_min'], t['fee_max'] = (min(fees), max(fees)) if fees else (None, None)
+    if _norm:
+        t['dist_tags'] = sorted({_norm.tag_of(d['km']) for d in dists if d.get('km') is not None} - {None}, key=['5K', '10K', '하프', '풀'].index)
+
+
+def fix_archive(archive, current):
+    """수집 목록에서 빠진(지난) 대회는 수집기가 다시 손대지 않으므로 여기서 종목 정리와 공식 확인 값을 반영한다."""
+    if _norm:
+        for rid, t in archive.items():
+            if rid in current: continue
+            d0 = t.get('distances') or []
+            d1 = _norm.clean_distances(d0)
+            if d1 != d0: _set_dists(t, d1)
+    op = os.path.join(ROOT, 'data', 'official_overrides.json')
+    if not os.path.exists(op): return
+    keys = ('name', 'date', 'end_date', 'start_time', 'region', 'venue', 'organizer', 'category', 'reg_open', 'reg_close',
+            'reg_state', 'reg_note', 'official_url', 'reg_url', 'locality', 'address')
+    for o in json.load(open(op, encoding='utf8')).get('overrides', []):
+        t = archive.get(o.get('id'))
+        if not t or o.get('id') in current: continue
+        st = o.get('set') or {}
+        for k in keys:
+            if k in st: t[k] = st[k]
+        if 'distances' in o: _set_dists(t, _norm.clean_distances(o['distances']) if _norm else o['distances'])
+        if o.get('badge', True):
+            t['verified'] = {'date': o['verified'], 'url': o['source_url'], 'fields': o.get('fields', [])}
+            t['sources'] = {}
+            t['conflicts'] = []
+
+
 def main():
     global PRIOR
     pp = os.path.join(ROOT, 'data', 'prior_year.json')
@@ -715,6 +759,7 @@ def main():
     for rec in src['races']:
         archive[rec['id']] = {**rec, '_last_seen': fetched}
         current.add(rec['id'])
+    fix_archive(archive, current)
     # 오래 지난 기록 정리
     for rid in list(archive):
         end = pd(archive[rid].get('end_date') or archive[rid]['date'])

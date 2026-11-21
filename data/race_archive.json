@@ -97,7 +97,7 @@
 }
 },
 "r0720104a": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -143,7 +143,7 @@
 "venue": "원주종합운동장"
 },
 "r0909d56f": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-07",
@@ -192,7 +192,7 @@
 }
 },
 "r0b1bdfde": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-01-10",
@@ -226,7 +226,7 @@
 }
 },
 "r0c3dacb3": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -312,7 +312,7 @@
 "venue": "사상구 삼락생태공원 일원"
 },
 "r0c5fc213": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -324,12 +324,14 @@
 {
 "fee": 40000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "개인부·가족부"
 },
 {
 "fee": 40000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "개인부·단체전"
 }
 ],
 "end_date": null,
@@ -394,7 +396,7 @@
 "venue": "남해공설운동장 (경남 남해군 남해읍 망운로9번길 42-17)"
 },
 "r0ec21263": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-13",
@@ -436,7 +438,7 @@
 }
 },
 "r143cac41": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -618,7 +620,7 @@
 "venue": "서울 월드컵공원 평화의 광장"
 },
 "r1f8ed5c5": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -664,7 +666,7 @@
 "venue": "월드컵공원 평화광장"
 },
 "r1f994495": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -698,7 +700,7 @@
 "venue": "하남 미사 경정공원"
 },
 "r20ab1961": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -828,7 +830,7 @@
 "venue": "청양군 청양목재문화자연사체험관 및 칠갑저수지 일원"
 },
 "r24bb6b9a": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": "트레일",
 "conflicts": [],
 "date": "2026-12-12",
@@ -890,7 +892,7 @@
 }
 },
 "r253ace2c": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-19",
@@ -1097,7 +1099,7 @@
 }
 },
 "r2c33e945": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-27",
@@ -1232,7 +1234,7 @@
 "venue": "임진각"
 },
 "r2cf726da": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -1481,7 +1483,7 @@
 "venue": "청주 무심천체육공원"
 },
 "r3675a963": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-08",
@@ -1690,7 +1692,7 @@
 "venue": "밀양시 일원"
 },
 "r3c4247fd": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-28",
@@ -1757,7 +1759,7 @@
 "venue": "수원종합운동장"
 },
 "r3ce10701": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -1797,7 +1799,7 @@
 "venue": "상암 월드컵공원(평화광장 집결)"
 },
 "r3ed175a5": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -1901,7 +1903,7 @@
 "venue": "상암 평화의공원 평화광장"
 },
 "r4085cd4e": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-20",
@@ -1956,7 +1958,7 @@
 }
 },
 "r41a6e620": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -1965,7 +1967,8 @@
 {
 "fee": null,
 "km": 16.0,
-"label": "16km"
+"label": "16km",
+"note": "후보목록 기준·공식 거리 미확인"
 }
 ],
 "end_date": null,
@@ -1988,7 +1991,7 @@
 "venue": "구덕운동장 → 남포동·부산역·서면 → 부산학생교육문화회관"
 },
 "r453a834e": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-05-15",
@@ -2068,7 +2071,7 @@
 "venue": "미정"
 },
 "r4607c04a": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-03-21",
@@ -2108,7 +2111,7 @@
 "venue": "풀코스 광화문 광장, 10km 잠실종합운동장"
 },
 "r47974721": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "address": "서울특별시 영등포구 영등포로2길 62 (문래동5가 31, 신정교 하부)",
 "category": null,
 "conflicts": [],
@@ -2122,17 +2125,20 @@
 {
 "fee": 40000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "일반"
 },
 {
 "fee": 45000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "일반"
 },
 {
 "fee": 50000,
 "km": 21.0975,
-"label": "Half"
+"label": "Half",
+"note": "일반"
 }
 ],
 "end_date": null,
@@ -2156,7 +2162,7 @@
 "venue": "영등포 영롱이 억새구장"
 },
 "r4854da76": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -2169,7 +2175,8 @@
 {
 "fee": 40000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "청소년 및 장애인은 30,000원 혜택 제공"
 },
 {
 "fee": 50000,
@@ -2209,7 +2216,7 @@
 }
 },
 "r4993d29a": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "address": "서울특별시 영등포구 영등포로2길 62 (문래동5가 31, 신정교 하부)",
 "category": null,
 "conflicts": [],
@@ -2316,7 +2323,7 @@
 }
 },
 "r4ab5eed3": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -2572,7 +2579,7 @@
 "venue": "갑천 러닝성지"
 },
 "r545adea2": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-03-07",
@@ -2835,7 +2842,7 @@
 "venue": "부여 구드래 나루터 선착장"
 },
 "r58ae6b29": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-20",
@@ -2885,7 +2892,7 @@
 }
 },
 "r590dd5f4": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-13",
@@ -2898,17 +2905,20 @@
 {
 "fee": 35000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "제한시간 1시간 · 기록칩 사용"
 },
 {
 "fee": 50000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "제한시간 2시간 · 기록칩 사용 · 만 15세 이상"
 },
 {
 "fee": 50000,
 "km": 21.0975,
-"label": "Half"
+"label": "Half",
+"note": "제한시간 3시간 · 기록칩 사용 · 만 15세 이상"
 }
 ],
 "end_date": null,
@@ -2936,7 +2946,7 @@
 }
 },
 "r5a4760e3": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "address": "대구광역시 중구 국채보상로 670 (국채보상운동기념공원)",
 "category": null,
 "conflicts": [],
@@ -2983,7 +2993,7 @@
 }
 },
 "r5d0604a7": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-01-01",
@@ -3071,7 +3081,7 @@
 "venue": "광려천 공원 일원 (창원시 마산회원구 내서읍 신감리)"
 },
 "r5ebf8d91": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -3111,7 +3121,7 @@
 "venue": "상암 월드컵공원 평화광장"
 },
 "r5ed038a0": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -3123,7 +3133,8 @@
 {
 "fee": 19000,
 "km": 3.65,
-"label": "3.65km"
+"label": "3.65km",
+"note": "걷기"
 },
 {
 "fee": 39000,
@@ -3204,7 +3215,7 @@
 }
 },
 "r5fbf8382": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-03-01",
@@ -3217,17 +3228,20 @@
 {
 "fee": 35000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "기록칩 없음 · 제한 1시간"
 },
 {
 "fee": 60000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "기록칩 사용 · 제한 2시간"
 },
 {
 "fee": 60000,
 "km": 21.0975,
-"label": "Half"
+"label": "Half",
+"note": "기록칩 사용 · 제한 3시간"
 }
 ],
 "end_date": null,
@@ -3250,7 +3264,7 @@
 "venue": "뚝섬한강공원 수변무대"
 },
 "r6297098d": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": "트레일",
 "conflicts": [],
 "date": "2026-11-07",
@@ -3282,7 +3296,7 @@
 }
 },
 "r63c942af": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -3327,7 +3341,7 @@
 }
 },
 "r6453aed9": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -3338,22 +3352,26 @@
 {
 "fee": 20000,
 "km": 0.1,
-"label": "0.1km"
+"label": "0.1km",
+"note": "100m · 1인 공통 참가비(개인 2종목 가능, 중복 합산 아님)"
 },
 {
 "fee": 20000,
 "km": 0.2,
-"label": "0.2km"
+"label": "0.2km",
+"note": "200m · 1인 공통 참가비(중복 합산 아님)"
 },
 {
 "fee": 20000,
 "km": 0.4,
-"label": "0.4km"
+"label": "0.4km",
+"note": "400m 혼성계주(남2·여2) · 1인 공통 참가비"
 },
 {
 "fee": 20000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "1인 공통 참가비 · 개인 2종목 선택 가능(중복 합산 아님)"
 }
 ],
 "end_date": null,
@@ -3376,7 +3394,7 @@
 "venue": "대구스타디움 (대구 수성구 유니버시아드로 180)"
 },
 "r65df87b7": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "address": "서울특별시 영등포구 영등포로2길 62 (문래동5가 31, 신정교 하부)",
 "category": null,
 "conflicts": [],
@@ -3435,7 +3453,7 @@
 }
 },
 "r65ed36cf": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-03-13",
@@ -3534,7 +3552,7 @@
 "venue": "창원종합운동장 보조경기장"
 },
 "r688ac3f6": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-26",
@@ -3587,7 +3605,7 @@
 }
 },
 "r690a98d2": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "address": "서울특별시 영등포구 영등포로2길 62 (문래동5가 31, 신정교 하부)",
 "category": null,
 "conflicts": [],
@@ -3811,7 +3829,7 @@
 "venue": "서울 뚝섬한강공원 수변무대"
 },
 "r72242e18": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -4049,7 +4067,7 @@
 "venue": "영월 강변저류지 수변공원 (신아아파트 앞)"
 },
 "r77f43033": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "address": "서울특별시 영등포구 영등포로2길 62 (문래동5가 31, 신정교 하부)",
 "category": null,
 "conflicts": [],
@@ -4090,7 +4108,7 @@
 "venue": "안양천 신정교 하부 육상트랙구장"
 },
 "r787d4a84": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -4102,12 +4120,14 @@
 {
 "fee": 40000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "기록칩 미제공 · 제한시간 1시간"
 },
 {
 "fee": 50000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "기록칩 제공 · 제한시간 1시간 30분"
 }
 ],
 "end_date": null,
@@ -4221,7 +4241,7 @@
 "venue": "장선마을회관 앞"
 },
 "r7e857862": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -4396,7 +4416,7 @@
 }
 },
 "r825b4645": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -4405,17 +4425,20 @@
 {
 "fee": 15000,
 "km": 0.1,
-"label": "0.1km"
+"label": "0.1km",
+"note": "드림(키즈-비경쟁부)"
 },
 {
 "fee": 50000,
 "km": 7.5,
-"label": "7.5km"
+"label": "7.5km",
+"note": "마스터(비경쟁부)"
 },
 {
 "fee": 70000,
 "km": 15.0,
-"label": "15km"
+"label": "15km",
+"note": "챌린저(경쟁부)"
 }
 ],
 "end_date": null,
@@ -4428,7 +4451,7 @@
 "reg_close": "2026-11-20",
 "reg_note": "2026.10.24 ~ 2026.11.20",
 "reg_open": "2026-10-24",
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "강원",
 "sources": {
@@ -4645,7 +4668,7 @@
 }
 },
 "r89549e80": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -4722,7 +4745,7 @@
 "venue": "일산호수공원(노래하는 분수대)"
 },
 "r8a2c518d": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -4756,7 +4779,7 @@
 "venue": "오크밸리"
 },
 "r8a4e9167": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-01-24",
@@ -4800,7 +4823,7 @@
 }
 },
 "r8a9e5d42": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "address": "서울특별시 광진구 중곡동 485-7",
 "category": null,
 "conflicts": [],
@@ -4812,7 +4835,8 @@
 {
 "fee": 45000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "일반부·시각장애러너부 · 제한시간 1시간 30분"
 }
 ],
 "end_date": null,
@@ -4841,7 +4865,7 @@
 }
 },
 "r8b667a11": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -4885,7 +4909,7 @@
 "reg_close": "2026-11-20",
 "reg_note": "2026.10.01 ~ 2026.11.20",
 "reg_open": "2026-10-01",
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "전북",
 "sources": {
@@ -4941,7 +4965,7 @@
 }
 },
 "r8badf7fe": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-01-10",
@@ -5122,7 +5146,7 @@
 "venue": "전국 / 원하는 장소 어디서나"
 },
 "r91dac5ae": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -5307,7 +5331,7 @@
 "venue": "경기 성남시 물빛정원 오리공원 탄천변"
 },
 "r982547a2": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -5438,7 +5462,7 @@
 "venue": "고양종합운동장"
 },
 "r998d950c": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -5451,17 +5475,20 @@
 {
 "fee": 20000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "일반"
 },
 {
 "fee": 40000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "일반"
 },
 {
 "fee": 40000,
 "km": 21.0975,
-"label": "Half"
+"label": "Half",
+"note": "일반"
 }
 ],
 "end_date": null,
@@ -5524,7 +5551,7 @@
 "venue": "뚝섬한강공원 수변무대"
 },
 "r9a0726d7": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "address": "서울특별시 영등포구 영등포로2길 62 (문래동5가 31, 신정교 하부)",
 "category": null,
 "conflicts": [],
@@ -5622,7 +5649,7 @@
 "venue": "서울 올림픽공원 피크닉장 (송파구 올림픽로 424)"
 },
 "r9be770e4": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-03-28",
@@ -5677,7 +5704,7 @@
 "venue": "영광스포티움"
 },
 "ra0dc2ae0": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-20",
@@ -5729,7 +5756,7 @@
 "venue": "밀양종합운동장"
 },
 "ra3e02684": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -5781,7 +5808,7 @@
 }
 },
 "ra4a2d83c": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-13",
@@ -5843,7 +5870,7 @@
 }
 },
 "ra689d1ed": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -5855,12 +5882,14 @@
 {
 "fee": 50000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "일반"
 },
 {
 "fee": 60000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "일반"
 }
 ],
 "end_date": null,
@@ -5883,7 +5912,7 @@
 "venue": "하남 미사경정공원 일원"
 },
 "ra6ab5e7a": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-01-22",
@@ -5926,7 +5955,7 @@
 }
 },
 "ra71a5bce": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-29",
@@ -5979,7 +6008,7 @@
 }
 },
 "ra7bba518": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -6095,7 +6124,7 @@
 "venue": "올림픽공원 88잔디마당"
 },
 "rb06fdfbb": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-13",
@@ -6261,7 +6290,7 @@
 }
 },
 "rb5a1faf4": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-13",
@@ -6338,7 +6367,7 @@
 }
 },
 "rb7d9439c": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-21",
@@ -6412,7 +6441,7 @@
 "venue": "청주 무심천 롤러스케이트장"
 },
 "rb849c7c2": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-04-18",
@@ -6424,17 +6453,20 @@
 {
 "fee": 50000,
 "km": 3.0,
-"label": "3km"
+"label": "3km",
+"note": "슬로조깅 · 만 7세 이상 · 제한시간 1시간 · 08:30 출발"
 },
 {
 "fee": 60000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "제한시간 1시간 40분 · 07:50부터 그룹별 출발"
 },
 {
 "fee": 60000,
 "km": 21.0975,
-"label": "Half"
+"label": "Half",
+"note": "제한시간 2시간 20분 · 07:30부터 그룹별 출발"
 }
 ],
 "end_date": null,
@@ -6457,7 +6489,7 @@
 "venue": "부산 오시리아 일원"
 },
 "rb9292232": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-13",
@@ -6531,7 +6563,7 @@
 "venue": "구미 낙동강체육공원 일대"
 },
 "rbb561813": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-12",
@@ -6687,7 +6719,7 @@
 "venue": "상주시민운동장"
 },
 "rbd420a1f": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -6809,7 +6841,7 @@
 "venue": "당진 석문방조제"
 },
 "rbf17d376": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -6818,17 +6850,20 @@
 {
 "fee": 15000,
 "km": 0.45,
-"label": "0.45km"
+"label": "0.45km",
+"note": "패밀리런 450m · 500명 · 만 4세 이상 · 1인당 요금 · 비기록·메달 미제공"
 },
 {
 "fee": 40000,
 "km": 3.5,
-"label": "3.5km"
+"label": "3.5km",
+"note": "3.5km 기록레이스 · 500명 · 기록칩·완주메달 제공"
 },
 {
 "fee": 70000,
 "km": 7.0,
-"label": "7km"
+"label": "7km",
+"note": "7km 기록레이스 · 1,000명 · 기록칩·완주메달 제공"
 }
 ],
 "end_date": null,
@@ -6851,7 +6886,7 @@
 "venue": "렛츠런파크 (과천시 경마공원대로 107)"
 },
 "rbff21584": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-20",
@@ -6947,7 +6982,7 @@
 "venue": "담양추성경기장, 전남 담양군 담양읍 관방제림길 69"
 },
 "rc148a3d1": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -6964,7 +6999,8 @@
 {
 "fee": 80000,
 "km": 42.195,
-"label": "Full"
+"label": "Full",
+"note": "타 대회 공식 기록증 기준 4시간 30분 이내 완주 기록이 필요"
 }
 ],
 "end_date": null,
@@ -7074,7 +7110,7 @@
 "venue": "진해공설운동장 및 해군 영내 일원"
 },
 "rc5d1af20": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-03-07",
@@ -7135,7 +7171,7 @@
 }
 },
 "rc68fd737": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -7153,7 +7189,8 @@
 {
 "fee": 40000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "기념 티셔츠 · 제한시간 2시간"
 }
 ],
 "end_date": null,
@@ -7176,7 +7213,7 @@
 "venue": "영산강 자전거길 (전남광주통합특별시 서구 서창둑길 377, 극락교~서창교)"
 },
 "rc6f005c8": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-22",
@@ -7282,7 +7319,7 @@
 "venue": "태화강 둔치"
 },
 "rcf581c7d": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-28",
@@ -7373,7 +7410,7 @@
 "venue": "여의도 공원"
 },
 "rd5fa86ee": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-06",
@@ -7413,7 +7450,7 @@
 "venue": "경인아라뱃길 여객터미널 아라타워 일원"
 },
 "rd6665e53": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-02-14",
@@ -7473,7 +7510,7 @@
 }
 },
 "rd6ca0623": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -7571,7 +7608,7 @@
 }
 },
 "rd7d8776f": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-03-28",
@@ -7634,7 +7671,7 @@
 }
 },
 "rd9643408": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-01-03",
@@ -7755,7 +7792,7 @@
 "venue": "여의도공원 문화의마당"
 },
 "rde35f1e6": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-11-28",
@@ -7853,7 +7890,7 @@
 "venue": "고창공설운동장"
 },
 "rdf87fbc9": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -8074,7 +8111,7 @@
 "venue": "안산호수공원 중앙무대 일대"
 },
 "re995dc74": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-03-28",
@@ -8108,7 +8145,7 @@
 }
 },
 "reeb82e1b": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-04-11",
@@ -8514,7 +8551,7 @@
 }
 },
 "rf63dd5d8": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2026-12-05",
@@ -8560,7 +8597,7 @@
 "venue": "여의도 한강공원 너른들판"
 },
 "rf85a3d62": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-03-07",
@@ -8655,7 +8692,7 @@
 "venue": "금산 인삼골 오토캠핑장"
 },
 "rfd1c33f3": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": "트레일",
 "conflicts": [],
 "date": "2026-12-05",
@@ -8671,7 +8708,8 @@
 {
 "fee": 60000,
 "km": 23.0,
-"label": "23km"
+"label": "23km",
+"note": "ITRA 1점 · UTMB INDEX 20K"
 }
 ],
 "end_date": null,
@@ -8684,7 +8722,7 @@
 "reg_close": "2026-11-20",
 "reg_note": "2026.10.01 ~ 2026.11.20",
 "reg_open": "2026-10-01",
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "전북",
 "sources": {
@@ -8728,7 +8766,7 @@
 "venue": "파주 출판도시 일대 (지혜의숲 ~ 샛강 산책로)"
 },
 "rfecc9904": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": "버추얼",
 "conflicts": [],
 "date": "2026-11-11",
@@ -8808,7 +8846,7 @@
 "venue": "경주 보문 보덕동 행정복지센터 옆 헬기장"
 },
 "rfffaa9a5": {
-"_last_seen": "2026-11-21",
+"_last_seen": "2026-11-22",
 "category": null,
 "conflicts": [],
 "date": "2027-01-10",
@@ -8821,17 +8859,20 @@
 {
 "fee": 35000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "제한시간 1시간 · 기록칩 사용 · 월드런 기능성 긴팔 티"
 },
 {
 "fee": 50000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "제한시간 2시간 · 기록칩 사용 · 월드런 경량 패딩"
 },
 {
 "fee": 50000,
 "km": 21.0975,
-"label": "Half"
+"label": "Half",
+"note": "제한시간 3시간 · 기록칩 사용 · 월드런 경량 패딩"
 }
 ],
 "end_date": null,

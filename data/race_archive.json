@@ -840,33 +840,37 @@
 {
 "fee": null,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "러닝 · 12/12(토) 10:00 출발"
 },
 {
 "fee": null,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "러닝 · 12/12(토)·12/13(일) 양일 10:00 출발"
 },
 {
 "fee": null,
 "km": 15.0,
-"label": "15km"
+"label": "15km",
+"note": "트레일런 · 12/12(토) 10:00 출발"
 },
 {
 "fee": null,
 "km": 28.0,
-"label": "28km"
+"label": "28km",
+"note": "트레일런 · 12/13(일) 08:00 출발"
 }
 ],
-"end_date": null,
+"end_date": "2026-12-13",
 "fee_max": null,
 "fee_min": null,
 "id": "r24bb6b9a",
 "name": "2026 연합뉴스 하남 국제 트레일런 페스티벌",
 "official_url": "https://yhitf.co.kr",
 "organizer": null,
-"reg_close": "2026-11-23",
-"reg_note": "2026.10.08 10:00 ~ 선착순 마감",
+"reg_close": null,
+"reg_note": "2026.10.08 10:00 ~ 코스별 선착순 마감(정해진 마감일 없음) · 12/12(토) 15km 트레일·10km·5km, 12/13(일) 28km 트레일·10km",
 "reg_open": "2026-10-08",
 "reg_state": "open",
 "reg_url": null,
@@ -875,11 +879,14 @@
 "start_time": null,
 "venue": "미사경정공원 및 하남시 일대",
 "verified": {
-"date": "2026-10-31",
+"date": "2026-11-21",
 "fields": [
-"접수 기간"
+"대회일(종목별)",
+"출발 시각",
+"접수 기간",
+"종목"
 ],
-"url": "https://yhitf.co.kr"
+"url": "https://yhitf.co.kr/"
 }
 },
 "r253ace2c": {
@@ -1820,11 +1827,11 @@
 "fee_max": 50000,
 "fee_min": 45000,
 "id": "r3ed175a5",
-"name": "2026 새한미디어 마라톤",
+"name": "2026 새한미디어 마라톤 (개최 취소)",
 "official_url": "https://sh-run.co.kr",
 "organizer": "새한일보",
 "reg_close": null,
-"reg_note": null,
+"reg_note": "공식 홈페이지 공지(대회 취소 안내): 동일 코스 대회 집중 개최로 코스 만족도 저하·일부 위험 요소가 확인되어 대회 취소 · 환불은 홈페이지 참가신청 메뉴의 환불 신청 페이지에서 신청",
 "reg_open": null,
 "reg_state": "closed",
 "reg_url": null,
@@ -1833,8 +1840,9 @@
 "start_time": null,
 "venue": "평화의공원 평화광장 (서울 마포구 월드컵로)",
 "verified": {
-"date": "2026-10-31",
+"date": "2026-11-21",
 "fields": [
+"개최 취소",
 "대회일",
 "장소",
 "종목·참가비",
@@ -6136,8 +6144,8 @@
 "name": "2026 시즌마감마라톤대회",
 "official_url": "https://42195race.com/apply/apply.php",
 "organizer": "기호일보",
-"reg_close": "2026-11-23",
-"reg_note": "2026.10.22 ~ 2026.11.23",
+"reg_close": "2026-11-27",
+"reg_note": "2026.10.22 ~ 2026.11.27(금) · 공식 공지로 11.23에서 연장 · 조기 마감될 수 있음",
 "reg_open": "2026-10-22",
 "reg_state": "open",
 "reg_url": null,
@@ -6150,9 +6158,11 @@
 "fields": [
 "출발 시각",
 "장소",
-"종목·참가비"
+"종목·참가비",
+"접수 기간",
+"접수 마감"
 ],
-"url": "https://42195race.com/new_sub01/page01.php"
+"url": "https://42195race.com/"
 }
 },
 "rb0eaf58e": {
@@ -6264,22 +6274,43 @@
 {
 "fee": 60000,
 "km": 5.0,
-"label": "5km"
+"label": "5km",
+"note": "일반 · 바람막이 기념품 포함 · 08:45 출발"
 },
 {
 "fee": 60000,
 "km": 10.0,
-"label": "10km"
+"label": "10km",
+"note": "일반 · 바람막이 기념품 포함 · 08:30 출발"
 },
 {
 "fee": 60000,
 "km": 21.0975,
-"label": "하프"
+"label": "하프",
+"note": "일반 · 바람막이 기념품 포함 · 08:00 출발"
+},
+{
+"fee": 45000,
+"km": 5.0,
+"label": "5km 매니아",
+"note": "바람막이 기념품 제외 · 08:45 출발"
+},
+{
+"fee": 45000,
+"km": 10.0,
+"label": "10km 매니아",
+"note": "바람막이 기념품 제외 · 08:30 출발"
+},
+{
+"fee": 45000,
+"km": 21.0975,
+"label": "하프 매니아",
+"note": "바람막이 기념품 제외 · 08:00 출발"
 }
 ],
 "end_date": null,
 "fee_max": 60000,
-"fee_min": 60000,
+"fee_min": 45000,
 "id": "rb5a1faf4",
 "name": "제5회 밤섬 마라톤",
 "official_url": "http://bamseom.com",
@@ -6294,16 +6325,16 @@
 "start_time": "08:00",
 "venue": "상암월드컵공원 평화광장",
 "verified": {
-"date": "2026-10-31",
+"date": "2026-11-21",
 "fields": [
 "대회일",
 "출발 시각",
 "장소",
 "접수 마감",
-"종목·참가비(일반)",
+"종목·참가비",
 "주최"
 ],
-"url": "https://bamseom.com"
+"url": "https://bamseom.com/"
 }
 },
 "rb7d9439c": {

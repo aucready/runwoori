@@ -2,12 +2,11 @@ name = "runwoori-crew-api"
 main = "src/index.js"
 compatibility_date = "2025-11-01"
 
-# 배포 전에 `wrangler d1 create runwoori-crew` 로 받은 id 로 바꾸세요.
-# 이 자리표시자로는 원격 배포가 되지 않고, 로컬 wrangler dev 만 동작합니다.
+# D1 runwoori-crew (2026-11-21 생성, 0001_init 적용됨)
 [[d1_databases]]
 binding = "DB"
 database_name = "runwoori-crew"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "5e9a1c6c-e570-4076-8ef1-83b4ad5d819a"
 migrations_dir = "migrations"
 
 [vars]

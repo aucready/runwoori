@@ -1,0 +1,847 @@
+{
+  "generated_on": "2026-11-22",
+  "timezone": "Asia/Seoul",
+  "principle": "공식 브랜드 상품·제품 소식 페이지에서 직접 확인한 값만 넣었습니다. 없는 값은 null이며 페이지에는 '공식 미공개'로 표시합니다. 서드파티 실측·후기는 쓰지 않았습니다.",
+  "unverified": [
+    {
+      "name": "호카 클리프톤 11·본디·아라히·마하·스피드고트·시엘로",
+      "why": "hoka.co.kr는 응답/타임아웃. 호카 일본 공식 보도자료(클리프톤 11)는 페이지 요청이 시간 초과되어 숫자로 쓰지 않았습니다."
+    },
+    {
+      "name": "뉴발란스 Fresh Foam X 1080 최신",
+      "why": "nbkorea.com 일부 상품 URL이 '판매 준비중 또는 오픈예정'으로 응답해 스펙을 확인하지 못했습니다."
+    },
+    {
+      "name": "온 Cloudsurfer·Cloudrunner",
+      "why": "on.com/ko-kr 목록 페이지 본문을 받지 못했습니다."
+    },
+    {
+      "name": "미즈노 웨이브 라이더",
+      "why": "이번 수집에서 공식 상품 페이지를 열지 못했습니다."
+    },
+    {
+      "name": "프로스펙스 로드",
+      "why": "이번 수집에서 공식 최신 로드 모델 페이지를 열지 못했습니다."
+    },
+    {
+      "name": "아식스 트라부코 최신",
+      "why": "asics.com 공식 상세 URL을 찾지 못했습니다."
+    },
+    {
+      "name": "써코니 엔돌핀 프로 최신, 아디다스 보스턴·SL, 호카 카본 레이서",
+      "why": "공식 스펙 페이지를 이 미리보기에서 확인하지 못했습니다."
+    }
+  ],
+  "shoes": [
+    {
+      "id": "nike-pegasus-42",
+      "slug": "nike-pegasus-42",
+      "brand": "Nike",
+      "brand_kr": "나이키",
+      "name": "Pegasus 42",
+      "name_kr": "페가수스 42",
+      "gender": "mens",
+      "category": [
+        "daily",
+        "beginner"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 300,
+      "weight_size": "280mm",
+      "weight_g_womens": 243,
+      "weight_size_womens": "250mm",
+      "drop_mm": 10,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "리액트X 폼, 전체 적용 에어 줌 유닛(공식 표기)",
+      "msrp_krw": 169000,
+      "currency": "KRW",
+      "sku": "IB1873-003",
+      "sku_womens": "IB1881-102",
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-42-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-XuHjeH83",
+      "official_url_womens": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%ED%8E%98%EA%B0%80%EC%88%98%EC%8A%A4-42-%EC%97%AC%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-wsTF7yIV",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "스택 높이는 공식 상품 페이지에 없음.",
+        "여성 일부 색상은 확인일 기준 할인가가 있었으나, 페이지에는 공식 정가 169,000원만 적습니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "나이키 페가수스 42",
+        "source": null
+      }
+    },
+    {
+      "id": "nike-vomero-18",
+      "slug": "nike-vomero-18",
+      "brand": "Nike",
+      "brand_kr": "나이키",
+      "name": "Vomero 18",
+      "name_kr": "보메로 18",
+      "gender": "mens",
+      "category": [
+        "daily",
+        "max_cushion",
+        "beginner"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 325,
+      "weight_size": "280mm",
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 10,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "줌X 폼 + 리액트X 폼(이중 밀도, 공식 표기)",
+      "msrp_krw": 189000,
+      "currency": "KRW",
+      "sku": "HM6803-005",
+      "sku_womens": null,
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B3%B4%EB%A9%94%EB%A1%9C-18-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-sUlilE2b",
+      "official_url_womens": null,
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "스택 높이·여성 무게는 이번에 연 공식 페이지에 없음.",
+        "확인일 기준 해당 색상에 할인가가 있었으나, 페이지에는 공식 정가 189,000원만 적습니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "나이키 보메로 18",
+        "source": null
+      }
+    },
+    {
+      "id": "nike-structure-plus",
+      "slug": "nike-structure-plus",
+      "brand": "Nike",
+      "brand_kr": "나이키",
+      "name": "Structure Plus",
+      "name_kr": "스트럭처 플러스",
+      "gender": "mens",
+      "category": [
+        "stability"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 309,
+      "weight_size": "280mm",
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 10,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "줌X 폼 + 리액트X 폼, 중족부 서포트 시스템(공식 표기)",
+      "msrp_krw": 209000,
+      "currency": "KRW",
+      "sku": "II7192-100",
+      "sku_womens": null,
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%8A%A4%ED%8A%B8%EB%9F%AD%EC%B2%98-%ED%94%8C%EB%9F%AC%EC%8A%A4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%9F%AC%EB%8B%9D%ED%99%94-KF49S2wy",
+      "official_url_womens": null,
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "스택 높이·여성 무게는 이번에 연 공식 페이지에 없음.",
+        "공식 상품 페이지는 안정·지지 목적의 로드 러닝화로 안내합니다. 의료 진단이나 교정 효과는 적지 않습니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "나이키 스트럭처 플러스",
+        "source": null
+      }
+    },
+    {
+      "id": "nike-vaporfly-4",
+      "slug": "nike-vaporfly-4",
+      "brand": "Nike",
+      "brand_kr": "나이키",
+      "name": "Vaporfly 4",
+      "name_kr": "베이퍼플라이 4",
+      "gender": "mens",
+      "category": [
+        "carbon"
+      ],
+      "surface": "road",
+      "plate": "carbon",
+      "weight_g": 190,
+      "weight_size": "280mm",
+      "weight_g_womens": 152,
+      "weight_size_womens": "250mm",
+      "drop_mm": 6,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "줌X 폼, 탄소 섬유 플라이플레이트(공식 표기)",
+      "msrp_krw": 319000,
+      "msrp_krw_womens": 309000,
+      "currency": "KRW",
+      "sku": "IM8203-001",
+      "sku_womens": "HF6412-300",
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-LgISdyo8",
+      "official_url_womens": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EB%B2%A0%EC%9D%B4%ED%8D%BC%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EC%97%AC%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-0oXAqkyJ",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "스택 높이는 공식 상품 페이지에 없음.",
+        "남성 공식 정가 319,000원, 여성 공식 정가 309,000원. 확인일 기준 일부 색상에 할인가가 있었으나 정가만 적습니다.",
+        "여성 공식 페이지는 정사이즈보다 작게 나왔다고 안내합니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "나이키 베이퍼플라이 4",
+        "source": null
+      }
+    },
+    {
+      "id": "nike-alphafly-4",
+      "slug": "nike-alphafly-4",
+      "brand": "Nike",
+      "brand_kr": "나이키",
+      "name": "Alphafly 4",
+      "name_kr": "알파플라이 4",
+      "gender": "mens",
+      "category": [
+        "carbon"
+      ],
+      "surface": "road",
+      "plate": "carbon",
+      "weight_g": 188,
+      "weight_size": "265mm",
+      "weight_g_womens": 188,
+      "weight_size_womens": "265mm",
+      "drop_mm": 8,
+      "stack_heel_mm": 39,
+      "stack_forefoot_mm": 31,
+      "midsole": "줌X LT 폼, 줌X 폼, 에어 줌 유닛, 카본 파이버 플라이플레이트(공식 표기)",
+      "msrp_krw": 349000,
+      "currency": "KRW",
+      "sku": "IU4686-002",
+      "sku_womens": "IM5547-600",
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EB%82%A8%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-MjzZW7jo",
+      "official_url_womens": "https://www.nike.com/kr/t/%EB%82%98%EC%9D%B4%ED%82%A4-%EC%95%8C%ED%8C%8C%ED%94%8C%EB%9D%BC%EC%9D%B4-4-%EC%97%AC%EC%84%B1-%EB%A1%9C%EB%93%9C-%EB%A0%88%EC%9D%B4%EC%8B%B1%ED%99%94-k8OU59AI",
+      "official_url_editorial": "https://www.nike.com/kr/a/nike-alphafly-4-release-info",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "무게·오프셋은 공식 상품 페이지 기준 188g·8mm(265mm). 공식 제품 소식(2026-10-29)은 같은 188g을 270mm 기준으로도 적고, 168g(250mm)·208g(285mm)을 함께 적습니다.",
+        "스택 높이(뒤꿈치 39mm·앞꿈치 31mm)는 상품 상세가 아니라 공식 제품 소식 페이지에 있습니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "나이키 알파플라이 4",
+        "source": null
+      }
+    },
+    {
+      "id": "asics-novablast-6",
+      "slug": "asics-novablast-6",
+      "brand": "ASICS",
+      "brand_kr": "아식스",
+      "name": "NOVABLAST 6",
+      "name_kr": "노바블라스트 6",
+      "gender": "mens",
+      "category": [
+        "daily",
+        "beginner"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 253,
+      "weight_size": null,
+      "weight_g_womens": 215,
+      "weight_size_womens": null,
+      "drop_mm": 8,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "FF BLAST MAX, 앞꿈치 FF TURBO SQUARED(공식 표기)",
+      "msrp_krw": null,
+      "currency": null,
+      "sku": "1011C243",
+      "sku_womens": "1012C008",
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.asics.com/us/en-us/novablast-6/p/ANA_1011C243-100.html",
+      "official_url_womens": "https://www.asics.com/us/en-us/novablast-6/p/ANA_1012C008-100.html",
+      "official_url_kr": "https://www.asics.co.kr/p/AKR_112630210-001",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "무게·드롭은 아식스 미국 공식 상품 페이지. 기준 사이즈는 공식 표기 없음.",
+        "한국 공식 스토어 상품 페이지는 NetFunnel로 본문 수집이 되지 않아, 한국 정가는 공식 미공개로 둡니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "아식스 노바블라스트 6",
+        "source": null
+      }
+    },
+    {
+      "id": "asics-gel-kayano-33",
+      "slug": "asics-gel-kayano-33",
+      "brand": "ASICS",
+      "brand_kr": "아식스",
+      "name": "GEL-KAYANO 33",
+      "name_kr": "젤 카야노 33",
+      "gender": "mens",
+      "category": [
+        "stability"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 298,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 8,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "FF BLAST PLUS, FF BLAST MAX, FLUIDSUPPORT(공식 표기)",
+      "msrp_krw": null,
+      "currency": null,
+      "sku": "1011C167",
+      "sku_womens": null,
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.asics.com/us/en-us/gel-kayano-33/p/ANA_1011C167-001.html",
+      "official_url_womens": null,
+      "official_url_kr": "https://www.asics.co.kr/p/AKR_112630101-101",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "무게·드롭은 아식스 미국 공식 상품 페이지(Support: Stability). 기준 사이즈·여성 무게·스택·한국 정가는 공식 미공개.",
+        "안정화 분류는 공식 카테고리이며, 평발·통증 교정 효과는 적지 않습니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "아식스 젤 카야노 33",
+        "source": null
+      }
+    },
+    {
+      "id": "asics-gt-2000-15",
+      "slug": "asics-gt-2000-15",
+      "brand": "ASICS",
+      "brand_kr": "아식스",
+      "name": "GT-2000 15",
+      "name_kr": "GT-2000 15",
+      "gender": "mens",
+      "category": [
+        "stability",
+        "beginner"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 252,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 8,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "FF BLAST MAX, 3D GUIDANCE SYSTEM(공식 표기)",
+      "msrp_krw": null,
+      "currency": null,
+      "sku": "1011C235",
+      "sku_womens": null,
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.asics.com/us/en-us/gt-2000-15/p/ANA_1011C235-003.html",
+      "official_url_womens": null,
+      "official_url_kr": "https://asics.co.kr/p/22571",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "무게·드롭은 아식스 미국 공식 상품 페이지. 기준 사이즈·여성 무게·스택·한국 정가는 공식 미공개."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "아식스 GT-2000 15",
+        "source": null
+      }
+    },
+    {
+      "id": "asics-gel-nimbus-28",
+      "slug": "asics-gel-nimbus-28",
+      "brand": "ASICS",
+      "brand_kr": "아식스",
+      "name": "GEL-NIMBUS 28",
+      "name_kr": "젤 님버스 28",
+      "gender": "mens",
+      "category": [
+        "max_cushion",
+        "daily"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 281,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 8,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "FF BLAST PLUS, PureGEL(공식 표기)",
+      "msrp_krw": null,
+      "currency": null,
+      "sku": "1011C127",
+      "sku_womens": null,
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.asics.com/us/en-us/gel-nimbus-28/p/ANA_1011C127-001.html",
+      "official_url_womens": null,
+      "official_url_kr": "https://www.asics.co.kr/p/AKR_112610202-101",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "무게·드롭은 아식스 미국 공식 상품 페이지(Cushion: Maximum). 기준 사이즈·여성 무게·스택·한국 정가는 공식 미공개."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "아식스 젤 님버스 28",
+        "source": null
+      }
+    },
+    {
+      "id": "asics-magic-speed-5",
+      "slug": "asics-magic-speed-5",
+      "brand": "ASICS",
+      "brand_kr": "아식스",
+      "name": "MAGIC SPEED 5",
+      "name_kr": "매직 스피드 5",
+      "gender": "unisex",
+      "category": [
+        "tempo",
+        "carbon"
+      ],
+      "surface": "road",
+      "plate": "carbon",
+      "weight_g": null,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 7,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "FF LEAP, FF BLAST PLUS, 카본 플레이트(공식 표기)",
+      "msrp_krw": null,
+      "currency": null,
+      "sku": "1013A183",
+      "sku_womens": null,
+      "wide_available": true,
+      "status": "current",
+      "official_url": "https://www.asics.com/us/en-us/magic-speed-5/p/ANA_1013A183-001.html",
+      "official_url_womens": null,
+      "official_url_kr": "https://www.asics.co.kr/p/AKR_112611104-400",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "공식 페이지는 드롭 7mm, 카본 플레이트, 이전 모델보다 무게 약 50g 감소·힐 스택 6mm·포어풋 5mm 감소를 적지만, 절대 무게와 스택 높이 숫자는 없습니다.",
+        "한국 정가는 공식 미공개. 한국 공식몰에는 2E 폭 모델도 있습니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "아식스 매직 스피드 5",
+        "source": null
+      }
+    },
+    {
+      "id": "asics-metaspeed-sky-tokyo",
+      "slug": "asics-metaspeed-sky-tokyo",
+      "brand": "ASICS",
+      "brand_kr": "아식스",
+      "name": "METASPEED SKY TOKYO",
+      "name_kr": "메타스피드 스카이 도쿄",
+      "gender": "unisex",
+      "category": [
+        "carbon"
+      ],
+      "surface": "road",
+      "plate": "carbon",
+      "weight_g": null,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 5,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "FF LEAP(하단), FF TURBO PLUS(상단). 공식 페이지는 엣지 도쿄보다 플레이트 위치가 높고 토 박스 미드솔이 더 두껍다고 안내합니다.",
+      "msrp_krw": null,
+      "currency": null,
+      "sku": "1013A162",
+      "sku_womens": null,
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.asics.com/us/en-us/metaspeed-sky-tokyo/p/ANA_1013A162-400.html",
+      "official_url_womens": null,
+      "official_url_kr": "https://www.asics.co.kr/p/AKR_112611102-101",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "드롭 5mm는 아식스 미국 공식 상품 페이지. 무게·스택·한국 정가는 공식 미공개.",
+        "공식 설명은 스트라이드형 러너를 위한 레이싱화입니다. 착화감은 적지 않습니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "아식스 메타스피드 스카이 도쿄",
+        "source": null
+      }
+    },
+    {
+      "id": "asics-metaspeed-edge-tokyo",
+      "slug": "asics-metaspeed-edge-tokyo",
+      "brand": "ASICS",
+      "brand_kr": "아식스",
+      "name": "METASPEED EDGE TOKYO",
+      "name_kr": "메타스피드 엣지 도쿄",
+      "gender": "unisex",
+      "category": [
+        "carbon"
+      ],
+      "surface": "road",
+      "plate": "carbon",
+      "weight_g": null,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 5,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "FF LEAP(상단), FF TURBO PLUS(하단), 카본 플레이트(공식 표기)",
+      "msrp_krw": null,
+      "currency": null,
+      "sku": "1013A163",
+      "sku_womens": null,
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.asics.com/us/en-us/metaspeed-edge-tokyo/p/ANA_1013A163-400.html",
+      "official_url_womens": null,
+      "official_url_kr": null,
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "드롭 5mm와 카본 플레이트는 아식스 미국 공식 상품 페이지. 무게·스택·한국 정가는 공식 미공개.",
+        "공식 설명은 케이던스형 러너를 위한 레이싱화입니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "아식스 메타스피드 엣지 도쿄",
+        "source": null
+      }
+    },
+    {
+      "id": "asics-superblast-3",
+      "slug": "asics-superblast-3",
+      "brand": "ASICS",
+      "brand_kr": "아식스",
+      "name": "SUPERBLAST 3",
+      "name_kr": "슈퍼블라스트 3",
+      "gender": "unisex",
+      "category": [
+        "max_cushion",
+        "tempo",
+        "daily"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 239,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 8,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "FF LEAP(공식 표기). 이번에 연 공식 페이지에 카본 플레이트 표기는 없습니다.",
+      "msrp_krw": null,
+      "currency": null,
+      "sku": "1013A177",
+      "sku_womens": null,
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.asics.com/us/en-us/superblast-3/p/ANA_1013A177-001.html",
+      "official_url_womens": null,
+      "official_url_kr": null,
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "무게 239g·드롭 8mm는 아식스 미국 공식 상품 페이지. 기준 사이즈·스택·한국 정가는 공식 미공개.",
+        "카본이 공식 표기되지 않아 레이스용 카본이 아니라 맥스 쿠션·템포로 분류했습니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "아식스 슈퍼블라스트 3",
+        "source": null
+      }
+    },
+    {
+      "id": "brooks-ghost-18",
+      "slug": "brooks-ghost-18",
+      "brand": "Brooks",
+      "brand_kr": "브룩스",
+      "name": "Ghost 18",
+      "name_kr": "고스트 18",
+      "gender": "mens",
+      "category": [
+        "daily",
+        "beginner"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 289.2,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 10,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "공식 페이지는 soft, dynamic cushioning으로 안내. 폼 제품명은 이번에 연 상품 페이지 본문에 없음.",
+      "msrp_krw": null,
+      "msrp_usd": 150,
+      "currency": "USD",
+      "sku": "110493",
+      "sku_womens": "120482",
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-18/110493.html",
+      "official_url_womens": "https://www.brooksrunning.com/en_us/womens/shoes/road-running-shoes/ghost-18/120482.html",
+      "official_url_kr": "https://brooksrunning.co.kr/",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "무게 10.2oz / 289.2g, 드롭 10mm는 브룩스 미국 공식 남성 상품 페이지. 기준 사이즈는 공식 표기 없음.",
+        "공식 페이지는 입문자와 경험 있는 러너의 데일리 용도로 안내합니다.",
+        "한국 공식몰(brooksrunning.co.kr)은 이번 수집에서 응답이 없어 한국 정가는 공식 미공개."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "브룩스 고스트 18",
+        "source": null
+      }
+    },
+    {
+      "id": "brooks-ghost-max-4",
+      "slug": "brooks-ghost-max-4",
+      "brand": "Brooks",
+      "brand_kr": "브룩스",
+      "name": "Ghost Max 4",
+      "name_kr": "고스트 맥스 4",
+      "gender": "mens",
+      "category": [
+        "max_cushion",
+        "daily",
+        "beginner"
+      ],
+      "surface": "road",
+      "plate": "none",
+      "weight_g": 292,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 6,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "공식 페이지는 soft and dynamic cushioning, rocker technology로 안내.",
+      "msrp_krw": null,
+      "msrp_usd": 165,
+      "currency": "USD",
+      "sku": "110496",
+      "sku_womens": "120485",
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-max-4/110496.html",
+      "official_url_womens": "https://www.brooksrunning.com/en_us/womens/shoes/road-running-shoes/ghost-max-4/120485.html",
+      "official_url_kr": "https://brooksrunning.co.kr/product/%EB%82%A8%EC%84%B1-%EA%B3%A0%EC%8A%A4%ED%8A%B8-%EB%A7%A5%EC%8A%A4-4%EB%B8%94%EB%9E%99-wide/967/",
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "무게 10.3oz / 292.0g, 드롭 6mm는 브룩스 미국 공식 남성 상품 페이지. 기준 사이즈·스택·한국 정가는 공식 미공개."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "브룩스 고스트 맥스 4",
+        "source": null
+      }
+    },
+    {
+      "id": "adidas-adizero-adios-pro-5",
+      "slug": "adidas-adizero-adios-pro-5",
+      "brand": "adidas",
+      "brand_kr": "아디다스",
+      "name": "Adizero Adios Pro 5",
+      "name_kr": "아디제로 아디오스 프로 5",
+      "gender": "mens",
+      "category": [
+        "carbon"
+      ],
+      "surface": "road",
+      "plate": "carbon",
+      "weight_g": 157,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": 8,
+      "stack_heel_mm": 37,
+      "stack_forefoot_mm": 29,
+      "midsole": "LIGHTSTRIKEPRO, 탄소섬유 Energyrims(공식 표기)",
+      "msrp_krw": 339000,
+      "currency": "KRW",
+      "sku": "HQ9524",
+      "sku_global": "KZ9491",
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.adidas.co.kr/%EC%95%84%EB%94%94%EC%A0%9C%EB%A1%9C-%EC%95%84%EB%94%94%EC%98%A4%EC%8A%A4-%ED%94%84%EB%A1%9C-5/HQ9524.html",
+      "official_url_specs": "https://www.adidas.com/kw/en/adizero-adios-pro-5-running-shoes/KZ9491.html",
+      "official_url_womens": null,
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "한국 공식 스토어 정가 339,000원(HQ9524). 무게 157g, 드롭 8mm(힐 37mm/포어풋 29mm)는 아디다스 공식 글로벌 상품 페이지(KZ9491, adidas.com) 표기. 기준 사이즈는 공식 표기 없음."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "아디다스 아디제로 아디오스 프로 5",
+        "source": null
+      }
+    },
+    {
+      "id": "saucony-endorphin-speed-6",
+      "slug": "saucony-endorphin-speed-6",
+      "brand": "Saucony",
+      "brand_kr": "써코니",
+      "name": "Endorphin Speed 6",
+      "name_kr": "엔돌핀 스피드 6",
+      "gender": "mens",
+      "category": [
+        "tempo"
+      ],
+      "surface": "road",
+      "plate": "nylon",
+      "weight_g": null,
+      "weight_size": null,
+      "weight_g_womens": null,
+      "weight_size_womens": null,
+      "drop_mm": null,
+      "stack_heel_mm": null,
+      "stack_forefoot_mm": null,
+      "midsole": "PWRRUN PBX, 나일론 플레이트(공식 표기)",
+      "msrp_krw": null,
+      "msrp_usd": 180,
+      "currency": "USD",
+      "sku": "61331M",
+      "sku_womens": null,
+      "wide_available": null,
+      "status": "current",
+      "official_url": "https://www.saucony.com/en/endorphin-speed-6/61331M.html",
+      "official_url_editorial": "https://www.saucony.com/en/blog-newsroom-endorphin-speed-6/",
+      "official_url_womens": null,
+      "source_checked_on": "2026-11-22",
+      "source_notes": [
+        "공식 상품 페이지와 2026-09-14 보도자료에서 미드솔·나일론 플레이트를 확인. 무게·드롭·스택은 이번에 연 공식 페이지에 숫자가 없어 공식 미공개.",
+        "보도자료는 2026-10-15 출시, 권장소비자가 175달러였고, 확인일 상품 페이지 표시가는 180달러입니다. 한국 공식몰 정가는 확인하지 못했습니다."
+      ],
+      "affiliate": {
+        "coupang": null,
+        "naver": null
+      },
+      "successor_id": null,
+      "predecessor_id": null,
+      "image": {
+        "src": null,
+        "alt": "써코니 엔돌핀 스피드 6",
+        "source": null
+      }
+    }
+  ],
+  "image_policy": "image.src는 쿠팡 파트너스 허용 이미지만. 브랜드 공식 사진은 넣지 않습니다. src가 있고 data/affiliate.json의 images_enabled가 true일 때만 <img>를 그립니다. 그 전에는 4:3 자리(선 그림 실루엣)만 보여 레이아웃이 밀리지 않게 합니다."
+}

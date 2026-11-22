@@ -67,6 +67,17 @@ if os.path.exists(lp):
         if pg.get('indexable'):
             lm=lm_for(pg['url'], pg['hash']) if pg.get('hash') else (pg.get('lastmod') or today)
             urls.append((pg['url'], lm, pg.get('changefreq','daily'), pg.get('priority','0.7')))
+# SEO P3 러닝화·의류 (미리보기 생성기). 머지 전까지 이 블록은 미리보기 폴더에서만 실행.
+p3=os.path.join(ROOT,'data','p3_urls.json')
+if os.path.exists(p3):
+    for rel in json.load(open(p3,encoding='utf-8')).get('paths') or []:
+        loc=BASE+rel if rel.startswith('/') else BASE+'/'+rel
+        rel_file='shoes/index.html' if rel.rstrip('/').endswith('shoes') or rel=='/shoes/' else (
+            'gear/index.html' if rel.rstrip('/').endswith('gear') or rel=='/gear/' else rel.lstrip('/'))
+        if rel.endswith('/') and not rel_file.endswith('index.html'):
+            rel_file=rel.lstrip('/')+'index.html'
+        urls.append((loc, lm_for(loc, file_hash(rel_file)), 'weekly', '0.8' if rel in ('/shoes/','/gear/') else '0.7'))
+
 out=['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for loc,lm,cf,pr in urls:
     out.append('  <url><loc>%s</loc><lastmod>%s</lastmod><changefreq>%s</changefreq><priority>%s</priority></url>'%(loc,lm or today,cf,pr))

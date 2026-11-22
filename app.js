@@ -168,12 +168,12 @@ function updatedText(){
 function fillUpdated(){ if(window.RACES_FAILED&&$('#main')&&!$('#loadfail')) $('#main').insertAdjacentHTML('afterbegin','<p class="ed-note" id="loadfail" role="alert" style="margin:16px var(--page-x) 0">대회 데이터를 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요. (이 폴더를 파일로 직접 열었다면 웹 서버로 열어야 해요.)</p>'); $$('[data-updated]').forEach(e=>{ e.textContent=updatedText(); }); const n=$('[data-count-all]'); if(n&&window.RACES_META) n.textContent=window.RACES_META.count; }
 RACES_READY.then(fillUpdated);
 /* 푸터 '대회 모아보기' 링크 — tools/static_nav.py FOOT_HUBS 와 같은 항목(SEO P1) */
-const FOOT_HUBS=[['/marathon-schedule/2026.html','2026 마라톤 일정'],['/marathon-schedule/2027.html','2027 마라톤 일정'],['/open.html','접수 중인 대회'],['/distance/half.html','하프'],['/distance/10k.html','10km'],['/distance/5k.html','5km'],['/distance/full.html','풀코스'],['/tools/pace-calculator.html','페이스 계산기']];
+const FOOT_HUBS=[['/marathon-schedule/2026.html','2026 마라톤 일정'],['/marathon-schedule/2027.html','2027 마라톤 일정'],['/open.html','접수 중인 대회'],['/distance/half.html','하프'],['/distance/10k.html','10km'],['/distance/5k.html','5km'],['/distance/full.html','풀코스'],['/tools/pace-calculator.html','페이스 계산기'],['/shoes/','러닝화'],['/gear/','러닝 복장']];
 function layout(active){
   document.body.classList.add('ed-root');
   $$('[data-rw-static]').forEach(e=>e.remove());   /* tools/static_nav.py 가 넣은 정적 메뉴·푸터(크롤러용) → 같은 자리에 JS 메뉴로 교체 */
   const t=today();
-  const nav=[['index.html','대회 달력','races'],['overseas.html','해외 대회','overseas'],['my.html','나의 레이스','home'],['blog.html','러닝 가이드','blog'],['courses.html','러닝 코스','courses'],['tools.html','훈련 · 페이스','tools'],['crew/index.html','러닝 약속 잡기','crew'],['saved.html','저장','saved']];
+  const nav=[['index.html','대회 달력','races'],['overseas.html','해외 대회','overseas'],['my.html','나의 레이스','home'],['blog.html','러닝 가이드','blog'],['shoes/index.html','러닝화','shoes'],['gear/index.html','러닝 복장','gear'],['courses.html','러닝 코스','courses'],['tools.html','훈련 · 페이스','tools'],['crew/index.html','러닝 약속 잡기','crew'],['saved.html','저장','saved']];
   const bottom=[['index.html','대회','races'],['my.html','나의 레이스','home'],['blog.html','가이드','blog'],['saved.html','저장','saved']];
   const badge=n=>n==='saved'?'<span class="n" data-saved-count hidden>0</span>':'';
   const head=`<a class="skip-link" href="${location.pathname}${location.search}#main">본문으로 건너뛰기</a><header class="ed-mast"><div class="ed-wrap"><div class="ed-mast-top"><span class="ed-label">${t.getFullYear()}.${p2(t.getMonth()+1)}.${p2(t.getDate())} ${EN[t.getDay()]}</span><span class="ed-label" data-updated aria-live="polite">${updatedText()}</span></div>

@@ -20,13 +20,14 @@ EN = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']   # date.weekday() 기준
 SITE_NAME = 'Run우리'
 # app.js layout() 의 nav / bottom 과 같은 항목·같은 순서 (바꿀 때는 두 곳을 같이)
 NAV = [('/', '대회 달력', 'races'), ('/overseas.html', '해외 대회', 'overseas'), ('/my.html', '나의 레이스', 'home'), ('/blog.html', '러닝 가이드', 'blog'),
+       ('/shoes/', '러닝화', 'shoes'), ('/gear/', '러닝 복장', 'gear'),
        ('/courses.html', '러닝 코스', 'courses'), ('/tools.html', '훈련 · 페이스', 'tools'), ('/crew/', '러닝 약속 잡기', 'crew'), ('/saved.html', '저장', 'saved')]
 BOTTOM = [('/', '대회', 'races'), ('/my.html', '나의 레이스', 'home'), ('/blog.html', '가이드', 'blog'), ('/saved.html', '저장', 'saved')]
-SUBDIRS = ('race', 'month', 'region', 'overseas', 'guide', 'marathon-schedule', 'distance', 'tools')   # tools/ 는 *.html(페이스 계산기)만
+SUBDIRS = ('race', 'month', 'region', 'overseas', 'guide', 'marathon-schedule', 'distance', 'tools', 'shoes', 'shoes/best', 'shoes/compare', 'gear')
 SKIP = {'home.html', 'races.html', 'offline.html'}
 # 푸터 '대회 모아보기' — app.js FOOT_HUBS 와 같은 항목·순서 (SEO P1)
 FOOT_HUBS = [('/marathon-schedule/2026.html', '2026 마라톤 일정'), ('/marathon-schedule/2027.html', '2027 마라톤 일정'), ('/open.html', '접수 중인 대회'), ('/distance/half.html', '하프'),
-             ('/distance/10k.html', '10km'), ('/distance/5k.html', '5km'), ('/distance/full.html', '풀코스'), ('/tools/pace-calculator.html', '페이스 계산기')]
+             ('/distance/10k.html', '10km'), ('/distance/5k.html', '5km'), ('/distance/full.html', '풀코스'), ('/tools/pace-calculator.html', '페이스 계산기'), ('/shoes/', '러닝화'), ('/gear/', '러닝 복장')]
 H0, H1, F0, F1 = '<!--RWNAV:HEAD-->', '<!--/RWNAV:HEAD-->', '<!--RWNAV:FOOT-->', '<!--/RWNAV:FOOT-->'
 
 

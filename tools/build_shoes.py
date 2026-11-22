@@ -77,11 +77,36 @@ def coupang_iframe_src(s, aff=None):
     return None
 
 
+def coupang_image(s, aff=None):
+    """파트너스 '이미지' 형식. href·src가 있을 때만 쓴다. 이미지 코드가 있으면 iframe보다 우선한다."""
+    a = aff if aff is not None else AFF
+    if not images_on(a):
+        return None
+    img = (s.get('image') or {}).get('coupang_image') or {}
+    href, src = img.get('href'), img.get('src')
+    if not (isinstance(href, str) and href.startswith('https://link.coupang.com/')):
+        return None
+    if not (isinstance(src, str) and src.startswith('https://') and 'coupangcdn.com/' in src):
+        return None
+    alt = (img.get('alt') or '').strip() or f"{s.get('brand_kr') or ''} {s.get('name_kr') or ''}".strip()
+    try:
+        w = int(img.get('width') or 120)
+        h = int(img.get('height') or 240)
+    except (TypeError, ValueError):
+        w, h = 120, 240
+    return {'href': href, 'src': src, 'alt': alt, 'width': w, 'height': h}
+
+
 def shoe_figure(s, aff=None, kind='card'):
-    """상세·비교(hero/cmp)는 쿠팡 공식 배너 iframe. 카드는 4:3 자리(배너가 세로라 잘 안 맞음)."""
+    """이미지 코드가 있으면 상세·비교·카드에 <a><img>. 없으면 상세·비교는 iframe, 카드는 4:3 자리."""
     info = s.get('image') or {}
     alt = (info.get('alt') or f"{s.get('brand_kr') or ''} {s.get('name_kr') or ''}").strip()
-    # 카드에는 120×240 세로 배너를 넣지 않고 자리만 유지한다.
+    photo = coupang_image(s, aff)
+    if photo:
+        return (f'<div class="sg-fig sg-fig-photo sg-fig-{kind}">'
+                f'<a href="{esc(photo["href"])}" target="_blank" rel="sponsored nofollow noopener" referrerpolicy="unsafe-url">'
+                f'<img src="{esc(photo["src"])}" alt="{esc(photo["alt"])}" width="{photo["width"]}" height="{photo["height"]}" '
+                f'loading="lazy" decoding="async"></a></div>')
     iframe = coupang_iframe_src(s, aff) if kind in ('hero', 'cmp') else None
     if iframe:
         return (f'<div class="sg-fig sg-fig-coupang sg-fig-{kind}">'
@@ -174,7 +199,7 @@ def buy_slot(s, aff):
 
 def cmp_figure(s, aff):
     fig = shoe_figure(s, aff, 'cmp')
-    if coupang_iframe_src(s, aff):
+    if coupang_image(s, aff) or coupang_iframe_src(s, aff):
         return fig
     return f'<a class="sg-fig-link" href="{shoe_url(s)}">{fig}</a>'
 
@@ -233,12 +258,17 @@ def card(s, aff=None):
     w = fmt_weight(s.get('weight_g'), s.get('weight_size')) or '공식 미공개'
     d = f"{s['drop_mm']}mm" if s.get('drop_mm') is not None else '공식 미공개'
     p = won(s.get('msrp_krw')) or '공식 미공개'
-    return (f'<a class="sg-card" href="{shoe_url(s)}">{shoe_figure(s, aff, "card")}'
-            f'<div class="br">{esc(s["brand_kr"])}</div>'
+    fig = shoe_figure(s, aff, 'card')
+    body = (f'<div class="br">{esc(s["brand_kr"])}</div>'
             f'<h3>{esc(s["name_kr"])}</h3><div class="sg-facts">'
             f'<span><b>{esc(w)}</b>무게</span><span><b>{esc(d)}</b>드롭</span>'
             f'<span><b>{esc(p)}</b>공식 정가</span></div>'
-            f'<p class="ed-small" style="margin:8px 0 0">{tags(s)}</p></a>')
+            f'<p class="ed-small" style="margin:8px 0 0">{tags(s)}</p>')
+    # 쿠팡 이미지 링크와 상세 페이지 링크가 겹치지 않게 카드를 나눈다.
+    if coupang_image(s, aff):
+        return (f'<article class="sg-card">{fig}'
+                f'<a class="sg-card-body" href="{shoe_url(s)}">{body}</a></article>')
+    return f'<a class="sg-card" href="{shoe_url(s)}">{fig}{body}</a>'
 
 
 def similar(s, shoes):
@@ -325,12 +355,12 @@ def build_hub(shoes, aff, unverified):
             group = [s for s in shoes if 'beginner' in s['category']]
         if not group and key != 'trail':
             continue
-        inner = ''.join(card(s) for s in group) if group else '<p class="ed-body">이번에 공식 스펙을 확인한 트레일 모델이 아직 없어요. 호카 스피드고트, 아식스 트라부코는 공식 페이지를 이 미리보기에서 열지 못해 목록에 넣지 않았습니다.</p>'
+        inner = ''.join(card(s, aff) for s in group) if group else '<p class="ed-body">이번에 공식 스펙을 확인한 트레일 모델이 아직 없어요. 호카 스피드고트, 아식스 트라부코는 공식 페이지를 이 미리보기에서 열지 못해 목록에 넣지 않았습니다.</p>'
         secs.append(f'<section class="ed-section" id="{key}" style="margin-top:36px"><div class="ed-section-head"><span class="no">{n:02d}</span>'
                     f'<h2 class="ed-h2">{esc(CAT_LABEL.get(key, key))}</h2></div><div class="sg-grid">{inner}</div></section>')
         n += 1
         used.update(s['id'] for s in group)
-    body = (f'{disclosure(aff)}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
+    body = (f'{disclosure(aff, any(coupang_image(s, aff) for s in shoes))}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
             f'<div class="ed-label">러닝화</div><h1 class="ed-h1" style="margin:12px 0 10px">러닝화 공식 스펙 비교</h1>'
             f'<p class="ed-lede">지금 국내에서 살 수 있는 모델을 중심으로, 브랜드 공식 페이지에 적힌 무게·드롭·정가만 모았어요. '
             f'착화감이나 테스트 결과는 짓지 않았고, 공식에 없는 숫자는 ‘공식 미공개’로 비워 두었어요. 확인일 {CHECKED_LABEL} (Asia/Seoul).</p>'
@@ -389,8 +419,9 @@ def build_detail(s, shoes, aff):
     tr = ''.join(f'<tr><th scope="row">{lab}</th><td>{cell}</td></tr>' for lab, cell in rows)
     notes = ''.join(f'<li>{esc(n)}</li>' for n in (s.get('source_notes') or []))
     sim = similar(s, shoes)
-    sim_html = ''.join(card(x) for x in sim)
-    body = (f'{disclosure(aff, bool(coupang_url(s, aff) or coupang_iframe_src(s, aff)))}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
+    sim_html = ''.join(card(x, aff) for x in sim)
+    show_aff = bool(coupang_url(s, aff) or coupang_image(s, aff) or coupang_iframe_src(s, aff) or any(coupang_image(x, aff) for x in sim))
+    body = (f'{disclosure(aff, show_aff)}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
             f'<div class="ed-label">{esc(s["brand_kr"])}<span class="ed-sep">·</span>공식 스펙</div>'
             f'<h1 class="ed-h1" style="margin:12px 0 10px">{esc(s["name_kr"])}</h1>'
             f'<p class="ed-lede">{esc(s["brand_kr"])} {esc(s["name_kr"])}의 공식 상품 페이지에 적힌 숫자만 정리했어요. '
@@ -421,7 +452,7 @@ def build_detail(s, shoes, aff):
 
 def build_best(key, lab, blurb, shoes, aff):
     group = best_filter(key, shoes)
-    inner = ''.join(card(s) for s in group) if group else (
+    inner = ''.join(card(s, aff) for s in group) if group else (
         f'<p class="ed-body">이 조건에 맞는, 이번에 공식 스펙을 확인한 모델이 아직 없어요. '
         f'<a class="ed-link" href="/shoes/">러닝화 허브</a>에서 다른 분류를 볼 수 있어요.</p>')
     # simple table too
@@ -435,7 +466,7 @@ def build_best(key, lab, blurb, shoes, aff):
                     f'<td data-label="무게">{esc(w)}</td><td data-label="드롭">{esc(d)}</td>'
                     f'<td data-label="공식 정가">{esc(p)}</td></tr>')
     table = f'<div class="sg-table-wrap"><table class="sg-cmp"><thead>{thead}</thead><tbody>{"".join(rows)}</tbody></table></div>' if group else ''
-    body = (f'{disclosure(aff)}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
+    body = (f'{disclosure(aff, any(coupang_image(s, aff) for s in group))}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
             f'<div class="ed-label">러닝화 · 용도별 목록</div><h1 class="ed-h1" style="margin:12px 0 10px">{esc(lab)}</h1>'
             f'<p class="ed-lede">{esc(blurb)} 확인일 {CHECKED_LABEL}. 추천 랭킹이 아니에요.</p></header>'
             f'<div style="padding:8px var(--page-x) 0">{table}<div class="sg-grid" style="margin-top:12px">{inner}</div>'
@@ -467,7 +498,7 @@ def build_compare(a, b, shoes, aff):
         for lab, fn in rows
     )
     buys = buy_slot(a, aff) + buy_slot(b, aff)
-    body = (f'{disclosure(aff, bool(coupang_url(a, aff) or coupang_url(b, aff) or coupang_iframe_src(a, aff) or coupang_iframe_src(b, aff)))}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
+    body = (f'{disclosure(aff, bool(coupang_url(a, aff) or coupang_url(b, aff) or coupang_image(a, aff) or coupang_image(b, aff) or coupang_iframe_src(a, aff) or coupang_iframe_src(b, aff)))}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
             f'<div class="ed-label">러닝화 · 비교</div>'
             f'<h1 class="ed-h1" style="margin:12px 0 10px">{esc(a["name_kr"])} vs {esc(b["name_kr"])}</h1>'
             f'<p class="ed-lede">두 모델의 공식 스펙을 나란히 봤어요. 어느 쪽이 더 편하다거나 기록이 더 나온다는 평가는 적지 않았습니다. 확인일 {CHECKED_LABEL}.</p></header>'

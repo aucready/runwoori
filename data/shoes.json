@@ -78,7 +78,14 @@
         "src": null,
         "alt": "나이키 페가수스 42",
         "source": "coupang-partners",
-        "coupang_iframe": "https://coupa.ng/crhDs9"
+        "coupang_iframe": "https://coupa.ng/crhDs9",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS2VV6bcJg",
+          "src": "https://image13.coupangcdn.com/image/affiliate/banner/ca171c8887a4da5c9449744ad0d00515@2x.jpg",
+          "alt": "나이키 남성용 페가수스 42 로드 러닝화 IB1873-008 + 운동화끈 세트",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {
@@ -698,7 +705,14 @@
         "src": null,
         "alt": "브룩스 고스트 18",
         "source": "coupang-partners",
-        "coupang_iframe": "https://coupa.ng/crhDxF"
+        "coupang_iframe": "https://coupa.ng/crhDxF",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS2RTCCo9c",
+          "src": "https://img3a.coupangcdn.com/image/affiliate/banner/c739373c21603d05902fabdb9c223fb6@2x.jpg",
+          "alt": "남성 고스트 18 블랙 1104932E020",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {
@@ -845,5 +859,5 @@
       }
     }
   ],
-  "image_policy": "상품 이미지는 쿠팡 파트너스가 허용한 공식 배너(iframe, image.coupang_iframe)만 사용합니다. 브랜드 공식 사진은 넣지 않습니다. data/affiliate.json의 images_enabled가 true이고 coupang_iframe이 있는 모델의 상세·비교 페이지에만 iframe을 그립니다. 카드(허브·용도별 목록)는 120×240 배너가 4:3 자리에 잘 안 맞아서 선 그림 자리를 유지합니다. iframe이 없는 모델은 언제나 자리만 보입니다. image.src는 예비용이며 지금은 쓰지 않습니다."
+  "image_policy": "상품 이미지는 쿠팡 파트너스가 제공한 이미지 배너 코드(image.coupang_image)만 사용합니다. 원본 JPG에는 로고·상품명·버튼이 있어, CSS로 상하 크롬만 가리고(object-fit:cover; object-position:50% 38.5%) 사진 자체는 자르거나 다시 올리지 않습니다. 브랜드 공식 사진은 쓰지 않습니다. images_enabled가 true이고 coupang_image가 있는 모델은 상세·비교·카드에 <a><img>를 그립니다. 이미지 코드가 없고 iframe만 있는 모델은 상세·비교에 iframe을 유지합니다. 둘 다 없는 모델은 4:3 선 그림 자리만 보입니다."
 }

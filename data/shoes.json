@@ -545,7 +545,7 @@
         "한국 정가는 공식 미공개. 한국 공식몰에는 2E 폭 모델도 있습니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS6zOmWQOO",
         "naver": null
       },
       "successor_id": null,
@@ -553,7 +553,14 @@
       "image": {
         "src": null,
         "alt": "아식스 매직 스피드 5",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS6zOmWQOO",
+          "src": "https://image14.coupangcdn.com/image/affiliate/banner/95fe3792d9c79ea1ed8168fe9c8bc1a8@2x.jpg",
+          "alt": "아식스 남녀공용 매직 스피드 5 러닝화 1013A183-100",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {

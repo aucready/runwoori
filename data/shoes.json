@@ -443,7 +443,7 @@
         "무게·드롭은 아식스 미국 공식 상품 페이지. 기준 사이즈·여성 무게·스택·한국 정가는 공식 미공개."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS7nqOGwsm",
         "naver": null
       },
       "successor_id": null,
@@ -451,7 +451,14 @@
       "image": {
         "src": null,
         "alt": "아식스 GT-2000 15",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS7nqOGwsm",
+          "src": "https://img1a.coupangcdn.com/image/affiliate/banner/82a6c2cfb90c2db3cdf4d342563918dc@2x.jpg",
+          "alt": "아식스 GT-2000 15",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {

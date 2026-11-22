@@ -169,6 +169,7 @@ function fillUpdated(){ if(window.RACES_FAILED&&$('#main')&&!$('#loadfail')) $('
 RACES_READY.then(fillUpdated);
 function layout(active){
   document.body.classList.add('ed-root');
+  $$('[data-rw-static]').forEach(e=>e.remove());   /* tools/static_nav.py 가 넣은 정적 메뉴·푸터(크롤러용) → 같은 자리에 JS 메뉴로 교체 */
   const t=today();
   const nav=[['index.html','대회 달력','races'],['overseas.html','해외 대회','overseas'],['my.html','나의 레이스','home'],['blog.html','러닝 가이드','blog'],['courses.html','러닝 코스','courses'],['tools.html','훈련 · 페이스','tools'],['crew/index.html','러닝 약속 잡기','crew'],['saved.html','저장','saved']];
   const bottom=[['index.html','대회','races'],['my.html','나의 레이스','home'],['blog.html','가이드','blog'],['saved.html','저장','saved']];

@@ -23,6 +23,9 @@ echo "== 2) 대회별 정적 페이지 생성"; python3 tools/build_race_pages.p
 echo "== 2a) 해외 주요 대회 페이지 생성"; python3 tools/build_overseas.py
 echo "== 2a-2) 랜딩 페이지(마감 임박·월별·지역별) 생성"; python3 tools/build_landing.py
 echo "== 2a-3) 러닝 가이드 글별 정적 페이지(guide/<id>.html) + post.html 이동 지도 + blog.html 목록"; python3 tools/build_guides.py
+echo "== 2a-4) 메인(index.html) 정적 대회 목록·달력·리드 문장·ItemList (SEO P0)"; python3 tools/build_home.py
+echo "== 2a-5) 모든 화면에 정적 메뉴·푸터 + app.js/site.css ?v= (SEO P0)"; python3 tools/static_nav.py
+echo "== 2a-6) 고아 대회 페이지 점검(모든 race/ 가 목록 페이지에서 링크되는지)"; python3 tools/check_links.py || echo "  (고아 페이지 있음 — 위 목록 확인. 배포는 계속)"
 N_GUIDE=$(ls guide/*.html | wc -l); N_POST=$(python3 -c "import json;print(len(json.load(open('data/blog/index.json',encoding='utf8'))['posts']))")
 if [ "$N_GUIDE" -lt "$N_POST" ]; then echo "가이드 정적 페이지($N_GUIDE)가 글 수($N_POST)보다 적어요. 배포를 중단합니다." >&2; exit 1; fi
 echo "== 2b) 공식 홈페이지 링크 점검"
@@ -53,7 +56,7 @@ cp tools/set_ga4.sh "$DEPLOY/tools/" 2>/dev/null || true; cp data/courses.json "
 rm -rf "$DEPLOY/guide" && cp -a guide "$DEPLOY/guide"   # 러닝 가이드 정적 글 페이지(tools/build_guides.py 산출물)
 rm -rf "$DEPLOY/month" "$DEPLOY/region" && cp -a month "$DEPLOY/month" && cp -a region "$DEPLOY/region" && cp deadline.html "$DEPLOY/deadline.html" && cp data/landing_pages.json "$DEPLOY/data/"
 cp sitemap.xml "$DEPLOY/sitemap.xml"
-cp tools/build_guides.py tools/build_race_pages.py tools/head_snippets.py tools/build_overseas.py tools/build_landing.py tools/make_pro_pages.py tools/build_sitemap.py tools/daily_publish.sh tools/weather_lib.py tools/fetch_weather.py tools/geocode_venues.py "$DEPLOY/tools/" 2>/dev/null || true
+cp tools/build_guides.py tools/build_race_pages.py tools/hubs.py tools/build_home.py tools/static_nav.py tools/check_links.py tools/head_snippets.py tools/build_overseas.py tools/build_landing.py tools/make_pro_pages.py tools/build_sitemap.py tools/daily_publish.sh tools/weather_lib.py tools/fetch_weather.py tools/geocode_venues.py "$DEPLOY/tools/" 2>/dev/null || true
 
 cd "$DEPLOY"
 echo "$DOMAIN" > CNAME                                    # 커스텀 도메인 파일 유지

@@ -8,7 +8,18 @@
 "count": 4,
 "changefreq": "daily",
 "priority": "0.9",
-"lastmod": "2026-11-22"
+"lastmod": "2026-11-22",
+"hash": "1c100820e36c1dda"
+},
+{
+"path": "month/2026-10.html",
+"url": "https://runwoori.com/month/2026-10.html",
+"indexable": true,
+"count": 10,
+"changefreq": "yearly",
+"priority": "0.4",
+"lastmod": "2026-11-22",
+"hash": "9947a5c9dea4c593"
 },
 {
 "path": "month/2026-11.html",
@@ -17,7 +28,8 @@
 "count": 116,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-22"
+"lastmod": "2026-11-22",
+"hash": "2df87da12759c7ba"
 },
 {
 "path": "month/2026-12.html",
@@ -26,7 +38,38 @@
 "count": 31,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-22"
+"lastmod": "2026-11-22",
+"hash": "2ed387ed804684e4"
+},
+{
+"path": "month/2027-01.html",
+"url": "https://runwoori.com/month/2027-01.html",
+"indexable": true,
+"count": 9,
+"changefreq": "daily",
+"priority": "0.8",
+"lastmod": "2026-11-22",
+"hash": "b05a2384caaf5d38"
+},
+{
+"path": "month/2027-02.html",
+"url": "https://runwoori.com/month/2027-02.html",
+"indexable": true,
+"count": 11,
+"changefreq": "daily",
+"priority": "0.8",
+"lastmod": "2026-11-22",
+"hash": "091f073576957bd6"
+},
+{
+"path": "month/2027-03.html",
+"url": "https://runwoori.com/month/2027-03.html",
+"indexable": true,
+"count": 9,
+"changefreq": "daily",
+"priority": "0.8",
+"lastmod": "2026-11-22",
+"hash": "5c73c434f1b8f5d0"
 },
 {
 "path": "region/seoul.html",
@@ -35,7 +78,8 @@
 "count": 28,
 "changefreq": "daily",
 "priority": "0.7",
-"lastmod": "2026-11-22"
+"lastmod": "2026-11-22",
+"hash": "b86f8c056b5ef3ab"
 }
 ]
 }

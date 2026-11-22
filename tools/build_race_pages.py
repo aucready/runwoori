@@ -9,10 +9,11 @@
 - 종료 후 540일이 지난 기록은 archive 와 race/ 파일에서 삭제.
 - 서버 렌더링 내용은 매일 이 스크립트를 돌릴 때 갱신된다(D-day·접수 상태는 생성 시점 기준). tools/daily_publish.sh 참고.
 """
-import json, os, re, sys, html, glob, datetime
+import json, os, re, sys, html, glob, datetime, hashlib
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import hubs          # 월별·지역별 목록 페이지 기준(build_landing.py 와 공유) — breadcrumb·허브 링크용
 import weather_lib   # 대회 날씨 예보 표시 (data/weather.json 이 없으면 아무것도 표시하지 않는다)
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -309,7 +310,7 @@ def race_row(r):
             f'<div class="ed-race-body"><div class="ed-race-top"><span class="ed-status {r["st"]["key"]}">{r["st"]["label"]}</span>{weather_lib.chip(WX, r["id"], TODAY)}</div>'
             f'<h3><a class="row-link" href="race/{r["id"]}.html">{esc(r["name"])}</a></h3>'
             f'<p class="ed-meta">{meta1}</p><p class="ed-meta">{esc(reg_text(r))}{SEP}{esc(fee)}</p></div>'
-            f'<div class="ed-race-side"><div class="ed-dday {dday_cls(r)}>{"진행 중" if r["ongoing"] or r["st"]["key"] == "ongoing" else dday_text(r["d"])}</div>'
+            f'<div class="ed-race-side"><div class="ed-dday {dday_cls(r)}">{"진행 중" if r["ongoing"] or r["st"]["key"] == "ongoing" else dday_text(r["d"])}</div>'
             f'<button class="ed-bookmark" aria-pressed="false" aria-label="관심 대회 저장" data-fav="{r["id"]}">{BM}</button></div></article>')
 
 
@@ -592,6 +593,9 @@ HEAD = '''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name=
 '''
 
 
+HUB = {'months': set(), 'regions': set(), 'month_n': {}, 'region_n': {}}   # main() 에서 채움
+
+
 def build_page(r, related, rec, indexable, stale, adsense):
     url = f"{SITE}/race/{r['id']}.html"
     official, reg = safe_url(r['official']), safe_url(r['regUrl'])
@@ -612,13 +616,28 @@ def build_page(r, related, rec, indexable, stale, adsense):
     else: dists = '<p class="ed-small">종목 정보가 아직 없어요. 공식 홈페이지에서 확인하세요.</p>'
     src = ' · '.join(f'<a class="ed-link" href="{esc(u)}" target="_blank" rel="noopener noreferrer">KorMarathon ↗</a>' for k, u in r['sources'].items() if k == 'kormarathon')
     region = r['region']
-    crumbs_html = (f'<nav class="ed-crumbs" aria-label="현재 위치"><a href="index.html">대회 달력</a><span aria-hidden="true">›</span>'
-                   + (f'<a href="index.html?region={quote(region)}">{esc(region)}</a><span aria-hidden="true">›</span>' if region else '')
+    mkey = r['start'][:7]
+    m_ok = mkey in HUB['months']
+    m_label = f"{int(mkey[:4])}년 {int(mkey[5:])}월 대회"
+    g_slug = hubs.REGIONS.get(region) if region in HUB['regions'] else None
+    g_label = f'{region} 대회'
+    trail = [('대회 달력', '/', SITE + '/')]
+    if m_ok: trail.append((m_label, f'month/{mkey}.html', f'{SITE}/month/{mkey}.html'))
+    if g_slug: trail.append((g_label, f'region/{g_slug}.html', f'{SITE}/region/{g_slug}.html'))
+    sep_ = '<span aria-hidden="true">›</span>'
+    crumbs_html = ('<nav class="ed-crumbs" aria-label="현재 위치">' + ''.join(f'<a href="{h}">{esc(n)}</a>{sep_}' for n, h, _ in trail)
+                   + (f'<span>{esc(region)}</span>{sep_}' if region and not g_slug else '')
                    + f'<span aria-current="page">{esc(r["name"])}</span></nav>')
-    crumb_ld = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
-        {'@type': 'ListItem', 'position': 1, 'name': '대회 달력', 'item': SITE + '/'}]
-        + ([{'@type': 'ListItem', 'position': 2, 'name': region, 'item': f'{SITE}/?region={quote(region)}'}] if region else [])
-        + [{'@type': 'ListItem', 'position': 3 if region else 2, 'name': r['name'], 'item': url}]}
+    crumb_ld = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement':
+                [{'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': u} for i, (n, _, u) in enumerate(trail)]
+                + [{'@type': 'ListItem', 'position': len(trail) + 1, 'name': r['name'], 'item': url}]}
+    # 이 대회가 들어 있는 목록 페이지(정적 링크). 거리별 목록은 아직 없음(P1) → 넣지 않는다.
+    hub_links = []
+    if m_ok: hub_links.append((f'month/{mkey}.html', f"{int(mkey[:4])}년 {int(mkey[5:])}월 대회 일정", f"{HUB['month_n'].get(mkey, 0)}개"))
+    if g_slug: hub_links.append((f'region/{g_slug}.html', f'{region} 대회 일정', f"{HUB['region_n'].get(region, 0)}개"))
+    if r['st']['key'] in ('open', 'urgent'): hub_links.append(('deadline.html', '이번 주 접수 마감 대회', ''))
+    hub_links.append(('/', '전체 대회 달력', ''))
+    region_all = f'region/{g_slug}.html' if g_slug else '/'
     notes = ''
     if ended:
         notes += '<div class="ed-sample race-note"><span class="ed-label">안내</span><span>이 대회는 종료됐어요. 다음 회차 일정은 <a class="ed-link" href="index.html">대회 달력</a>에서 확인하세요.</span></div>'
@@ -630,8 +649,10 @@ def build_page(r, related, rec, indexable, stale, adsense):
     n_rel = '06' if (r['st']['key'] != 'ended' and r['d'] >= 0) else '05'
     if related:
         rel_html = (f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">{n_rel}</span>'
-                    f'<h2 class="ed-h2">{esc(region)} 지역의 다른 대회</h2><a class="ed-link" href="index.html?region={quote(region)}">모두 보기 →</a></div>'
+                    f'<h2 class="ed-h2">{esc(region)} 지역의 다른 대회</h2><a class="ed-link" href="{region_all}">모두 보기 →</a></div>'
                     f'<div class="ed-list" style="border-top:0">{"".join(race_row(x) for x in related)}</div></section>')
+    hub_html = ('<nav class="ed-section race-hubs" style="margin-top:36px" aria-label="이 대회가 있는 목록"><div class="ed-section-head"><h2 class="ed-h2">이 대회가 있는 목록</h2></div>'
+                '<div class="lp-pills">' + ''.join(f'<a href="{h}">{esc(l)}{f" <span class=\"c\">{c}</span>" if c else ""}</a>' for h, l, c in hub_links) + '</div></nav>')
     updated = datetime.datetime.now(KST).strftime('%Y.%m.%d')
     ver = r.get('verified')
     ver_txt = ''
@@ -687,6 +708,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
     <p class="ed-small" style="line-height:1.8">대회 정보의 기준은 {f'<a class="ed-link" href="{esc(official)}" target="_blank" rel="noopener noreferrer">대회 공식 홈페이지</a>' if official else '대회 공식 안내'}예요. 참가비와 접수 기간, 출발 시각은 주최 측 공지가 우선하고, 이 페이지는 {updated}에 정리한 내용이에요.<br>
     값이 다르거나 빠진 곳을 발견하면 <a class="ed-link" href="contact.html">문의하기</a>로 알려 주세요. 확인되는 대로 고쳐요.{f'<br><span class="muted">수집 참고: {src}</span>' if src else ''}{f'<br>{ver_txt}: <a class="ed-link" href="{esc(ver["url"])}" target="_blank" rel="noopener noreferrer">확인한 공식 페이지 ↗</a>' if ver else ''}</p></section>
   {rel_html}
+  {hub_html}
 </div></main>
 <script>window.RACE_REC={js(rec)};</script>
 <script>
@@ -768,6 +790,20 @@ def main():
     adsense = read_snippet('adsense')
     out_dir = os.path.join(ROOT, 'race'); os.makedirs(out_dir, exist_ok=True)
     pages, written = [], set()
+    # 목록(허브) 페이지 기준 미리 계산 — build_landing.py 가 같은 hubs 규칙으로 month/·region/ 을 만든다
+    def _flags(rid, r):
+        last_seen = archive[rid].get('_last_seen', fetched)
+        ended = r['st']['key'] == 'ended'
+        days_after = (TODAY - pd(r['end'])).days if ended else -1
+        stale = (rid not in current) and not ended and (TODAY - pd(last_seen)).days > STALE_DAYS
+        return stale, (not stale and (not ended or days_after <= INDEX_DAYS))
+    allr = {rid: r for rid, r in races.items() if _flags(rid, r)[1]}
+    cur = {rid: r for rid, r in races.items() if rid in current}
+    HUB['months'] = set(hubs.month_keys(allr)); HUB['regions'] = set(hubs.region_keys(cur))
+    import collections as _c
+    _mn = _c.Counter(k for r in allr.values() for k in hubs.months_of(r))
+    HUB['month_n'] = dict(_mn)
+    HUB['region_n'] = dict(_c.Counter(r['region'] for r in cur.values() if r['st']['key'] != 'ended'))
     for rid, r in sorted(races.items(), key=lambda kv: kv[1]['date']):
         rec = {k: v for k, v in archive[rid].items() if k != '_last_seen'}
         last_seen = archive[rid].get('_last_seen', fetched)
@@ -781,7 +817,9 @@ def main():
         page = build_page(r, cand[:4], rec, indexable, stale, adsense)
         with open(os.path.join(out_dir, rid + '.html'), 'w', encoding='utf8') as f: f.write(page)
         written.add(rid + '.html')
-        pages.append({'id': rid, 'url': f'{SITE}/race/{rid}.html', 'lastmod': last_seen if ended or rid not in current else fetched, 'indexable': indexable, 'ended': ended})
+        # 내용 해시: 대회 정보(수집·공식 보정값)와 접수 상태가 바뀔 때만 달라진다 → build_sitemap.py 가 lastmod 를 이 해시가 바뀐 날로 둔다
+        h = hashlib.sha1((js(rec) + '|' + r['st']['key'] + '|' + str(indexable) + '|' + str(stale)).encode('utf8')).hexdigest()[:16]
+        pages.append({'id': rid, 'url': f'{SITE}/race/{rid}.html', 'lastmod': last_seen if ended or rid not in current else fetched, 'indexable': indexable, 'ended': ended, 'hash': h})
     for f in glob.glob(os.path.join(out_dir, '*.html')):
         if os.path.basename(f) not in written: os.remove(f)
     json.dump(archive, open(arch_p, 'w', encoding='utf8'), ensure_ascii=False, indent=0, sort_keys=True)

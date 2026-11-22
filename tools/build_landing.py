@@ -10,14 +10,13 @@
 - 얇은 페이지 방지: 한 페이지에 대회가 MIN_*개 미만이면 만들지 않는다(마감 임박은 만들되 noindex·사이트맵 제외).
 - tools/daily_publish.sh 가 매일 build_race_pages.py 다음에 실행한다(D-day·접수 상태는 생성 시점 기준).
 """
-import json, os, re, sys, html, datetime, collections
+import json, os, re, sys, html, datetime, collections, hashlib
 sys.path.insert(0, os.path.dirname(__file__))
 import build_race_pages as brp
 import build_overseas as bo
+from hubs import MIN_MONTH, MIN_REGION, REGIONS, months_of, month_keys, region_keys   # 허브 기준은 hubs.py 한 곳에서
 
 ROOT = brp.ROOT; SITE = brp.SITE; TODAY = brp.TODAY
-MIN_MONTH = 15        # 월별 페이지: 색인 허용 대회 수 최소
-MIN_REGION = 15       # 지역별 페이지: 예정 대회 수 최소
 MIN_DEADLINE = 5      # 마감 임박 페이지: 목록(7일 내 + 이어지는 마감) 최소
 esc = brp.esc
 SEP = brp.SEP
@@ -27,15 +26,6 @@ WDK = ['월', '화', '수', '목', '금', '토', '일']   # date.weekday() 기�
 def kd(d): return f'{d.month}/{d.day}({WDK[d.weekday()]})'
 def ks(s): d = brp.pd(s); return f'{d.month}/{d.day}({WDK[d.weekday()]})'
 
-def months_of(r):
-    y, m = int(r['start'][:4]), int(r['start'][5:7])
-    ey, em = int(r['end'][:4]), int(r['end'][5:7])
-    while (y, m) <= (ey, em):
-        yield f'{y:04d}-{m:02d}'
-        m += 1
-        if m > 12:
-            m, y = 1, y + 1
-
 def month_overlap(r, key):
     return r['start'][:7] <= key <= r['end'][:7]
 
@@ -43,8 +33,6 @@ def week_overlap(r, y, m, a, b, last):
     s, e = brp.pd(r['start']), brp.pd(r['end'])
     return s <= datetime.date(y, m, min(b, last)) and e >= datetime.date(y, m, a)
 
-REGIONS = {'서울': 'seoul', '경기': 'gyeonggi', '인천': 'incheon', '강원': 'gangwon', '충북': 'chungbuk', '충남': 'chungnam', '대전': 'daejeon', '세종': 'sejong',
-           '전북': 'jeonbuk', '전남': 'jeonnam', '광주': 'gwangju', '경북': 'gyeongbuk', '경남': 'gyeongnam', '대구': 'daegu', '울산': 'ulsan', '부산': 'busan', '제주': 'jeju'}
 
 # ── 안내 문구 ─────────────────────────────────────────────────────
 # 공식 근거 없는 사실 주장(기후·지형·특정 장소·통계 등)은 쓰지 않는다.
@@ -76,6 +64,12 @@ def read_races():
 
 
 def rows(lst): return ''.join(brp.race_row(r) for r in lst)
+
+
+def list_hash(*lists):
+    """목록에 든 대회와 각 대회의 접수 상태로 만든 해시 — sitemap lastmod 는 이게 바뀐 날만 갱신(build_sitemap.py)."""
+    key = '|'.join(f"{r['id']}:{r['st']['key']}:{r['date']}" for lst in lists for r in lst)
+    return hashlib.sha1(key.encode('utf8')).hexdigest()[:16]
 
 
 def head(title, desc, url, ld_html):
@@ -118,7 +112,8 @@ def stamp(fetched):
 
 def nav_block(months, regions, here):
     a = lambda href, label, key: f'<a href="{href}"{" aria-current=\"page\" class=\"is-on\"" if key == here else ""}>{esc(label)}</a>'
-    ml = ''.join(a(f'month/{m}.html', f'{int(m[5:])}월', 'm' + m) for m in months)
+    # 해가 바뀌는 달은 연도를 붙인다(10월 11월 12월 2027년 1월 …)
+    ml = ''.join(a(f'month/{m}.html', (f'{int(m[:4])}년 {int(m[5:])}월' if i and m[:4] != months[i - 1][:4] else f'{int(m[5:])}월'), 'm' + m) for i, m in enumerate(months))
     rl = ''.join(a(f'region/{REGIONS[g]}.html', g, 'r' + g) for g in regions)
     out = f'<div class="lp-links-row"><span class="ed-label">마감</span>{a("deadline.html", "마감 임박", "deadline")}</div>'
     if ml: out += f'<div class="lp-links-row"><span class="ed-label">월별</span>{ml}</div>'
@@ -164,7 +159,7 @@ def build_deadline(cur, fetched, months, regions):
         ('일정 미공지 대회', f'접수 일정이 아직 공개되지 않은 대회는 {len(unk)}개예요. 이런 대회는 공식 홈페이지 공지를 확인해 주세요.'),
     ])
     secs.append(section(n, '마감이 임박한 대회, 신청 전에 이것만 확인하세요', f'<dl class="ed-dl ov-dl ov-ways">{guide}</dl>')); n += 1
-    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html([("대회 달력", "index.html"), ("마감 임박 대회", "deadline.html")])}'
+    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html([("대회 달력", "/"), ("마감 임박 대회", "deadline.html")])}'
             f'<div class="landing-title"><h1 class="ed-h1">이번 주 접수 마감 대회</h1><p class="ed-small ed-tab-num"><b style="color:var(--ink)">{len(wk)}</b>개 · 마감일 순</p></div>'
             f'<p class="ed-lede lp-lede">{lede}</p>{nav_block(months, regions, "deadline")}'
             f'{"".join(secs)}<div class="lp-end">{stamp(fetched)}</div></div></main>\n')
@@ -172,16 +167,22 @@ def build_deadline(cur, fetched, months, regions):
     html_ = head(title, d, url, ld) + body + tail()
     if not indexable: html_ = html_.replace('content="index,follow"', 'content="noindex,follow"')
     open(os.path.join(ROOT, 'deadline.html'), 'w', encoding='utf8').write(html_)
-    return {'path': 'deadline.html', 'url': url, 'indexable': indexable, 'count': len(wk), 'changefreq': 'daily', 'priority': '0.9', 'lastmod': TODAY.isoformat()}
+    return {'path': 'deadline.html', 'url': url, 'indexable': indexable, 'count': len(wk), 'changefreq': 'daily', 'priority': '0.9', 'lastmod': TODAY.isoformat(), 'hash': list_hash(wk, nx, soon)}
 
 
 # ── 월별 ────────────────────────────────────────────────────────
-def month_keys(allr):
-    c = collections.Counter()
-    for r in allr.values():
-        for k in months_of(r):
-            c[k] += 1
-    return sorted(k for k, v in c.items() if v >= MIN_MONTH)
+
+
+def extra_months(key, allr, months):
+    """key(월 페이지)에 붙일, 별도 페이지가 없는 달 목록. 각 달은 그 앞의 가장 가까운 월 페이지(없으면 첫 월 페이지)에 붙는다."""
+    if not months: return []
+    allk = sorted({k for r in allr.values() for k in months_of(r)} - set(months))
+    out = []
+    for xk in allk:
+        before = [m for m in months if m < xk]
+        host = before[-1] if before else months[0]
+        if host == key: out.append(xk)
+    return out
 
 
 def build_month(key, allr, fetched, months, regions):
@@ -218,27 +219,29 @@ def build_month(key, allr, fetched, months, regions):
     inner = ''
     last = (datetime.date(y + (m == 12), m % 12 + 1, 1) - datetime.timedelta(days=1)).day
     for a, b in buckets:
+        if a > last: continue   # 2월(28·29일)은 29~31 구간이 없다
         grp = [r for r in L if week_overlap(r, y, m, a, b, last)]
         if not grp: continue
         inner += f'<h3 class="lp-h3">{m}/{a} ~ {m}/{min(b, last)} <span class="ed-small">· {len(grp)}개</span></h3><div class="ed-list" style="border-top:0">{rows(grp)}</div>'
     secs.append(section(no, f'{m}월 전체 대회 (날짜 순)', inner)); no += 1
     other = ''.join(f'<a href="month/{k}.html">{int(k[:4])}년 {int(k[5:])}월</a>' for k in months if k != key)
     reglinks = ''.join(f'<a href="region/{REGIONS[g]}.html">{g}</a>' for g in regions)
+    # 대회가 MIN_MONTH 개 미만이라 따로 페이지가 없는 달은 가장 가까운 앞쪽 월 페이지에 붙인다(고아 대회 페이지 방지)
+    for xk in extra_months(key, allr, months):
+        xl = sorted([r for r in allr.values() if month_overlap(r, xk) and not any(k in months for k in months_of(r))], key=lambda r: (r['start'], r['name']))
+        if xl: secs.append(section(no, f'{int(xk[:4])}년 {int(xk[5:])}월 대회 ({len(xl)}개)', para('아직 대회가 적어서 이 달은 따로 모아보기 페이지를 만들지 않았어요. 대회가 늘면 월별 페이지가 생겨요.') + f'<div class="ed-list" style="border-top:0">{rows(xl)}</div>')); no += 1
     secs.append(section(no, '다른 달·지역 모아보기', f'<div class="lp-pills">{other}<a href="deadline.html">마감 임박</a>{reglinks}</div>')); no += 1
-    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html([("대회 달력", "index.html"), (f"{y}년 {m}월 대회", f"month/{key}.html")])}'
+    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html([("대회 달력", "/"), (f"{y}년 {m}월 대회", f"month/{key}.html")])}'
             f'<div class="landing-title"><h1 class="ed-h1">{y}년 {m}월 마라톤·러닝 대회 일정</h1><p class="ed-small ed-tab-num"><b style="color:var(--ink)">{n}</b>개 · 날짜 순</p></div>'
             f'<p class="ed-lede lp-lede">{lede}</p>{nav_block(months, regions, "m" + key)}{"".join(secs)}<div class="lp-end">{stamp(fetched)}</div></div></main>\n')
     ld = ld_for(f'{y}년 {m}월 마라톤·러닝 대회 일정', url, [('대회 달력', SITE + '/'), (f'{y}년 {m}월 대회', url)], L)
     os.makedirs(os.path.join(ROOT, 'month'), exist_ok=True)
     open(os.path.join(ROOT, 'month', key + '.html'), 'w', encoding='utf8').write(head(title, d, url, ld) + body + tail())
     cf = 'daily' if live else 'yearly'
-    return {'path': f'month/{key}.html', 'url': url, 'indexable': True, 'count': n, 'changefreq': cf, 'priority': '0.8' if live else '0.4', 'lastmod': TODAY.isoformat()}
+    return {'path': f'month/{key}.html', 'url': url, 'indexable': True, 'count': n, 'changefreq': cf, 'priority': '0.8' if live else '0.4', 'lastmod': TODAY.isoformat(), 'hash': list_hash(L)}
 
 
 # ── 지역별 ──────────────────────────────────────────────────────
-def region_keys(cur):
-    c = collections.Counter(r['region'] for r in cur.values() if r['st']['key'] != 'ended' and r['region'] in REGIONS)
-    return [g for g, v in c.most_common() if v >= MIN_REGION]
 
 
 def build_region(g, cur, fetched, months, regions):
@@ -270,13 +273,13 @@ def build_region(g, cur, fetched, months, regions):
     others = ''.join(f'<a href="region/{REGIONS[x]}.html">{x}</a>' for x in regions if x != g)
     ml = ''.join(f'<a href="month/{k}.html">{int(k[:4])}년 {int(k[5:])}월</a>' for k in months)
     secs.append(section(no, '다른 지역·월 모아보기', f'<div class="lp-pills">{others}{ml}<a href="deadline.html">마감 임박</a></div>')); no += 1
-    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html([("대회 달력", "index.html"), (f"{g} 대회", f"region/{REGIONS[g]}.html")])}'
+    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html([("대회 달력", "/"), (f"{g} 대회", f"region/{REGIONS[g]}.html")])}'
             f'<div class="landing-title"><h1 class="ed-h1">{g} 마라톤·러닝 대회 일정</h1><p class="ed-small ed-tab-num"><b style="color:var(--ink)">{n}</b>개 · 날짜 순</p></div>'
             f'<p class="ed-lede lp-lede">{lede}</p>{nav_block(months, regions, "r" + g)}{"".join(secs)}<div class="lp-end">{stamp(fetched)}</div></div></main>\n')
     ld = ld_for(f'{g} 마라톤·러닝 대회 일정', url, [('대회 달력', SITE + '/'), (f'{g} 대회', url)], L)
     os.makedirs(os.path.join(ROOT, 'region'), exist_ok=True)
     open(os.path.join(ROOT, 'region', REGIONS[g] + '.html'), 'w', encoding='utf8').write(head(title, d, url, ld) + body + tail())
-    return {'path': f'region/{REGIONS[g]}.html', 'url': url, 'indexable': True, 'count': n, 'changefreq': 'daily', 'priority': '0.7', 'lastmod': TODAY.isoformat()}
+    return {'path': f'region/{REGIONS[g]}.html', 'url': url, 'indexable': True, 'count': n, 'changefreq': 'daily', 'priority': '0.7', 'lastmod': TODAY.isoformat(), 'hash': list_hash(L)}
 
 
 def inject_index(months, regions):

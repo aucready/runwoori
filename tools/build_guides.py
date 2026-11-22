@@ -166,6 +166,15 @@ def main():
     gmap = {p['id']: f'guide/{p["id"]}.html' for p in posts}
     gmap.update({o: f'guide/{t}.html' for o, t in redirects.items() if t in ids and o not in ids})
     replace_block(os.path.join(ROOT, 'post.html'), '/*GUIDEMAP:START*/', '/*GUIDEMAP:END*/', 'var GUIDE_MAP=' + js(gmap) + ';')
+    # post.html(옛 주소 껍데기, noindex,follow): JS 없이도 글로 갈 수 있게 정적 링크 목록 — SEO P0 2026-11-22
+    links = ''.join(f'<li><a class="ed-link" href="guide/{esc(p["id"])}.html">{esc(p["title"])}</a></li>' for p in posts)
+    ul = f'<ul class="ed-small" style="line-height:2;margin:10px 0 0 18px;padding:0">{links}</ul>'
+    replace_block(os.path.join(ROOT, 'post.html'), '<!--POSTLINKS:START-->', '<!--POSTLINKS:END-->',
+                  f'<div style="padding:0 var(--page-x) 40px"><h2 class="ed-h2" style="margin:0 0 6px">러닝 가이드 글 {len(posts)}편</h2>{ul}</div>')
+    # guide.html(한 장 요약): 요약은 JS 로 그려지므로, 자세한 글로 가는 정적 링크를 함께 둔다
+    replace_block(os.path.join(ROOT, 'guide.html'), '<!--GUIDELINKS:START-->', '<!--GUIDELINKS:END-->',
+                  f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><h2 class="ed-h2">자세히 읽는 러닝 가이드 {len(posts)}편</h2><a class="ed-link" href="blog.html">글 목록 →</a></div>'
+                  f'<p class="ed-small" style="line-height:1.8;padding:0 var(--page-x)">요약의 이유와 근거는 아래 글에 정리했어요.</p><div style="padding:0 var(--page-x)">{ul}</div></section>')
     # blog.html: 목록을 HTML에 미리 넣는다
     replace_block(os.path.join(ROOT, 'blog.html'), '<!--GUIDELIST:START-->', '<!--GUIDELIST:END-->', ''.join(row(p) for p in posts))
     print(f'guide pages: {len([w for w in written if w[:-5] in ids])}편 + 이동 페이지 {len(written) - len([w for w in written if w[:-5] in ids])}개 → guide/<id>.html')

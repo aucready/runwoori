@@ -254,6 +254,38 @@ def tags(s):
     return ' '.join(f'<span class="sg-tag">{esc(CAT_LABEL.get(c, c))}</span>' for c in s.get('category') or [])
 
 
+def brief_items(s, key):
+    items = s.get(key) or []
+    return [str(x).strip() for x in items if str(x).strip()]
+
+
+def brief_block(s):
+    """상세 페이지용 한 줄 요약 + 장단점. 값이 없으면 비운다."""
+    summary = (s.get('summary') or '').strip()
+    pros, cons = brief_items(s, 'pros'), brief_items(s, 'cons')
+    if not summary and not pros and not cons:
+        return ''
+    parts = []
+    if summary:
+        parts.append(f'<p class="sg-summary">{esc(summary)}</p>')
+    cols = []
+    for lab, items, cls in (('장점', pros, 'sg-pros'), ('단점', cons, 'sg-cons')):
+        if not items:
+            continue
+        lis = ''.join(f'<li>{esc(it)}</li>' for it in items)
+        cols.append(f'<div class="{cls}"><h3>{lab}</h3><ul>{lis}</ul></div>')
+    if cols:
+        parts.append(f'<div class="sg-pc">{"".join(cols)}</div>')
+    return f'<div class="sg-brief">{"".join(parts)}</div>'
+
+
+def card_summary(s):
+    text = (s.get('summary') or '').strip()
+    if not text:
+        return ''
+    return f'<p class="sg-card-sum">{esc(text)}</p>'
+
+
 def card(s, aff=None):
     w = fmt_weight(s.get('weight_g'), s.get('weight_size')) or '공식 미공개'
     d = f"{s['drop_mm']}mm" if s.get('drop_mm') is not None else '공식 미공개'
@@ -263,6 +295,7 @@ def card(s, aff=None):
             f'<h3>{esc(s["name_kr"])}</h3><div class="sg-facts">'
             f'<span><b>{esc(w)}</b>무게</span><span><b>{esc(d)}</b>드롭</span>'
             f'<span><b>{esc(p)}</b>공식 정가</span></div>'
+            f'{card_summary(s)}'
             f'<p class="ed-small" style="margin:8px 0 0">{tags(s)}</p>')
     # 쿠팡 이미지 링크와 상세 페이지 링크가 겹치지 않게 카드를 나눈다.
     if coupang_image(s, aff):
@@ -427,7 +460,9 @@ def build_detail(s, shoes, aff):
             f'<p class="ed-lede">{esc(s["brand_kr"])} {esc(s["name_kr"])}의 공식 상품 페이지에 적힌 숫자만 정리했어요. '
             f'착화감·후기·실험실 실측은 짓지 않았습니다. 확인일 {CHECKED_LABEL}.</p>'
             f'<p class="sg-kicker">{tags(s)}</p></header>'
-            f'<div class="sg-hero" style="padding:0 var(--page-x)">{shoe_figure(s, aff, "hero")}</div>'
+            f'<div class="sg-top" style="padding:0 var(--page-x)">'
+            f'<div class="sg-hero">{shoe_figure(s, aff, "hero")}</div>'
+            f'{brief_block(s)}</div>'
             f'<div style="padding:8px var(--page-x) 0">{num_html}'
             f'<table class="sg-spec"><tbody>{tr}</tbody></table>'
             f'<h2 class="ed-h2">출처와 확인 메모</h2>'

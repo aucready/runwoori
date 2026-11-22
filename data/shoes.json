@@ -335,7 +335,7 @@
         "한국 공식 스토어 상품 페이지는 NetFunnel로 본문 수집이 되지 않아, 한국 정가는 공식 미공개로 둡니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS6kmtAITY",
         "naver": null
       },
       "successor_id": null,
@@ -343,7 +343,14 @@
       "image": {
         "src": null,
         "alt": "아식스 노바블라스트 6",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS6kmtAITY",
+          "src": "https://image13.coupangcdn.com/image/affiliate/banner/e8df45fab9ba34b4a124b1626eccef71@2x.jpg",
+          "alt": "아식스 노바블라스트 6 와이드 로즈 더스트 일루미네이트 옐로우",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {
@@ -382,7 +389,7 @@
         "안정화 분류는 공식 카테고리이며, 평발·통증 교정 효과는 적지 않습니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS6nGHbz3c",
         "naver": null
       },
       "successor_id": null,
@@ -390,7 +397,14 @@
       "image": {
         "src": null,
         "alt": "아식스 젤 카야노 33",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS6nGHbz3c",
+          "src": "https://img1a.coupangcdn.com/image/affiliate/banner/79a649855eaa81c6dad4c7e621e793c2@2x.jpg",
+          "alt": "아식스 남성용 젤 카야노 33 러닝화 1011C167-100",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {

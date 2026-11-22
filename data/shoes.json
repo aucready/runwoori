@@ -233,7 +233,7 @@
         "여성 공식 페이지는 정사이즈보다 작게 나왔다고 안내합니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS55JOdnXM",
         "naver": null
       },
       "successor_id": null,
@@ -241,7 +241,14 @@
       "image": {
         "src": null,
         "alt": "나이키 베이퍼플라이 4",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS55JOdnXM",
+          "src": "https://img5a.coupangcdn.com/image/affiliate/banner/1fdf74a4dd5dea7eb8212660ccd8b672@2x.jpg",
+          "alt": "나이키 베이퍼플라이 4 남성 러닝화",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {

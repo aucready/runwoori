@@ -128,21 +128,30 @@ def official_links(s):
     return ' · '.join(out)
 
 
-def disclosure(aff):
+def coupang_url(s, aff):
+    """제휴가 켜져 있고, 그 모델에 쿠팡 파트너스 링크가 있을 때만 URL을 돌려준다."""
+    if not aff or not aff.get('enabled'):
+        return None
+    href = (s.get('affiliate') or {}).get('coupang')
+    if isinstance(href, str) and href.startswith('https://link.coupang.com/'):
+        return href
+    return None
+
+
+def disclosure(aff, show=False):
+    """고지는 쿠팡 링크가 실제로 들어간 페이지 상단에만 보이게 한다."""
     text = aff.get('disclosure') or ''
-    hidden = '' if aff.get('enabled') else ' hidden'
-    return f'<aside class="sg-aff" {hidden} data-aff-slot="disclosure">{esc(text)}</aside>'
+    if not (aff.get('enabled') and show and text):
+        return ''
+    return f'<aside class="sg-aff" data-aff-slot="disclosure">{esc(text)}</aside>'
 
 
 def buy_slot(s, aff):
-    hidden = '' if aff.get('enabled') else ' hidden'
-    href = (s.get('affiliate') or {}).get('coupang') if aff.get('enabled') else None
-    if href:
-        btn = f'<a class="ed-btn" href="{esc(href)}" rel="sponsored noopener noreferrer" target="_blank">구매 링크 (쇼핑몰)</a>'
-    else:
-        btn = '<span class="ed-btn" aria-disabled="true">구매 링크 (준비 중)</span>'
-    return (f'<div class="sg-buy ed-actions" {hidden} data-aff-slot="buy">'
-            f'<p class="ed-small">구매 링크의 가격은 쇼핑몰 기준이며, 위 공식 정가와 다를 수 있어요.</p>{btn}</div>')
+    href = coupang_url(s, aff)
+    if not href:
+        return ''
+    return (f'<div class="sg-buy ed-actions" data-aff-slot="buy">'
+            f'<a class="ed-btn" href="{esc(href)}" rel="sponsored nofollow noopener" target="_blank">쿠팡에서 가격 보기</a></div>')
 
 
 def crumbs(trail):
@@ -356,7 +365,7 @@ def build_detail(s, shoes, aff):
     notes = ''.join(f'<li>{esc(n)}</li>' for n in (s.get('source_notes') or []))
     sim = similar(s, shoes)
     sim_html = ''.join(card(x) for x in sim)
-    body = (f'{disclosure(aff)}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
+    body = (f'{disclosure(aff, bool(coupang_url(s, aff)))}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
             f'<div class="ed-label">{esc(s["brand_kr"])}<span class="ed-sep">·</span>공식 스펙</div>'
             f'<h1 class="ed-h1" style="margin:12px 0 10px">{esc(s["name_kr"])}</h1>'
             f'<p class="ed-lede">{esc(s["brand_kr"])} {esc(s["name_kr"])}의 공식 상품 페이지에 적힌 숫자만 정리했어요. '
@@ -432,7 +441,8 @@ def build_compare(a, b, shoes, aff):
         f'<tr><th scope="row">{lab}</th><td data-label="{esc(a["name_kr"])}">{fn(a)}</td><td data-label="{esc(b["name_kr"])}">{fn(b)}</td></tr>'
         for lab, fn in rows
     )
-    body = (f'{disclosure(aff)}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
+    buys = buy_slot(a, aff) + buy_slot(b, aff)
+    body = (f'{disclosure(aff, bool(coupang_url(a, aff) or coupang_url(b, aff)))}<header class="ed-page-head" style="padding:18px var(--page-x) 0">'
             f'<div class="ed-label">러닝화 · 비교</div>'
             f'<h1 class="ed-h1" style="margin:12px 0 10px">{esc(a["name_kr"])} vs {esc(b["name_kr"])}</h1>'
             f'<p class="ed-lede">두 모델의 공식 스펙을 나란히 봤어요. 어느 쪽이 더 편하다거나 기록이 더 나온다는 평가는 적지 않았습니다. 확인일 {CHECKED_LABEL}.</p></header>'
@@ -443,6 +453,7 @@ def build_compare(a, b, shoes, aff):
             f'<th><a class="ed-link" href="{shoe_url(a)}">{esc(a["brand_kr"])} {esc(a["name_kr"])}</a></th>'
             f'<th><a class="ed-link" href="{shoe_url(b)}">{esc(b["brand_kr"])} {esc(b["name_kr"])}</a></th>'
             f'</tr></thead><tbody>{tr}</tbody></table></div>'
+            f'{buys}'
             f'<p class="ed-small" style="margin-top:16px">출처는 각 모델 페이지에 있습니다. '
             f'<a class="ed-link" href="/shoes/">러닝화 허브</a></p></div>')
     slug = f'{a["slug"]}-vs-{b["slug"]}'

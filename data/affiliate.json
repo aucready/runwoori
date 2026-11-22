@@ -1,6 +1,6 @@
 {
-  "enabled": false,
+  "enabled": true,
   "disclosure": "이 게시물은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.",
-  "note": "쿠팡 파트너스 가입 후 enabled를 true로 바꾸고, 각 모델 affiliate.coupang에 주성님 계정에서 만든 링크만 넣습니다. 코드에 파트너 키를 넣지 않습니다. 상품 사진은 브랜드 공식 사진을 쓰지 말고, 쿠팡 파트너스가 허용한 상품 이미지만 shoes.json의 image.src에 넣은 뒤 images_enabled를 true로 바꿉니다. image.source에 출처(예: coupang-partners)를 적습니다. 둘 다 false인 지금은 4:3 자리만 보이고, 고지·구매 링크도 숨깁니다.",
+  "note": "enabled=true이면 제휴 고지와 구매 버튼이, 해당 모델에 affiliate.coupang 링크가 있는 페이지에만 보입니다. 링크는 주성님 쿠팡 파트너스 계정에서 만든 것만 넣습니다. 코드에 파트너 키를 넣지 않습니다. 상품 사진은 브랜드 공식 사진을 쓰지 말고, 쿠팡 파트너스가 허용한 상품 이미지만 shoes.json의 image.src에 넣은 뒤 images_enabled를 true로 바꿉니다. image.source에 출처(예: coupang-partners)를 적습니다. 지금은 images_enabled=false 이라 4:3 자리만 보입니다.",
   "images_enabled": false
 }

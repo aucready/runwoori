@@ -22,8 +22,11 @@ SITE_NAME = 'Run우리'
 NAV = [('/', '대회 달력', 'races'), ('/overseas.html', '해외 대회', 'overseas'), ('/my.html', '나의 레이스', 'home'), ('/blog.html', '러닝 가이드', 'blog'),
        ('/courses.html', '러닝 코스', 'courses'), ('/tools.html', '훈련 · 페이스', 'tools'), ('/crew/', '러닝 약속 잡기', 'crew'), ('/saved.html', '저장', 'saved')]
 BOTTOM = [('/', '대회', 'races'), ('/my.html', '나의 레이스', 'home'), ('/blog.html', '가이드', 'blog'), ('/saved.html', '저장', 'saved')]
-SUBDIRS = ('race', 'month', 'region', 'overseas', 'guide')
+SUBDIRS = ('race', 'month', 'region', 'overseas', 'guide', 'marathon-schedule', 'distance', 'tools')   # tools/ 는 *.html(페이스 계산기)만
 SKIP = {'home.html', 'races.html', 'offline.html'}
+# 푸터 '대회 모아보기' — app.js FOOT_HUBS 와 같은 항목·순서 (SEO P1)
+FOOT_HUBS = [('/marathon-schedule/2026.html', '2026 마라톤 일정'), ('/marathon-schedule/2027.html', '2027 마라톤 일정'), ('/open.html', '접수 중인 대회'), ('/distance/half.html', '하프'),
+             ('/distance/10k.html', '10km'), ('/distance/5k.html', '5km'), ('/distance/full.html', '풀코스'), ('/tools/pace-calculator.html', '페이스 계산기')]
 H0, H1, F0, F1 = '<!--RWNAV:HEAD-->', '<!--/RWNAV:HEAD-->', '<!--RWNAV:FOOT-->', '<!--/RWNAV:FOOT-->'
 
 
@@ -69,6 +72,7 @@ def foot_html(active, upd):
             f'<img class="ed-foot-logo" src="/assets/logo/runwoori-wordmark-light-small.svg" alt="{SITE_NAME}" width="101" height="24"><br>'
             f'{SITE_NAME}는 개인 프로젝트입니다. 대회 일정은 <a href="https://www.kormarathon.com" rel="noopener" target="_blank">KorMarathon</a>의 공개 정보를 하루 한 번 수집하고, '
             f'주요 대회는 공식 홈페이지로 직접 확인해 정리합니다. 일정·참가비·접수 기간은 바뀔 수 있으니 신청 전 반드시 공식 홈페이지에서 확인하세요.<br><span>{upd}</span></p>'
+            f'<nav class="ed-foot-links ed-foot-hubs" aria-label="대회 모아보기">{"".join(f'<a href="{h}">{l}</a>' for h, l in FOOT_HUBS)}</nav>'
             f'<nav class="ed-foot-links" aria-label="사이트 정보"><a href="/crew/">러닝 약속 잡기</a><a href="/about.html">사이트 소개</a><a href="/privacy.html">개인정보처리방침</a>'
             f'<a href="/install.html">앱으로 설치</a><a href="/terms.html">이용약관</a><a href="/contact.html">문의하기</a></nav></div></footer>'
             f'<nav class="ed-tabbar" data-rw-static aria-label="하단 메뉴">{tab}</nav>{F1}')

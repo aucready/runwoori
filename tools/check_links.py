@@ -7,7 +7,8 @@
 가운데 적어도 하나에서 <a href> 로 링크되는지 본다. 다른 대회 페이지의 '관련 대회' 링크는 세지 않는다."""
 import glob, json, os, re, sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-hubs = [os.path.join(ROOT, 'index.html'), os.path.join(ROOT, 'deadline.html')] + glob.glob(os.path.join(ROOT, 'month', '*.html')) + glob.glob(os.path.join(ROOT, 'region', '*.html'))
+hubs = [os.path.join(ROOT, 'index.html'), os.path.join(ROOT, 'deadline.html')] + glob.glob(os.path.join(ROOT, 'month', '*.html')) + glob.glob(os.path.join(ROOT, 'region', '*.html')) \
+    + glob.glob(os.path.join(ROOT, 'marathon-schedule', '*.html')) + glob.glob(os.path.join(ROOT, 'distance', '*.html')) + [os.path.join(ROOT, 'open.html')]
 linked = set()
 for h in hubs:
     linked |= set(re.findall(r'href="/?race/([A-Za-z0-9_-]+)\.html"', open(h, encoding='utf8').read()))

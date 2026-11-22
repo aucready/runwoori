@@ -38,7 +38,7 @@ def home_hash():
     return sha(key)
 
 pages=[('', 'daily','1.0'),('overseas.html','daily','0.8'),('my.html','weekly','0.7'),('blog.html','weekly','0.9'),('courses.html','monthly','0.6'),
-       ('tools.html','monthly','0.6'),('crew/','monthly','0.5'),('guide.html','monthly','0.5'),('about.html','monthly','0.4'),('install.html','monthly','0.3'),('contact.html','yearly','0.3'),
+       ('tools.html','monthly','0.6'),('tools/pace-calculator.html','monthly','0.6'),('crew/','monthly','0.5'),('guide.html','monthly','0.5'),('about.html','monthly','0.4'),('install.html','monthly','0.3'),('contact.html','yearly','0.3'),
        ('privacy.html','yearly','0.3'),('terms.html','yearly','0.3')]
 urls=[]
 for p,cf,pr in pages:

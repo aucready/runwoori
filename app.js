@@ -167,6 +167,8 @@ function updatedText(){
 }
 function fillUpdated(){ if(window.RACES_FAILED&&$('#main')&&!$('#loadfail')) $('#main').insertAdjacentHTML('afterbegin','<p class="ed-note" id="loadfail" role="alert" style="margin:16px var(--page-x) 0">대회 데이터를 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요. (이 폴더를 파일로 직접 열었다면 웹 서버로 열어야 해요.)</p>'); $$('[data-updated]').forEach(e=>{ e.textContent=updatedText(); }); const n=$('[data-count-all]'); if(n&&window.RACES_META) n.textContent=window.RACES_META.count; }
 RACES_READY.then(fillUpdated);
+/* 푸터 '대회 모아보기' 링크 — tools/static_nav.py FOOT_HUBS 와 같은 항목(SEO P1) */
+const FOOT_HUBS=[['/marathon-schedule/2026.html','2026 마라톤 일정'],['/marathon-schedule/2027.html','2027 마라톤 일정'],['/open.html','접수 중인 대회'],['/distance/half.html','하프'],['/distance/10k.html','10km'],['/distance/5k.html','5km'],['/distance/full.html','풀코스'],['/tools/pace-calculator.html','페이스 계산기']];
 function layout(active){
   document.body.classList.add('ed-root');
   $$('[data-rw-static]').forEach(e=>e.remove());   /* tools/static_nav.py 가 넣은 정적 메뉴·푸터(크롤러용) → 같은 자리에 JS 메뉴로 교체 */
@@ -180,6 +182,7 @@ function layout(active){
     <div class="ed-mast-links"><a class="ed-link ${active==='courses'?'is-on':''}" href="courses.html">코스</a><a class="ed-link ${active==='tools'?'is-on':''}" href="tools.html">훈련</a><a class="ed-link ${active==='crew'?'is-on':''}" href="crew/index.html">약속 잡기</a></div></div></div></header>`;
   const bn=`<nav class="ed-tabbar" aria-label="하단 메뉴">${bottom.map(n=>{const on=n[2]===active||(active==='overseas'&&n[2]==='races');return `<a href="${n[0]}" class="${on?'is-on':''}" ${on?'aria-current="page"':''}>${n[1]}${badge(n[2])}</a>`}).join('')}</nav>`;
   const foot=`<footer class="ed-footer"><div class="ed-wrap"><div class="ed-rule" style="border-color:var(--ink)"></div><p class="ed-small" style="padding-top:14px"><img class="ed-foot-logo" src="assets/logo/runwoori-wordmark-light-small.svg" alt="${SITE.name}" width="101" height="24"><br>${SITE.name}는 개인 프로젝트입니다. 대회 일정은 <a href="https://www.kormarathon.com" rel="noopener" target="_blank">KorMarathon</a>의 공개 정보를 하루 한 번 수집하고, 주요 대회는 공식 홈페이지로 직접 확인해 정리합니다. 일정·참가비·접수 기간은 바뀔 수 있으니 신청 전 반드시 공식 홈페이지에서 확인하세요.<br><span data-updated>${updatedText()}</span></p>
+    <nav class="ed-foot-links ed-foot-hubs" aria-label="대회 모아보기">${FOOT_HUBS.map(h=>`<a href="${h[0]}">${h[1]}</a>`).join('')}</nav>
     <nav class="ed-foot-links" aria-label="사이트 정보"><a href="crew/index.html">러닝 약속 잡기</a><a href="about.html">사이트 소개</a><a href="privacy.html">개인정보처리방침</a>${IN_APP?'':'<a href="install.html">앱으로 설치</a>'}<a href="terms.html">이용약관</a><a href="contact.html">문의하기</a></nav></div></footer>`;
   document.body.insertAdjacentHTML('afterbegin',head);
   document.body.insertAdjacentHTML('beforeend',foot+bn);

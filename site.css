@@ -224,7 +224,7 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .race-cal .ed-cal-head .nav button{min-height:36px;padding:0 8px}
 .race-cal .ed-cal-head .nav #todayBtn{border:1px solid var(--ink);border-radius:var(--r-1);color:var(--ink);padding:0 10px;font-size:12.5px;margin:0 4px}
 .race-cal .ed-cal-day{height:auto;min-height:54px}
-.race-cal .ed-cal-day.sat:not(.has){color:#3F5E8A}.race-cal .ed-cal-day.sun:not(.has){color:#A04A3A}
+.race-cal .ed-cal-day.sat:not(.has){color:var(--info, #3F5E8A)}.race-cal .ed-cal-day.sun:not(.has){color:var(--ink-2)}
 .race-cal .ed-cal-day.sat,.race-cal .ed-cal-day.sun{background:rgba(120,110,90,.03)}
 .race-cal .ed-cal-day.sel{background:var(--ink)}
 .race-cal .ed-cal-day .m{height:12px;gap:2px}
@@ -392,7 +392,81 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .rw-weeks th{font-size:11px;letter-spacing:.1em;color:var(--ink-2);font-weight:600}
 .rw-weeks tr.is-race td{font-weight:700}
 .rw-weeks .num{font-variant-numeric:tabular-nums;white-space:nowrap}
-.rw-pb{display:inline-block;font-size:11px;letter-spacing:.08em;border:var(--line) solid var(--accent,#B8432B);color:var(--accent,#B8432B);padding:1px 6px;margin-left:8px}
+.rw-pb{display:inline-block;font-size:11px;letter-spacing:.08em;border:var(--line) solid var(--accent);color:var(--accent);padding:1px 6px;margin-left:8px}
 .rw-rec{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:baseline;padding:14px 0;border-bottom:var(--line) solid var(--rule)}
 .rw-rec b{font-variant-numeric:tabular-nums}
 @media (min-width:720px){.rw-form{grid-template-columns:1fr 1fr}.rw-form .full{grid-column:1/-1}}
+
+/* SEO P1 (2026-11-22): 연도·거리·접수 중 일정표, 해외 월별 일정표, 페이스표
+   넓은 화면은 표 그대로, 600px 이하는 한 줄씩 카드처럼 쌓는다(가로 스크롤 없음). 색은 기존 토큰만 쓴다. */
+.lp-tablewrap{max-width:100%}
+.lp-sched td,.lp-sched th{white-space:nowrap;padding-right:14px;vertical-align:top}
+.lp-sched td:nth-child(2){white-space:normal;min-width:10em}
+.lp-sched th:last-child,.lp-sched td:last-child{padding-right:0}
+.lp-sched td:last-child{font-family:inherit;font-size:14px;font-weight:400}
+.lp-pace th,.lp-pace td{white-space:nowrap;padding-right:14px}
+.lp-pace th:last-child,.lp-pace td:last-child{padding-right:0}
+.lp-pace td,.lp-pace thead th:not(:first-child){text-align:right}
+.lp-pace td:last-child{font-family:inherit;font-size:14px;font-weight:400}
+.lp-pace tbody th{font-size:14px;letter-spacing:0;color:var(--ink);font-weight:600;border-bottom:var(--line) solid var(--rule);padding:10px 14px 10px 0}
+.lp-kmh{display:none}
+@media (max-width:600px){
+  /* 일정표 → 쌓인 행: 1줄 날짜(작게) · 2줄 대회명(크게) · 3줄 지역 · 종목 · 접수 상태 */
+  .lp-sched,.lp-sched tbody,.lp-sched tr,.lp-sched td{display:block;width:auto}
+  .lp-sched thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .lp-sched tr{display:flex;flex-wrap:wrap;align-items:center;column-gap:8px;padding:12px 0;border-bottom:var(--line) solid var(--rule)}
+  .lp-sched td{padding:0;border:0;min-width:0;white-space:normal;text-align:left!important;font-size:13px;color:var(--ink-2);line-height:1.5}
+  .lp-sched td:first-child{flex:0 0 100%;font-size:12.5px;letter-spacing:.02em;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .lp-sched td:nth-child(2){flex:0 0 100%;min-width:0;font-size:16px;line-height:1.4;color:var(--ink);margin:0 0 2px}
+  .lp-sched tr{position:relative;min-height:44px}
+  /* 카드 전체가 대회 링크의 터치 영역(밑줄은 대회명 글자에만) */
+  .lp-sched td:nth-child(2) a.ed-link::after{content:'';position:absolute;inset:0}
+  .lp-sched td.lp-empty{display:none}
+  .lp-sched td:nth-child(n+3):not(.lp-empty)~td:not(.lp-empty)::before{content:'·';margin-right:8px;color:var(--ink-3)}
+  .lp-sched td:last-child{font-size:13px}
+  .lp-sched td:last-child .ed-status{font-size:12.5px}
+  /* 페이스표: 시속 열은 페이스 칸 아래 작은 글씨로 옮기고 시간은 더 촘촘하게 */
+  .lp-pace .lp-kmh-col{display:none}
+  .lp-kmh{display:block;font-size:12px;font-weight:400;color:var(--ink-3);margin-top:3px;letter-spacing:0}
+  .lp-pace{font-size:13.5px}
+  .lp-pace th,.lp-pace td{padding-right:8px}
+  .lp-pace thead th{font-size:12px;letter-spacing:0}
+  .lp-pace td,.lp-pace td:last-child{font-size:13.5px}
+  .lp-pace tbody th{font-size:14px;padding-right:8px}
+}
+.ed-foot-hubs{margin-top:10px}
+
+/* 시안 B2 — 트랙 레드 + 블루 + 그린 (미리보기 비교용, 2026-11-22)
+   B1의 블루는 안내(경로 표시·본문 링크·토요일)에만 쓰고,
+   접수중·열린 상태 같은 긍정 신호는 차분한 포레스트 그린 #2D7655.
+   면적은 배지·점·홈 숫자처럼 작은 곳에만. site.css 맨 끝의 시안 B 블록을 이 파일로 바꾸면 전환됩니다. */
+:root{--accent:#B5432A;--accent-deep:#9A3620;--accent-wash:#EED9CE;
+  --info:#2F6DB5;            /* 안내 = 본문 링크·경로 표시·토요일 */
+  --info-wash:#E8EEF4;
+  --positive:#2D7655;        /* 긍정 = 접수중·열린 상태 */
+  --positive-wash:#E7EEE8;
+  --st-open:var(--positive)}
+.rw-pb{border-color:var(--accent);color:var(--accent)}
+.race-cal .ed-cal-day.today{box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-wash)}
+.race-cal .ed-cal-head .nav #todayBtn{border-color:var(--accent);color:var(--accent-deep);font-weight:600}
+.ed-actions .ed-btn:not(.ghost){background:var(--accent);border-color:var(--accent);color:#fff}
+.ed-actions .ed-btn:not(.ghost):hover{background:var(--accent-deep);border-color:var(--accent-deep)}
+.ed-actions .ed-btn:not(.ghost):active{background:var(--accent-deep);border-color:var(--accent-deep)}
+.ed-link.act{color:var(--accent-deep)}
+.race-search-btn{background:var(--accent);border-color:var(--accent);color:#fff}
+.race-search-btn:hover,.race-search-btn:active{background:var(--accent-deep);border-color:var(--accent-deep)}
+.lp-links a[href$="deadline.html"]{color:var(--accent-deep);text-decoration-color:currentColor}
+/* 긍정(그린): 접수중 배지·점, 홈 '19 접수중', 크루 빈자리 숫자 */
+.ed-status.open{color:var(--positive);background:var(--positive-wash);padding:3px 6px 3px 5px;border-radius:2px}
+.ed-figure[data-tab="open"] b{color:var(--positive)}
+.ed-cal-day .m i:not(.urgent):not(.soon):not(.closed):not(.info):not(.ongoing){background:var(--positive)}
+.ed-cal-day.sel .m i{background:var(--paper)!important}
+.cr-seats b{color:var(--positive)}
+/* 안내(블루): 본문 링크·경로 표시·토요일. 상단 메뉴·푸터·목록 제목은 잉크 */
+.ed-root main .ed-link:not(.act),.ed-crumbs a{color:var(--info)}
+.ed-crumbs a{text-decoration-color:rgba(47,109,181,.45)}
+.ed-mast-links .ed-link{color:var(--ink)}
+.race-cal .ed-cal-day.sat:not(.has){color:var(--info)}
+.race-cal .ed-cal-day.sun:not(.has){color:var(--ink-2)}
+.lp-sched td:nth-child(2) a.ed-link,.ed-race h3 a{color:var(--ink)}
+.cr-datecal .ed-cal-dow.sat,.cr-datecal .ed-cal-day.sat:not(.sel):not([aria-disabled="true"]){color:var(--info)}

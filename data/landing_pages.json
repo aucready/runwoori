@@ -80,6 +80,96 @@
 "priority": "0.7",
 "lastmod": "2026-11-22",
 "hash": "b86f8c056b5ef3ab"
+},
+{
+"path": "region/gyeonggi.html",
+"url": "https://runwoori.com/region/gyeonggi.html",
+"indexable": true,
+"count": 9,
+"changefreq": "daily",
+"priority": "0.7",
+"lastmod": "2026-11-22",
+"hash": "39beabc8e84d88a3"
+},
+{
+"path": "region/chungnam.html",
+"url": "https://runwoori.com/region/chungnam.html",
+"indexable": true,
+"count": 8,
+"changefreq": "daily",
+"priority": "0.7",
+"lastmod": "2026-11-22",
+"hash": "bb3cf18972279549"
+},
+{
+"path": "marathon-schedule/2026.html",
+"url": "https://runwoori.com/marathon-schedule/2026.html",
+"indexable": true,
+"count": 157,
+"changefreq": "daily",
+"priority": "0.8",
+"lastmod": "2026-11-22",
+"hash": "6937ce9c4e3e577e"
+},
+{
+"path": "marathon-schedule/2027.html",
+"url": "https://runwoori.com/marathon-schedule/2027.html",
+"indexable": true,
+"count": 32,
+"changefreq": "daily",
+"priority": "0.8",
+"lastmod": "2026-11-22",
+"hash": "ef6d5c621e1f851c"
+},
+{
+"path": "distance/half.html",
+"url": "https://runwoori.com/distance/half.html",
+"indexable": true,
+"count": 43,
+"changefreq": "daily",
+"priority": "0.8",
+"lastmod": "2026-11-22",
+"hash": "b5b2b40cd6348ceb"
+},
+{
+"path": "distance/10k.html",
+"url": "https://runwoori.com/distance/10k.html",
+"indexable": true,
+"count": 77,
+"changefreq": "daily",
+"priority": "0.8",
+"lastmod": "2026-11-22",
+"hash": "30a1627bb6018482"
+},
+{
+"path": "distance/5k.html",
+"url": "https://runwoori.com/distance/5k.html",
+"indexable": true,
+"count": 62,
+"changefreq": "daily",
+"priority": "0.8",
+"lastmod": "2026-11-22",
+"hash": "20380348a58f59d8"
+},
+{
+"path": "distance/full.html",
+"url": "https://runwoori.com/distance/full.html",
+"indexable": true,
+"count": 13,
+"changefreq": "daily",
+"priority": "0.8",
+"lastmod": "2026-11-22",
+"hash": "802820b6b5e3ecd3"
+},
+{
+"path": "open.html",
+"url": "https://runwoori.com/open.html",
+"indexable": true,
+"count": 25,
+"changefreq": "daily",
+"priority": "0.9",
+"lastmod": "2026-11-22",
+"hash": "db8dae2faf0cde8f"
 }
 ]
 }

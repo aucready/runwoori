@@ -29,6 +29,7 @@ AD_FREE = frozenset({
     'crew/index.html',  # 크루 러닝 약속. 도구형 화면이라 광고 없음
     'crew/r.html',      # 참가자 화면. 가입 없이 닉네임만 받는다
     'crew/h.html',      # 호스트 관리 화면
+    'tools/pace-calculator.html',  # 페이스 계산기(SEO P1). 도구 화면이라 광고 없음
 })
 
 _ADS = re.compile(r'<!--ADSENSE:START-->.*?<!--ADSENSE:END-->', re.S)

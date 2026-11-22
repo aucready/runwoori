@@ -14,7 +14,7 @@ import json, os, re, sys, html, datetime, collections, hashlib
 sys.path.insert(0, os.path.dirname(__file__))
 import build_race_pages as brp
 import build_overseas as bo
-from hubs import MIN_MONTH, MIN_REGION, REGIONS, months_of, month_keys, region_keys   # 허브 기준은 hubs.py 한 곳에서
+from hubs import MIN_MONTH, MIN_REGION, MIN_HUB, REGIONS, DISTS, months_of, month_keys, region_keys, year_keys, dist_indexable   # 허브 기준은 hubs.py 한 곳에서
 
 ROOT = brp.ROOT; SITE = brp.SITE; TODAY = brp.TODAY
 MIN_DEADLINE = 5      # 마감 임박 페이지: 목록(7일 내 + 이어지는 마감) 최소
@@ -110,14 +110,23 @@ def stamp(fetched):
             f'일정·참가비·접수 기간은 바뀔 수 있으니 신청 전에 각 대회 공식 홈페이지를 꼭 확인하세요. 틀린 내용을 발견하면 <a class="ed-link" href="contact.html">문의하기</a>로 알려 주세요.</p>')
 
 
+NAVX = {'years': [], 'dists': [], 'open': False}   # main() 에서 채움: 색인되는 연도·거리·접수 중 허브
+
+
 def nav_block(months, regions, here):
-    a = lambda href, label, key: f'<a href="{href}"{" aria-current=\"page\" class=\"is-on\"" if key == here else ""}>{esc(label)}</a>'
+    def a(href, label, key, _here=here):
+        classes = (['ed-link', 'act'] if key == 'deadline' else []) + (['is-on'] if key == _here else [])
+        attr = (' aria-current="page"' if key == _here else '') + (f' class="{" ".join(classes)}"' if classes else '')
+        return f'<a href="{href}"{attr}>{esc(label)}</a>'
     # 해가 바뀌는 달은 연도를 붙인다(10월 11월 12월 2027년 1월 …)
     ml = ''.join(a(f'month/{m}.html', (f'{int(m[:4])}년 {int(m[5:])}월' if i and m[:4] != months[i - 1][:4] else f'{int(m[5:])}월'), 'm' + m) for i, m in enumerate(months))
     rl = ''.join(a(f'region/{REGIONS[g]}.html', g, 'r' + g) for g in regions)
     out = f'<div class="lp-links-row"><span class="ed-label">마감</span>{a("deadline.html", "마감 임박", "deadline")}</div>'
+    if NAVX['open']: out = out.replace('<span class="ed-label">마감</span>', '<span class="ed-label">접수</span>' + a('open.html', '접수 중', 'open'), 1)
+    if NAVX['years']: out += '<div class="lp-links-row"><span class="ed-label">연도</span>' + ''.join(a(f'marathon-schedule/{y}.html', f'{y} 일정', 'y' + y) for y in NAVX['years']) + '</div>'
     if ml: out += f'<div class="lp-links-row"><span class="ed-label">월별</span>{ml}</div>'
     if rl: out += f'<div class="lp-links-row"><span class="ed-label">지역별</span>{rl}</div>'
+    if NAVX['dists']: out += '<div class="lp-links-row"><span class="ed-label">거리별</span>' + ''.join(a(f'distance/{sl}.html', lab, 'd' + sl) for sl, lab in NAVX['dists']) + '</div>'
     return f'<nav class="lp-links" aria-label="대회 모아보기">{out}</nav>'
 
 
@@ -199,7 +208,7 @@ def build_month(key, allr, fetched, months, regions):
     dist = collections.Counter(t for r in L for t in r['distTags'])
     reg = collections.Counter(r['region'] for r in L if r['region'])
     url = f'{SITE}/month/{key}.html'
-    title = f'{y}년 {m}월 마라톤·러닝 대회 일정 총정리 ({n}개) | Run우리'
+    title = (f'{m}월 마라톤 대회 일정 {y} — 전국 {n}개 · 접수 중 {len(openn)}곳 | Run우리' if openn else f'{m}월 마라톤 대회 일정 {y} — 전국 {n}개 대회 총정리 | Run우리')   # SEO P1: \'12월 마라톤\' 을 앞으로
     pk = top[0]; pkd = brp.pd(pk[0])
     d = f'{y}년 {m}월 전국 마라톤·러닝 대회 {n}개. {kd(pkd)}에 {pk[1]}개가 몰려요. 접수 중인 대회와 마감일, 지역·종목별 현황을 정리했어요.'
     if len(d) > 155: d = d[:152].rstrip(' ·,.') + '…'
@@ -231,10 +240,10 @@ def build_month(key, allr, fetched, months, regions):
         xl = sorted([r for r in allr.values() if month_overlap(r, xk) and not any(k in months for k in months_of(r))], key=lambda r: (r['start'], r['name']))
         if xl: secs.append(section(no, f'{int(xk[:4])}년 {int(xk[5:])}월 대회 ({len(xl)}개)', para('아직 대회가 적어서 이 달은 따로 모아보기 페이지를 만들지 않았어요. 대회가 늘면 월별 페이지가 생겨요.') + f'<div class="ed-list" style="border-top:0">{rows(xl)}</div>')); no += 1
     secs.append(section(no, '다른 달·지역 모아보기', f'<div class="lp-pills">{other}<a href="deadline.html">마감 임박</a>{reglinks}</div>')); no += 1
-    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html([("대회 달력", "/"), (f"{y}년 {m}월 대회", f"month/{key}.html")])}'
+    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html([("대회 달력", "/")] + ([(f"{y} 마라톤 일정", f"marathon-schedule/{y}.html")] if str(y) in NAVX['years'] else []) + [(f"{y}년 {m}월 대회", f"month/{key}.html")])}'
             f'<div class="landing-title"><h1 class="ed-h1">{y}년 {m}월 마라톤·러닝 대회 일정</h1><p class="ed-small ed-tab-num"><b style="color:var(--ink)">{n}</b>개 · 날짜 순</p></div>'
             f'<p class="ed-lede lp-lede">{lede}</p>{nav_block(months, regions, "m" + key)}{"".join(secs)}<div class="lp-end">{stamp(fetched)}</div></div></main>\n')
-    ld = ld_for(f'{y}년 {m}월 마라톤·러닝 대회 일정', url, [('대회 달력', SITE + '/'), (f'{y}년 {m}월 대회', url)], L)
+    ld = ld_for(f'{y}년 {m}월 마라톤·러닝 대회 일정', url, [('대회 달력', SITE + '/')] + ([(f'{y} 마라톤 일정', f'{SITE}/marathon-schedule/{y}.html')] if str(y) in NAVX['years'] else []) + [(f'{y}년 {m}월 대회', url)], L)
     os.makedirs(os.path.join(ROOT, 'month'), exist_ok=True)
     open(os.path.join(ROOT, 'month', key + '.html'), 'w', encoding='utf8').write(head(title, d, url, ld) + body + tail())
     cf = 'daily' if live else 'yearly'
@@ -255,7 +264,7 @@ def build_region(g, cur, fetched, months, regions):
     vn = collections.Counter(re.sub(r'\s+', ' ', r['venue']).strip() for r in L if r['venue'])
     venues = [v for v, c in vn.most_common(5) if c >= 2]
     url = f'{SITE}/region/{REGIONS[g]}.html'
-    title = f'{g} 마라톤·러닝 대회 일정 ({n}개) 접수 현황 | Run우리'
+    title = f'{g} 마라톤 대회 일정 {years_label(L)} — {n}개 · 접수 중 {len(openn)}곳 | Run우리'   # SEO P1
     d = f'{g}에서 열리는 마라톤·러닝 대회 {n}개. 지금 접수 중인 {len(openn)}개와 월별 일정, 접수 마감일을 공식 정보 기준으로 정리했어요.'
     peak = bm.most_common(1)[0]
     dtxt = ' · '.join(f'{k} {dist[k]}개' for k in ('풀', '하프', '10K', '5K') if dist.get(k))
@@ -282,10 +291,178 @@ def build_region(g, cur, fetched, months, regions):
     return {'path': f'region/{REGIONS[g]}.html', 'url': url, 'indexable': True, 'count': n, 'changefreq': 'daily', 'priority': '0.7', 'lastmod': TODAY.isoformat(), 'hash': list_hash(L)}
 
 
+# ── SEO P1 (2026-11-22): 연도·거리·접수 중 허브 ─────────────────────────
+def years_label(L):
+    ys = sorted({r['start'][:4] for r in L})
+    return '·'.join(ys)
+
+
+def opt_td(v):
+    """값이 없으면 '-' 칸(좁은 화면 카드에서는 숨김)."""
+    return f'<td>{esc(v)}</td>' if v else '<td class="lp-empty">-</td>'
+
+
+def sched_table(lst):
+    """날짜·대회·지역·종목·접수 상태 표(정적). 값은 races.json 그대로."""
+    trs = ''.join(
+        f'<tr><td>{ks(r["start"])}{"~" + ks(r["end"]) if r["end"] != r["start"] else ""}</td><td><a class="ed-link" href="race/{r["id"]}.html">{esc(r["name"])}</a></td>'
+        f'{opt_td(r["region"])}{opt_td(" · ".join(r["distTags"]))}<td><span class="ed-status {r["st"]["key"]}">{r["st"]["label"]}</span></td></tr>' for r in lst)
+    return (f'<div class="lp-tablewrap"><table class="ed-table lp-sched"><thead><tr><th scope="col">날짜</th><th scope="col">대회</th><th scope="col">지역</th><th scope="col">종목</th><th scope="col">접수</th></tr></thead>'
+            f'<tbody>{trs}</tbody></table></div>')
+
+
+def other_hubs(here):
+    """연도·거리·접수 중 허브 알약 링크(자기 자신 제외)."""
+    out = ''.join(f'<a href="marathon-schedule/{y}.html">{y} 마라톤 일정</a>' for y in NAVX['years'] if 'y' + y != here)
+    out += ''.join(f'<a href="distance/{s}.html">{lab} 대회</a>' for s, lab in NAVX['dists'] if 'd' + s != here)
+    if NAVX['open'] and here != 'open': out += '<a href="open.html">접수 중인 대회</a>'
+    return out
+
+
+def build_year(y, allr, cur, fetched, months, regions):
+    L = sorted([r for r in allr.values() if r['start'][:4] == y], key=lambda r: (r['start'], r['name']))
+    n = len(L)
+    ended = [r for r in L if r['st']['key'] == 'ended']; live = [r for r in L if r['st']['key'] != 'ended']
+    openn = [r for r in L if r['st']['key'] in ('open', 'urgent')]
+    bm = collections.Counter(r['start'][:7] for r in L)
+    mk = sorted(bm)
+    dist = collections.Counter(t for r in L for t in r['distTags'])
+    reg = collections.Counter(r['region'] for r in L if r['region'])
+    url = f'{SITE}/marathon-schedule/{y}.html'
+    span = f'{int(mk[0][5:])}~{int(mk[-1][5:])}월' if len(mk) > 1 else f'{int(mk[0][5:])}월'
+    if ended and not live:
+        title = f'{y} 마라톤 대회 일정 총정리 — {span} 전국 {n}개 대회 | Run우리'
+    elif ended:
+        title = f'{y} 마라톤 대회 일정 총정리 — 전국 {n}개 · 남은 대회 {len(live)}개 | Run우리'
+    else:
+        title = f'{y} 마라톤 대회 일정 — 월별 전국 대회 {n}개 · 접수 중 {len(openn)}곳 | Run우리'
+    d = (f'{y}년 전국 마라톤·러닝 대회 {n}개를 월별로 정리했어요({span}). ' + (f'남은 대회 {len(live)}개는 접수 상태까지, ' if live else '')
+         + ('끝난 대회는 일정과 종목 기록용으로 남겨 뒀어요.' if ended else '종목·지역·접수 기간을 공식 정보 기준으로 확인하세요.'))
+    if len(d) > 155: d = d[:152].rstrip(' ·,.') + '…'
+    dtxt = ' · '.join(f'{k} {dist[k]}개' for k in ('풀', '하프', '10K', '5K') if dist.get(k))
+    rtxt = ', '.join(f'{g} {c}개' for g, c in reg.most_common(3))
+    pk = bm.most_common(1)[0]
+    lede = (f'Run우리 대회 달력에 담긴 {y}년 대회는 <b>{n}개</b>예요({span}). '
+            + (f'이미 끝난 대회가 {len(ended)}개, 앞으로 열리는 대회가 {len(live)}개이고, 지금 접수 중인 대회는 {len(openn)}개예요. ' if ended else f'지금 접수 중인 대회는 {len(openn)}개예요. ')
+            + f'대회가 가장 많은 달은 {int(pk[0][5:])}월({pk[1]}개)이에요. ' + (f'종목은 {dtxt}(한 대회에 여러 종목이 있으면 각각 셈)이고, ' if dtxt else '')
+            + (f'지역은 {rtxt} 순으로 많아요.' if rtxt else ''))
+    secs = []; no = 1
+    trs = ''.join(f'<tr><td>' + (f'<a class="ed-link" href="month/{k}.html">{int(k[5:])}월</a>' if k in months else f'{int(k[5:])}월') + f'</td><td>{bm[k]}개</td>'
+                  f'<td>{sum(1 for r in L if r["start"][:7] == k and r["st"]["key"] in ("open", "urgent"))}개</td></tr>' for k in mk)
+    secs.append(section(no, f'{y}년 월별 대회 수', para('월 이름을 누르면 그달 대회를 주차별로 볼 수 있어요. 별도 페이지가 없는 달은 아래 표에서 바로 확인하세요.')
+                        + f'<table class="ed-table"><thead><tr><th scope="col">월</th><th scope="col">대회 수</th><th scope="col">지금 접수 중</th></tr></thead><tbody>{trs}</tbody></table>', major=True)); no += 1
+    for k in mk:
+        lst = [r for r in L if r['start'][:7] == k]
+        secs.append(section(no, f'{y}년 {int(k[5:])}월 ({len(lst)}개)', sched_table(lst), more=(f'month/{k}.html', f'{int(k[5:])}월 자세히') if k in months else None)); no += 1
+    secs.append(section(no, '다른 모아보기', f'<div class="lp-pills">{other_hubs("y" + y)}<a href="deadline.html">마감 임박</a></div>')); no += 1
+    trail = [("대회 달력", "/"), (f"{y} 마라톤 일정", f"marathon-schedule/{y}.html")]
+    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html(trail)}'
+            f'<div class="landing-title"><h1 class="ed-h1">{y} 마라톤 대회 일정</h1><p class="ed-small ed-tab-num"><b style="color:var(--ink)">{n}</b>개 · 월별</p></div>'
+            f'<p class="ed-lede lp-lede">{lede}</p>{nav_block(months, regions, "y" + y)}{"".join(secs)}<div class="lp-end">{stamp(fetched)}</div></div></main>\n')
+    ld = ld_for(f'{y} 마라톤 대회 일정', url, [('대회 달력', SITE + '/'), (f'{y} 마라톤 일정', url)], L)
+    os.makedirs(os.path.join(ROOT, 'marathon-schedule'), exist_ok=True)
+    open(os.path.join(ROOT, 'marathon-schedule', y + '.html'), 'w', encoding='utf8').write(head(title, d, url, ld) + body + tail())
+    return {'path': f'marathon-schedule/{y}.html', 'url': url, 'indexable': True, 'count': n, 'changefreq': 'daily' if live else 'monthly', 'priority': '0.8', 'lastmod': TODAY.isoformat(), 'hash': list_hash(L)}
+
+
+DIST_GUIDES = {'하프': [('half-marathon-prep', '하프 마라톤 준비하기'), ('race-pace-strategy', '대회 페이스 전략')],
+               '10K': [('10k-training-plan', '10km 러닝 플랜'), ('race-pace-strategy', '대회 페이스 전략')],
+               '5K': [('beginner-5k-plan', '초보자 5km 완주 훈련 계획'), ('understanding-pace', '페이스 이해하기')],
+               '풀': [('first-marathon-checklist', '첫 마라톤 체크리스트'), ('marathon-prep-and-taper', '마라톤 준비와 테이퍼')]}
+
+
+def _guide_title(gid, fallback):
+    try:
+        for p in json.load(open(os.path.join(ROOT, 'data', 'blog', 'index.json'), encoding='utf8'))['posts']:
+            if p['id'] == gid: return p['title'].split(':')[0].strip()
+    except Exception: pass
+    return fallback
+
+
+def dist_fee(lst, tag):
+    """그 거리 종목(수집기 tag_of 기준)의 참가비만 모아 범위를 낸다. 참가비 미확인 종목은 빼고 센다."""
+    fees, n_races = [], 0
+    for r in lst:
+        f = [d['fee'] for d in r['distances'] if d.get('fee') is not None and d.get('km') is not None and brp._norm and brp._norm.tag_of(d['km']) == tag]
+        if f: fees += f; n_races += 1
+    return fees, n_races
+
+
+def won(n): return '무료' if n == 0 else f'{n:,}원'
+
+
+def build_dist(slug, tag, label, km, cur, fetched, months, regions, indexable):
+    L = sorted([r for r in cur.values() if r['st']['key'] != 'ended' and tag in r['distTags']], key=lambda r: (r['start'], r['name']))
+    n = len(L)
+    openn = sorted([r for r in L if r['st']['key'] in ('open', 'urgent')], key=lambda r: (r['close'] or '9999', r['start']))
+    bm = collections.Counter(r['start'][:7] for r in L)
+    reg = collections.Counter(r['region'] for r in L if r['region'])
+    fees, nf = dist_fee(L, tag)
+    url = f'{SITE}/distance/{slug}.html'
+    yl = years_label(L) or str(TODAY.year)
+    title = f'{label} 대회 일정 {yl} — 다가오는 {n}개 · 접수 중 {len(openn)}곳 | Run우리'
+    d = f'{km} {label.replace(" 마라톤", "")} 종목이 있는 전국 대회 {n}개. 월별·지역별로 정리하고 참가비 범위와 접수 마감일을 함께 보여드려요.'
+    if len(d) > 155: d = d[:152].rstrip(' ·,.') + '…'
+    rtxt = ', '.join(f'{g} {c}개' for g, c in reg.most_common(3))
+    pk = bm.most_common(1)[0] if bm else None
+    lede = (f'{TODAY.month}월 {TODAY.day}일 기준으로 {km} {label.replace(" 마라톤", "")} 종목이 있는 다가오는 대회는 <b>{n}개</b>이고, 지금 접수 중인 대회는 {len(openn)}개예요. '
+            + (f'대회가 가장 많은 달은 {int(pk[0][:4])}년 {int(pk[0][5:])}월({pk[1]}개)이고, ' if pk else '') + (f'지역은 {rtxt} 순으로 많아요. ' if rtxt else '')
+            + (f'참가비가 확인된 {nf}개 대회의 이 종목 참가비는 {won(min(fees))}~{won(max(fees))}예요.' if fees else '이 종목 참가비는 아직 확인된 값이 없어요.'))
+    secs = []; no = 1
+    gl = ''.join(f'<li><a class="ed-link" href="guide/{g}.html">{esc(_guide_title(g, t))}</a></li>' for g, t in DIST_GUIDES.get(tag, []) if os.path.exists(os.path.join(ROOT, 'guide', g + '.html')))
+    note = para(f'종목 구분은 대회가 공지한 거리로 나눠요. 같은 대회에 다른 거리 종목이 함께 있을 수 있고, 제한 시간·참가 자격·기념품 조건은 대회마다 달라요. 신청 전에 각 대회 공식 안내를 확인하세요.')
+    note += f'<ul class="ed-small" style="line-height:2;margin:10px 0 0 18px;padding:0"><li><a class="ed-link" href="tools/pace-calculator.html">{km} 목표 기록 페이스 계산하기</a></li>{gl}</ul>'
+    secs.append(section(no, f'{label} 대회, 이렇게 보세요', note, major=True)); no += 1
+    if openn: secs.append(section(no, f'지금 접수 중 ({len(openn)}개, 마감일 순)', f'<div class="ed-list" style="border-top:0">{rows(openn)}</div>')); no += 1
+    trs = ''.join(f'<tr><td>' + (f'<a class="ed-link" href="month/{k}.html">{int(k[:4])}년 {int(k[5:])}월</a>' if k in months else f'{int(k[:4])}년 {int(k[5:])}월') + f'</td><td>{bm[k]}개</td></tr>' for k in sorted(bm))
+    secs.append(section(no, '월별 대회 수', f'<table class="ed-table"><thead><tr><th scope="col">월</th><th scope="col">대회 수</th></tr></thead><tbody>{trs}</tbody></table>')); no += 1
+    secs.append(section(no, f'{label} 대회 전체 (날짜 순)', sched_table(L))); no += 1
+    secs.append(section(no, '다른 모아보기', f'<div class="lp-pills">{other_hubs("d" + slug)}<a href="deadline.html">마감 임박</a></div>')); no += 1
+    trail = [("대회 달력", "/"), (f"{label} 대회", f"distance/{slug}.html")]
+    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html(trail)}'
+            f'<div class="landing-title"><h1 class="ed-h1">{label} 대회 일정</h1><p class="ed-small ed-tab-num"><b style="color:var(--ink)">{n}</b>개 · 날짜 순</p></div>'
+            f'<p class="ed-lede lp-lede">{lede}</p>{nav_block(months, regions, "d" + slug)}{"".join(secs)}<div class="lp-end">{stamp(fetched)}</div></div></main>\n')
+    ld = ld_for(f'{label} 대회 일정', url, [('대회 달력', SITE + '/'), (f'{label} 대회', url)], L)
+    html_ = head(title, d, url, ld) + body + tail()
+    if not indexable: html_ = html_.replace('content="index,follow"', 'content="noindex,follow"')
+    os.makedirs(os.path.join(ROOT, 'distance'), exist_ok=True)
+    open(os.path.join(ROOT, 'distance', slug + '.html'), 'w', encoding='utf8').write(html_)
+    return {'path': f'distance/{slug}.html', 'url': url, 'indexable': indexable, 'count': n, 'changefreq': 'daily', 'priority': '0.8', 'lastmod': TODAY.isoformat(), 'hash': list_hash(L)}
+
+
+def build_open(cur, fetched, months, regions):
+    L = sorted([r for r in cur.values() if r['st']['key'] in ('open', 'urgent')], key=lambda r: (r['close'] or '9999', r['start']))
+    soon = sorted([r for r in cur.values() if r['st']['key'] == 'soon'], key=lambda r: (r['open'] or '9999', r['start']))
+    n = len(L); indexable = n >= MIN_HUB
+    url = f'{SITE}/open.html'
+    title = f'지금 접수 중인 마라톤 대회 {n}곳 — 마감일순 정리 | Run우리'
+    d = f'오늘({TODAY.month}/{TODAY.day}) 접수할 수 있는 전국 마라톤·러닝 대회 {n}곳을 마감일 순으로 모았어요.' + (f' 곧 접수가 열리는 대회 {len(soon)}곳도 함께.' if soon else '')
+    urg = [r for r in L if r['st']['key'] == 'urgent']
+    noclose = [r for r in L if not r['close']]
+    dist = collections.Counter(t for r in L for t in r['distTags'])
+    dtxt = ' · '.join(f'{k} {dist[k]}개' for k in ('풀', '하프', '10K', '5K') if dist.get(k))
+    lede = (f'{TODAY.month}월 {TODAY.day}일({WDK[TODAY.weekday()]}) 기준으로 접수할 수 있는 대회는 <b>{n}개</b>예요. 그중 {len(urg)}개는 접수 마감이 10일 안으로 다가왔고'
+            + (f', {len(noclose)}개는 마감일이 공지되지 않았거나 정원이 차면 마감돼요' if noclose else '') + '. '
+            + (f'종목은 {dtxt}(한 대회에 여러 종목이 있으면 각각 셈)예요. ' if dtxt else '') + '목록은 접수 마감일이 빠른 순서예요.')
+    secs = []; no = 1
+    secs.append(section(no, f'접수 중인 대회 ({n}개, 마감일 순)', f'<div class="ed-list" style="border-top:0">{rows(L)}</div>' if L else para('지금 접수 중인 대회가 없어요.'), major=True)); no += 1
+    if soon: secs.append(section(no, f'곧 접수가 열리는 대회 ({len(soon)}개)', para('접수 시작일과 시각은 공식 홈페이지 공지를 확인하세요.') + f'<div class="ed-list" style="border-top:0">{rows(soon)}</div>')); no += 1
+    secs.append(section(no, '다른 모아보기', f'<div class="lp-pills">{other_hubs("open")}<a href="deadline.html">이번 주 마감</a></div>')); no += 1
+    trail = [("대회 달력", "/"), ("접수 중인 대회", "open.html")]
+    body = (f'<main class="ed-wrap" id="main"><div id="view">{crumbs_html(trail)}'
+            f'<div class="landing-title"><h1 class="ed-h1">지금 접수 중인 마라톤 대회</h1><p class="ed-small ed-tab-num"><b style="color:var(--ink)">{n}</b>개 · 마감일 순</p></div>'
+            f'<p class="ed-lede lp-lede">{lede}</p>{nav_block(months, regions, "open")}{"".join(secs)}<div class="lp-end">{stamp(fetched)}</div></div></main>\n')
+    ld = ld_for('지금 접수 중인 마라톤 대회', url, [('대회 달력', SITE + '/'), ('접수 중인 대회', url)], L)
+    html_ = head(title, d, url, ld) + body + tail()
+    if not indexable: html_ = html_.replace('content="index,follow"', 'content="noindex,follow"')
+    open(os.path.join(ROOT, 'open.html'), 'w', encoding='utf8').write(html_)
+    return {'path': 'open.html', 'url': url, 'indexable': indexable, 'count': n, 'changefreq': 'daily', 'priority': '0.9', 'lastmod': TODAY.isoformat(), 'hash': list_hash(L, soon)}
+
+
 def inject_index(months, regions):
     """홈(index.html)의 제목 아래에 정적 링크 블록을 넣는다(크롤러·이용자 모두 바로 보이게)."""
     p = os.path.join(ROOT, 'index.html'); s = open(p, encoding='utf8').read()
-    block = ('<!--LANDING:START-->' + nav_block(months, regions, '').replace('class="lp-links"', 'class="lp-links lp-home"').replace('aria-label="대회 모아보기"', 'aria-label="마감·월별·지역별 모아보기"') + '<!--LANDING:END-->')
+    block = ('<!--LANDING:START-->' + nav_block(months, regions, '').replace('class="lp-links"', 'class="lp-links lp-home"').replace('aria-label="대회 모아보기"', 'aria-label="접수·연도·월별·지역·거리별 모아보기"') + '<!--LANDING:END-->')
     s = re.sub(r'\n?<!--LANDING:START-->.*?<!--LANDING:END-->', '', s, flags=re.S)
     assert '<div class="split">' in s
     s = s.replace('<div class="split">', block + '\n<div class="split">', 1)
@@ -295,13 +472,20 @@ def inject_index(months, regions):
 def main():
     cur, allr, fetched = read_races()
     months = month_keys(allr); regions = region_keys(cur)
-    for sub in ('month', 'region'):
+    NAVX['years'] = year_keys(allr)
+    di = dist_indexable(cur)
+    NAVX['dists'] = [(sl, lab) for sl, t, lab, _ in DISTS if t in di]
+    NAVX['open'] = sum(1 for r in cur.values() if r['st']['key'] in ('open', 'urgent')) >= MIN_HUB
+    for sub in ('month', 'region', 'marathon-schedule', 'distance'):
         os.makedirs(os.path.join(ROOT, sub), exist_ok=True)
         for f in os.listdir(os.path.join(ROOT, sub)):
             if f.endswith('.html'): os.remove(os.path.join(ROOT, sub, f))
     out = [build_deadline(cur, fetched, months, regions)]
     out += [build_month(k, allr, fetched, months, regions) for k in months]
     out += [build_region(g, cur, fetched, months, regions) for g in regions]
+    out += [build_year(y, allr, cur, fetched, months, regions) for y in NAVX['years']]
+    out += [build_dist(sl, t, lab, km, cur, fetched, months, regions, t in di) for sl, t, lab, km in DISTS if any(t in r['distTags'] for r in cur.values() if r['st']['key'] != 'ended')]
+    out.append(build_open(cur, fetched, months, regions))
     inject_index(months, regions)
     json.dump({'generated': TODAY.isoformat(), 'pages': out}, open(os.path.join(ROOT, 'data', 'landing_pages.json'), 'w', encoding='utf8'), ensure_ascii=False, indent=0)
     print('landing pages:', len(out), [(p['path'], p['count'], 'idx' if p['indexable'] else 'noindex') for p in out])

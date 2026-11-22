@@ -6,6 +6,7 @@
   <url><loc>https://runwoori.com/blog.html</loc><lastmod>2026-11-22</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://runwoori.com/courses.html</loc><lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://runwoori.com/tools.html</loc><lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://runwoori.com/tools/pace-calculator.html</loc><lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://runwoori.com/crew/</loc><lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://runwoori.com/guide.html</loc><lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://runwoori.com/about.html</loc><lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
@@ -268,4 +269,13 @@
   <url><loc>https://runwoori.com/month/2027-02.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://runwoori.com/month/2027-03.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://runwoori.com/region/seoul.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://runwoori.com/region/gyeonggi.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://runwoori.com/region/chungnam.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://runwoori.com/marathon-schedule/2026.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runwoori.com/marathon-schedule/2027.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runwoori.com/distance/half.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runwoori.com/distance/10k.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runwoori.com/distance/5k.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runwoori.com/distance/full.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://runwoori.com/open.html</loc><lastmod>2026-11-22</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
 </urlset>

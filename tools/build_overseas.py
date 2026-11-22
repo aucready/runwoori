@@ -216,7 +216,7 @@ def page(r, others):
     <table class="ed-table"><thead><tr><th scope="col">종목</th><th scope="col">참고</th></tr></thead><tbody>{dist_rows}</tbody></table></section>
   {f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">05</span><h2 class="ed-h2">코스와 특징</h2></div>' + (f'<p class="ed-body" style="line-height:1.85">{esc(r["course"])}</p>' if r.get("course") else '') + (f'<p class="ed-body" style="line-height:1.85;margin-top:10px">{esc(r["highlights"])}</p>' if r.get("highlights") else '') + '</section>' if (r.get("course") or r.get("highlights")) else ''}
   <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">06</span><h2 class="ed-h2">정보 기준과 확인 방법</h2></div>
-    <p class="ed-small" style="line-height:1.8">이 페이지의 값은 {vtxt}에 각 대회 공식 홈페이지에서 직접 확인한 내용이에요. 접수 기간과 참가비는 현지 시간·현지 통화 기준이고, 대회 측 사정으로 바뀔 수 있으니 신청 전에 <a class="ed-link" href="{esc(r["official_url"])}" target="_blank" rel="noopener noreferrer">공식 홈페이지</a>에서 한 번 더 확인하세요.</p>
+    <p class="ed-small" style="line-height:1.8">이 페이지의 값은 {vtxt}에 각 대회 공식 홈페이지에서 직접 확인한 내용이에요. 접수 기간과 참가비는 현지 시간·현지 통화 기준이고, 대회 측 사정으로 바뀔 수 있으니 신청 전에 <a class="ed-link act" href="{esc(r["official_url"])}" target="_blank" rel="noopener noreferrer">공식 홈페이지</a>에서 한 번 더 확인하세요.</p>
     {unk_html}{caution}
     <p class="ed-small" style="line-height:1.8;margin-top:10px">확인에 사용한 공식 페이지: {srcs}</p>
     <p class="ed-small" style="line-height:1.8;margin-top:10px">값이 다르거나 빠진 곳을 발견하면 <a class="ed-link" href="contact.html">문의하기</a>로 알려 주세요.</p></section>
@@ -233,9 +233,43 @@ def page(r, others):
     return head + body + SYNC % extra
 
 
+def monthly_html(races):
+    """SEO P1: 해외 마라톤 월별 일정표 + 나라별 개수. 값은 overseas.json(공식 확인값) 그대로."""
+    import collections
+    up = sorted([r for r in races if status(r)[0] != 'ended'], key=lambda r: r['date'])
+    if not up: return ''
+    cc = collections.Counter(r['country'] for r in up)
+    ctxt = ', '.join(f'{c} {n}개' for c, n in cc.most_common())
+    by = collections.OrderedDict()
+    for r in up: by.setdefault(r['date'][:7], []).append(r)
+    body = ''
+    for k, lst in by.items():
+        trs = ''.join(f'<tr><td>{short(pd(r["date"]))}({wd(pd(r["date"]))})</td><td><a class="ed-link" href="overseas/{r["slug"]}.html">{esc(r["name"])}</a></td><td>{esc(meta_line(r))}</td>'
+                      f'<td><span class="ed-status {status(r)[0]}">{status(r)[1]}</span></td></tr>' for r in lst)
+        body += (f'<h3 class="lp-h3">{int(k[:4])}년 {int(k[5:])}월 <span class="ed-small">· {len(lst)}개</span></h3><div class="lp-tablewrap"><table class="ed-table lp-sched">'
+                 f'<thead><tr><th scope="col">날짜</th><th scope="col">대회</th><th scope="col">도시 · 나라</th><th scope="col">접수</th></tr></thead><tbody>{trs}</tbody></table></div>')
+    return (f'<section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">05</span><h2 class="ed-h2">해외 마라톤 월별 일정</h2>'
+            f'<span class="ed-small ed-tab-num"><b style="color:var(--ink)">{len(up)}</b>개 · 대회일 순</span></div>'
+            f'<p class="ed-body lp-p">앞으로 열리는 해외 대회 {len(up)}개를 달마다 묶었어요. 나라별로는 {esc(ctxt)}예요. 접수 상태는 각 대회 공식 홈페이지에서 확인한 접수 기간으로 계산했어요.</p>{body}</section>')
+
+
+def related_html(r, races):
+    """SEO P1: 같은 나라·같은 달 해외 대회 링크(서로 연결해 크롤 경로를 늘린다)."""
+    same_c = [x for x in sorted(races, key=lambda x: x['date']) if x['id'] != r['id'] and x['country'] == r['country'] and status(x)[0] != 'ended']
+    same_m = [x for x in sorted(races, key=lambda x: x['date']) if x['id'] != r['id'] and x['date'][:7] == r['date'][:7] and x['country'] != r['country']]
+    if not same_c and not same_m: return ''
+    pill = lambda lst: ''.join(f'<a href="overseas/{x["slug"]}.html">{esc(x["name"])}</a>' for x in lst)
+    d = pd(r['date'])
+    inner = (f'<h3 class="lp-h3">{esc(r["country"])}의 다른 대회 <span class="ed-small">· {len(same_c)}개</span></h3><div class="lp-pills">{pill(same_c)}</div>' if same_c else '')
+    inner += (f'<h3 class="lp-h3">{d.year}년 {d.month}월의 다른 해외 대회 <span class="ed-small">· {len(same_m)}개</span></h3><div class="lp-pills">{pill(same_m)}</div>' if same_m else '')
+    return (f'  <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">08</span><h2 class="ed-h2">같은 나라·같은 달 해외 대회</h2>'
+            f'<a class="ed-link" href="overseas.html">월별 일정 →</a></div>{inner}</section>\n')
+
+
 def hub(races):
     url = f'{SITE}/overseas.html'
-    title = '해외 주요 대회 — 월드 마라톤 메이저스·인기 대회 일정 | Run우리'
+    yrs = '·'.join(sorted({r['date'][:4] for r in races if status(r)[0] != 'ended'})) or str(TODAY.year)
+    title = f'해외 마라톤 일정 {yrs} — 월드 마라톤 메이저스·일본 등 {len(races)}개 대회 | Run우리'   # SEO P1: 실측 노출 검색어 '해외 마라톤 일정'
     d = '도쿄·보스턴·런던·시드니·베를린·시카고·뉴욕과 오사카·나고야·후쿠오카·타이베이 등 해외 마라톤의 일정과 참가 방식을 각 대회 공식 홈페이지 기준으로 정리했어요.'
     wmm = sorted([r for r in races if r['group'] == 'wmm'], key=lambda r: r['date'])
     pop = sorted([r for r in races if r['group'] == 'popular'], key=lambda r: r['date'])
@@ -267,6 +301,7 @@ def hub(races):
 <dt>자선(채리티)</dt><dd>자선단체를 정해 일정 금액을 모금하거나 기부하는 조건으로 참가권을 받아요. 모금액과 신청 방법은 단체마다 달라요.</dd>
 <dt>선착순·패키지</dt><dd>해외 거주자용 선착순 접수나 공식 여행사 패키지에 참가권이 포함된 대회도 있어요.</dd></dl>
 <p class="ed-small" style="line-height:1.8;margin-top:12px">일정과 참가비는 대회가 바꿀 수 있어요. 신청 전에는 반드시 각 대회 공식 홈페이지의 최신 공지를 확인하세요.</p></section>
+{monthly_html(races)}
 </main>
 '''
     head = HEAD.format(title=esc(title), desc=esc(d), url=url, site=SITE, adsense=read_adsense(), ld=ld_html).replace('property="og:type" content="article"', 'property="og:type" content="website"')
@@ -283,7 +318,10 @@ def main():
     for r in races:
         others = [x for x in sorted(races, key=lambda x: x['date']) if x['id'] != r['id'] and x['group'] == r['group']][:3]
         if len(others) < 3: others += [x for x in sorted(races, key=lambda x: x['date']) if x['id'] != r['id'] and x not in others][:3 - len(others)]
-        open(os.path.join(ROOT, 'overseas', r['slug'] + '.html'), 'w', encoding='utf8').write(page(r, others))
+        html_ = page(r, others)
+        rel = related_html(r, races)
+        if rel: html_ = html_.replace('</div></main>\n<script>window.OV=', rel + '</div></main>\n<script>window.OV=', 1)
+        open(os.path.join(ROOT, 'overseas', r['slug'] + '.html'), 'w', encoding='utf8').write(html_)
         pages.append({'slug': r['slug'], 'id': r['id'], 'lastmod': r['verified'], 'ended': status(r)[0] == 'ended'})
     open(os.path.join(ROOT, 'overseas.html'), 'w', encoding='utf8').write(hub(races))
     json.dump({'pages': pages}, open(os.path.join(ROOT, 'data', 'overseas_pages.json'), 'w', encoding='utf8'), ensure_ascii=False)

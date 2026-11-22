@@ -593,7 +593,7 @@ HEAD = '''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name=
 '''
 
 
-HUB = {'months': set(), 'regions': set(), 'month_n': {}, 'region_n': {}}   # main() 에서 채움
+HUB = {'months': set(), 'regions': set(), 'month_n': {}, 'region_n': {}, 'years': set(), 'dists': set(), 'dist_n': {}, 'open': False}   # main() 에서 채움
 
 
 def build_page(r, related, rec, indexable, stale, adsense):
@@ -622,6 +622,8 @@ def build_page(r, related, rec, indexable, stale, adsense):
     g_slug = hubs.REGIONS.get(region) if region in HUB['regions'] else None
     g_label = f'{region} 대회'
     trail = [('대회 달력', '/', SITE + '/')]
+    yk = r['start'][:4]
+    if yk in HUB['years']: trail.append((f'{yk} 마라톤 일정', f'marathon-schedule/{yk}.html', f'{SITE}/marathon-schedule/{yk}.html'))   # SEO P1
     if m_ok: trail.append((m_label, f'month/{mkey}.html', f'{SITE}/month/{mkey}.html'))
     if g_slug: trail.append((g_label, f'region/{g_slug}.html', f'{SITE}/region/{g_slug}.html'))
     sep_ = '<span aria-hidden="true">›</span>'
@@ -635,7 +637,13 @@ def build_page(r, related, rec, indexable, stale, adsense):
     hub_links = []
     if m_ok: hub_links.append((f'month/{mkey}.html', f"{int(mkey[:4])}년 {int(mkey[5:])}월 대회 일정", f"{HUB['month_n'].get(mkey, 0)}개"))
     if g_slug: hub_links.append((f'region/{g_slug}.html', f'{region} 대회 일정', f"{HUB['region_n'].get(region, 0)}개"))
+    for t in r['distTags']:   # SEO P1: 거리별 목록(색인되는 페이지만)
+        if t in HUB['dists'] and r['st']['key'] != 'ended':
+            sl, lab, _ = hubs.DIST_BY_TAG[t]
+            hub_links.append((f'distance/{sl}.html', f'{lab} 대회', f"{HUB['dist_n'].get(t, 0)}개"))
+    if r['st']['key'] in ('open', 'urgent') and HUB['open']: hub_links.append(('open.html', '지금 접수 중인 대회', ''))
     if r['st']['key'] in ('open', 'urgent'): hub_links.append(('deadline.html', '이번 주 접수 마감 대회', ''))
+    if yk in HUB['years']: hub_links.append((f'marathon-schedule/{yk}.html', f'{yk} 마라톤 대회 일정', ''))
     hub_links.append(('/', '전체 대회 달력', ''))
     region_all = f'region/{g_slug}.html' if g_slug else '/'
     notes = ''
@@ -665,7 +673,7 @@ def build_page(r, related, rec, indexable, stale, adsense):
     else: ver_badge = ''
     if official:
         official_note = ('<p class="ed-small" style="margin-top:14px;line-height:1.7">정보는 각 대회 공식 안내를 기준으로 정리해요. 일정·참가비·접수 기간은 바뀔 수 있으니 '
-                         f'신청 전에 <a class="ed-link" href="{esc(official)}" target="_blank" rel="noopener noreferrer">공식 홈페이지</a>에서 한 번 더 확인하세요.</p>')
+                         f'신청 전에 <a class="ed-link act" href="{esc(official)}" target="_blank" rel="noopener noreferrer">공식 홈페이지</a>에서 한 번 더 확인하세요.</p>')
     else:
         official_note = ('<p class="ed-small" style="margin-top:14px;line-height:1.7">공식 홈페이지 주소를 아직 찾지 못했어요. 정보는 각 대회 공식 안내가 기준이니, '
                          f'대회 이름으로 검색해 주최 측 공지를 확인한 뒤 신청하세요. 주소를 아시면 <a class="ed-link" href="contact.html">알려 주세요</a>.</p>')
@@ -705,8 +713,8 @@ def build_page(r, related, rec, indexable, stale, adsense):
   <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">종목 · 참가비</h2></div>{dists}</section>
   {prep_html}
   <section class="ed-section" style="margin-top:36px"><div class="ed-section-head"><span class="no">{n_src}</span><h2 class="ed-h2">정보 기준과 확인 방법</h2></div>
-    <p class="ed-small" style="line-height:1.8">대회 정보의 기준은 {f'<a class="ed-link" href="{esc(official)}" target="_blank" rel="noopener noreferrer">대회 공식 홈페이지</a>' if official else '대회 공식 안내'}예요. 참가비와 접수 기간, 출발 시각은 주최 측 공지가 우선하고, 이 페이지는 {updated}에 정리한 내용이에요.<br>
-    값이 다르거나 빠진 곳을 발견하면 <a class="ed-link" href="contact.html">문의하기</a>로 알려 주세요. 확인되는 대로 고쳐요.{f'<br><span class="muted">수집 참고: {src}</span>' if src else ''}{f'<br>{ver_txt}: <a class="ed-link" href="{esc(ver["url"])}" target="_blank" rel="noopener noreferrer">확인한 공식 페이지 ↗</a>' if ver else ''}</p></section>
+    <p class="ed-small" style="line-height:1.8">대회 정보의 기준은 {f'<a class="ed-link act" href="{esc(official)}" target="_blank" rel="noopener noreferrer">대회 공식 홈페이지</a>' if official else '대회 공식 안내'}예요. 참가비와 접수 기간, 출발 시각은 주최 측 공지가 우선하고, 이 페이지는 {updated}에 정리한 내용이에요.<br>
+    값이 다르거나 빠진 곳을 발견하면 <a class="ed-link" href="contact.html">문의하기</a>로 알려 주세요. 확인되는 대로 고쳐요.{f'<br><span class="muted">수집 참고: {src}</span>' if src else ''}{f'<br>{ver_txt}: <a class="ed-link act" href="{esc(ver["url"])}" target="_blank" rel="noopener noreferrer">확인한 공식 페이지 ↗</a>' if ver else ''}</p></section>
   {rel_html}
   {hub_html}
 </div></main>
@@ -804,6 +812,8 @@ def main():
     _mn = _c.Counter(k for r in allr.values() for k in hubs.months_of(r))
     HUB['month_n'] = dict(_mn)
     HUB['region_n'] = dict(_c.Counter(r['region'] for r in cur.values() if r['st']['key'] != 'ended'))
+    HUB['years'] = set(hubs.year_keys(allr)); HUB['dists'] = hubs.dist_indexable(cur); HUB['dist_n'] = dict(hubs.dist_counts(cur))
+    HUB['open'] = hubs.open_count(cur) >= hubs.MIN_HUB
     for rid, r in sorted(races.items(), key=lambda kv: kv[1]['date']):
         rec = {k: v for k, v in archive[rid].items() if k != '_last_seen'}
         last_seen = archive[rid].get('_last_seen', fetched)

@@ -823,7 +823,7 @@
         "무게 10.3oz / 292.0g, 드롭 6mm는 브룩스 미국 공식 남성 상품 페이지. 기준 사이즈·스택·한국 정가는 공식 미공개."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS63v3PWXA",
         "naver": null
       },
       "successor_id": null,
@@ -831,7 +831,14 @@
       "image": {
         "src": null,
         "alt": "브룩스 고스트 맥스 4",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS63v3PWXA",
+          "src": "https://image14.coupangcdn.com/image/affiliate/banner/7448d41cfd81b40f9ee6f03ce9e3919a@2x.jpg",
+          "alt": "브룩스 고스트 맥스 4",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {

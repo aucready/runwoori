@@ -924,7 +924,7 @@
         "보도자료는 2026-10-15 출시, 권장소비자가 175달러였고, 확인일 상품 페이지 표시가는 180달러입니다. 한국 공식몰 정가는 확인하지 못했습니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS7a7FPISi",
         "naver": null
       },
       "successor_id": null,
@@ -932,7 +932,14 @@
       "image": {
         "src": null,
         "alt": "써코니 엔돌핀 스피드 6",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS7a7FPISi",
+          "src": "https://image1.coupangcdn.com/image/affiliate/banner/5d19a458e53b3dd3a22a624d3b424d72@2x.jpg",
+          "alt": "써코니 엔돌핀 스피드 6",
+          "width": 120,
+          "height": 240
+        }
       }
     }
   ],

@@ -537,7 +537,10 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .sg-fig-coupang{aspect-ratio:auto;width:100%;height:256px;padding:8px;flex-direction:row;gap:0;overflow:hidden}
 .sg-fig-coupang iframe{width:120px;height:240px;border:0;display:block;flex:none;background:transparent}
 .sg-hero .sg-fig-coupang{margin:0 auto}
+.sg-fig-photo{max-width:240px;width:100%;margin-left:auto;margin-right:auto;background:#fff}
+.sg-card .sg-fig-photo{margin:0 auto 12px}
 .sg-fig-photo a{position:absolute;inset:0;display:block}
-/* 240×480 배너에서 상단 로고·하단 상품명/버튼을 가리고 가운데 상품 사진만 보이게. 사진 자체는 수정하지 않음. */
+/* 240×480 배너에서 상단 로고·하단 상품명/버튼을 가리고 가운데 상품 사진만 보이게. 사진 자체는 수정하지 않음.
+   상품 영역이 약 240×180이므로 슬롯을 240px로 고정해 원본 이상으로 확대하지 않음. */
 .sg-fig-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38.5%;display:block;background:#fff}
 .sg-card-body{display:block;color:inherit;text-decoration:none}

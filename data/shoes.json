@@ -599,7 +599,7 @@
         "공식 설명은 스트라이드형 러너를 위한 레이싱화입니다. 착화감은 적지 않습니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS6Lmb14Ts",
         "naver": null
       },
       "successor_id": null,
@@ -607,7 +607,14 @@
       "image": {
         "src": null,
         "alt": "아식스 메타스피드 스카이 도쿄",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS6Lmb14Ts",
+          "src": "https://img1c.coupangcdn.com/image/affiliate/banner/a34b1924a89893e0e35d9a73f3555cc9@2x.jpg",
+          "alt": "아식스 메타스피드 스카이 도쿄",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {
@@ -646,7 +653,7 @@
         "공식 설명은 케이던스형 러너를 위한 레이싱화입니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS6NvLAoYm",
         "naver": null
       },
       "successor_id": null,
@@ -654,7 +661,14 @@
       "image": {
         "src": null,
         "alt": "아식스 메타스피드 엣지 도쿄",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS6NvLAoYm",
+          "src": "https://image9.coupangcdn.com/image/affiliate/banner/c000f2029e7080359584d4c19e2b8254@2x.jpg",
+          "alt": "아식스 메타스피드 엣지 도쿄",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {

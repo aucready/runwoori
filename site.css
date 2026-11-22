@@ -541,6 +541,7 @@ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .sg-pc li{font-size:13.5px;line-height:1.55;color:var(--ink-2);padding:7px 0;border-bottom:1px solid var(--rule)}
 .sg-pc li:last-child{border-bottom:0;padding-bottom:0}
 .sg-card-sum{margin:8px 0 0;font-size:13px;line-height:1.55;color:var(--ink-2)}
+.sg-brief-note{margin:12px 0 0;font-size:12px;line-height:1.5;color:var(--ink-3)}
 @media (min-width:720px){
   .sg-top{display:grid;grid-template-columns:240px minmax(0,1fr);gap:4px 32px;align-items:start}
   .sg-top .sg-fig-photo{margin-left:0;margin-right:auto}

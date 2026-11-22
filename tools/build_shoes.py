@@ -259,11 +259,30 @@ def brief_items(s, key):
     return [str(x).strip() for x in items if str(x).strip()]
 
 
+def missing_note(s):
+    """공식 페이지에 없는 핵심 스펙만 회색 한 줄로. 장단점에는 넣지 않는다."""
+    bits = []
+    if s.get('weight_g') is None:
+        bits.append('무게')
+    elif not s.get('weight_size'):
+        bits.append('기준 사이즈')
+    if s.get('drop_mm') is None:
+        bits.append('드롭')
+    if s.get('stack_heel_mm') is None and s.get('stack_forefoot_mm') is None:
+        bits.append('스택')
+    if s.get('msrp_krw') is None:
+        bits.append('한국 정가')
+    if not bits:
+        return ''
+    return f'<p class="sg-brief-note">공식 미공개: {"·".join(bits)}</p>'
+
+
 def brief_block(s):
-    """상세 페이지용 한 줄 요약 + 장단점. 값이 없으면 비운다."""
+    """상세 페이지용 한 줄 요약 + 장단점 + 미공개 메모. 값이 없으면 비운다."""
     summary = (s.get('summary') or '').strip()
     pros, cons = brief_items(s, 'pros'), brief_items(s, 'cons')
-    if not summary and not pros and not cons:
+    note = missing_note(s)
+    if not summary and not pros and not cons and not note:
         return ''
     parts = []
     if summary:
@@ -276,6 +295,8 @@ def brief_block(s):
         cols.append(f'<div class="{cls}"><h3>{lab}</h3><ul>{lis}</ul></div>')
     if cols:
         parts.append(f'<div class="sg-pc">{"".join(cols)}</div>')
+    if note:
+        parts.append(note)
     return f'<div class="sg-brief">{"".join(parts)}</div>'
 
 

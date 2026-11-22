@@ -490,7 +490,7 @@
         "무게·드롭은 아식스 미국 공식 상품 페이지(Cushion: Maximum). 기준 사이즈·여성 무게·스택·한국 정가는 공식 미공개."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS6vF7qnvM",
         "naver": null
       },
       "successor_id": null,
@@ -498,7 +498,14 @@
       "image": {
         "src": null,
         "alt": "아식스 젤 님버스 28",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS6vF7qnvM",
+          "src": "https://img1c.coupangcdn.com/image/affiliate/banner/c409001e1bb1d20b0005e40fb868cc78@2x.jpg",
+          "alt": "아식스 남성용 젤 님버스 28 운동화 1011C127-400",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {

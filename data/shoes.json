@@ -125,7 +125,7 @@
         "확인일 기준 해당 색상에 할인가가 있었으나, 페이지에는 공식 정가 189,000원만 적습니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS5WjNN1Fs",
         "naver": null
       },
       "successor_id": null,
@@ -133,7 +133,14 @@
       "image": {
         "src": null,
         "alt": "나이키 보메로 18",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS5WjNN1Fs",
+          "src": "https://image10.coupangcdn.com/image/affiliate/banner/416e62535df0a34f7128c0275dd8ec8e@2x.jpg",
+          "alt": "나이키 보메로 18 운동화 + 신발끈 세트 HM6803-101",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {
@@ -171,7 +178,7 @@
         "공식 상품 페이지는 안정·지지 목적의 로드 러닝화로 안내합니다. 의료 진단이나 교정 효과는 적지 않습니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS50zlpueG",
         "naver": null
       },
       "successor_id": null,
@@ -179,7 +186,14 @@
       "image": {
         "src": null,
         "alt": "나이키 스트럭처 플러스",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS50zlpueG",
+          "src": "https://img5c.coupangcdn.com/image/affiliate/banner/5feb3c94d7f8a72fa2f89bea598d083b@2x.jpg",
+          "alt": "나이키 남성용 스트럭처 플러스 운동화 II7192-100",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {

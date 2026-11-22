@@ -33,7 +33,7 @@ const REPLY = { replied:'답변함', joined:'들어옴', missing:'아직' };
 
 function authHeaders(){ return { 'x-host-key': hostKey }; }
 function askKey(message){
-  $('#view').innerHTML = `<div class="ed-post-top"><a class="ed-link ed-small" href="crew/index.html">← 크루 러닝 약속</a></div>
+  $('#view').innerHTML = `<div class="ed-post-top"><a class="ed-link ed-small" href="crew/index.html">← 러닝 약속 잡기</a></div>
     <header class="ed-post-head"><div class="ed-label">Host</div><h1 class="ed-h1 ed-post-title">관리 열쇠</h1><p class="ed-lede">${esc(message || '약속을 만들 때 저장한 관리 링크의 열쇠를 붙여 넣어 주세요.')}</p></header>
     <label class="ed-field"><span class="ed-label">관리 열쇠</span><input class="ed-input" id="keyIn" autocomplete="off"></label>
     <button class="ed-btn block" id="useKey" style="margin-top:16px" type="button">관리 화면 열기</button>`;
@@ -114,7 +114,7 @@ function render(run){
   const share = crewShareUrl(id);
   const manage = crewHostUrl(id, hostKey);
   const seats = run.status === 'recruiting' ? '' : `<p class="ed-small" style="margin-top:8px">참가 ${run.counts.going} · 대기 ${run.counts.waitlist}${run.seatsLeft != null ? ` · ${run.seatsLeft}자리 남음` : ''}</p>`;
-  let html = `<div class="ed-post-top"><a class="ed-link ed-small" href="crew/index.html">← 크루 러닝 약속</a></div>
+  let html = `<div class="ed-post-top"><a class="ed-link ed-small" href="crew/index.html">← 러닝 약속 잡기</a></div>
     <header class="ed-post-head"><div class="ed-label accent">Host · ${esc(run.statusLabel)}</div><h1 class="ed-h1 ed-post-title">${esc(run.title)}</h1><p class="ed-lede">${run.memo ? esc(run.memo) : '참가자에게는 아래 링크만 보내면 돼요.'}</p></header>
     <div class="cr-linkbox"><label class="ed-label">보낼 링크</label><p class="cr-key" id="shareOut">${esc(share)}</p></div>
     <div class="cr-actions"><button type="button" class="ed-btn sm" id="copyShare">링크 복사</button><a class="ed-btn ghost sm" href="${esc(crewRunUrl(id))}">참가자 화면</a><button type="button" class="ed-textbtn" id="copyHost">관리 링크 다시 복사</button></div>

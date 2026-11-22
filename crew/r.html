@@ -1,14 +1,14 @@
 <!doctype html><html lang="ko"><head>
 <base href="/">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>크루 러닝 약속 | Run우리</title>
+<title>러닝 약속 잡기 | Run우리</title>
 <meta name="description" content="가입 없이 닉네임으로 크루 러닝 날짜와 출발 시간, 코스를 골라요.">
 <meta name="theme-color" content="#F6F2EA">
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="origin">
 <link rel="canonical" href="https://runwoori.com/crew/r.html">
 <meta property="og:site_name" content="Run우리"><meta property="og:type" content="website"><meta property="og:locale" content="ko_KR">
-<meta property="og:title" content="크루 러닝 약속 | Run우리"><meta property="og:description" content="가입 없이 가능한 날을 골라 주세요."><meta property="og:image" content="https://runwoori.com/assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:title" content="러닝 약속 잡기 | Run우리"><meta property="og:description" content="가입 없이 가능한 날을 골라 주세요."><meta property="og:image" content="https://runwoori.com/assets/icons/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" href="assets/logo/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
@@ -78,7 +78,7 @@ function joinBox(run, me){
 function render(run, me){
   const votes=me?.votes||{};
   const locked=run.status!=='recruiting';
-  const head=`<div class="ed-post-top"><a class="ed-link ed-small" href="crew/index.html">← 크루 러닝 약속</a></div>
+  const head=`<div class="ed-post-top"><a class="ed-link ed-small" href="crew/index.html">← 러닝 약속 잡기</a></div>
     <header class="ed-post-head"><div class="ed-label">${esc(run.statusLabel)} · ${esc(run.hostNickname)}님의 약속</div><h1 class="ed-h1 ed-post-title">${esc(run.title)}</h1>${run.memo?`<p class="ed-lede">${esc(run.memo)}</p>`:''}</header>`;
   let body=banner(me, run);
   if(run.confirmed) body+=crewPlanHtml(run);
@@ -102,7 +102,7 @@ function render(run, me){
   }
   body+=`<p class="ed-small" style="margin-top:28px"><button type="button" class="ed-textbtn" id="reload">다시 불러오기</button></p>`;
   $('#view').innerHTML=head+body;
-  document.title=`${run.title} · 크루 러닝 약속 | Run우리`;
+  document.title=`${run.title} · 러닝 약속 잡기 | Run우리`;
   bind(run, me);
 }
 

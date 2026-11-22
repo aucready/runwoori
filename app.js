@@ -170,16 +170,16 @@ RACES_READY.then(fillUpdated);
 function layout(active){
   document.body.classList.add('ed-root');
   const t=today();
-  const nav=[['index.html','대회 달력','races'],['overseas.html','해외 대회','overseas'],['my.html','나의 레이스','home'],['blog.html','러닝 가이드','blog'],['courses.html','러닝 코스','courses'],['tools.html','훈련 · 페이스','tools'],['crew/index.html','크루','crew'],['saved.html','저장','saved']];
+  const nav=[['index.html','대회 달력','races'],['overseas.html','해외 대회','overseas'],['my.html','나의 레이스','home'],['blog.html','러닝 가이드','blog'],['courses.html','러닝 코스','courses'],['tools.html','훈련 · 페이스','tools'],['crew/index.html','러닝 약속 잡기','crew'],['saved.html','저장','saved']];
   const bottom=[['index.html','대회','races'],['my.html','나의 레이스','home'],['blog.html','가이드','blog'],['saved.html','저장','saved']];
   const badge=n=>n==='saved'?'<span class="n" data-saved-count hidden>0</span>':'';
   const head=`<a class="skip-link" href="${location.pathname}${location.search}#main">본문으로 건너뛰기</a><header class="ed-mast"><div class="ed-wrap"><div class="ed-mast-top"><span class="ed-label">${t.getFullYear()}.${p2(t.getMonth()+1)}.${p2(t.getDate())} ${EN[t.getDay()]}</span><span class="ed-label" data-updated aria-live="polite">${updatedText()}</span></div>
     <div class="ed-mast-row"><a class="ed-wordmark" href="index.html" aria-label="${SITE.name} 홈"><img src="assets/logo/runwoori-wordmark-light-small.svg" alt="${SITE.name}" width="118" height="28"></a>
     <nav class="ed-mast-nav" aria-label="주 메뉴">${nav.map(n=>`<a href="${n[0]}" class="${n[2]===active?'is-on':''}" ${n[2]===active?'aria-current="page"':''}>${n[1]}${badge(n[2])}</a>`).join('')}</nav>
-    <div class="ed-mast-links"><a class="ed-link ${active==='courses'?'is-on':''}" href="courses.html">코스</a><a class="ed-link ${active==='tools'?'is-on':''}" href="tools.html">훈련</a><a class="ed-link ${active==='crew'?'is-on':''}" href="crew/index.html">크루</a></div></div></div></header>`;
+    <div class="ed-mast-links"><a class="ed-link ${active==='courses'?'is-on':''}" href="courses.html">코스</a><a class="ed-link ${active==='tools'?'is-on':''}" href="tools.html">훈련</a><a class="ed-link ${active==='crew'?'is-on':''}" href="crew/index.html">약속 잡기</a></div></div></div></header>`;
   const bn=`<nav class="ed-tabbar" aria-label="하단 메뉴">${bottom.map(n=>{const on=n[2]===active||(active==='overseas'&&n[2]==='races');return `<a href="${n[0]}" class="${on?'is-on':''}" ${on?'aria-current="page"':''}>${n[1]}${badge(n[2])}</a>`}).join('')}</nav>`;
   const foot=`<footer class="ed-footer"><div class="ed-wrap"><div class="ed-rule" style="border-color:var(--ink)"></div><p class="ed-small" style="padding-top:14px"><img class="ed-foot-logo" src="assets/logo/runwoori-wordmark-light-small.svg" alt="${SITE.name}" width="101" height="24"><br>${SITE.name}는 개인 프로젝트입니다. 대회 일정은 <a href="https://www.kormarathon.com" rel="noopener" target="_blank">KorMarathon</a>의 공개 정보를 하루 한 번 수집하고, 주요 대회는 공식 홈페이지로 직접 확인해 정리합니다. 일정·참가비·접수 기간은 바뀔 수 있으니 신청 전 반드시 공식 홈페이지에서 확인하세요.<br><span data-updated>${updatedText()}</span></p>
-    <nav class="ed-foot-links" aria-label="사이트 정보"><a href="crew/index.html">크루 러닝 약속</a><a href="about.html">사이트 소개</a><a href="privacy.html">개인정보처리방침</a>${IN_APP?'':'<a href="install.html">앱으로 설치</a>'}<a href="terms.html">이용약관</a><a href="contact.html">문의하기</a></nav></div></footer>`;
+    <nav class="ed-foot-links" aria-label="사이트 정보"><a href="crew/index.html">러닝 약속 잡기</a><a href="about.html">사이트 소개</a><a href="privacy.html">개인정보처리방침</a>${IN_APP?'':'<a href="install.html">앱으로 설치</a>'}<a href="terms.html">이용약관</a><a href="contact.html">문의하기</a></nav></div></footer>`;
   document.body.insertAdjacentHTML('afterbegin',head);
   document.body.insertAdjacentHTML('beforeend',foot+bn);
   updateNavCount();

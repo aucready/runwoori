@@ -709,7 +709,7 @@
         "카본이 공식 표기되지 않아 레이스용 카본이 아니라 맥스 쿠션·템포로 분류했습니다."
       ],
       "affiliate": {
-        "coupang": null,
+        "coupang": "https://link.coupang.com/a/iS6VDVb6aq",
         "naver": null
       },
       "successor_id": null,
@@ -717,7 +717,14 @@
       "image": {
         "src": null,
         "alt": "아식스 슈퍼블라스트 3",
-        "source": null
+        "source": "coupang-partners",
+        "coupang_image": {
+          "href": "https://link.coupang.com/a/iS6VDVb6aq",
+          "src": "https://img3c.coupangcdn.com/image/affiliate/banner/d24917e6af4e98c5419c27fb3e070b88@2x.jpg",
+          "alt": "아식스 슈퍼블라스트 3",
+          "width": 120,
+          "height": 240
+        }
       }
     },
     {

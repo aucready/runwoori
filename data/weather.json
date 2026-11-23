@@ -7,10 +7,10 @@
   "o-naha": {
    "cat": "rain",
    "date": "2026-12-06",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "city",
    "label": "강한 이슬비",
-   "pop": 44,
+   "pop": 33,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": "09:00",
@@ -22,10 +22,10 @@
   "o-valencia": {
    "cat": "sun",
    "date": "2026-12-06",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "city",
    "label": "맑음",
-   "pop": 10,
+   "pop": 15,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -37,7 +37,7 @@
   "r0720104a": {
    "cat": "cloud",
    "date": "2026-11-29",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "흐림",
    "pop": 3,
@@ -52,10 +52,10 @@
   "r1f994495": {
    "cat": "cloud",
    "date": "2026-11-28",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "흐림",
-   "pop": 14,
+   "pop": 6,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -67,10 +67,10 @@
   "r3ce10701": {
    "cat": "partly",
    "date": "2026-11-28",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "구름 조금",
-   "pop": 13,
+   "pop": 8,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -82,10 +82,10 @@
   "r4854da76": {
    "cat": "sun",
    "date": "2026-11-29",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "맑음",
-   "pop": 0,
+   "pop": 2,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -97,10 +97,10 @@
   "r5ed038a0": {
    "cat": "sun",
    "date": "2026-11-29",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "대체로 맑음",
-   "pop": 4,
+   "pop": 1,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -112,10 +112,10 @@
   "r89549e80": {
    "cat": "sun",
    "date": "2026-11-29",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "대체로 맑음",
-   "pop": 4,
+   "pop": 1,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -127,10 +127,10 @@
   "r8a9e5d42": {
    "cat": "partly",
    "date": "2026-11-29",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "구름 조금",
-   "pop": 3,
+   "pop": 2,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -142,10 +142,10 @@
   "r9a0726d7": {
    "cat": "cloud",
    "date": "2026-11-29",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "흐림",
-   "pop": 3,
+   "pop": 2,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": "08:30",
@@ -157,10 +157,10 @@
   "ra71a5bce": {
    "cat": "partly",
    "date": "2026-11-29",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "구름 조금",
-   "pop": 3,
+   "pop": 2,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -172,10 +172,10 @@
   "ra7bba518": {
    "cat": "partly",
    "date": "2026-11-28",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "구름 조금",
-   "pop": 16,
+   "pop": 10,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -187,10 +187,10 @@
   "rbd420a1f": {
    "cat": "cloud",
    "date": "2026-11-28",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "city",
    "label": "흐림",
-   "pop": 16,
+   "pop": 10,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -202,10 +202,10 @@
   "rbf17d376": {
    "cat": "partly",
    "date": "2026-11-28",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "구름 조금",
-   "pop": 16,
+   "pop": 10,
    "provider": "open-meteo",
    "source": "Open-Meteo",
    "start_time": null,
@@ -217,7 +217,7 @@
   "rc68fd737": {
    "cat": "rain",
    "date": "2026-11-28",
-   "fetched": "2026-11-23T05:31:47+09:00",
+   "fetched": "2026-11-23T09:17:04+09:00",
    "geo": "venue",
    "label": "이슬비",
    "pop": 41,
@@ -396,6 +396,11 @@
    "geo": "venue",
    "show_from": "2027-02-18"
   },
+  "r3ccf6f97": {
+   "date": "2027-03-14",
+   "geo": "venue",
+   "show_from": "2027-03-04"
+  },
   "r4085cd4e": {
    "date": "2027-02-20",
    "geo": "venue",
@@ -431,6 +436,11 @@
    "geo": "venue",
    "show_from": "2026-12-22"
   },
+  "r5e7cc4b8": {
+   "date": "2027-05-16",
+   "geo": "venue",
+   "show_from": "2027-05-06"
+  },
   "r5fbf8382": {
    "date": "2027-03-01",
    "geo": "city",
@@ -456,6 +466,16 @@
    "geo": "venue",
    "show_from": "2026-12-02"
   },
+  "r7ecfd143": {
+   "date": "2027-02-28",
+   "geo": "venue",
+   "show_from": "2027-02-18"
+  },
+  "r89a53dd8": {
+   "date": "2027-03-14",
+   "geo": "venue",
+   "show_from": "2027-03-04"
+  },
   "r8a2c518d": {
    "date": "2026-12-05",
    "geo": "venue",
@@ -475,6 +495,11 @@
    "date": "2026-12-06",
    "geo": "venue",
    "show_from": "2026-11-26"
+  },
+  "raadb6373": {
+   "date": "2027-02-28",
+   "geo": "city",
+   "show_from": "2027-02-18"
   },
   "rb06fdfbb": {
    "date": "2026-12-13",
@@ -570,8 +595,8 @@
  "stats": {
   "failed_requests": 0,
   "forecast": 15,
-  "no_coords": 25,
-  "pending": 66
+  "no_coords": 28,
+  "pending": 71
  },
- "updated": "2026-11-23T05:31:47+09:00"
+ "updated": "2026-11-23T09:17:04+09:00"
 }

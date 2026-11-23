@@ -944,6 +944,64 @@
 "url": "https://youngrun.kr/"
 }
 },
+"r2590415c": {
+"_last_seen": "2026-11-23",
+"address": "강원특별자치도 평창군 대관령면 대관령로 135-9",
+"category": null,
+"conflicts": [],
+"date": "2027-01-31",
+"dist_tags": [
+"5K",
+"10K"
+],
+"distances": [
+{
+"fee": 50000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 55000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 55000,
+"km": 10.0,
+"label": "10km 짝꿍런",
+"note": "남녀 2인 1조 · 단체 신청"
+}
+],
+"end_date": null,
+"fee_max": 55000,
+"fee_min": 50000,
+"id": "r2590415c",
+"locality": "평창군",
+"name": "2027 대관령 알몸 마라톤대회",
+"official_url": "https://mara1080.com/event/d243ad5f-f193-4e72-9c7e-c46969437cf8",
+"organizer": "대관령면체육회 (주관 전국마라톤협회)",
+"reg_close": null,
+"reg_note": "전국마라톤협회 접수 시스템에서 접수 중(선착순) · 10km 짝꿍런(남녀 2인 1조)은 단체로 신청 후 선택 · 기념품 폴라폴리스 자켓+비니",
+"reg_open": null,
+"reg_state": "open",
+"reg_url": null,
+"region": "강원",
+"sources": {},
+"start_time": "10:30",
+"venue": "대관령눈꽃축제장 (평창군 대관령면 대관령로 135-9)",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/d243ad5f-f193-4e72-9c7e-c46969437cf8"
+}
+},
 "r27a44c25": {
 "_last_seen": "2026-11-14",
 "address": "서울특별시 영등포구 영등포로2길 62 (문래동5가 31, 신정교 하부)",
@@ -1757,6 +1815,68 @@
 },
 "start_time": null,
 "venue": "수원종합운동장"
+},
+"r3ccf6f97": {
+"_last_seen": "2026-11-23",
+"category": null,
+"conflicts": [],
+"date": "2027-03-14",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 35000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 25000,
+"km": 5.0,
+"label": "5km(이천시민)"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 21.0975,
+"label": "하프"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 25000,
+"id": "r3ccf6f97",
+"locality": "이천시",
+"name": "제28회 이천 도자기 마라톤대회",
+"official_url": "https://mara1080.com/event/2b3a03c4-4fc6-4d34-8a33-2449fafcaa23",
+"organizer": "이천시체육회 (주관 이천시육상연맹·전국마라톤협회)",
+"reg_close": null,
+"reg_note": "선착순 6,000명 도달 시 즉시 마감(공식 공지) · 집결 07:30 · 10km·하프 기념품은 기능성 티·고글·도자기 머그컵 세트 중 택1",
+"reg_open": null,
+"reg_state": "open",
+"reg_url": null,
+"region": "경기",
+"sources": {},
+"start_time": "08:30",
+"venue": "이천종합운동장",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/2b3a03c4-4fc6-4d34-8a33-2449fafcaa23"
+}
 },
 "r3ce10701": {
 "_last_seen": "2026-11-23",
@@ -2928,8 +3048,8 @@
 "name": "2027 전마협 고흥 누리호 마라톤",
 "official_url": "https://mara1080.com/event/c0c0a4a4-eb54-4f93-a0b8-f21d9b2bd168",
 "organizer": "전국마라톤협회",
-"reg_close": "2026-12-30",
-"reg_note": "2026.10.30 ~ 2026.12.30",
+"reg_close": "2026-12-31",
+"reg_note": "전국마라톤협회 접수 시스템 마감 표시: 2027.1.1 06:00",
 "reg_open": "2026-10-30",
 "reg_state": "open",
 "reg_url": null,
@@ -2940,7 +3060,8 @@
 "verified": {
 "date": "2026-11-09",
 "fields": [
-"장소(지역)"
+"장소(지역)",
+"접수 마감"
 ],
 "url": "https://mara1080.com/event/c0c0a4a4-eb54-4f93-a0b8-f21d9b2bd168"
 }
@@ -3079,6 +3200,68 @@
 },
 "start_time": null,
 "venue": "광려천 공원 일원 (창원시 마산회원구 내서읍 신감리)"
+},
+"r5e7cc4b8": {
+"_last_seen": "2026-11-23",
+"category": null,
+"conflicts": [],
+"date": "2027-05-16",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 70000,
+"km": 21.0975,
+"label": "하프"
+},
+{
+"fee": 60000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 50000,
+"km": 5.0,
+"label": "5km"
+},
+{
+"fee": 40000,
+"km": 3.0,
+"label": "3km 걷기"
+}
+],
+"end_date": null,
+"fee_max": 70000,
+"fee_min": 40000,
+"id": "r5e7cc4b8",
+"locality": "영등포구",
+"name": "소아암환우돕기 제24회 서울시민마라톤대회",
+"official_url": "https://soaam.runningdr.co.kr/",
+"organizer": "소아암환우돕기 마라톤 조직위원회",
+"reg_close": "2027-03-30",
+"reg_note": "2027.1.18 ~ 3.30 선착순 3,000명 · 하프 08:00, 10km 08:10, 5km 08:20, 3km 걷기 08:30 출발 · 참가 수익금은 소아암 어린이 치료비로 기부",
+"reg_open": "2027-01-18",
+"reg_state": "upcoming",
+"reg_url": null,
+"region": "서울",
+"sources": {},
+"start_time": "08:00",
+"venue": "여의도 한강공원 물빛광장",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 기간"
+],
+"url": "https://soaam.runningdr.co.kr/"
+}
 },
 "r5ebf8d91": {
 "_last_seen": "2026-11-22",
@@ -3251,17 +3434,23 @@
 "name": "2027 머니투데이방송 삼일절 마라톤",
 "official_url": "https://mara1080.com/event/83acaaf1-1e30-411a-ac71-5e909ba1f7d9/registration/apply",
 "organizer": "(주)머니투데이방송",
-"reg_close": "2027-01-31",
-"reg_note": "2026.10.01 ~ 2027.01.31",
+"reg_close": "2026-12-29",
+"reg_note": "전국마라톤협회 접수 시스템 마감 표시: 2026.12.30 06:00 (조기 마감될 수 있음)",
 "reg_open": "2026-10-01",
 "reg_state": "open",
 "reg_url": null,
 "region": "서울",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/2027-money-today-broadcasting-independence-movement-day-marathon-c65fea9e2fe54544be61abbabb4c60fd"
-},
+"sources": {},
 "start_time": null,
-"venue": "뚝섬한강공원 수변무대"
+"venue": "뚝섬한강공원 수변무대",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"접수 마감",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/83acaaf1-1e30-411a-ac71-5e909ba1f7d9"
+}
 },
 "r6297098d": {
 "_last_seen": "2026-11-23",
@@ -3491,8 +3680,8 @@
 "name": "2027 금산 인삼 웰빙 마라톤대회",
 "official_url": "https://mara1080.com/event/6397382b-be8d-4aee-b724-68f9fad03f29",
 "organizer": "금산군육상연맹 (주관 로컬투데이·전국마라톤협회)",
-"reg_close": null,
-"reg_note": null,
+"reg_close": "2027-01-30",
+"reg_note": "전국마라톤협회 접수 시스템 마감 표시: 2027.1.31 06:00",
 "reg_open": null,
 "reg_state": "open",
 "reg_url": null,
@@ -3507,7 +3696,8 @@
 "장소",
 "주최",
 "종목·참가비",
-"접수 상태"
+"접수 상태",
+"접수 마감"
 ],
 "url": "https://mara1080.com/event/6397382b-be8d-4aee-b724-68f9fad03f29"
 }
@@ -4296,6 +4486,68 @@
 "url": "https://incheonmarathon.or.kr"
 }
 },
+"r7ecfd143": {
+"_last_seen": "2026-11-23",
+"category": null,
+"conflicts": [],
+"date": "2027-02-28",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 60000,
+"km": 31.0,
+"label": "31km"
+},
+{
+"fee": 55000,
+"km": 21.0975,
+"label": "하프",
+"note": "21.1km"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 45000,
+"km": 5.0,
+"label": "5km"
+}
+],
+"end_date": null,
+"fee_max": 60000,
+"fee_min": 45000,
+"id": "r7ecfd143",
+"locality": "전주시",
+"name": "2027 전북특별자치도 3.1절 마라톤",
+"official_url": "https://jbrun31.com/",
+"organizer": "전북중앙신문",
+"reg_close": "2026-12-17",
+"reg_note": "종목별 순차 접수(매일 09:00~ 선착순): 31km 11.30~12.3 · 21.1km 12.7~12.10 · 10km·5km 12.14~12.17 · 참가비는 종목별 결제 기간에 통장입금 · 집결 07:30 예정 · 출발 시각은 예정(31km 08:45~09:00, 21.1km 09:15, 10km 09:30, 5km 09:45)",
+"reg_open": "2026-11-30",
+"reg_state": "upcoming",
+"reg_url": null,
+"region": "전북",
+"sources": {},
+"start_time": null,
+"venue": "전주월드컵경기장",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"대회일",
+"장소",
+"주최",
+"종목·참가비",
+"접수 기간"
+],
+"url": "https://jbrun31.com/event/registration/"
+}
+},
 "r8019c636": {
 "_last_seen": "2026-11-15",
 "category": null,
@@ -4711,6 +4963,62 @@
 },
 "start_time": null,
 "venue": "천안 독립기념관 겨레의큰마당"
+},
+"r89a53dd8": {
+"_last_seen": "2026-11-23",
+"category": null,
+"conflicts": [],
+"date": "2027-03-14",
+"dist_tags": [
+"5K",
+"10K",
+"하프"
+],
+"distances": [
+{
+"fee": 60000,
+"km": 21.0975,
+"label": "하프"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 40000,
+"km": 5.0,
+"label": "5km"
+}
+],
+"end_date": null,
+"fee_max": 60000,
+"fee_min": 40000,
+"id": "r89a53dd8",
+"locality": "사하구",
+"name": "2027 부산 다대포 마라톤 대회",
+"official_url": "https://dadaeporun.kr/",
+"organizer": "부산다대포마라톤 조직위원회·(사)미디어 부산·아이디자인닷컴 (주관 부산광역시 직장인체육회·아이스포츠닷컴·부산경제방송)",
+"reg_close": "2026-12-04",
+"reg_note": "2026.11.17(화) ~ 12.04(금) 선착순 마감 · 집결 08:00 · 하프는 만 18세 이상 · 30인 이상 단체 텐트 제공",
+"reg_open": "2026-11-17",
+"reg_state": "open",
+"reg_url": null,
+"region": "부산",
+"sources": {},
+"start_time": null,
+"venue": "부산 다대포해수욕장 일원",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"대회일",
+"장소",
+"주최",
+"종목·참가비",
+"접수 기간"
+],
+"url": "https://dadaeporun.kr/sub02/sub01_01.php"
+}
 },
 "r8a109760": {
 "_last_seen": "2026-11-07",
@@ -5691,17 +5999,23 @@
 "name": "제3회 영광광풍마라톤",
 "official_url": "https://mara1080.com/event/92394e8e-a27c-4c3a-b286-7233340a9e7a",
 "organizer": "영광군민의날 추진위원회/집행위원회",
-"reg_close": "2027-01-31",
-"reg_note": "2026.09.21 ~ 2027.01.31",
+"reg_close": "2026-12-30",
+"reg_note": "전국마라톤협회 접수 시스템 마감 표시: 2026.12.31 06:00 (선착순 마감)",
 "reg_open": "2026-09-21",
 "reg_state": "open",
 "reg_url": null,
 "region": "전남",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/the-3rd-yeonggwang-gwangpung-marathon-ffcf2cb209974006a5d722bc2021d312"
-},
+"sources": {},
 "start_time": null,
-"venue": "영광스포티움"
+"venue": "영광스포티움",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"접수 마감",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/92394e8e-a27c-4c3a-b286-7233340a9e7a"
+}
 },
 "ra0dc2ae0": {
 "_last_seen": "2026-11-23",
@@ -5934,9 +6248,9 @@
 "official_url": "https://mara1080.com/event/f3c362bc-532f-4f3c-bc21-76d3023bfb3a",
 "organizer": "전국마라톤협회",
 "reg_close": null,
-"reg_note": "1/22(금)~1/25(월) 매일 풀코스 · 출발 22일 09:00, 23일 08:00, 24일 08:30, 25일 07:30 · 2회 110,000원, 3회 165,000원, 4회 제주도민 220,000원, 타지역 4회(숙박 포함·선착순 80명) 700,000원 · 1년 이내 풀 5시간 또는 하프 1시간 50분 이내 기록증 제출 필수 · 입금·변경·환불은 11/30(월)까지(공지)",
+"reg_note": "전국마라톤협회 접수 시스템 상태: 접수 마감(CLOSED, 2026-11-23 확인)",
 "reg_open": null,
-"reg_state": "open",
+"reg_state": "closed",
 "reg_url": null,
 "region": "제주",
 "sources": {},
@@ -6082,6 +6396,68 @@
 },
 "start_time": null,
 "venue": "대치유수지 체육공원"
+},
+"raadb6373": {
+"_last_seen": "2026-11-23",
+"category": null,
+"conflicts": [],
+"date": "2027-02-28",
+"dist_tags": [
+"10K",
+"하프",
+"풀"
+],
+"distances": [
+{
+"fee": 60000,
+"km": 42.195,
+"label": "풀"
+},
+{
+"fee": 55000,
+"km": 21.0975,
+"label": "하프"
+},
+{
+"fee": 50000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 40000,
+"km": 6.0,
+"label": "6km"
+}
+],
+"end_date": null,
+"fee_max": 60000,
+"fee_min": 40000,
+"id": "raadb6373",
+"locality": "강남구",
+"name": "제11회 산불조심 한국서울마라톤대회",
+"official_url": "https://nobulrun.com/",
+"organizer": "한국트레일러너연맹 (주관 (사)한국산악마라톤연맹 외)",
+"reg_close": "2027-01-31",
+"reg_note": "접수 2026.11.10 ~ 2027.1.31 · 공식 대회요강 일시 줄에는 '2026년 2월 28일'로 적혀 있으나 첫 화면은 2027년 2월 28일(일)",
+"reg_open": "2026-11-10",
+"reg_state": "open",
+"reg_url": null,
+"region": "서울",
+"sources": {},
+"start_time": "09:00",
+"venue": "광평교 운동장 (수서역 5번 출구 도보 5분, 탄천 송파둘레길 족구장)",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 기간"
+],
+"url": "https://nobulrun.com/?link=document&doc=20261015221303&asno=20261015221303_9356&csno=BQ1899&pcmb=pc"
+}
 },
 "rad1d9160": {
 "_last_seen": "2026-11-08",
@@ -6616,6 +6992,68 @@
 "url": "https://www.omrun.co.kr/notice/view.php?id=8"
 }
 },
+"rbb762585": {
+"_last_seen": "2026-11-23",
+"category": null,
+"conflicts": [],
+"date": "2027-02-28",
+"dist_tags": [
+"5K",
+"10K",
+"풀"
+],
+"distances": [
+{
+"fee": 50000,
+"km": 42.195,
+"label": "풀"
+},
+{
+"fee": 50000,
+"km": 30.0,
+"label": "30km"
+},
+{
+"fee": 45000,
+"km": 10.0,
+"label": "10km"
+},
+{
+"fee": 35000,
+"km": 5.0,
+"label": "5km"
+}
+],
+"end_date": null,
+"fee_max": 50000,
+"fee_min": 35000,
+"id": "rbb762585",
+"locality": "정읍시",
+"name": "제133주년 동학농민혁명기념 정읍동학마라톤대회",
+"official_url": "http://jp.myrunup.kr/",
+"organizer": "정읍시체육회 (주관 정읍시육상연맹)",
+"reg_close": "2027-01-20",
+"reg_note": "2026.11.17(화) ~ 2027.1.20(수) 24:00 · 총 5,000명 · 풀·30km 08:30, 10km 08:40, 5km 08:50 출발 · 참가비에 정읍사랑상품권 포함(풀·30km·10km 1만원, 5km 5천원)",
+"reg_open": "2026-11-17",
+"reg_state": "open",
+"reg_url": null,
+"region": "전북",
+"sources": {},
+"start_time": "08:30",
+"venue": "정읍체육트레이닝센터",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"대회일",
+"출발 시각",
+"장소",
+"주최",
+"종목·참가비",
+"접수 기간"
+],
+"url": "http://jp.myrunup.kr/home/introduce/outline/pageView.ubs"
+}
+},
 "rbb9ac089": {
 "_last_seen": "2026-11-08",
 "category": null,
@@ -7148,8 +7586,8 @@
 "name": "2027 무주 반딧불 하프마라톤대회",
 "official_url": "https://mara1080.com/event/6b68a627-24cf-4844-ac1d-9358b2a54227",
 "organizer": "무주군체육회 (주관 무주군마라톤협회·전국마라톤협회)",
-"reg_close": "2027-01-27",
-"reg_note": "2026.11.04 ~ 2027.01.27",
+"reg_close": "2027-01-30",
+"reg_note": "전국마라톤협회 접수 시스템 마감 표시: 2027.1.31 06:00",
 "reg_open": "2026-11-04",
 "reg_state": "open",
 "reg_url": null,
@@ -7165,7 +7603,8 @@
 "장소",
 "주최",
 "종목·참가비",
-"접수 상태"
+"접수 상태",
+"접수 마감"
 ],
 "url": "https://mara1080.com/event/6b68a627-24cf-4844-ac1d-9358b2a54227"
 }
@@ -8882,16 +9321,22 @@
 "name": "2027 전마협 새해 동계 마라톤대회",
 "official_url": "https://mara1080.com/event/2c881231-b5dd-4ae8-a587-c02d539566af",
 "organizer": "전국마라톤협회",
-"reg_close": "2026-11-26",
-"reg_note": "2026.10.01 ~ 2026.11.26",
+"reg_close": "2026-12-30",
+"reg_note": "전국마라톤협회 접수 시스템 마감 표시: 2026.12.31 06:00",
 "reg_open": "2026-10-01",
 "reg_state": "open",
 "reg_url": null,
 "region": "충남",
-"sources": {
-"kormarathon": "https://www.kormarathon.com/ko/races/2027-jeonmahyeop-new-year-s-marathon-11c05e58816d4e8bb0cb12d44266ca0e"
-},
+"sources": {},
 "start_time": null,
-"venue": "금산인삼엑스포주차장"
+"venue": "금산인삼엑스포주차장",
+"verified": {
+"date": "2026-11-23",
+"fields": [
+"접수 마감",
+"접수 상태"
+],
+"url": "https://mara1080.com/event/2c881231-b5dd-4ae8-a587-c02d539566af"
+}
 }
 }

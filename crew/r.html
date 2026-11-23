@@ -24,15 +24,17 @@ const id = new URLSearchParams(location.search).get('id') || '';
 const TOKEN = /^[A-Za-z0-9_-]{20,80}$/;
 const SEAT = { voting:'답을 적는 중', going:'참가 확정', waitlist:'대기', out:'이번 조합은 어려워요', cancelled:'취소' };
 
-function voteGroup(opt, selected, locked){
+function voteGroup(opt, selected, locked, likely){
   const states=[[0,'어려워요'],[1,'괜찮아요'],[2,'좋아요']];
   const btns=states.map(([n,label])=>`<button type="button" data-state="${n}" aria-pressed="${selected===n}" class="${selected===n?'is-on':''}" ${locked?'disabled':''}>${label}</button>`).join('');
   const count=`<span class="cr-count">${opt.available||0}명 가능${opt.prefer?` · 좋아요 ${opt.prefer}`:''}</span>`;
   const sub=opt.detail?`<p class="ed-small">${esc(opt.detail)}</p>`:'';
-  return `<div class="cr-opt" data-opt="${esc(opt.id)}"><div class="cr-opt-top"><div><b>${esc(opt.text)}</b>${sub}</div>${count}</div><div class="ed-seg" role="radiogroup" aria-label="${esc(opt.text)}">${btns}</div></div>`;
+  const badge=likely?crewLikelyBadge():'';
+  return `<div class="cr-opt${likely?' cr-likely':''}" data-opt="${esc(opt.id)}"><div class="cr-opt-top"><div><b>${esc(opt.text)}</b>${badge}${sub}</div>${count}</div><div class="ed-seg" role="radiogroup" aria-label="${esc(opt.text)}${likely?' · 가능성 높음':''}">${btns}</div></div>`;
 }
 function groups(run, votes, locked){
-  const block=(title, no, kind)=>`<section class="cr-block"><div class="ed-section-head"><span class="no">${no}</span><h2 class="ed-h2">${title}</h2></div>${crewByKind(run.options, kind).map(o=>voteGroup(o, votes[o.id], locked)).join('')}</section>`;
+  const hot=crewLikelyDateIds(run);
+  const block=(title, no, kind)=>`<section class="cr-block"><div class="ed-section-head"><span class="no">${no}</span><h2 class="ed-h2">${title}</h2></div>${crewByKind(run.options, kind).map(o=>voteGroup(o, votes[o.id], locked, kind==='date' && hot.has(o.id))).join('')}</section>`;
   return block('날짜','01','date')+block('출발 시간','02','time')+block('코스 · 집결지','03','course');
 }
 function readVotes(){

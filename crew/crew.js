@@ -189,3 +189,16 @@ function crewRecordsHtml(records) {
 function crewByKind(options, kind) {
   return (options || []).filter((o) => o.kind === kind);
 }
+
+function crewLikelyDateIds(run) {
+  const dates = crewByKind((run && run.options) || [], 'date');
+  const max = Math.max(0, ...dates.map((d) => d.available || 0));
+  if (max <= 0) return new Set();
+  return new Set(dates.filter((d) => (d.available || 0) === max).map((d) => d.id));
+}
+function crewLikelyBadge() {
+  return '<span class="cr-likely-badge">가능성 높음</span>';
+}
+function crewIsLikelyDate(run, dateId) {
+  return dateId && crewLikelyDateIds(run).has(dateId);
+}

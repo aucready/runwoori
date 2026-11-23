@@ -57,9 +57,11 @@ function heatHtml(run){
   const times = crewByKind(run.options, 'time');
   const max = Math.max(1, ...run.heatmap.flatMap((row) => row.cells.map((c) => c.available)));
   let html = `<div class="cr-heat" style="grid-template-columns:88px repeat(${times.length}, minmax(52px,1fr))"><div></div>${times.map((t) => `<div class="cr-heat-h">${esc(t.text)}</div>`).join('')}`;
+  const hot = crewLikelyDateIds(run);
   run.heatmap.forEach((row) => {
     const date = run.options.find((o) => o.id === row.dateId);
-    html += `<div class="cr-heat-h">${esc(date ? date.text : row.label)}</div>`;
+    const likely = date && hot.has(date.id);
+    html += `<div class="cr-heat-h${likely ? ' cr-likely' : ''}">${esc(date ? date.text : row.label)}${likely ? crewLikelyBadge() : ''}</div>`;
     row.cells.forEach((cell) => {
       const p = cell.available / max;
       const light = p > 0.72;
@@ -106,7 +108,8 @@ function comboHtml(run){
     const t = run.options.find((o) => o.id === c.timeId);
     const course = run.options.find((o) => o.id === c.courseId);
     const btn = run.status === 'recruiting' ? `<button type="button" class="ed-btn ${i === 0 ? '' : 'ghost'} sm" style="margin-top:10px" data-date="${esc(c.dateId)}" data-time="${esc(c.timeId)}" data-course="${esc(c.courseId)}">이 조합으로 확정</button>` : '';
-    return `<article class="cr-combo ${i === 0 ? 'is-top' : ''}"><div class="ed-label">${i === 0 ? '가장 잘 맞는 조합' : '다른 조합'}</div><h3 class="ed-h3">${esc(d.text)} · ${esc(t.text)}</h3><p>${esc(course.text)} · ${esc(course.detail || '')}</p><p><b>${c.available}명</b> 가능 · 선호 점수 ${c.preference}</p><p class="ed-small">${esc(c.nicknames.join(', ') || '가능한 사람이 아직 없어요')}</p>${btn}</article>`;
+    const likely = crewIsLikelyDate(run, c.dateId);
+    return `<article class="cr-combo ${i === 0 ? 'is-top' : ''}${likely ? ' cr-likely' : ''}"><div class="ed-label">${i === 0 ? '가장 잘 맞는 조합' : '다른 조합'}${likely ? crewLikelyBadge() : ''}</div><h3 class="ed-h3">${esc(d.text)} · ${esc(t.text)}</h3><p>${esc(course.text)} · ${esc(course.detail || '')}</p><p><b>${c.available}명</b> 가능 · 선호 점수 ${c.preference}</p><p class="ed-small">${esc(c.nicknames.join(', ') || '가능한 사람이 아직 없어요')}</p>${btn}</article>`;
   }).join('');
 }
 
@@ -124,7 +127,7 @@ function render(run){
     <ul class="cr-names">${(run.participants || []).map((p) => `<li>${esc(p.nickname)} · ${SEAT[p.seat] || p.seat}${p.responded ? '' : ' · 답 전'}</li>`).join('') || ''}</ul></section>`;
   if (run.status === 'recruiting' || run.heatmap) {
     html += `<section class="cr-block"><div class="ed-section-head"><span class="no">02</span><h2 class="ed-h2">한눈에 보는 표</h2></div>${heatHtml(run)}
-      ${crewByKind(run.options, 'date').concat(crewByKind(run.options, 'time'), crewByKind(run.options, 'course')).map((o) => `<div class="cr-opt"><b>${esc(o.text)}</b> <span class="cr-count">${o.available}명 가능</span>${namesOf(o)}</div>`).join('')}
+      ${crewByKind(run.options, 'date').concat(crewByKind(run.options, 'time'), crewByKind(run.options, 'course')).map((o) => { const likely=o.kind==='date' && crewIsLikelyDate(run, o.id); return `<div class="cr-opt${likely?' cr-likely':''}"><b>${esc(o.text)}</b>${likely?crewLikelyBadge():''} <span class="cr-count">${o.available}명 가능</span>${namesOf(o)}</div>`; }).join('')}
     </section>`;
     html += `<section class="cr-block" id="pick"><div class="ed-section-head"><span class="no">03</span><h2 class="ed-h2">추천 조합</h2></div><p class="ed-small">가능한 사람이 많은 순이에요. 같으면 좋아요를 더 많이 받은 조합이 위로 와요. 정원보다 많으면 먼저 들어온 사람이 참가하고 나머지는 대기가 돼요.</p>${comboHtml(run)}</section>`;
   }

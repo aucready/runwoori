@@ -82,3 +82,55 @@ textarea.ed-input{min-height:88px;resize:vertical;padding-top:10px}
   .cr-row.two .place{grid-column:2;grid-row:1}
   .cr-row.two .x{grid-column:3;grid-row:1}
 }
+
+/* 가능 투표가 가장 많은 날짜(동점 포함). 브랜드 트랙 레드, 배지로 색만 의존하지 않음. */
+.cr-mine, .ed-post, .cr-heat, .cr-opt, .cr-combo{
+  --cr-likely: var(--accent, #B5432A);
+  --cr-likely-deep: var(--accent-deep, #9A3620);
+  --cr-likely-wash: var(--accent-wash, #EED9CE);
+}
+.cr-likely-badge{
+  display:inline-block;
+  margin:0 0 0 8px;
+  padding:2px 7px;
+  font-family:var(--font-sans);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.04em;
+  line-height:1.35;
+  color:var(--cr-likely-deep);
+  background:var(--cr-likely-wash);
+  border:1px solid var(--cr-likely);
+  border-radius:2px;
+  vertical-align:middle;
+  white-space:nowrap;
+}
+.cr-opt.cr-likely{
+  border-left:3px solid var(--cr-likely);
+  padding-left:12px;
+  background:linear-gradient(90deg, var(--cr-likely-wash) 0, transparent 56px);
+}
+.cr-opt.cr-likely > .cr-opt-top b,
+.cr-opt.cr-likely > b{color:var(--cr-likely-deep)}
+.cr-heat-h.cr-likely{
+  color:var(--cr-likely-deep);
+  font-weight:600;
+  align-items:flex-start;
+  justify-content:flex-end;
+  flex-direction:column;
+  gap:4px;
+  min-height:44px;
+}
+.cr-heat-h.cr-likely .cr-likely-badge{
+  margin:0;
+  white-space:normal;
+  max-width:100%;
+  text-align:center;
+}
+.cr-combo.cr-likely{
+  border-left:3px solid var(--cr-likely);
+  padding-left:12px;
+  background:linear-gradient(90deg, var(--cr-likely-wash) 0, transparent 72px);
+}
+.cr-combo.cr-likely h3{color:var(--cr-likely-deep)}
+.cr-combo.cr-likely .ed-label{color:var(--cr-likely-deep)}

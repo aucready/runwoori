@@ -45,17 +45,76 @@ async function crewApi(path, opt = {}) {
 function crewBag(key) {
   try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; }
 }
-function crewMe(id) { return crewBag('rw_crew_me_v1')[id] || null; }
+function crewHostKeyOf(val) {
+  if (typeof val === 'string') return val;
+  if (val && typeof val === 'object') return String(val.key || val.hostKey || val.k || '');
+  return '';
+}
+function crewMeOf(val) {
+  if (val && typeof val === 'object') return { token: val.token || '', nickname: val.nickname || '' };
+  if (typeof val === 'string') return { token: val, nickname: '' };
+  return null;
+}
+function crewMe(id) { return crewMeOf(crewBag('rw_crew_me_v1')[id]); }
 function crewSaveMe(id, token, nickname) {
   const all = crewBag('rw_crew_me_v1');
   all[id] = { token, nickname };
   localStorage.setItem('rw_crew_me_v1', JSON.stringify(all));
 }
-function crewHostKey(id) { return crewBag('rw_crew_host_v1')[id] || ''; }
+function crewHostKey(id) { return crewHostKeyOf(crewBag('rw_crew_host_v1')[id]); }
 function crewSaveHost(id, key) {
   const all = crewBag('rw_crew_host_v1');
   all[id] = key;
   localStorage.setItem('rw_crew_host_v1', JSON.stringify(all));
+}
+/** 이 기기 localStorage에 이미 있는 약속. 기존 rw_crew_host_v1 / rw_crew_me_v1 형식을 그대로 읽기만 하고 고치지 않아요. */
+function crewKnownRuns() {
+  const map = new Map();
+  Object.entries(crewBag('rw_crew_me_v1')).forEach(([id, val]) => {
+    if (!id || id === '__proto__' || id === 'constructor') return;
+    const me = crewMeOf(val) || { token: '', nickname: '' };
+    map.set(id, { id, key: '', token: me.token, nickname: me.nickname, hosted: false, joined: true });
+  });
+  Object.entries(crewBag('rw_crew_host_v1')).forEach(([id, val]) => {
+    if (!id || id === '__proto__' || id === 'constructor') return;
+    const key = crewHostKeyOf(val);
+    const prev = map.get(id) || { id, token: '', nickname: '', joined: false };
+    prev.key = key;
+    prev.hosted = true;
+    map.set(id, prev);
+  });
+  return [...map.values()];
+}
+async function crewRenderMine(mount) {
+  if (!mount) return;
+  const rows = crewKnownRuns();
+  if (!rows.length) {
+    mount.hidden = true;
+    mount.innerHTML = '';
+    return;
+  }
+  mount.hidden = false;
+  const items = rows.map((row) => {
+    const manage = row.hosted
+      ? `<a class="ed-btn sm" href="${esc(row.key ? crewHostUrl(row.id, row.key) : `${location.origin}/crew/h.html?id=${encodeURIComponent(row.id)}`)}">관리하기</a>`
+      : '';
+    const join = `<a class="ed-btn ghost sm" href="${esc(crewRunUrl(row.id))}">참가 화면</a>`;
+    return `<article class="cr-mine-item" data-run="${esc(row.id)}"><h3 class="cr-mine-title">저장된 약속</h3><p class="cr-mine-meta">${row.hosted ? '만든 약속' : '참여한 약속'}</p><div class="cr-actions">${manage}${join}</div></article>`;
+  }).join('');
+  mount.innerHTML = `<div class="ed-section-head"><span class="no">내 약속</span><h2 class="ed-h2">이 기기에 있는 약속</h2></div><div class="cr-mine-list">${items}</div>`;
+  await Promise.all(rows.map(async (row) => {
+    const el = mount.querySelector(`[data-run="${CSS.escape(row.id)}"]`);
+    if (!el) return;
+    try {
+      const run = await crewApi('/v1/runs/' + encodeURIComponent(row.id));
+      if (run && run.title) el.querySelector('.cr-mine-title').textContent = run.title;
+      const bits = [row.hosted ? '만든 약속' : '참여한 약속'];
+      if (run && run.statusLabel) bits.push(run.statusLabel);
+      el.querySelector('.cr-mine-meta').textContent = bits.join(' · ');
+    } catch {
+      /* 제목을 못 받아도 목록과 관리하기 링크는 그대로 둡니다. */
+    }
+  }));
 }
 
 function crewShareUrl(id) {

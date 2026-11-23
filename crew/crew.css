@@ -3,8 +3,13 @@
 .ed-post > .cr-plan,
 .ed-post > .cr-steps,
 .ed-post > #made,
+.ed-post > #mine,
 .ed-post > #prep,
 .ed-post > form.cr-block{max-width:680px;margin-left:auto;margin-right:auto}
+.cr-mine-item{padding:16px 0;border-bottom:var(--line) solid var(--rule)}
+.cr-mine-item h3,.cr-mine-title{font-family:var(--font-serif);font-size:20px;font-weight:600;margin:0 0 4px;letter-spacing:var(--ls-head,0)}
+.cr-mine-meta{margin:0;font-size:13px;color:var(--ink-2)}
+.cr-mine-item .cr-actions{margin-top:10px}
 .cr-steps{display:grid;gap:0;margin-top:28px;border-top:var(--line) solid var(--ink)}
 .cr-steps > div{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:var(--line) solid var(--rule);align-items:start}
 .cr-steps > div > b{font-family:var(--font-serif);font-size:20px;font-weight:500;line-height:1.2}
@@ -57,8 +62,8 @@ textarea.ed-input{min-height:88px;resize:vertical;padding-top:10px}
 .cr-datecal .ed-cal-head .nav button{min-height:44px;min-width:44px;padding:0 4px}
 .cr-datecal .ed-cal-head .nav button:disabled{opacity:.35;cursor:not-allowed}
 .cr-datecal .ed-cal-day{width:100%;min-width:0;min-height:44px;height:auto;aspect-ratio:1;cursor:pointer}
-.cr-datecal .ed-cal-dow.sat,.cr-datecal .ed-cal-day.sat:not(.sel):not([aria-disabled="true"]){color:#3F5E8A}
-.cr-datecal .ed-cal-dow.sun,.cr-datecal .ed-cal-day.sun:not(.sel):not([aria-disabled="true"]){color:#A04A3A}
+.cr-datecal .ed-cal-dow.sat,.cr-datecal .ed-cal-day.sat:not(.sel):not([aria-disabled="true"]){color:var(--info, #3F5E8A)}
+.cr-datecal .ed-cal-dow.sun,.cr-datecal .ed-cal-day.sun:not(.sel):not([aria-disabled="true"]){color:var(--ink-2)}
 .cr-datecal .ed-cal-day.sel{background:var(--ink);color:var(--paper);border-color:var(--ink);font-weight:700}
 .cr-datecal .ed-cal-day.today:not(.sel){box-shadow:inset 0 0 0 1.5px var(--ink)}
 .cr-datecal .ed-cal-day[aria-disabled="true"]{color:var(--ink-4);cursor:not-allowed;font-weight:400;background:transparent}

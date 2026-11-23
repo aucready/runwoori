@@ -58,6 +58,7 @@ cp tools/set_ga4.sh "$DEPLOY/tools/" 2>/dev/null || true; cp data/courses.json "
 rm -rf "$DEPLOY/guide" && cp -a guide "$DEPLOY/guide"   # 러닝 가이드 정적 글 페이지(tools/build_guides.py 산출물)
 rm -rf "$DEPLOY/shoes" && cp -a shoes "$DEPLOY/shoes"
 rm -rf "$DEPLOY/gear" && cp -a gear "$DEPLOY/gear"
+rm -rf "$DEPLOY/crew" && cp -a crew "$DEPLOY/crew"
 cp data/shoes.json data/affiliate.json data/p3_urls.json "$DEPLOY/data/" 2>/dev/null || true
 rm -rf "$DEPLOY/month" "$DEPLOY/region" "$DEPLOY/marathon-schedule" "$DEPLOY/distance" && cp -a month "$DEPLOY/month" && cp -a region "$DEPLOY/region" && cp -a marathon-schedule "$DEPLOY/marathon-schedule" && cp -a distance "$DEPLOY/distance" && mkdir -p "$DEPLOY/tools" && cp tools/pace-calculator.html "$DEPLOY/tools/" && cp deadline.html "$DEPLOY/deadline.html" && cp data/landing_pages.json "$DEPLOY/data/"
 cp sitemap.xml "$DEPLOY/sitemap.xml"

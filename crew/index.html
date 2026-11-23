@@ -24,6 +24,7 @@
 <div class="ed-post-top"><a class="ed-link ed-small" href="index.html">← 대회 달력</a></div>
 <header class="ed-post-head"><div class="ed-label accent">Crew Run</div><h1 class="ed-h1 ed-post-title">러닝 약속 잡기</h1><p class="ed-lede">카톡에 링크 하나만 보내면 돼요. 가입 없이 닉네임으로 날짜, 출발 시간, 코스를 고르고, 되는 사람이 가장 많은 조합을 골라 드려요.</p></header>
 <div id="prep"></div>
+<section id="mine" class="cr-block cr-mine" hidden></section>
 <div class="cr-steps" aria-label="이용 순서">
 <div><b>01</b><div><strong>약속을 만들어요</strong><p>후보 날짜와 출발 시간, 모일 곳을 적어요.</p></div></div>
 <div><b>02</b><div><strong>링크를 보내요</strong><p>받은 사람은 닉네임만 적고 가능한 날을 눌러요.</p></div></div>
@@ -199,12 +200,41 @@ $('#form').addEventListener('submit', async (e)=>{
       <div class="cr-actions"><button type="button" class="ed-btn ghost sm" id="copyHost">관리 링크 복사</button><a class="ed-btn sm" href="${esc(host)}">관리 화면 열기</a></div>`;
     $('#copyShare').onclick=()=>crewCopy(share);
     $('#copyHost').onclick=()=>crewCopy(host);
+    try{
+      const next=`${location.origin}/crew/h.html?id=${encodeURIComponent(res.id)}`;
+      history.replaceState(null, '', next);
+    }catch{}
+    crewRenderMine($('#mine'));
     $('#made').scrollIntoView({ behavior:'smooth', block:'start' });
   }catch(err){
     showErr(err.message);
     if(err.prep) $('#prep').innerHTML=crewPrepHtml();
   }finally{ btn.disabled=false; }
 });
+function showMadeFromStore(id){
+  const key=crewHostKey(id);
+  if(!id || !key) return false;
+  const share=crewShareUrl(id), host=crewHostUrl(id, key), mine=crewRunUrl(id);
+  $('#form').hidden=true;
+  $('#made').hidden=false;
+  $('#made').innerHTML=`<div class="ed-section-head major"><span class="no">완료</span><h2 class="ed-h2">링크가 준비됐어요</h2></div>
+      <p>참가자에게는 이 링크만 보내면 돼요. 카카오톡에서 약속 이름이 보이도록 만든 주소예요.</p>
+      <div class="cr-linkbox"><label class="ed-label">보낼 링크</label><p class="cr-key" id="shareOut">${esc(share)}</p></div>
+      <div class="cr-actions"><button type="button" class="ed-btn sm" id="copyShare">링크 복사</button><a class="ed-btn ghost sm" href="${esc(mine)}">나도 가능한 날 고르기</a></div>
+      <p style="margin-top:22px">관리 링크는 이 기기에 저장해 뒀어요. 다른 폰에서 확정하려면 이 주소도 같이 보관해 주세요. 참가자 링크와는 달라요.</p>
+      <div class="cr-linkbox"><label class="ed-label">관리 링크</label><p class="cr-key" id="hostOut">${esc(host)}</p></div>
+      <div class="cr-actions"><button type="button" class="ed-btn ghost sm" id="copyHost">관리 링크 복사</button><a class="ed-btn sm" href="${esc(host)}">관리 화면 열기</a></div>`;
+  $('#copyShare').onclick=()=>crewCopy(share);
+  $('#copyHost').onclick=()=>crewCopy(host);
+  return true;
+}
+function bootMine(){
+  crewRenderMine($('#mine'));
+  const created=new URLSearchParams(location.search).get('created');
+  if(created) showMadeFromStore(created);
+}
+bootMine();
+window.addEventListener('pageshow', bootMine);
 crewApi('/health').then(()=>{ $('#prep').innerHTML=''; }).catch(()=>{ $('#prep').innerHTML=crewPrepHtml(); });
 </script>
 </body></html>

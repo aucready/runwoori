@@ -14,6 +14,8 @@
 import glob, hashlib, json, os, re, sys, datetime
 from zoneinfo import ZoneInfo
 
+import hubs
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 KST = ZoneInfo('Asia/Seoul')
 EN = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']   # date.weekday() 기준
@@ -25,9 +27,20 @@ NAV = [('/', '대회 달력', 'races'), ('/overseas.html', '해외 대회', 'ove
 BOTTOM = [('/', '대회', 'races'), ('/my.html', '나의 레이스', 'home'), ('/blog.html', '가이드', 'blog'), ('/saved.html', '저장', 'saved')]
 SUBDIRS = ('race', 'month', 'region', 'overseas', 'guide', 'marathon-schedule', 'distance', 'tools', 'shoes', 'shoes/best', 'shoes/compare', 'gear')
 SKIP = {'home.html', 'races.html', 'offline.html'}
-# 푸터 '대회 모아보기' — app.js FOOT_HUBS 와 같은 항목·순서 (SEO P1)
-FOOT_HUBS = [('/marathon-schedule/2026.html', '2026 마라톤 일정'), ('/marathon-schedule/2027.html', '2027 마라톤 일정'), ('/open.html', '접수 중인 대회'), ('/distance/half.html', '하프'),
+# 푸터 '대회 모아보기' — landing_pages.json 의 색인 허브 + 도구 링크. app.js FOOT_HUBS 도 같은 목록으로 맞춘다.
+FOOT_HUBS_FALLBACK = [('/marathon-schedule/2026.html', '2026 마라톤 일정'), ('/marathon-schedule/2027.html', '2027 마라톤 일정'), ('/open.html', '접수 중인 대회'), ('/distance/half.html', '하프'),
              ('/distance/10k.html', '10km'), ('/distance/5k.html', '5km'), ('/distance/full.html', '풀코스'), ('/tools/pace-calculator.html', '페이스 계산기'), ('/shoes/', '러닝화'), ('/gear/', '러닝 복장')]
+FOOT_HUBS = list(FOOT_HUBS_FALLBACK)
+
+
+def load_footer_hubs():
+    lp = os.path.join(ROOT, 'data', 'landing_pages.json')
+    pages = []
+    if os.path.exists(lp):
+        pages = json.load(open(lp, encoding='utf8')).get('pages') or []
+    today = datetime.datetime.now(KST).date()
+    hubs_list = hubs.footer_hubs(pages, today)
+    return hubs_list or list(FOOT_HUBS_FALLBACK)
 H0, H1, F0, F1 = '<!--RWNAV:HEAD-->', '<!--/RWNAV:HEAD-->', '<!--RWNAV:FOOT-->', '<!--/RWNAV:FOOT-->'
 
 
@@ -104,12 +117,29 @@ def apply_file(p, upd, ver=''):
     return True
 
 
+def sync_app_footer(hubs_list):
+    """app.js 의 FOOT_HUBS 를 정적 푸터와 같은 목록으로 맞춘다(layout()이 정적 푸터를 교체하므로)."""
+    p = os.path.join(ROOT, 'app.js')
+    s = open(p, encoding='utf8').read()
+    js = '[' + ','.join(f"['{h}','{l}']" for h, l in hubs_list) + ']'
+    ns, n = re.subn(r'const FOOT_HUBS=\[.*?\];', 'const FOOT_HUBS=' + js + ';', s, count=1, flags=re.S)
+    if n != 1:
+        raise SystemExit('app.js 에서 FOOT_HUBS 상수를 찾지 못했어요.')
+    if ns != s:
+        open(p, 'w', encoding='utf8').write(ns)
+        return True
+    return False
+
+
 def main():
+    global FOOT_HUBS
+    FOOT_HUBS = load_footer_hubs()
+    changed = sync_app_footer(FOOT_HUBS)
     upd = updated_text(); ver = asset_ver()
     files = [f for f in glob.glob(os.path.join(ROOT, '*.html')) if os.path.basename(f) not in SKIP]
     for d in SUBDIRS: files += glob.glob(os.path.join(ROOT, d, '*.html'))
     n = sum(apply_file(f, upd, ver) for f in sorted(files))
-    print(f'static nav: {n}/{len(files)} pages (asset v={ver})')
+    print(f'static nav: {n}/{len(files)} pages (asset v={ver}) · footer hubs {len(FOOT_HUBS)}' + (' · app.js 갱신' if changed else ''))
 
 
 if __name__ == '__main__': main()

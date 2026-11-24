@@ -106,9 +106,18 @@ def main():
             + (f'대회가 가장 많은 달은 {int(peak[0][:4])}년 {int(peak[0][5:])}월({peak[1]}개)이에요. ' if peak else '')
             + '아래 목록은 접수 중인 대회부터, 대회일이 가까운 순서예요.')
     pre['lede'] = f'<p class="ed-lede lp-lede home-lede">{lede}</p>'
-    ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': '다가오는 마라톤·러닝 대회', 'url': SITE + '/', 'numberOfItems': len(top),
+    item_list = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': '다가오는 마라톤·러닝 대회', 'url': SITE + '/', 'numberOfItems': len(top),
           'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': f'{SITE}/race/{r["id"]}.html', 'name': r['name']} for i, r in enumerate(top)]}
-    pre['ld'] = f'<script type="application/ld+json">{brp.js(ld)}</script>'
+    # 값은 사이트에 이미 있는 소개·로고만 쓴다. 검색창(SearchAction)은 JS 필터라 넣지 않는다.
+    org = {'@context': 'https://schema.org', '@type': 'Organization', '@id': SITE + '/#organization', 'name': 'Run우리', 'url': SITE + '/',
+           'logo': {'@type': 'ImageObject', 'url': SITE + '/assets/logo/icon-any-512.png', 'width': 512, 'height': 512},
+           'description': '전국 마라톤·러닝 대회 일정을 한곳에서 확인하고 러닝 가이드를 읽는 개인 프로젝트예요.'}
+    website = {'@context': 'https://schema.org', '@type': 'WebSite', '@id': SITE + '/#website', 'name': 'Run우리', 'url': SITE + '/',
+               'inLanguage': 'ko-KR', 'description': '날짜·지역·거리·접수 상태로 전국 마라톤 대회를 찾고, 마음에 드는 대회는 저장해 두세요. 참가비와 접수 기간, 공식 홈페이지 링크를 한눈에.',
+               'publisher': {'@id': SITE + '/#organization'}}
+    pre['ld'] = (f'<script type="application/ld+json">{brp.js(org)}</script>\n'
+                 f'<script type="application/ld+json">{brp.js(website)}</script>\n'
+                 f'<script type="application/ld+json">{brp.js(item_list)}</script>')
     p = os.path.join(ROOT, 'index.html'); s = open(p, encoding='utf8').read()
     for k, v in pre.items():
         pat = re.compile(r'<!--PRE:' + k + r'-->.*?<!--/PRE:' + k + r'-->', re.S)

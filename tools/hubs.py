@@ -58,3 +58,56 @@ def dist_indexable(cur):
 
 def open_count(cur):
     return sum(1 for r in cur.values() if r['st']['key'] in ('open', 'urgent'))
+
+
+# 지역 슬러그 → 한글 (REGIONS 의 역방향)
+REGION_LABEL = {v: k for k, v in REGIONS.items()}
+
+
+def footer_hubs(pages, today):
+    """푸터 '대회 모아보기' 링크. 색인되는 랜딩만, 검색 수요가 큰 월·지역·마감 임박을 포함한다.
+    pages: landing_pages.json 의 pages 목록. today: datetime.date."""
+    by = {p['path']: p for p in pages if p.get('indexable')}
+    out = []
+
+    def add(path, label):
+        if path not in {h for h, _ in out}:
+            out.append(('/' + path, label))
+
+    years = []
+    for p in pages:
+        path = p.get('path') or ''
+        if p.get('indexable') and path.startswith('marathon-schedule/') and path.endswith('.html'):
+            y = path[len('marathon-schedule/'):-5]
+            if y.isdigit() and y not in years:
+                years.append(y)
+    for y in sorted(years):
+        add(f'marathon-schedule/{y}.html', f'{y} 마라톤 일정')
+    if 'open.html' in by:
+        add('open.html', '접수 중인 대회')
+    if 'deadline.html' in by:
+        add('deadline.html', '마감 임박')
+    y, m = today.year, today.month
+    for _ in range(3):
+        key = f'{y:04d}-{m:02d}'
+        path = f'month/{key}.html'
+        if path in by:
+            label = f'{m}월 마라톤' if y == today.year else f'{y}년 {m}월 마라톤'
+            add(path, label)
+        m += 1
+        if m > 12:
+            m, y = 1, y + 1
+    for slug in ('seoul', 'gyeonggi', 'incheon', 'busan', 'daegu', 'gwangju', 'daejeon', 'ulsan',
+                 'gangwon', 'chungbuk', 'chungnam', 'sejong', 'jeonbuk', 'jeonnam', 'gyeongbuk', 'gyeongnam', 'jeju'):
+        path = f'region/{slug}.html'
+        if path in by:
+            add(path, f'{REGION_LABEL[slug]} 마라톤')
+    for slug, lab in (('half', '하프'), ('10k', '10km'), ('5k', '5km'), ('full', '풀코스')):
+        path = f'distance/{slug}.html'
+        if path in by:
+            add(path, lab)
+    # 도구·가이드 허브는 랜딩 json 과 무관하게 유지
+    for path, lab in (('tools/pace-calculator.html', '페이스 계산기'), ('shoes/', '러닝화'), ('gear/', '러닝 복장')):
+        if path not in {h.lstrip('/') for h, _ in out}:
+            out.append(('/' + path if not path.startswith('/') else path, lab))
+    return out

@@ -1,5 +1,5 @@
 {
-"generated": "2026-11-27",
+"generated": "2026-11-28",
 "pages": [
 {
 "path": "deadline.html",
@@ -8,8 +8,8 @@
 "count": 4,
 "changefreq": "daily",
 "priority": "0.9",
-"lastmod": "2026-11-27",
-"hash": "0875c5ea60250a52"
+"lastmod": "2026-11-28",
+"hash": "1850edca87221a74"
 },
 {
 "path": "month/2026-10.html",
@@ -18,7 +18,7 @@
 "count": 10,
 "changefreq": "yearly",
 "priority": "0.4",
-"lastmod": "2026-11-27",
+"lastmod": "2026-11-28",
 "hash": "9947a5c9dea4c593"
 },
 {
@@ -28,7 +28,7 @@
 "count": 116,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
+"lastmod": "2026-11-28",
 "hash": "ac4f03c4c8c14a31"
 },
 {
@@ -38,8 +38,8 @@
 "count": 31,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
-"hash": "7c12b479f549ce56"
+"lastmod": "2026-11-28",
+"hash": "3a992b7f70252c53"
 },
 {
 "path": "month/2027-01.html",
@@ -48,18 +48,18 @@
 "count": 10,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
+"lastmod": "2026-11-28",
 "hash": "6a2f430ec69353e6"
 },
 {
 "path": "month/2027-02.html",
 "url": "https://runwoori.com/month/2027-02.html",
 "indexable": true,
-"count": 14,
+"count": 15,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
-"hash": "b0623d83b55a9d8c"
+"lastmod": "2026-11-28",
+"hash": "d0653a62b096c83a"
 },
 {
 "path": "month/2027-03.html",
@@ -68,18 +68,18 @@
 "count": 11,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
+"lastmod": "2026-11-28",
 "hash": "d19a88471a8e40c5"
 },
 {
 "path": "region/seoul.html",
 "url": "https://runwoori.com/region/seoul.html",
 "indexable": true,
-"count": 27,
+"count": 28,
 "changefreq": "daily",
 "priority": "0.7",
-"lastmod": "2026-11-27",
-"hash": "29033d52a2ceb904"
+"lastmod": "2026-11-28",
+"hash": "0d3cb4fb4f90dcea"
 },
 {
 "path": "region/gyeonggi.html",
@@ -88,8 +88,8 @@
 "count": 9,
 "changefreq": "daily",
 "priority": "0.7",
-"lastmod": "2026-11-27",
-"hash": "41f84e2d6f953ab7"
+"lastmod": "2026-11-28",
+"hash": "84b8e98155e43b19"
 },
 {
 "path": "region/chungnam.html",
@@ -98,7 +98,7 @@
 "count": 8,
 "changefreq": "daily",
 "priority": "0.7",
-"lastmod": "2026-11-27",
+"lastmod": "2026-11-28",
 "hash": "d35edc9502b56b07"
 },
 {
@@ -108,18 +108,18 @@
 "count": 157,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
-"hash": "4aff1ac4a2c8d943"
+"lastmod": "2026-11-28",
+"hash": "a30f46d8f1ea2915"
 },
 {
 "path": "marathon-schedule/2027.html",
 "url": "https://runwoori.com/marathon-schedule/2027.html",
 "indexable": true,
-"count": 39,
+"count": 40,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
-"hash": "2fa5fb264891ab49"
+"lastmod": "2026-11-28",
+"hash": "0e590072d8661764"
 },
 {
 "path": "distance/half.html",
@@ -128,28 +128,28 @@
 "count": 45,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
-"hash": "18228485fc86bdab"
+"lastmod": "2026-11-28",
+"hash": "08a3c4a919431715"
 },
 {
 "path": "distance/10k.html",
 "url": "https://runwoori.com/distance/10k.html",
 "indexable": true,
-"count": 76,
+"count": 77,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
-"hash": "9746df57586963b8"
+"lastmod": "2026-11-28",
+"hash": "abce3e9238053313"
 },
 {
 "path": "distance/5k.html",
 "url": "https://runwoori.com/distance/5k.html",
 "indexable": true,
-"count": 61,
+"count": 62,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
-"hash": "16ff86d7baff89ef"
+"lastmod": "2026-11-28",
+"hash": "4766fbeb798948d6"
 },
 {
 "path": "distance/full.html",
@@ -158,18 +158,18 @@
 "count": 14,
 "changefreq": "daily",
 "priority": "0.8",
-"lastmod": "2026-11-27",
+"lastmod": "2026-11-28",
 "hash": "506054d604787c80"
 },
 {
 "path": "open.html",
 "url": "https://runwoori.com/open.html",
 "indexable": true,
-"count": 28,
+"count": 29,
 "changefreq": "daily",
 "priority": "0.9",
-"lastmod": "2026-11-27",
-"hash": "1734b89dbdf19924"
+"lastmod": "2026-11-28",
+"hash": "f6d1aa745f4a3210"
 }
 ]
 }
